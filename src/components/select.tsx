@@ -90,7 +90,10 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
-      className={cn('px-2 py-1.5 text-xs text-muted-foreground', className)}
+      className={cn(
+        'px-2 pt-2 pb-1 text-[11px] font-semibold tracking-[0.08em] text-muted-foreground uppercase',
+        className,
+      )}
       {...props}
     />
   );
@@ -105,14 +108,14 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "relative flex min-h-8 w-full cursor-default items-center gap-2 rounded-sm pr-8 pl-2 text-[13px] outline-hidden select-none focus:bg-muted focus:text-foreground data-[state=checked]:font-semibold data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
     >
       <span className="absolute right-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="size-4" aria-hidden />
+          <Check className="size-4 text-brand" aria-hidden />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

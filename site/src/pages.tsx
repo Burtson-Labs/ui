@@ -72,7 +72,15 @@ function Preview({ name, className }: { name: string; className?: string }) {
 }
 
 export function Home() {
-  const showcase = ['card', 'alert', 'tabs', 'dropdown-menu', 'switch', 'table'];
+  // Wide demos span two columns so they render at a realistic width.
+  const showcase: [string, string][] = [
+    ['stat-card', 'md:col-span-2'],
+    ['status', ''],
+    ['toolbar', 'md:col-span-2'],
+    ['card', ''],
+    ['field', ''],
+    ['table', 'md:col-span-2'],
+  ];
   return (
     <div>
       <section className="relative isolate overflow-hidden py-16 sm:py-24">
@@ -87,8 +95,9 @@ export function Home() {
           The component system behind every <span className="text-brand">Burtson Labs</span> app.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          Accessible React components on Radix and Tailwind, with Burtson Icons built in. Install
-          the package, or copy the source into your app with the shadcn CLI and make it yours.
+          A quiet, precise, dark-first component system for agents, IDEs and ops tools, with Burtson
+          Icons built in. Install the package, or own the source: every component is also a registry
+          item you can copy into your app.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button size="lg" asChild>
@@ -106,9 +115,9 @@ export function Home() {
           code="npm install @burtson-labs/ui @burtson-labs/icons"
         />
       </section>
-      <section className="grid grid-cols-1 gap-4 pb-16 md:grid-cols-2 xl:grid-cols-3">
-        {showcase.map((name) => (
-          <Preview key={name} name={name} className="min-h-72 bg-muted/30" />
+      <section className="grid grid-cols-1 gap-4 pb-16 md:grid-cols-3">
+        {showcase.map(([name, span]) => (
+          <Preview key={name} name={name} className={`min-h-72 bg-surface-muted/60 ${span}`} />
         ))}
       </section>
     </div>

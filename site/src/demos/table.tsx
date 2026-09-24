@@ -24,18 +24,18 @@ export default function TableDemo() {
           <TableHead>Run</TableHead>
           <TableHead>Agent</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead className="text-right">Duration</TableHead>
+          <TableHead numeric>Duration</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {runs.map((r) => (
-          <TableRow key={r.id}>
+          <TableRow key={r.id} selected={r.id === 'run-4821'}>
             <TableCell className="font-mono">{r.id}</TableCell>
             <TableCell>{r.agent}</TableCell>
             <TableCell>
               <Badge variant={r.status === 'Passed' ? 'success' : 'destructive'}>{r.status}</Badge>
             </TableCell>
-            <TableCell className="text-right font-mono">{r.took}</TableCell>
+            <TableCell numeric>{r.took}</TableCell>
           </TableRow>
         ))}
       </TableBody>

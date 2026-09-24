@@ -17,7 +17,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'site/public/r');
 const BASE = process.env.REGISTRY_BASE ?? 'https://ui.burtson.ai/r';
 const SCHEMA_ITEM = 'https://ui.shadcn.com/schema/registry-item.json';
-const { light, dark, radius, fontSans, fontMono } = await import('../src/tokens.ts');
+const { light, dark, radius, shadow, fontSans, fontMono } = await import('../src/tokens.ts');
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 
 const version = (dep) =>
@@ -35,6 +35,12 @@ const theme = {
     theme: {
       'font-sans': fontSans,
       'font-mono': fontMono,
+      ...Object.fromEntries(
+        Object.entries(radius)
+          .filter(([k]) => k !== 'full')
+          .map(([k, v]) => [`radius-${k}`, v]),
+      ),
+      ...Object.fromEntries(Object.entries(shadow).map(([k, v]) => [`shadow-${k}`, v])),
       'animate-in': 'bl-in 160ms cubic-bezier(0.16, 1, 0.3, 1)',
       'animate-out': 'bl-out 120ms ease-in forwards',
       'animate-sheet-in': 'bl-sheet-in 220ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -44,7 +50,7 @@ const theme = {
       'animate-collapsible-down': 'bl-collapsible-down 180ms ease-out',
       'animate-collapsible-up': 'bl-collapsible-up 160ms ease-out',
     },
-    light: { ...light, radius },
+    light: { ...light, radius: radius.md },
     dark: { ...dark },
   },
   css: {

@@ -54,7 +54,8 @@ function Og() {
           <span className="text-brand">every app we ship.</span>
         </h1>
         <p className="mt-6 text-2xl leading-snug text-muted-foreground">
-          Accessible React on Radix and Tailwind, with Burtson Icons built in. Free under MIT.
+          Quiet, precise, dark-first React components for agents, IDEs and ops tools. Free under
+          MIT.
         </p>
         <div className="mt-auto flex gap-3 font-mono text-lg">
           <span className="rounded-full border border-brand bg-brand-soft px-4 py-2 text-accent-foreground">

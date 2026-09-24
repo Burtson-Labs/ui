@@ -12,8 +12,12 @@ const demos = import.meta.glob<{ default: ComponentType }>('../site/src/demos/*.
 });
 
 describe('docs demos', () => {
-  it('has a demo for every documented component', () => {
+  it('has a demo for every documented component, and docs for every demo', () => {
     for (const c of components) expect(demos[`../site/src/demos/${c.name}.tsx`]).toBeDefined();
+    const documented = new Set(components.map((c) => c.name));
+    for (const path of Object.keys(demos)) {
+      expect(documented, path).toContain(path.split('/').pop()?.replace('.tsx', ''));
+    }
   });
 
   for (const [path, mod] of Object.entries(demos)) {

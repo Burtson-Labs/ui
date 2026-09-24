@@ -31,19 +31,19 @@ function SheetContent({
     <SheetPrimitive.Portal>
       <SheetPrimitive.Overlay
         data-slot="sheet-overlay"
-        className="fixed inset-0 z-50 bg-black/60 data-[state=closed]:animate-out data-[state=open]:animate-in"
+        className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[3px] data-[state=closed]:animate-out data-[state=open]:animate-in"
       />
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          'fixed z-50 flex flex-col gap-4 bg-background shadow-2xl outline-none data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in',
+          'fixed z-50 flex flex-col gap-4 border-border-strong bg-surface-raised text-foreground shadow-[0_24px_80px_rgb(0_0_0_/_0.28)] outline-none data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in',
           sideClasses[side],
           className,
         )}
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm opacity-70 transition-opacity outline-none hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 [&_svg]:size-4">
+        <SheetPrimitive.Close className="absolute top-3.5 right-3.5 grid size-8 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 [&_svg]:size-4">
           <X aria-hidden />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>
@@ -76,7 +76,7 @@ function SheetTitle({ className, ...props }: React.ComponentProps<typeof SheetPr
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn('font-semibold text-foreground', className)}
+      className={cn('text-base font-semibold tracking-[-0.02em] text-foreground', className)}
       {...props}
     />
   );

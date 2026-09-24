@@ -9,7 +9,7 @@
 
 **The component system behind every Burtson Labs app.**
 
-Accessible React components on Radix and Tailwind CSS, with [Burtson Icons](https://icons.burtson.ai) built in. Install the package, or copy the source into your app and make it yours.
+A quiet, precise, dark-first component system for agents, IDEs and ops tools, with [Burtson Icons](https://icons.burtson.ai) built in. Accessible (Radix primitives underneath, unstyled), themed with Tailwind, no runtime provider. Install the package, or copy the source into your app and make it yours.
 
 [![Docs](https://img.shields.io/badge/docs-ui.burtson.ai-a60ee5)](https://ui.burtson.ai)
 [![npm](https://img.shields.io/npm/v/@burtson-labs/ui?logo=npm)](https://www.npmjs.com/package/@burtson-labs/ui)
@@ -50,7 +50,7 @@ export const Save = () => <Button>Save</Button>;
 
 ### Or copy the source
 
-Every component is also a [shadcn](https://ui.shadcn.com) registry item. The CLI copies the file into `components/ui`, installs its dependencies and adds the Burtson theme:
+Every component is also a registry item in the [shadcn](https://ui.shadcn.com) registry format. The CLI copies the file into `components/ui`, installs its dependencies and adds the Burtson theme:
 
 ```bash
 npx shadcn@latest add https://ui.burtson.ai/r/button.json
@@ -58,7 +58,7 @@ npx shadcn@latest add https://ui.burtson.ai/r/button.json
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/panel-grid.svg"/><img src="https://icons.burtson.ai/svg-black/panel-grid.svg" align="center" alt=""/></picture> Components
 
-Accordion · Alert · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Collapsible · Command · Dialog · Dropdown Menu · Input · Kbd · Label · Popover · Progress · Radio Group · Scroll Area · Select · Separator · Sheet · Skeleton · Spinner · Switch · Table · Tabs · Textarea · Tooltip
+Accordion · Alert · App Shell · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Collapsible · Command · Dialog · Dropdown Menu · Empty State · Field · Icon Button · Input · Kbd · Label · Page Header · Popover · Progress · Radio Group · Scroll Area · Select · Separator · Sheet · Skeleton · Spinner · Stat Card · Status · Switch · Table · Tabs · Textarea · Toolbar · Tooltip
 
 Live previews and code for each one are at [ui.burtson.ai](https://ui.burtson.ai/docs/components/button).
 

@@ -1,16 +1,22 @@
 /**
- * Burtson UI design tokens. This file is the single source for colour, radius
- * and type: `scripts/theme.mjs` writes src/styles/theme.css from it, and the
+ * Burtson UI design tokens. This file is the single source for colour, radius,
+ * shadow and type: `scripts/theme.mjs` writes src/styles/theme.css from it, and the
  * MUI adapter (`@burtson-labs/ui/mui`) builds its palette from it, so Tailwind
  * apps and MUI apps render the same brand.
  *
- * Colour names follow the shadcn/ui convention (background, primary, muted, …)
- * so components copied from the shadcn ecosystem pick up the Burtson palette.
+ * Burtson's design language: technical, quiet, precise. Purple (`brand`) is a
+ * signal colour for selection, focus, primary actions and small accents, not a
+ * panel fill. Dark is a first-class palette, not an inversion of light. The
+ * base colour names stay registry-compatible, so source copied into an app
+ * keeps working.
  */
 
 export type ColorToken =
   | 'background'
   | 'foreground'
+  | 'surface'
+  | 'surface-raised'
+  | 'surface-muted'
   | 'card'
   | 'card-foreground'
   | 'popover'
@@ -29,80 +35,120 @@ export type ColorToken =
   | 'success-foreground'
   | 'warning'
   | 'warning-foreground'
+  | 'info'
+  | 'info-foreground'
   | 'border'
+  | 'border-strong'
   | 'input'
   | 'ring'
   | 'brand'
-  | 'brand-soft';
+  | 'brand-hover'
+  | 'brand-soft'
+  | 'brand-soft-foreground'
+  | 'code'
+  | 'code-foreground';
 
 export type Palette = Record<ColorToken, string>;
 
-/** Burtson Labs purple, the one colour every surface shares. */
+/** Burtson Labs purple. Use as signal, not wallpaper. */
 export const brand = '#a60ee5';
 
 export const light: Palette = {
-  background: '#ffffff',
-  foreground: '#17151c',
+  background: '#fbfafc',
+  foreground: '#17131c',
+  surface: '#ffffff',
+  'surface-raised': '#ffffff',
+  'surface-muted': '#f7f4f9',
   card: '#ffffff',
-  'card-foreground': '#17151c',
+  'card-foreground': '#17131c',
   popover: '#ffffff',
-  'popover-foreground': '#17151c',
-  primary: '#a60ee5',
+  'popover-foreground': '#17131c',
+  primary: '#8f0bc7',
   'primary-foreground': '#ffffff',
-  secondary: '#f3f0f7',
-  'secondary-foreground': '#221c2b',
-  muted: '#f5f3f8',
-  'muted-foreground': '#655e70',
-  accent: '#f1e7fb',
-  'accent-foreground': '#4d0a6b',
-  destructive: '#d42a3a',
+  secondary: '#f1edf4',
+  'secondary-foreground': '#29212f',
+  muted: '#f4f1f6',
+  'muted-foreground': '#6c6472',
+  accent: '#f3e7fb',
+  'accent-foreground': '#561071',
+  destructive: '#c92d3f',
   'destructive-foreground': '#ffffff',
-  success: '#12805c',
+  success: '#0e7a56',
   'success-foreground': '#ffffff',
-  warning: '#a35c00',
+  warning: '#9b5c08',
   'warning-foreground': '#ffffff',
-  border: '#e4dfeb',
-  input: '#d9d2e2',
+  info: '#2563eb',
+  'info-foreground': '#ffffff',
+  border: '#e5dfe8',
+  'border-strong': '#cfc5d5',
+  input: '#d8cfdd',
   ring: '#a60ee5',
   brand: '#a60ee5',
-  'brand-soft': '#f4e6fd',
+  'brand-hover': '#8f0bc7',
+  'brand-soft': '#f5e8fc',
+  'brand-soft-foreground': '#5b1476',
+  code: '#18141d',
+  'code-foreground': '#f5f0f7',
 };
 
 export const dark: Palette = {
-  background: '#101016',
-  foreground: '#f0edf7',
-  card: '#16151d',
-  'card-foreground': '#f0edf7',
-  popover: '#191820',
-  'popover-foreground': '#f0edf7',
-  primary: '#a60ee5',
+  background: '#0d0d12',
+  foreground: '#f2eef5',
+  surface: '#121218',
+  'surface-raised': '#18171f',
+  'surface-muted': '#17151c',
+  card: '#14131a',
+  'card-foreground': '#f2eef5',
+  popover: '#18171f',
+  'popover-foreground': '#f2eef5',
+  primary: '#b836ed',
   'primary-foreground': '#ffffff',
-  secondary: '#221f2b',
-  'secondary-foreground': '#e4ddeb',
-  muted: '#1d1b25',
-  'muted-foreground': '#a39bac',
-  accent: '#2b193a',
-  'accent-foreground': '#e9cffc',
-  destructive: '#e5484d',
-  'destructive-foreground': '#ffffff',
-  success: '#2fb67f',
-  'success-foreground': '#07170f',
-  warning: '#f0a53a',
-  'warning-foreground': '#1c1204',
-  border: '#2e2a3b',
-  input: '#3a3548',
-  ring: '#c77afa',
-  brand: '#c77afa',
-  'brand-soft': '#2b193a',
+  secondary: '#211e28',
+  'secondary-foreground': '#e7e0eb',
+  muted: '#1b1921',
+  'muted-foreground': '#a49ca9',
+  accent: '#291734',
+  'accent-foreground': '#efd7fa',
+  destructive: '#ef5b65',
+  'destructive-foreground': '#1b090b',
+  success: '#36c58d',
+  'success-foreground': '#07160f',
+  warning: '#f3b24c',
+  'warning-foreground': '#201304',
+  info: '#6ea8ff',
+  'info-foreground': '#071226',
+  border: '#2a2732',
+  'border-strong': '#403a49',
+  input: '#34303d',
+  ring: '#c65ef1',
+  brand: '#c65ef1',
+  'brand-hover': '#d384f3',
+  'brand-soft': '#291734',
+  'brand-soft-foreground': '#efd7fa',
+  code: '#09090d',
+  'code-foreground': '#f5f0f7',
 };
 
-/** Base corner radius; sm/md/lg/xl derive from it. */
-export const radius = '0.625rem';
+export const radius = {
+  xs: '0.375rem',
+  sm: '0.5rem',
+  md: '0.625rem',
+  lg: '0.75rem',
+  xl: '1rem',
+  full: '9999px',
+} as const;
+
+export const shadow = {
+  xs: '0 1px 2px rgb(10 8 14 / 0.05)',
+  sm: '0 1px 3px rgb(10 8 14 / 0.08), 0 1px 2px rgb(10 8 14 / 0.05)',
+  md: '0 10px 30px rgb(10 8 14 / 0.10), 0 2px 8px rgb(10 8 14 / 0.06)',
+  focus: '0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent)',
+} as const;
 
 export const fontSans =
-  '"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 export const fontMono =
-  '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+  '"JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace';
 
-export const tokens = { brand, light, dark, radius, fontSans, fontMono } as const;
+export const tokens = { brand, light, dark, radius, shadow, fontSans, fontMono } as const;
 export default tokens;

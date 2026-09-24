@@ -6,7 +6,7 @@ export interface ComponentDoc {
   radix?: string;
 }
 
-export const components: ComponentDoc[] = [
+const all: ComponentDoc[] = [
   {
     name: 'accordion',
     title: 'Accordion',
@@ -28,12 +28,12 @@ export const components: ComponentDoc[] = [
   {
     name: 'button',
     title: 'Button',
-    description: 'The action primitive, in six variants and six sizes.',
+    description: 'The action primitive: eight variants, seven sizes and a loading state.',
   },
   {
     name: 'card',
     title: 'Card',
-    description: 'A bordered surface with header, content and footer slots.',
+    description: 'Default, raised, subtle, interactive and terminal surfaces, in three densities.',
   },
   {
     name: 'checkbox',
@@ -133,4 +133,62 @@ export const components: ComponentDoc[] = [
     description: 'A short label shown on hover or focus.',
     radix: 'tooltip',
   },
+  {
+    name: 'app-shell',
+    title: 'App Shell',
+    description: 'Structural app chrome: header, sidebar, main. No routing or state.',
+  },
+  {
+    name: 'empty-state',
+    title: 'Empty State',
+    description: 'An icon-led placeholder that says what belongs here and how to add it.',
+  },
+  {
+    name: 'field',
+    title: 'Field',
+    description: 'Label, hint, description and error around any control.',
+  },
+  {
+    name: 'icon-button',
+    title: 'Icon Button',
+    description: 'An icon-only action with the accessible name built in.',
+  },
+  {
+    name: 'page-header',
+    title: 'Page Header',
+    description: 'Eyebrow, title, description and actions for the top of a page.',
+  },
+  {
+    name: 'stat-card',
+    title: 'Stat Card',
+    description: 'One metric with context, without dashboard chrome.',
+  },
+  {
+    name: 'status',
+    title: 'Status',
+    description: 'A live-state dot and label: running, healthy, degraded, down.',
+  },
+  {
+    name: 'toolbar',
+    title: 'Toolbar',
+    description: 'A dense strip of search, filters and actions above a list.',
+  },
+  {
+    name: 'breadcrumb',
+    title: 'Breadcrumb',
+    description: 'Where the current page sits in the hierarchy.',
+  },
+  {
+    name: 'collapsible',
+    title: 'Collapsible',
+    description: 'A section that expands and collapses, such as a nav group.',
+    radix: 'collapsible',
+  },
+  {
+    name: 'command',
+    title: 'Command',
+    description: 'A searchable command palette, inline or as a ⌘K dialog.',
+  },
 ];
+
+export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

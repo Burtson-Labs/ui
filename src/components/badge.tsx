@@ -5,17 +5,19 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 [&>svg]:pointer-events-none [&>svg]:size-3',
+  'inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-4 whitespace-nowrap outline-none transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/20 [&>svg]:size-3',
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-primary text-primary-foreground',
-        secondary: 'border-transparent bg-secondary text-secondary-foreground',
-        brand: 'border-brand/40 bg-brand-soft text-accent-foreground',
-        success: 'border-transparent bg-success/15 text-success',
-        warning: 'border-transparent bg-warning/15 text-warning',
-        destructive: 'border-transparent bg-destructive/15 text-destructive',
-        outline: 'text-foreground',
+        default: 'border-border bg-surface-muted text-foreground',
+        // 0.x name for the neutral tag; kept so existing apps keep compiling.
+        secondary: 'border-border bg-surface-muted text-foreground',
+        brand: 'border-brand/20 bg-brand-soft text-brand-soft-foreground',
+        success: 'border-success/20 bg-success/10 text-success',
+        warning: 'border-warning/20 bg-warning/10 text-warning',
+        destructive: 'border-destructive/20 bg-destructive/10 text-destructive',
+        info: 'border-info/20 bg-info/10 text-info',
+        outline: 'border-border-strong bg-transparent text-muted-foreground',
       },
     },
     defaultVariants: { variant: 'default' },

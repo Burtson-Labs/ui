@@ -49,7 +49,7 @@ describe('Button', () => {
   });
 
   it('exposes its variants for links styled as buttons', () => {
-    expect(buttonVariants({ variant: 'outline', size: 'sm' })).toContain('border-input');
+    expect(buttonVariants({ variant: 'outline', size: 'sm' })).toContain('border-border-strong');
   });
 });
 
@@ -137,5 +137,71 @@ describe('CommandDialog', () => {
     await userEvent.type(screen.getByPlaceholderText('Search'), 'set');
     expect(screen.queryByText('Loads')).toBeNull();
     expect(screen.getByText('Settings')).toBeTruthy();
+  });
+});
+
+describe('vNext patterns', () => {
+  it('disables a loading button and marks it busy', async () => {
+    const { Button: B } = await import('@burtson-labs/ui');
+    render(<B loading>Deploy</B>);
+    const btn = screen.getByRole('button', { name: 'Deploy' });
+    expect(btn.getAttribute('aria-busy')).toBe('true');
+    expect((btn as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  it('keeps asChild working while loading', async () => {
+    const { Button: B } = await import('@burtson-labs/ui');
+    render(
+      <B asChild loading>
+        <a href="/runs">Runs</a>
+      </B>,
+    );
+    expect(screen.getByRole('link', { name: 'Runs' })).toBeTruthy();
+  });
+
+  it('names icon buttons from their label', async () => {
+    const { IconButton } = await import('@burtson-labs/ui');
+    render(
+      <IconButton label="Open terminal">
+        <svg />
+      </IconButton>,
+    );
+    expect(screen.getByRole('button', { name: 'Open terminal' })).toBeTruthy();
+  });
+
+  it('announces field errors', async () => {
+    const { Field, FieldError, FieldLabel, Input } = await import('@burtson-labs/ui');
+    render(
+      <Field>
+        <FieldLabel htmlFor="u">URL</FieldLabel>
+        <Input id="u" aria-invalid />
+        <FieldError>Nothing answered.</FieldError>
+      </Field>,
+    );
+    expect(screen.getByRole('alert').textContent).toBe('Nothing answered.');
+    expect(screen.getByLabelText('URL')).toBeTruthy();
+  });
+
+  it('marks selected table rows and right-aligns numeric cells', async () => {
+    const { Table, TableBody, TableCell, TableRow } = await import('@burtson-labs/ui');
+    render(
+      <Table density="compact" stickyHeader>
+        <TableBody>
+          <TableRow selected>
+            <TableCell>run-1</TableCell>
+            <TableCell numeric>2m 14s</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+    const row = screen.getByRole('row');
+    expect(row.getAttribute('data-state')).toBe('selected');
+    expect(screen.getByText('2m 14s').className).toContain('text-right');
+  });
+
+  it('adds new badge variants without dropping secondary', async () => {
+    const { badgeVariants } = await import('@burtson-labs/ui');
+    expect(badgeVariants({ variant: 'info' })).toContain('text-info');
+    expect(badgeVariants({ variant: 'secondary' })).toContain('bg-surface-muted');
   });
 });

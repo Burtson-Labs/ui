@@ -11,7 +11,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
+        'flex h-full w-full flex-col overflow-hidden rounded-lg bg-surface-raised text-popover-foreground',
         className,
       )}
       {...props}
@@ -34,7 +34,10 @@ function CommandDialog({
   return (
     <Dialog {...props}>
       <DialogContent
-        className={cn('top-[20%] translate-y-0 overflow-hidden p-0 sm:max-w-xl', className)}
+        className={cn(
+          'top-[20%] translate-y-0 gap-0 overflow-hidden p-0 sm:max-w-xl sm:p-0',
+          className,
+        )}
         showCloseButton={false}
       >
         <DialogHeader className="sr-only">
@@ -122,7 +125,7 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
+        "relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-muted data-[selected=true]:text-foreground data-[selected=true]:shadow-[inset_2px_0_0_var(--color-brand)] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
         className,
       )}
       {...props}
@@ -134,7 +137,10 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<'span'>) 
   return (
     <span
       data-slot="command-shortcut"
-      className={cn('ml-auto text-xs tracking-widest text-muted-foreground', className)}
+      className={cn(
+        'ml-auto rounded-xs border border-border bg-surface-muted px-1.5 font-mono text-[11px] leading-5 text-muted-foreground',
+        className,
+      )}
       {...props}
     />
   );

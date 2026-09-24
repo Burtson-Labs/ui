@@ -22,15 +22,16 @@ export function burtsonThemeOptions(mode: BurtsonMode = 'dark'): ThemeOptions {
       mode,
       primary: { main: p.primary, contrastText: p['primary-foreground'] },
       secondary: { main: p.brand, contrastText: p['primary-foreground'] },
+      info: { main: p.info, contrastText: p['info-foreground'] },
       error: { main: p.destructive, contrastText: p['destructive-foreground'] },
       warning: { main: p.warning, contrastText: p['warning-foreground'] },
       success: { main: p.success, contrastText: p['success-foreground'] },
-      background: { default: p.background, paper: p.card },
+      background: { default: p.background, paper: p.surface },
       text: { primary: p.foreground, secondary: p['muted-foreground'] },
       divider: p.border,
-      action: { hover: p.accent, selected: p['brand-soft'] },
+      action: { hover: p.muted, selected: p['brand-soft'] },
     },
-    shape: { borderRadius: px(radius) },
+    shape: { borderRadius: px(radius.md) },
     typography: {
       fontFamily: fontSans,
       button: { textTransform: 'none', fontWeight: 500 },
@@ -42,7 +43,7 @@ export function burtsonThemeOptions(mode: BurtsonMode = 'dark'): ThemeOptions {
       },
       MuiTooltip: {
         styleOverrides: {
-          tooltip: { backgroundColor: p.foreground, color: p.background, fontSize: 12 },
+          tooltip: { backgroundColor: p.code, color: p['code-foreground'], fontSize: 12 },
         },
       },
       MuiCssBaseline: {

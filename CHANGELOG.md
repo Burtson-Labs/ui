@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0
+
+Burtson design language (vNext). Existing exports and variant names still
+work; the look changes.
+
+- Tokens: surface, surface-raised, surface-muted, border-strong, info,
+  brand-hover, brand-soft-foreground and code colours; a radius scale
+  (xs–xl) and quiet shadow scale. Purple is a signal colour, not a fill.
+- Button: brand and soft variants, xs size, a `loading` state. Card: raised,
+  subtle, interactive and terminal variants with compact/default/roomy
+  density. Badge: info variant. Alert, Tabs, Dialog, Input and Textarea
+  restyled to 36px controls and 8–12px radii.
+- New patterns: Field, IconButton, Status, StatCard, EmptyState, Toolbar,
+  PageHeader and a structural AppShell.
+- Table: `density`, `stickyHeader`, selected rows and `numeric` cells.
+- Menus, Select, Command, Sheet, Tooltip, Skeleton, form controls and the
+  rest restyled to the same surfaces, 32px rows and quieter focus rings.
+
 ## 0.2.0
 
 - Breadcrumb, Collapsible and Command (a cmdk palette, inline or as a ⌘K

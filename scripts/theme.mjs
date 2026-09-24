@@ -9,7 +9,7 @@ import { fail, say } from './log.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'src/styles/theme.css');
-const { light, dark, radius, fontSans, fontMono } = await import('../src/tokens.ts');
+const { light, dark, radius, shadow, fontSans, fontMono } = await import('../src/tokens.ts');
 
 const vars = (palette, indent) =>
   Object.entries(palette)
@@ -32,7 +32,7 @@ const css = `/*
 
 :root {
 ${vars(light, '  ')}
-  --radius: ${radius};
+  --radius: ${radius.md};
   color-scheme: light;
 }
 
@@ -46,10 +46,17 @@ ${vars(dark, '  ')}
 ${Object.keys(light)
   .map((k) => `  --color-${k}: var(--${k});`)
   .join('\n')}
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Controls 8-10px, panels 10-12px, pills only for tags and status. */
+  --radius-xs: ${radius.xs};
+  --radius-sm: ${radius.sm};
+  --radius-md: ${radius.md};
+  --radius-lg: ${radius.lg};
+  --radius-xl: ${radius.xl};
+  /* Borders carry hierarchy; shadows stay quiet except on floating surfaces. */
+  --shadow-xs: ${shadow.xs};
+  --shadow-sm: ${shadow.sm};
+  --shadow-md: ${shadow.md};
+  --shadow-focus: ${shadow.focus};
   --font-sans: ${fontSans};
   --font-mono: ${fontMono};
   --animate-in: bl-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -133,6 +140,17 @@ ${Object.keys(light)
   }
   :focus-visible {
     outline-color: var(--color-ring);
+  }
+  html,
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+  body {
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand) 28%, transparent);
   }
 }
 `;

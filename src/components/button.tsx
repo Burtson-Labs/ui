@@ -5,26 +5,32 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow] outline-none select-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-150 select-none focus-visible:ring-[3px] focus-visible:ring-ring/20 active:translate-y-px disabled:pointer-events-none disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
-        destructive:
-          'bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/30',
+        default:
+          'border border-primary bg-primary text-primary-foreground shadow-xs hover:border-brand-hover hover:bg-brand-hover',
+        brand:
+          'border border-brand bg-brand text-white shadow-[0_1px_2px_rgb(68_8_94_/_0.18)] hover:border-brand-hover hover:bg-brand-hover',
+        soft: 'border border-brand/15 bg-brand-soft text-brand-soft-foreground hover:bg-brand/15',
+        secondary:
+          'border border-border bg-secondary text-secondary-foreground shadow-xs hover:border-border-strong hover:bg-muted',
         outline:
-          'border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/20 dark:hover:bg-input/40',
-        secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-brand underline-offset-4 hover:underline',
+          'border border-border-strong bg-surface text-foreground shadow-xs hover:border-brand/35 hover:bg-accent/60 hover:text-accent-foreground',
+        ghost: 'border border-transparent text-foreground hover:bg-muted',
+        destructive:
+          'border border-destructive bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90',
+        link: 'h-auto rounded-none border-0 p-0 text-brand shadow-none hover:text-brand-hover hover:underline hover:underline-offset-4 active:translate-y-0',
       },
       size: {
-        default: 'h-9 px-4 py-2 has-[>svg]:px-3',
-        sm: 'h-8 gap-1.5 rounded-md px-3 text-[13px] has-[>svg]:px-2.5',
-        lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
-        icon: 'size-9',
-        'icon-sm': 'size-8',
-        'icon-lg': 'size-10',
+        xs: 'h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg:not([class*=size-])]:size-3.5',
+        sm: 'h-8 px-3 text-[13px]',
+        default: 'h-9 px-3.5',
+        lg: 'h-10 rounded-lg px-4 text-[15px]',
+        icon: 'size-9 px-0',
+        'icon-sm': 'size-8 px-0',
+        'icon-lg': 'size-10 rounded-lg px-0',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },
@@ -33,18 +39,46 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
-  /** Render the child element instead of a <button>, merging props onto it (e.g. a router link). */
   asChild?: boolean;
+  loading?: boolean;
 }
 
-function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  loading = false,
+  disabled,
+  children,
+  ...props
+}: ButtonProps) {
   const Comp = asChild ? Slot.Root : 'button';
+
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      data-loading={loading ? '' : undefined}
+      aria-busy={loading || undefined}
+      disabled={!asChild ? disabled || loading : undefined}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
-    />
+    >
+      {asChild ? (
+        // Slot needs exactly one child to merge onto, so no spinner here.
+        children
+      ) : (
+        <>
+          {loading ? (
+            <span
+              aria-hidden="true"
+              className="size-3.5 animate-spin rounded-full border-2 border-current border-r-transparent opacity-70"
+            />
+          ) : null}
+          {children}
+        </>
+      )}
+    </Comp>
   );
 }
 

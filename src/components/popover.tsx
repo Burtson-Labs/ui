@@ -3,9 +3,12 @@ import * as React from 'react';
 
 import { cn } from '../lib/utils';
 
-/** The floating-surface look shared by popovers, menus and select lists. */
+/**
+ * The floating surface shared by popovers, menus and select lists: raised,
+ * with a strong border, and the one place a heavy shadow is allowed.
+ */
 export const surfaceClasses =
-  'z-50 animate-in rounded-md border bg-popover text-popover-foreground shadow-lg data-[state=closed]:animate-out';
+  'z-50 animate-in rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] data-[state=closed]:animate-out';
 
 function Popover(props: React.ComponentProps<typeof PopoverPrimitive.Root>) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
