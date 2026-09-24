@@ -58,7 +58,7 @@ npx shadcn@latest add https://ui.burtson.ai/r/button.json
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/panel-grid.svg"/><img src="https://icons.burtson.ai/svg-black/panel-grid.svg" align="center" alt=""/></picture> Components
 
-Accordion · Alert · Avatar · Badge · Button · Card · Checkbox · Dialog · Dropdown Menu · Input · Kbd · Label · Popover · Progress · Radio Group · Scroll Area · Select · Separator · Sheet · Skeleton · Spinner · Switch · Table · Tabs · Textarea · Tooltip
+Accordion · Alert · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Collapsible · Command · Dialog · Dropdown Menu · Input · Kbd · Label · Popover · Progress · Radio Group · Scroll Area · Select · Separator · Sheet · Skeleton · Spinner · Switch · Table · Tabs · Textarea · Tooltip
 
 Live previews and code for each one are at [ui.burtson.ai](https://ui.burtson.ai/docs/components/button).
 

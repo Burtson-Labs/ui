@@ -58,6 +58,8 @@ ${Object.keys(light)
   --animate-sheet-out: bl-sheet-out 160ms ease-in forwards;
   --animate-accordion-down: bl-accordion-down 180ms ease-out;
   --animate-accordion-up: bl-accordion-up 160ms ease-out;
+  --animate-collapsible-down: bl-collapsible-down 180ms ease-out;
+  --animate-collapsible-up: bl-collapsible-up 160ms ease-out;
 }
 
 @keyframes bl-in {
@@ -93,6 +95,23 @@ ${Object.keys(light)
 @keyframes bl-accordion-up {
   from {
     height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes bl-collapsible-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+@keyframes bl-collapsible-up {
+  from {
+    height: var(--radix-collapsible-content-height);
   }
   to {
     height: 0;

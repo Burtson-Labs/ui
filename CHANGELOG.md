@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+- Breadcrumb, Collapsible and Command (a cmdk palette, inline or as a ⌘K
+  `CommandDialog`), the pieces an app shell needs for navigation and search.
+- Collapsible animations in the theme and the registry theme item.
+- Sitemap reference removed from robots.txt until there is a sitemap.
+
 ## 0.1.0
 
 First release.

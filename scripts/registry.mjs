@@ -41,6 +41,8 @@ const theme = {
       'animate-sheet-out': 'bl-sheet-out 160ms ease-in forwards',
       'animate-accordion-down': 'bl-accordion-down 180ms ease-out',
       'animate-accordion-up': 'bl-accordion-up 160ms ease-out',
+      'animate-collapsible-down': 'bl-collapsible-down 180ms ease-out',
+      'animate-collapsible-up': 'bl-collapsible-up 160ms ease-out',
     },
     light: { ...light, radius },
     dark: { ...dark },
@@ -55,6 +57,14 @@ const theme = {
     '@keyframes bl-accordion-down': {
       from: { height: '0' },
       to: { height: 'var(--radix-accordion-content-height)' },
+    },
+    '@keyframes bl-collapsible-down': {
+      from: { height: '0' },
+      to: { height: 'var(--radix-collapsible-content-height)' },
+    },
+    '@keyframes bl-collapsible-up': {
+      from: { height: 'var(--radix-collapsible-content-height)' },
+      to: { height: '0' },
     },
     '@keyframes bl-accordion-up': {
       from: { height: 'var(--radix-accordion-content-height)' },
@@ -92,6 +102,7 @@ const components = names.map((name) => {
   const siblings = [...source.matchAll(/from '\.\/([a-z-]+)'/g)].map((m) => m[1]);
   const dependencies = [];
   if (source.includes("from 'radix-ui'")) dependencies.push(version('radix-ui'));
+  if (source.includes("from 'cmdk'")) dependencies.push(version('cmdk'));
   if (source.includes('class-variance-authority'))
     dependencies.push(version('class-variance-authority'));
   if (source.includes('@burtson-labs/icons')) dependencies.push(version('@burtson-labs/icons'));

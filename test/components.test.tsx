@@ -119,3 +119,23 @@ describe('display', () => {
     expect(screen.getByText('Passing').className).toContain('text-success');
   });
 });
+
+describe('CommandDialog', () => {
+  it('filters items as you type and names the dialog', async () => {
+    const { CommandDialog, CommandInput, CommandItem, CommandList } =
+      await import('@burtson-labs/ui');
+    render(
+      <CommandDialog open title="Go to">
+        <CommandInput placeholder="Search" />
+        <CommandList>
+          <CommandItem>Loads</CommandItem>
+          <CommandItem>Settings</CommandItem>
+        </CommandList>
+      </CommandDialog>,
+    );
+    expect(screen.getByRole('dialog', { name: 'Go to' })).toBeTruthy();
+    await userEvent.type(screen.getByPlaceholderText('Search'), 'set');
+    expect(screen.queryByText('Loads')).toBeNull();
+    expect(screen.getByText('Settings')).toBeTruthy();
+  });
+});
