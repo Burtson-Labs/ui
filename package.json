@@ -1,7 +1,7 @@
 {
   "name": "@burtson-labs/ui",
   "version": "0.4.0",
-  "description": "Burtson UI: a quiet, precise, dark-first React component system for agents, IDEs and ops tools. Accessible (Radix underneath), Tailwind-themed, Burtson Icons built in. Install the package or copy the source.",
+  "description": "React components for Burtson Labs products: Radix accessibility, Tailwind v4 styling, Burtson Icons. Install the package or copy the source.",
   "license": "MIT",
   "author": {
     "name": "Burtson Labs",

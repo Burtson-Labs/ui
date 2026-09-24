@@ -7,9 +7,9 @@
 
 # Burtson UI
 
-**The component system behind every Burtson Labs app.**
+**React components for Burtson Labs products.**
 
-A quiet, precise, dark-first component system for agents, IDEs and ops tools, with [Burtson Icons](https://icons.burtson.ai) built in. Accessible (Radix primitives underneath, unstyled), themed with Tailwind, no runtime provider. Install the package, or copy the source into your app and make it yours.
+Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Radix primitives handle focus and keyboard behaviour, Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
 
 [![Docs](https://img.shields.io/badge/docs-ui.burtson.ai-a60ee5)](https://ui.burtson.ai)
 [![npm](https://img.shields.io/npm/v/@burtson-labs/ui?logo=npm)](https://www.npmjs.com/package/@burtson-labs/ui)

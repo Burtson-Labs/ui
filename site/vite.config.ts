@@ -8,7 +8,10 @@ const src = fileURLToPath(new URL('../src', import.meta.url));
 
 // The docs site imports the library from source, under its published name, so
 // the code shown on each page is exactly what an app would write.
+import pkg from '../package.json' with { type: 'json' };
+
 export default defineConfig({
+  define: { __UI_VERSION__: JSON.stringify(pkg.version) },
   root: fileURLToPath(new URL('.', import.meta.url)),
   plugins: [react(), tailwindcss()],
   resolve: {

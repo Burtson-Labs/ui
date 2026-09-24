@@ -16,6 +16,7 @@ import {
   TooltipProvider,
 } from '@burtson-labs/ui';
 
+import { AccentPicker } from './accent';
 import { components } from './docs';
 import { ComponentPage, Home, Installation, Mui, NotFound, Theming } from './pages';
 import { Link, usePath } from './router';
@@ -129,7 +130,7 @@ export function App() {
             </SheetContent>
           </Sheet>
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <BurtsonLabsVial className="size-5 text-brand" aria-hidden />
+            <BurtsonLabsVial className="size-5" aria-hidden />
             Burtson UI
           </Link>
           <nav className="ml-4 hidden items-center gap-5 text-sm text-muted-foreground md:flex">
@@ -152,6 +153,7 @@ export function App() {
                 GitHub
               </a>
             </Button>
+            <AccentPicker />
             <Button
               variant="ghost"
               size="icon-sm"

@@ -29,7 +29,7 @@ import './styles.css';
 function Touch() {
   return (
     <div className="grid size-[180px] place-items-center bg-background">
-      <BurtsonLabsVial className="size-28 text-brand" aria-hidden />
+      <BurtsonLabsVial className="size-28 text-foreground" aria-hidden />
     </div>
   );
 }
@@ -37,31 +37,23 @@ function Touch() {
 function Og() {
   return (
     <div className="relative flex h-[630px] w-[1200px] overflow-hidden bg-background p-16">
-      <div className="absolute -right-40 -bottom-56 size-[46rem] rounded-full bg-brand/20 blur-3xl" />
       <div className="relative z-10 flex w-[560px] flex-col">
-        <div className="flex items-center gap-3 text-2xl font-bold">
-          <BurtsonLabsVial className="size-10 text-brand" aria-hidden />
-          <div>
-            Burtson UI
-            <div className="font-mono text-xs font-medium tracking-[0.2em] text-muted-foreground">
-              BURTSON LABS · OPEN SOURCE
-            </div>
-          </div>
+        <div className="flex items-center gap-3 font-mono text-base text-muted-foreground">
+          <BurtsonLabsVial className="size-7 text-foreground" aria-hidden />
+          Burtson Labs · open source · MIT
         </div>
-        <h1 className="mt-14 text-6xl leading-[1.02] font-bold tracking-tight">
-          Components for
-          <br />
-          <span className="text-brand">every app we ship.</span>
-        </h1>
+        <h1 className="mt-20 text-7xl leading-none font-semibold tracking-tight">Burtson UI</h1>
         <p className="mt-6 text-2xl leading-snug text-muted-foreground">
-          Quiet, precise, dark-first React components for agents, IDEs and ops tools. Free under
-          MIT.
+          React components for Burtson Labs products. Radix underneath, Tailwind styling, Burtson
+          Icons.
         </p>
         <div className="mt-auto flex gap-3 font-mono text-lg">
-          <span className="rounded-full border border-brand bg-brand-soft px-4 py-2 text-accent-foreground">
+          <span className="rounded-md border border-border-strong bg-card px-4 py-2">
             ui.burtson.ai
           </span>
-          <span className="rounded-full border bg-card px-4 py-2">npm i @burtson-labs/ui</span>
+          <span className="rounded-md border bg-card px-4 py-2 text-muted-foreground">
+            npm i @burtson-labs/ui
+          </span>
         </div>
       </div>
       <div className="relative z-10 ml-auto grid w-[470px] content-center gap-4">

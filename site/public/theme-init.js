@@ -10,4 +10,11 @@
     void err;
   }
   if (theme === 'light') document.documentElement.classList.remove('dark');
+  var accent = new URLSearchParams(location.search).get('accent');
+  try {
+    accent = accent || localStorage.getItem('bl-ui-accent');
+  } catch (err) {
+    void err;
+  }
+  if (accent) document.documentElement.dataset.accent = accent;
 })();

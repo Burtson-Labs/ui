@@ -19,9 +19,12 @@ import {
   TabsTrigger,
 } from '@burtson-labs/ui';
 
+import { AccentSwatches } from './accent';
 import { Code } from './code';
 import { components, type ComponentDoc } from './docs';
 import { Link } from './router';
+
+const version = __UI_VERSION__;
 
 const demoModules = import.meta.glob<{ default: React.ComponentType }>('./demos/*.tsx', {
   eager: true,
@@ -83,41 +86,56 @@ export function Home() {
   ];
   return (
     <div>
-      <section className="relative isolate overflow-hidden py-16 sm:py-24">
-        <div
-          aria-hidden
-          className="absolute -top-40 left-1/2 -z-10 size-[42rem] -translate-x-1/2 rounded-full bg-brand/15 blur-3xl"
-        />
-        <Badge variant="brand" className="mb-5">
-          Open source · MIT
-        </Badge>
-        <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-          The component system behind every <span className="text-brand">Burtson Labs</span> app.
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-          A quiet, precise, dark-first component system for agents, IDEs and ops tools, with Burtson
-          Icons built in. Install the package, or own the source: every component is also a registry
-          item you can copy into your app.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button size="lg" asChild>
-            <Link href="/docs/installation">
-              Get started <ArrowRight />
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/docs/components/button">Browse components</Link>
-          </Button>
+      <section className="grid gap-10 border-b py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
+        <div>
+          <p className="font-mono text-xs text-muted-foreground">
+            @burtson-labs/ui · v{version} · {components.length} components · MIT
+          </p>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Burtson UI</h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+            The React components behind Bandit Stealth, Sentinel, our cluster tools and client apps.
+            Radix handles focus and keyboard behaviour, Tailwind v4 handles styling, and the icons
+            are Burtson Icons. Install the package, or copy a component&apos;s source and change it.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-2">
+            <Button asChild>
+              <Link href="/docs/installation">
+                Installation <ArrowRight />
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/docs/components/button">Components</Link>
+            </Button>
+          </div>
         </div>
-        <Code
-          lang="sh"
-          className="mt-8 max-w-xl"
-          code="npm install @burtson-labs/ui @burtson-labs/icons"
-        />
+        <div className="grid min-w-0 gap-3">
+          <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
+          <div className="flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5">
+            <span className="text-xs text-muted-foreground">Try an accent</span>
+            <AccentSwatches />
+          </div>
+        </div>
       </section>
+
+      <section className="py-10">
+        <h2 className="mb-4 text-sm font-semibold">Components</h2>
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3 lg:grid-cols-5">
+          {components.map((c) => (
+            <li key={c.name}>
+              <Link
+                href={`/docs/components/${c.name}`}
+                className="block truncate rounded-sm py-1 text-muted-foreground hover:text-foreground"
+              >
+                {c.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="grid grid-cols-1 gap-4 pb-16 md:grid-cols-3">
         {showcase.map(([name, span]) => (
-          <Preview key={name} name={name} className={`min-h-72 bg-surface-muted/60 ${span}`} />
+          <Preview key={name} name={name} className={`min-h-72 bg-surface-muted ${span}`} />
         ))}
       </section>
     </div>
@@ -222,6 +240,11 @@ export function Theming() {
         The values come from <code>src/tokens.ts</code>, which is also exported for JavaScript:
       </P>
       <Code code={`import { brand, dark, light } from '@burtson-labs/ui/tokens';`} />
+      <P>
+        <br />
+        This docs site overrides the accent (ink by default; pick another in the header) and uses
+        neutral greys, to show the tokens at work. The swatches below are the package defaults.
+      </P>
       <div className="mt-8 grid gap-4">
         <Swatches palette={dark} label="Dark" />
         <Swatches palette={light} label="Light" />

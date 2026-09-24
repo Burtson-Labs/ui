@@ -17,3 +17,133 @@
     background: color-mix(in oklab, var(--color-brand) 35%, transparent);
   }
 }
+
+/*
+ * The docs site's own look: neutral ink/paper greys and a visitor-chosen
+ * accent (html[data-accent]). Ink is the default; violet is the package's
+ * built-in Burtson palette. None of this changes the package defaults.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-muted: #fafafa;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --input: #d4d4d8;
+}
+:root.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --surface: #111113;
+  --surface-raised: #18181b;
+  --surface-muted: #0f0f11;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+  --secondary: #27272a;
+  --secondary-foreground: #e4e4e7;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --border-strong: #3f3f46;
+  --input: #3f3f46;
+}
+
+:root:not([data-accent]),
+:root[data-accent='ink'] {
+  --primary: #18181b;
+  --primary-foreground: #ffffff;
+  --brand: #18181b;
+  --brand-hover: #3f3f46;
+  --brand-soft: #f4f4f5;
+  --brand-soft-foreground: #18181b;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --ring: #71717a;
+}
+:root.dark:not([data-accent]),
+:root.dark[data-accent='ink'] {
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --brand: #fafafa;
+  --brand-hover: #d4d4d8;
+  --brand-soft: #27272a;
+  --brand-soft-foreground: #fafafa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --ring: #a1a1aa;
+}
+:root[data-accent='blue'] {
+  --primary: #2563eb;
+  --brand: #2563eb;
+  --brand-hover: #1d4ed8;
+  --brand-soft: #eff6ff;
+  --brand-soft-foreground: #1e40af;
+  --accent: #eff6ff;
+  --accent-foreground: #1e3a8a;
+  --ring: #2563eb;
+}
+:root.dark[data-accent='blue'] {
+  --primary: #3b82f6;
+  --brand: #60a5fa;
+  --brand-hover: #93c5fd;
+  --brand-soft: #172554;
+  --brand-soft-foreground: #bfdbfe;
+  --accent: #172554;
+  --accent-foreground: #dbeafe;
+  --ring: #60a5fa;
+}
+:root[data-accent='teal'] {
+  --primary: #0f766e;
+  --brand: #0d9488;
+  --brand-hover: #0f766e;
+  --brand-soft: #f0fdfa;
+  --brand-soft-foreground: #115e59;
+  --accent: #f0fdfa;
+  --accent-foreground: #134e4a;
+  --ring: #0d9488;
+}
+:root.dark[data-accent='teal'] {
+  --primary: #14b8a6;
+  --primary-foreground: #042f2e;
+  --brand: #2dd4bf;
+  --brand-hover: #5eead4;
+  --brand-soft: #042f2e;
+  --brand-soft-foreground: #99f6e4;
+  --accent: #042f2e;
+  --accent-foreground: #ccfbf1;
+  --ring: #2dd4bf;
+}
+:root[data-accent='orange'] {
+  --primary: #c2410c;
+  --brand: #ea580c;
+  --brand-hover: #c2410c;
+  --brand-soft: #fff7ed;
+  --brand-soft-foreground: #9a3412;
+  --accent: #fff7ed;
+  --accent-foreground: #7c2d12;
+  --ring: #ea580c;
+}
+:root.dark[data-accent='orange'] {
+  --primary: #f97316;
+  --primary-foreground: #1c0a02;
+  --brand: #fb923c;
+  --brand-hover: #fdba74;
+  --brand-soft: #431407;
+  --brand-soft-foreground: #fed7aa;
+  --accent: #431407;
+  --accent-foreground: #ffedd5;
+  --ring: #fb923c;
+}
+/* data-accent='violet' keeps the package's own Burtson purple. */
