@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+@import '../../src/styles/theme.css';
+
+@source '../../src';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-brand) 35%, transparent);
+  }
+}

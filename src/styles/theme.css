@@ -1,0 +1,170 @@
+/*
+ * Burtson UI theme for Tailwind CSS v4. Generated from src/tokens.ts by
+ * scripts/theme.mjs; edit the tokens, not this file.
+ *
+ *   @import 'tailwindcss';
+ *   @import '@burtson-labs/ui/theme.css';
+ *   @source '../node_modules/@burtson-labs/ui/dist';
+ *
+ * Light is the default. Put `class="dark"` or `data-theme="dark"` on <html>
+ * (or any subtree) for the dark palette.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #17151c;
+  --card: #ffffff;
+  --card-foreground: #17151c;
+  --popover: #ffffff;
+  --popover-foreground: #17151c;
+  --primary: #a60ee5;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f0f7;
+  --secondary-foreground: #221c2b;
+  --muted: #f5f3f8;
+  --muted-foreground: #655e70;
+  --accent: #f1e7fb;
+  --accent-foreground: #4d0a6b;
+  --destructive: #d42a3a;
+  --destructive-foreground: #ffffff;
+  --success: #12805c;
+  --success-foreground: #ffffff;
+  --warning: #a35c00;
+  --warning-foreground: #ffffff;
+  --border: #e4dfeb;
+  --input: #d9d2e2;
+  --ring: #a60ee5;
+  --brand: #a60ee5;
+  --brand-soft: #f4e6fd;
+  --radius: 0.625rem;
+  color-scheme: light;
+}
+
+.dark,
+[data-theme='dark'] {
+  --background: #101016;
+  --foreground: #f0edf7;
+  --card: #16151d;
+  --card-foreground: #f0edf7;
+  --popover: #191820;
+  --popover-foreground: #f0edf7;
+  --primary: #a60ee5;
+  --primary-foreground: #ffffff;
+  --secondary: #221f2b;
+  --secondary-foreground: #e4ddeb;
+  --muted: #1d1b25;
+  --muted-foreground: #a39bac;
+  --accent: #2b193a;
+  --accent-foreground: #e9cffc;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --success: #2fb67f;
+  --success-foreground: #07170f;
+  --warning: #f0a53a;
+  --warning-foreground: #1c1204;
+  --border: #2e2a3b;
+  --input: #3a3548;
+  --ring: #c77afa;
+  --brand: #c77afa;
+  --brand-soft: #2b193a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --animate-in: bl-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-out: bl-out 120ms ease-in forwards;
+  --animate-sheet-in: bl-sheet-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-sheet-out: bl-sheet-out 160ms ease-in forwards;
+  --animate-accordion-down: bl-accordion-down 180ms ease-out;
+  --animate-accordion-up: bl-accordion-up 160ms ease-out;
+}
+
+@keyframes bl-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(2px);
+  }
+}
+@keyframes bl-out {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+@keyframes bl-sheet-in {
+  from {
+    transform: translateX(var(--bl-sheet-from, 100%));
+  }
+}
+@keyframes bl-sheet-out {
+  to {
+    transform: translateX(var(--bl-sheet-from, 100%));
+  }
+}
+@keyframes bl-accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes bl-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  :focus-visible {
+    outline-color: var(--color-ring);
+  }
+}

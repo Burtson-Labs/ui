@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint (Burtson Labs frontend standards)
+        run: npm run lint
+      - name: Format
+        run: npm run format:check
+      - name: Test
+        run: npm test
+      - name: Dependency audit
+        run: npm audit --audit-level=high
+      - name: Build package
+        run: npm run build
+      - name: Package contents
+        run: npm pack --dry-run
+      - name: Build site and registry
+        run: npm run site
+      - name: Upload site
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ui-site-${{ github.sha }}
+          path: site/dist/
+          retention-days: 14
+
+  sentinel:
+    # Secrets (working tree and full history), SAST rules, CI and supply-chain
+    # checks. Sentinel is our own auditor; this repo has to pass it.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: Burtson-Labs/sentinel-audit@92d75402690302b9f1693a557eb66bf543369fd6 # v0.2.3
+        with:
+          fail-on: findings

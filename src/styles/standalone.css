@@ -1,0 +1,27 @@
+/*
+ * @burtson-labs/ui/styles.css: the components' compiled styles for apps that
+ * do not run Tailwind (MUI apps, plain CSS). Tailwind's global preflight is
+ * left out so it cannot fight an existing reset; the few resets the
+ * components rely on are scoped to their data-slot elements instead.
+ */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './theme.css';
+
+@source '../components';
+
+@layer base {
+  [data-slot],
+  [data-slot] *,
+  [data-slot]::before,
+  [data-slot]::after {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+  button[data-slot] {
+    font: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}
