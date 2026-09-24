@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0
+
+- NavigationMenu: site navigation with dropdown panels (Radix), for product
+  menus and docs sections, on the raised floating surface.
+- Toast: brief corner notices with default, success and destructive
+  variants, an action button and swipe-to-dismiss (Radix).
+
 ## 0.3.0
 
 Burtson design language (vNext). Existing exports and variant names still

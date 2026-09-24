@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import * as React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   Badge,
@@ -203,5 +204,53 @@ describe('vNext patterns', () => {
     const { badgeVariants } = await import('@burtson-labs/ui');
     expect(badgeVariants({ variant: 'info' })).toContain('text-info');
     expect(badgeVariants({ variant: 'secondary' })).toContain('bg-surface-muted');
+  });
+});
+
+describe('site components', () => {
+  it('opens a navigation menu panel from its trigger', async () => {
+    const {
+      NavigationMenu,
+      NavigationMenuContent,
+      NavigationMenuItem,
+      NavigationMenuLink,
+      NavigationMenuList,
+      NavigationMenuTrigger,
+    } = await import('@burtson-labs/ui');
+    render(
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink href="/stealth">Bandit Stealth</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Products' }));
+    expect(await screen.findByRole('link', { name: 'Bandit Stealth' })).toBeTruthy();
+  });
+
+  it('announces an open toast and dismisses it', async () => {
+    const { Toast, ToastClose, ToastProvider, ToastTitle, ToastViewport } =
+      await import('@burtson-labs/ui');
+    function Harness() {
+      const [open, setOpen] = React.useState(true);
+      return (
+        <ToastProvider>
+          <Toast open={open} onOpenChange={setOpen}>
+            <ToastTitle>Message sent</ToastTitle>
+            <ToastClose />
+          </Toast>
+          <ToastViewport />
+        </ToastProvider>
+      );
+    }
+    render(<Harness />);
+    expect(screen.getByText('Message sent')).toBeTruthy();
+    await userEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
+    await vi.waitFor(() => expect(screen.queryByText('Message sent')).toBeNull());
   });
 });

@@ -189,6 +189,18 @@ const all: ComponentDoc[] = [
     title: 'Command',
     description: 'A searchable command palette, inline or as a ⌘K dialog.',
   },
+  {
+    name: 'navigation-menu',
+    title: 'Navigation Menu',
+    description: 'Site navigation with dropdown panels, like a products menu.',
+    radix: 'navigation-menu',
+  },
+  {
+    name: 'toast',
+    title: 'Toast',
+    description: 'A brief notice in the corner: sent, saved, update available.',
+    radix: 'toast',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));
