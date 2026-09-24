@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0
+
+- AlertDialog: confirmations for destructive actions (no close button, no
+  outside-click dismiss, focus on Cancel, `destructive` action styling).
+- Pagination (and `paginationRange`): page controls with a summary slot.
+- Combobox: searchable single select, client-filtered or remote via
+  `onSearchChange`, with a loading state.
+- Steps: progress through a short multi-step flow.
+- Repo: the committed `node_modules` symlink is gone and ignored.
+
 ## 0.4.0
 
 - NavigationMenu: site navigation with dropdown panels (Radix), for product

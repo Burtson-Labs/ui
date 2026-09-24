@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
@@ -252,5 +252,81 @@ describe('site components', () => {
     expect(screen.getByText('Message sent')).toBeTruthy();
     await userEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
     await vi.waitFor(() => expect(screen.queryByText('Message sent')).toBeNull());
+  });
+});
+
+describe('0.5 components', () => {
+  it('computes pagination ranges with ellipses', async () => {
+    const { paginationRange } = await import('@burtson-labs/ui');
+    expect(paginationRange(1, 5)).toEqual([1, 2, 3, 4, 5]);
+    expect(paginationRange(6, 20)).toEqual([1, 'ellipsis', 5, 6, 7, 'ellipsis', 20]);
+    expect(paginationRange(1, 20)).toEqual([1, 2, 'ellipsis', 20]);
+    expect(paginationRange(1, 0)).toEqual([]);
+  });
+
+  it('pages forward and marks the current page', async () => {
+    const { Pagination } = await import('@burtson-labs/ui');
+    const onPageChange = vi.fn();
+    render(<Pagination page={2} pageCount={3} onPageChange={onPageChange} />);
+    expect(screen.getByRole('button', { name: 'Page 2' }).getAttribute('aria-current')).toBe(
+      'page',
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Next page' }));
+    expect(onPageChange).toHaveBeenCalledWith(3);
+  });
+
+  it('confirms through an alert dialog and cancels with Escape', async () => {
+    const m = await import('@burtson-labs/ui');
+    const onConfirm = vi.fn();
+    render(
+      <m.AlertDialog>
+        <m.AlertDialogTrigger>Delete</m.AlertDialogTrigger>
+        <m.AlertDialogContent>
+          <m.AlertDialogTitle>Delete it?</m.AlertDialogTitle>
+          <m.AlertDialogDescription>Gone for good.</m.AlertDialogDescription>
+          <m.AlertDialogCancel>Cancel</m.AlertDialogCancel>
+          <m.AlertDialogAction destructive onClick={onConfirm}>
+            Delete
+          </m.AlertDialogAction>
+        </m.AlertDialogContent>
+      </m.AlertDialog>,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    expect(screen.getByRole('alertdialog', { name: 'Delete it?' })).toBeTruthy();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    await userEvent.click(
+      within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Delete' }),
+    );
+    expect(onConfirm).toHaveBeenCalled();
+  });
+
+  it('selects from a combobox by typing', async () => {
+    const { Combobox } = await import('@burtson-labs/ui');
+    const onValueChange = vi.fn();
+    render(
+      <Combobox
+        options={[
+          { value: 'a', label: 'Dana', description: 'dana@x.test' },
+          { value: 'b', label: 'Luis', description: 'luis@x.test' },
+        ]}
+        value={null}
+        onValueChange={onValueChange}
+        placeholder="Pick user"
+      />,
+    );
+    await userEvent.click(screen.getByRole('combobox'));
+    await userEvent.type(screen.getByPlaceholderText('Search…'), 'luis');
+    await userEvent.keyboard('{Enter}');
+    expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  it('marks the current step', async () => {
+    const { Steps } = await import('@burtson-labs/ui');
+    render(<Steps current={1} items={[{ title: 'One' }, { title: 'Two' }, { title: 'Three' }]} />);
+    const items = screen.getAllByRole('listitem');
+    expect(items[0]?.getAttribute('data-state')).toBe('complete');
+    expect(items[1]?.getAttribute('aria-current')).toBe('step');
   });
 });

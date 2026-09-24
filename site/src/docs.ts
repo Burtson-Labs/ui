@@ -201,6 +201,23 @@ const all: ComponentDoc[] = [
     description: 'A brief notice in the corner: sent, saved, update available.',
     radix: 'toast',
   },
+  {
+    name: 'alert-dialog',
+    title: 'Alert Dialog',
+    description: 'A confirmation for destructive or irreversible actions.',
+    radix: 'alert-dialog',
+  },
+  {
+    name: 'combobox',
+    title: 'Combobox',
+    description: 'Pick one value from a long or remote list by typing.',
+  },
+  {
+    name: 'pagination',
+    title: 'Pagination',
+    description: 'Page controls for tables and lists, with a summary.',
+  },
+  { name: 'steps', title: 'Steps', description: 'Progress through a short multi-step flow.' },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));
