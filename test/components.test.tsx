@@ -330,3 +330,57 @@ describe('0.5 components', () => {
     expect(items[1]?.getAttribute('aria-current')).toBe('step');
   });
 });
+
+describe('Toaster', () => {
+  it('renders toasts raised with toast() and closes them', async () => {
+    const { act } = await import('react');
+    const { toast, Toaster } = await import('@burtson-labs/ui');
+    render(<Toaster />);
+    let close = () => {};
+    act(() => {
+      close = toast({ title: 'Saved', description: 'All changes stored', variant: 'success' });
+    });
+    expect(await screen.findByText('Saved')).toBeTruthy();
+    expect(screen.getByText('All changes stored')).toBeTruthy();
+    act(() => close());
+    await vi.waitFor(() => expect(screen.queryByText('Saved')).toBeNull());
+  });
+});
+
+describe('Slider', () => {
+  it('reports numeric values', async () => {
+    const { fireEvent } = await import('@testing-library/react');
+    const { Slider } = await import('@burtson-labs/ui');
+    const onValueChange = vi.fn();
+    render(<Slider aria-label="Strength" value={20} onValueChange={onValueChange} />);
+    const slider = screen.getByRole('slider', { name: 'Strength' });
+    fireEvent.change(slider, { target: { value: '60' } });
+    expect(onValueChange).toHaveBeenCalledWith(60);
+  });
+});
+
+describe('CopyButton', () => {
+  it('copies its value and confirms', async () => {
+    const { CopyButton } = await import('@burtson-labs/ui');
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    render(<CopyButton value="secret-123" label="Copy key" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Copy key' }));
+    expect(writeText).toHaveBeenCalledWith('secret-123');
+    expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
+  });
+});
+
+describe('SecretInput', () => {
+  it('masks by default and reveals on toggle', async () => {
+    const { SecretInput } = await import('@burtson-labs/ui');
+    render(<SecretInput aria-label="Token" revealLabel="token" defaultValue="abc" />);
+    const input = screen.getByLabelText('Token');
+    expect(input.getAttribute('type')).toBe('password');
+    await userEvent.click(screen.getByRole('button', { name: 'Show token' }));
+    expect(input.getAttribute('type')).toBe('text');
+    expect(screen.getByRole('button', { name: 'Hide token' }).getAttribute('aria-pressed')).toBe(
+      'true',
+    );
+  });
+});

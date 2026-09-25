@@ -251,6 +251,23 @@ const all: ComponentDoc[] = [
     title: 'Tool Call',
     description: 'An agent tool call with live status, arguments and result, and an approval gate.',
   },
+  {
+    name: 'toaster',
+    title: 'Toaster',
+    description: 'Raise toasts from anywhere with toast(); one Toaster renders them.',
+    radix: 'toast',
+  },
+  { name: 'slider', title: 'Slider', description: 'Pick one number in a range.' },
+  {
+    name: 'copy-button',
+    title: 'Copy Button',
+    description: 'Copy a value to the clipboard, with a confirmed state.',
+  },
+  {
+    name: 'secret-input',
+    title: 'Secret Input',
+    description: 'A masked field for keys and tokens, with show and hide.',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0
+
+- Toaster and `toast()`: raise toasts from event handlers and data hooks;
+  one mounted `<Toaster />` renders them (success and destructive variants,
+  longer duration for errors, a short stack).
+- Slider: a single-value range on the native input, filled with the brand
+  colour up to the thumb.
+- CopyButton: copies a value and confirms with a check; falls back to a
+  toast when the browser blocks the clipboard.
+- SecretInput: a masked monospace field with a show/hide toggle.
+
 ## 0.6.0
 
 Agent chat components.
