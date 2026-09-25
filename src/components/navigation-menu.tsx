@@ -89,7 +89,7 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
       className={cn(
-        'top-0 left-0 w-full p-2 md:absolute md:w-auto data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out',
+        'top-0 left-0 w-full p-2 md:absolute md:w-auto data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion=from-end]:[--bl-tx:24px] data-[motion=from-start]:[--bl-tx:-24px] data-[motion=to-end]:[--bl-tx:24px] data-[motion=to-start]:[--bl-tx:-24px] [--bl-scale:1]',
         className,
       )}
       {...props}
@@ -106,7 +106,7 @@ function NavigationMenuViewport({
       <NavigationMenuPrimitive.Viewport
         data-slot="navigation-menu-viewport"
         className={cn(
-          'relative mt-2 h-(--radix-navigation-menu-viewport-height) w-full origin-top overflow-hidden rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] data-[state=closed]:animate-out data-[state=open]:animate-in md:w-(--radix-navigation-menu-viewport-width)',
+          'relative mt-2 h-(--radix-navigation-menu-viewport-height) w-full origin-top overflow-hidden rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] transition-[width,height] duration-200 [--bl-ty:-6px] data-[state=closed]:animate-out data-[state=open]:animate-in md:w-(--radix-navigation-menu-viewport-width)',
           className,
         )}
         {...props}

@@ -29,7 +29,7 @@ function ToastViewport({
 }
 
 const toastVariants = cva(
-  'group pointer-events-auto relative grid w-full grid-cols-[1fr_auto] items-start gap-x-3 gap-y-1 overflow-hidden rounded-lg border p-4 pr-10 text-sm shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none',
+  'group pointer-events-auto relative grid w-full grid-cols-[1fr_auto] items-start gap-x-3 gap-y-1 overflow-hidden rounded-lg border p-4 pr-10 text-sm shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] [--bl-ty:12px] [--bl-scale:0.98] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none',
   {
     variants: {
       variant: {

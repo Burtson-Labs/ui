@@ -14,6 +14,30 @@ import {
 
 export default function SheetDemo() {
   return (
+    <div className="flex flex-wrap gap-2">
+      <SideSheet />
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline">Open bottom drawer</Button>
+        </SheetTrigger>
+        <SheetContent side="bottom">
+          <SheetHeader>
+            <SheetTitle>Run 4821</SheetTitle>
+            <SheetDescription>release-captain · finished 2m 14s ago</SheetDescription>
+          </SheetHeader>
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button>Done</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+}
+
+function SideSheet() {
+  return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline">Open settings</Button>

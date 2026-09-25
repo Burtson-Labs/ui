@@ -17,7 +17,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'site/public/r');
 const BASE = process.env.REGISTRY_BASE ?? 'https://ui.burtson.ai/r';
 const SCHEMA_ITEM = 'https://ui.shadcn.com/schema/registry-item.json';
-const { light, dark, radius, shadow, fontSans, fontMono } = await import('../src/tokens.ts');
+const { light, dark, radius, shadow, motion, fontSans, fontMono } =
+  await import('../src/tokens.ts');
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 
 const version = (dep) =>
@@ -41,42 +42,14 @@ const theme = {
           .map(([k, v]) => [`radius-${k}`, v]),
       ),
       ...Object.fromEntries(Object.entries(shadow).map(([k, v]) => [`shadow-${k}`, v])),
-      'animate-in': 'bl-in 160ms cubic-bezier(0.16, 1, 0.3, 1)',
-      'animate-out': 'bl-out 120ms ease-in forwards',
-      'animate-sheet-in': 'bl-sheet-in 220ms cubic-bezier(0.16, 1, 0.3, 1)',
-      'animate-sheet-out': 'bl-sheet-out 160ms ease-in forwards',
-      'animate-accordion-down': 'bl-accordion-down 180ms ease-out',
-      'animate-accordion-up': 'bl-accordion-up 160ms ease-out',
-      'animate-collapsible-down': 'bl-collapsible-down 180ms ease-out',
-      'animate-collapsible-up': 'bl-collapsible-up 160ms ease-out',
+      ...Object.fromEntries(Object.entries(motion.animations).map(([k, v]) => [`animate-${k}`, v])),
     },
     light: { ...light, radius: radius.md },
     dark: { ...dark },
   },
-  css: {
-    '@keyframes bl-in': {
-      from: { opacity: '0', transform: 'scale(0.97) translateY(2px)' },
-    },
-    '@keyframes bl-out': { to: { opacity: '0', transform: 'scale(0.97)' } },
-    '@keyframes bl-sheet-in': { from: { transform: 'translateX(var(--bl-sheet-from, 100%))' } },
-    '@keyframes bl-sheet-out': { to: { transform: 'translateX(var(--bl-sheet-from, 100%))' } },
-    '@keyframes bl-accordion-down': {
-      from: { height: '0' },
-      to: { height: 'var(--radix-accordion-content-height)' },
-    },
-    '@keyframes bl-collapsible-down': {
-      from: { height: '0' },
-      to: { height: 'var(--radix-collapsible-content-height)' },
-    },
-    '@keyframes bl-collapsible-up': {
-      from: { height: 'var(--radix-collapsible-content-height)' },
-      to: { height: '0' },
-    },
-    '@keyframes bl-accordion-up': {
-      from: { height: 'var(--radix-accordion-content-height)' },
-      to: { height: '0' },
-    },
-  },
+  css: Object.fromEntries(
+    Object.entries(motion.keyframes).map(([name, frames]) => [`@keyframes ${name}`, frames]),
+  ),
 };
 
 const utils = {

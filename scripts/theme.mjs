@@ -9,7 +9,8 @@ import { fail, say } from './log.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'src/styles/theme.css');
-const { light, dark, radius, shadow, fontSans, fontMono } = await import('../src/tokens.ts');
+const { light, dark, radius, shadow, motion, fontSans, fontMono } =
+  await import('../src/tokens.ts');
 
 const vars = (palette, indent) =>
   Object.entries(palette)
@@ -59,71 +60,24 @@ ${Object.keys(light)
   --shadow-focus: ${shadow.focus};
   --font-sans: ${fontSans};
   --font-mono: ${fontMono};
-  --animate-in: bl-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-out: bl-out 120ms ease-in forwards;
-  --animate-sheet-in: bl-sheet-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-sheet-out: bl-sheet-out 160ms ease-in forwards;
-  --animate-accordion-down: bl-accordion-down 180ms ease-out;
-  --animate-accordion-up: bl-accordion-up 160ms ease-out;
-  --animate-collapsible-down: bl-collapsible-down 180ms ease-out;
-  --animate-collapsible-up: bl-collapsible-up 160ms ease-out;
+${Object.entries(motion.animations)
+  .map(([k, v]) => `  --animate-${k}: ${v};`)
+  .join('\n')}
 }
 
-@keyframes bl-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97) translateY(2px);
-  }
-}
-@keyframes bl-out {
-  to {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-}
-@keyframes bl-sheet-in {
-  from {
-    transform: translateX(var(--bl-sheet-from, 100%));
-  }
-}
-@keyframes bl-sheet-out {
-  to {
-    transform: translateX(var(--bl-sheet-from, 100%));
-  }
-}
-@keyframes bl-accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-@keyframes bl-accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-
-@keyframes bl-collapsible-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-collapsible-content-height);
-  }
-}
-@keyframes bl-collapsible-up {
-  from {
-    height: var(--radix-collapsible-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
+${Object.entries(motion.keyframes)
+  .map(
+    ([name, frames]) =>
+      `@keyframes ${name} {\n${Object.entries(frames)
+        .map(
+          ([at, props]) =>
+            `  ${at} {\n${Object.entries(props)
+              .map(([k, v]) => `    ${k}: ${v};`)
+              .join('\n')}\n  }`,
+        )
+        .join('\n')}\n}`,
+  )
+  .join('\n')}
 
 @media (prefers-reduced-motion: reduce) {
   *,

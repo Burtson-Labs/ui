@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.1
+
+Motion. Surfaces now move the way they arrive:
+
+- Popovers, menus, select lists and tooltips slide a few pixels from the side
+  they open on; dialogs zoom up slightly; overlays fade; toasts rise from the
+  bottom; tab panels fade in; navigation-menu content slides with the pointer.
+- Sheets glide in with a drawer ease and gain `top` and `bottom` sides for
+  mobile drawers.
+- Closing animates and is faster than opening. prefers-reduced-motion still
+  turns all motion off.
+- Motion lives in `tokens.ts` (`motion.animations`, `motion.keyframes`); the
+  theme CSS and the registry theme item are both generated from it.
+
 ## 0.5.0
 
 - AlertDialog: confirmations for destructive actions (no close button, no

@@ -150,5 +150,65 @@ export const fontSans =
 export const fontMono =
   '"JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace';
 
-export const tokens = { brand, light, dark, radius, shadow, fontSans, fontMono } as const;
+/**
+ * Motion. Surfaces enter from where they come from: popovers and menus slide a
+ * few pixels from their trigger side (--bl-tx/--bl-ty, set per side by the
+ * component), dialogs zoom slightly, sheets glide in with a drawer ease, and
+ * everything leaves faster than it arrived. prefers-reduced-motion turns all
+ * of it off (theme.css).
+ */
+export const motion = {
+  animations: {
+    in: 'bl-in 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+    out: 'bl-out 140ms cubic-bezier(0.4, 0, 1, 1) forwards',
+    'fade-in': 'bl-fade-in 200ms ease-out',
+    'fade-out': 'bl-fade-out 150ms ease-in forwards',
+    'sheet-in': 'bl-sheet-in 340ms cubic-bezier(0.32, 0.72, 0, 1)',
+    'sheet-out': 'bl-sheet-out 220ms cubic-bezier(0.4, 0, 1, 1) forwards',
+    'accordion-down': 'bl-accordion-down 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+    'accordion-up': 'bl-accordion-up 160ms ease-out',
+    'collapsible-down': 'bl-collapsible-down 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+    'collapsible-up': 'bl-collapsible-up 160ms ease-out',
+  },
+  keyframes: {
+    'bl-in': {
+      from: {
+        opacity: '0',
+        transform: 'translate3d(var(--bl-tx, 0), var(--bl-ty, 0), 0) scale(var(--bl-scale, 0.96))',
+      },
+    },
+    'bl-out': {
+      to: {
+        opacity: '0',
+        transform: 'translate3d(var(--bl-tx, 0), var(--bl-ty, 0), 0) scale(var(--bl-scale, 0.96))',
+      },
+    },
+    'bl-fade-in': { from: { opacity: '0' } },
+    'bl-fade-out': { to: { opacity: '0' } },
+    'bl-sheet-in': {
+      from: { transform: 'translate3d(var(--bl-sheet-x, 100%), var(--bl-sheet-y, 0), 0)' },
+    },
+    'bl-sheet-out': {
+      to: { transform: 'translate3d(var(--bl-sheet-x, 100%), var(--bl-sheet-y, 0), 0)' },
+    },
+    'bl-accordion-down': {
+      from: { height: '0' },
+      to: { height: 'var(--radix-accordion-content-height)' },
+    },
+    'bl-accordion-up': {
+      from: { height: 'var(--radix-accordion-content-height)' },
+      to: { height: '0' },
+    },
+    'bl-collapsible-down': {
+      from: { height: '0' },
+      to: { height: 'var(--radix-collapsible-content-height)' },
+    },
+    'bl-collapsible-up': {
+      from: { height: 'var(--radix-collapsible-content-height)' },
+      to: { height: '0' },
+    },
+  },
+} as const;
+
+export const tokens = { brand, light, dark, radius, shadow, motion, fontSans, fontMono } as const;
 export default tokens;

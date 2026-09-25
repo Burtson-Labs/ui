@@ -17,8 +17,12 @@ function SheetClose(props: React.ComponentProps<typeof SheetPrimitive.Close>) {
 }
 
 const sideClasses = {
-  right: 'inset-y-0 right-0 h-full w-3/4 border-l [--bl-sheet-from:100%] sm:max-w-sm',
-  left: 'inset-y-0 left-0 h-full w-3/4 border-r [--bl-sheet-from:-100%] sm:max-w-sm',
+  right: 'inset-y-0 right-0 h-full w-3/4 border-l [--bl-sheet-x:100%] sm:max-w-sm',
+  left: 'inset-y-0 left-0 h-full w-3/4 border-r [--bl-sheet-x:-100%] sm:max-w-sm',
+  // Top and bottom sheets are the mobile drawers.
+  top: 'inset-x-0 top-0 max-h-[85dvh] rounded-b-xl border-b [--bl-sheet-x:0] [--bl-sheet-y:-100%]',
+  bottom:
+    'inset-x-0 bottom-0 max-h-[85dvh] rounded-t-xl border-t [--bl-sheet-x:0] [--bl-sheet-y:100%]',
 } as const;
 
 function SheetContent({
@@ -31,7 +35,7 @@ function SheetContent({
     <SheetPrimitive.Portal>
       <SheetPrimitive.Overlay
         data-slot="sheet-overlay"
-        className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[3px] data-[state=closed]:animate-out data-[state=open]:animate-in"
+        className="fixed inset-0 z-50 bg-black/55 backdrop-blur-[3px] data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in"
       />
       <SheetPrimitive.Content
         data-slot="sheet-content"
