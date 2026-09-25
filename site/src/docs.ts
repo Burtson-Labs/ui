@@ -218,6 +218,39 @@ const all: ComponentDoc[] = [
     description: 'Page controls for tables and lists, with a summary.',
   },
   { name: 'steps', title: 'Steps', description: 'Progress through a short multi-step flow.' },
+  {
+    name: 'composer',
+    title: 'Composer',
+    description:
+      'The message box: grows with its text, Enter sends, Stop while streaming, plus prompt suggestions.',
+  },
+  {
+    name: 'conversation',
+    title: 'Conversation',
+    description:
+      'A chat log that follows new messages as they stream, with a jump-to-latest button.',
+  },
+  {
+    name: 'markdown',
+    title: 'Markdown',
+    description:
+      'Safe Markdown for model output: lists, code blocks with copy, links. No HTML injection.',
+  },
+  {
+    name: 'message',
+    title: 'Message',
+    description: 'A user, assistant or system turn with avatar, name, time and actions.',
+  },
+  {
+    name: 'reasoning',
+    title: 'Reasoning',
+    description: 'Collapsible model reasoning ("Thought for 3s") and a typing indicator.',
+  },
+  {
+    name: 'tool-call',
+    title: 'Tool Call',
+    description: 'An agent tool call with live status, arguments and result, and an approval gate.',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

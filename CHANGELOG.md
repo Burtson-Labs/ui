@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.6.0
+
+Agent chat components.
+
+- `Conversation`: a live message log (`role="log"`, polite announcements) that
+  follows streaming replies unless the reader scrolls up, with a jump-to-latest
+  button and an empty slot.
+- `Message` (`from="user" | "assistant" | "system"`, avatar, name, meta,
+  actions) and `Markdown`, a safe renderer for model output: React elements
+  only, http(s)/mailto links only, code blocks with copy.
+- `ToolCall` (queued/running/done/failed, duration, collapsible arguments and
+  result) and `ToolApproval` for gating tools with side effects.
+- `Reasoning` ("Thought for 3s", collapsible) and `StreamingIndicator`.
+- `Composer` (grows with its text, Enter sends, Shift+Enter for a new line,
+  IME-safe, Stop while streaming, attachment and action slots) and
+  `Suggestions` prompt chips.
+
 ## 0.5.1
 
 Motion. Surfaces now move the way they arrive:
