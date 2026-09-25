@@ -1,4 +1,5 @@
 export { cn } from './lib/utils';
+export { isApplePlatform, modKeyLabel, shortcutLabel } from './lib/platform';
 export * from './tokens';
 export * from './components/accordion';
 export * from './components/alert';

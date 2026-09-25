@@ -10,6 +10,7 @@ import {
   CommandItem,
   CommandList,
   Kbd,
+  shortcutLabel,
 } from '@burtson-labs/ui';
 
 import { components } from './docs';
@@ -43,7 +44,7 @@ export function DocsSearch() {
       >
         <Search aria-hidden />
         <span className="hidden sm:inline">Search docs</span>
-        <Kbd className="hidden md:inline">⌘ K</Kbd>
+        <Kbd className="hidden md:inline">{shortcutLabel('k')}</Kbd>
       </Button>
       <CommandDialog
         open={open}

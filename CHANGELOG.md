@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.1
+
+- Fix: the default keyboard-focus outline (0.8.0) sat outside the cascade
+  layers, so it beat components' own focus styles: a second box inside the
+  command palette's search field and around text inputs. It now lives in the
+  base layer at zero specificity.
+- `isApplePlatform()`, `modKeyLabel()` and `shortcutLabel('k')`: shortcut
+  labels that read ⌘K on Apple devices and Ctrl K elsewhere. The docs search
+  button uses it.
+
 ## 0.8.0
 
 UX audit and upgrade (Astra; findings in AUDIT.md).

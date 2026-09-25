@@ -205,3 +205,31 @@ describe('resilient component states', () => {
     expect(paginationRange(NaN, Infinity)).toEqual([]);
   });
 });
+
+describe('focus outline layering', () => {
+  it('keeps the default focus outline in the base layer so component utilities win', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    const css = readFileSync(join(process.cwd(), 'src/styles/theme.css'), 'utf8');
+    const outside = css.replace(/@layer base \{[\s\S]*?\n\}\n/g, '');
+    expect(outside).not.toMatch(/\[data-slot\][^{]*:focus-visible/);
+    expect(css).toMatch(/:where\(\[data-slot\]\):focus-visible/);
+  });
+});
+
+describe('shortcut labels', () => {
+  it('shows ⌘ on Apple platforms and Ctrl elsewhere', async () => {
+    const { shortcutLabel } = await import('@burtson-labs/ui');
+    const nav = window.navigator;
+    const set = (platform: string, ua: string) => {
+      Object.defineProperty(nav, 'platform', { value: platform, configurable: true });
+      Object.defineProperty(nav, 'userAgent', { value: ua, configurable: true });
+    };
+    set('MacIntel', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0)');
+    expect(shortcutLabel('k')).toBe('⌘K');
+    set('Win32', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)');
+    expect(shortcutLabel('k')).toBe('Ctrl K');
+    set('Linux x86_64', 'Mozilla/5.0 (X11; Linux x86_64)');
+    expect(shortcutLabel('k')).toBe('Ctrl K');
+  });
+});

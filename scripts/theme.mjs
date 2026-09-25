@@ -97,10 +97,22 @@ ${Object.entries(motion.keyframes)
   [data-slot='input'] { min-height: 44px; }
 }
 
-[data-slot]:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-
-@media (forced-colors: active) {
-  [data-slot]:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+/*
+ * Default keyboard-focus outline for every component, in the base layer at
+ * zero specificity: a component that draws its own focus (inputs' ring, the
+ * command palette's field) overrides it with a utility. Unlayered, it beat
+ * those utilities and doubled up (a red box inside the command palette).
+ */
+@layer base {
+  :where([data-slot]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (forced-colors: active) {
+    :where([data-slot]):focus-visible {
+      outline: 2px solid Highlight;
+    }
+  }
 }
 
 @layer base {
