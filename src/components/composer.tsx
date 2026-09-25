@@ -7,7 +7,10 @@ import { cn } from '../lib/utils';
 import { Button } from './button';
 
 export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSubmit' | 'onChange'> {
-  /** Clears after success. Reject a returned promise to retain the draft. */
+  /**
+   * Clears after success. Reject a returned promise to retain the draft. The
+   * text can be empty when `attachmentCount` allows an attachment-only send.
+   */
   onSubmit: (text: string) => void | Promise<void>;
   onSubmitError?: (error: unknown) => void;
   submitErrorText?: string;
@@ -21,6 +24,13 @@ export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSub
   placeholder?: string;
   /** Attachment chips or a file button, shown under the text. */
   attachments?: React.ReactNode;
+  /** Attachments ready to send. Above zero, an empty message can be sent. */
+  attachmentCount?: number;
+  /**
+   * Extra gate on sending, e.g. false while an attachment is still parsing.
+   * Unlike `disabled`, the person can keep typing.
+   */
+  canSubmit?: boolean;
   /** Extra controls left of the send button (model picker, tools). */
   actions?: React.ReactNode;
   label?: string;
@@ -41,6 +51,8 @@ function Composer({
   disabled = false,
   placeholder = 'Ask anything…',
   attachments,
+  attachmentCount = 0,
+  canSubmit = true,
   actions,
   label = 'Message',
   className,
@@ -67,7 +79,12 @@ function Composer({
     if (controlled === undefined) setOwn(v);
     onValueChange?.(v);
   };
-  const canSend = !disabled && !streaming && !pending && value.trim().length > 0;
+  const canSend =
+    canSubmit &&
+    !disabled &&
+    !streaming &&
+    !pending &&
+    (value.trim().length > 0 || attachmentCount > 0);
   const send = async () => {
     if (!canSend || sending.current) return;
     const draft = value;

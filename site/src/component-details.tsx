@@ -119,6 +119,9 @@ const api: Record<string, [string, string, string][]> = {
     ['selected / onSelectedChange', 'string[] / (ids) => void', 'required'],
     ['selectionMode', 'single | multiple', 'single'],
     ['onAction', '(id) => void; Enter and double-click', '—'],
+    ['actionOnClick', 'boolean; a plain click on a leaf runs onAction', 'false'],
+    ['expandOnClick', 'boolean; a plain click toggles a folder', 'true for single'],
+    ['indentGuides', 'boolean; ancestor lines on hover', 'false'],
     ['onLoadChildren', '(id) => void', '—'],
     ['renderLabel', '(node) => ReactNode; e.g. a rename input', 'label'],
     ['density', 'compact | default', 'default'],
@@ -127,7 +130,7 @@ const api: Record<string, [string, string, string][]> = {
     ['tabs', 'EditorTab[] { id, label, description?, dirty?, closeable?, preview? }', 'required'],
     ['activeId / onActiveChange', 'string | null / (id) => void', 'required'],
     ['onClose', '(id) => void; a request, the app decides', '—'],
-    ['onMove', '(id, toIndex) => void', '—'],
+    ['onMove', '(id, toIndex) => void; pointer drag or Ctrl+Shift+PageUp/Down', '—'],
     ['actions', 'ReactNode; right-hand buttons', '—'],
   ],
   tour: [

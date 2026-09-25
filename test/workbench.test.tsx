@@ -304,6 +304,111 @@ describe('EditorTabs', () => {
   });
 });
 
+describe('EditorTabs pointer reorder', () => {
+  // Pointer drag, not HTML5 drag and drop: desktop webviews (Tauri) swallow
+  // native drags, so the strip must not depend on them.
+  const rects = (el: Element, left: number) =>
+    Object.assign(el, {
+      getBoundingClientRect: () =>
+        ({ left, right: left + 100, width: 100, top: 0, bottom: 30, height: 30 }) as DOMRect,
+    });
+
+  it('moves a dragged tab to the gap it is released over, and does not open it', () => {
+    const onMove = vi.fn();
+    const onActive = vi.fn();
+    const { container } = render(
+      <EditorTabs
+        aria-label="Open editors"
+        tabs={openTabs}
+        activeId="a.ts"
+        onActiveChange={onActive}
+        onMove={onMove}
+      />,
+    );
+    const els = Array.from(container.querySelectorAll('[data-slot="editor-tab"]'));
+    els.forEach((el, i) => rects(el, i * 100));
+    expect(
+      els.every((el) => !el.hasAttribute('draggable') || el.getAttribute('draggable') === 'false'),
+    ).toBe(true);
+    fireEvent.pointerDown(els[0]!, { button: 0, clientX: 10 });
+    fireEvent.pointerMove(window, { clientX: 260 });
+    expect(els[2]?.getAttribute('data-drop')).toBe('after');
+    fireEvent.pointerUp(window, { clientX: 260 });
+    fireEvent.click(screen.getAllByRole('tab')[0]!);
+    // Released past c.ts's midpoint: gap 3, so a.ts ends up last.
+    expect(onMove).toHaveBeenCalledWith('a.ts', 2);
+    expect(onActive).not.toHaveBeenCalled();
+  });
+
+  it('treats a press without movement as a click', () => {
+    const onMove = vi.fn();
+    const onActive = vi.fn();
+    const { container } = render(
+      <EditorTabs
+        aria-label="Open editors"
+        tabs={openTabs}
+        activeId="a.ts"
+        onActiveChange={onActive}
+        onMove={onMove}
+      />,
+    );
+    const b = container.querySelectorAll('[data-slot="editor-tab"]')[1]!;
+    fireEvent.pointerDown(b, { button: 0, clientX: 150 });
+    fireEvent.pointerMove(window, { clientX: 152 });
+    fireEvent.pointerUp(window, { clientX: 152 });
+    fireEvent.click(screen.getAllByRole('tab')[1]!);
+    expect(onMove).not.toHaveBeenCalled();
+    expect(onActive).toHaveBeenCalledWith('b.ts');
+  });
+});
+
+describe('TreeView explorer options', () => {
+  it('opens a file on click and expands a folder on click in multi-select', async () => {
+    const onAction = vi.fn();
+    render(<Tree selectionMode="multiple" expandOnClick actionOnClick onAction={onAction} />);
+    await userEvent.click(item('src'));
+    expect(item('src').getAttribute('aria-expanded')).toBe('true');
+    await userEvent.click(item('app.tsx'));
+    expect(onAction).toHaveBeenCalledWith('src/app.tsx');
+    onAction.mockClear();
+    // Modified clicks only select.
+    const user = userEvent.setup();
+    await user.keyboard('{Control>}');
+    await user.click(item('main.tsx'));
+    await user.keyboard('{/Control}');
+    expect(onAction).not.toHaveBeenCalled();
+    expect(item('main.tsx').getAttribute('aria-selected')).toBe('true');
+    expect(item('app.tsx').getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('keeps multi-select clicks from toggling folders by default', async () => {
+    render(<Tree selectionMode="multiple" />);
+    await userEvent.click(item('src'));
+    expect(item('src').getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('applies row classes and draws indent guides', () => {
+    const nodes: TreeNode[] = [
+      { id: 'd', label: 'd', className: 'is-ignored', children: [{ id: 'd/f', label: 'f' }] },
+    ];
+    const { container } = render(
+      <TreeView
+        aria-label="Files"
+        nodes={nodes}
+        expanded={['d']}
+        onExpandedChange={() => {}}
+        selected={[]}
+        onSelectedChange={() => {}}
+        indentGuides
+      />,
+    );
+    expect(item('d').className).toContain('is-ignored');
+    expect(item('f').querySelectorAll('[data-slot="tree-guide"]')).toHaveLength(1);
+    expect(item('d').querySelectorAll('[data-slot="tree-guide"]')).toHaveLength(0);
+    expect(container).toBeTruthy();
+  });
+});
+
 describe('Resizable', () => {
   it('renders labelled separators between panels', () => {
     render(

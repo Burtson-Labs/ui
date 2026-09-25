@@ -32,7 +32,11 @@ export interface EditorTabsProps extends Omit<
    * tab, ask the person (save, discard, cancel) and then update `tabs`.
    */
   onClose?: (id: string) => void;
-  /** Reorder by drag or Ctrl+Shift+PageUp/PageDown. `toIndex` is the new position. */
+  /**
+   * Reorder by drag or Ctrl+Shift+PageUp/PageDown. `toIndex` is the new position.
+   * Dragging uses pointer events, not HTML5 drag and drop, so it also works in
+   * desktop webviews (Tauri, Electron) that intercept native drags.
+   */
   onMove?: (id: string, toIndex: number) => void;
   /** Required: e.g. "Open editors". */
   'aria-label': string;
@@ -65,6 +69,13 @@ function EditorTabs({
   const listRef = React.useRef<HTMLDivElement>(null);
   const [focusedId, setFocusedId] = React.useState<string | null>(null);
   const [dragId, setDragId] = React.useState<string | null>(null);
+  // The gap a dragged tab would land in: 0 is before the first tab,
+  // tabs.length after the last.
+  const [dropGap, setDropGap] = React.useState<number | null>(null);
+  // Set once a press becomes a drag, so the click that ends it does nothing.
+  const dragged = React.useRef(false);
+  const dragCleanup = React.useRef<(() => void) | null>(null);
+  React.useEffect(() => () => dragCleanup.current?.(), []);
   const lastIds = React.useRef<string[]>([]);
   const hadFocus = React.useRef(false);
 
@@ -98,6 +109,56 @@ function EditorTabs({
     // ids is derived from tabs each render; idsKey is its stable form.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedId, idsKey, activeId]);
+
+  /** Which gap the pointer is over, measured from the rendered tabs. */
+  const gapAt = (clientX: number) => {
+    const els = Array.from(
+      listRef.current?.querySelectorAll<HTMLElement>('[data-slot="editor-tab"]') ?? [],
+    );
+    const rtl = listRef.current ? getComputedStyle(listRef.current).direction === 'rtl' : false;
+    for (let i = 0; i < els.length; i++) {
+      const rect = els[i]!.getBoundingClientRect();
+      const mid = rect.left + rect.width / 2;
+      if (rtl ? clientX > mid : clientX < mid) return i;
+    }
+    return els.length;
+  };
+
+  const startDrag = (event: React.PointerEvent, id: string) => {
+    if (!onMove || event.button !== 0) return;
+    dragCleanup.current?.();
+    dragged.current = false;
+    const downX = event.clientX;
+    const move = (e: PointerEvent) => {
+      // A few pixels of slop so an ordinary click is not read as a drag.
+      if (!dragged.current && Math.abs(e.clientX - downX) < 4) return;
+      if (!dragged.current) {
+        dragged.current = true;
+        setDragId(id);
+      }
+      setDropGap(gapAt(e.clientX));
+    };
+    const stop = (e: PointerEvent | null) => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', cancel);
+      dragCleanup.current = null;
+      if (e && dragged.current) {
+        const from = lastIds.current.indexOf(id);
+        const gap = gapAt(e.clientX);
+        const to = gap > from ? gap - 1 : gap;
+        if (from !== -1 && to !== from) onMove(id, to);
+      }
+      setDragId(null);
+      setDropGap(null);
+    };
+    const up = (e: PointerEvent) => stop(e);
+    const cancel = () => stop(null);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', cancel);
+    dragCleanup.current = () => stop(null);
+  };
 
   const focusTab = (id: string | undefined) => {
     if (!id) return;
@@ -150,20 +211,23 @@ function EditorTabs({
               data-state={active ? 'active' : 'inactive'}
               data-dirty={tab.dirty || undefined}
               data-dragging={dragId === tab.id || undefined}
-              draggable={Boolean(onMove)}
-              onDragStart={(event) => {
-                setDragId(tab.id);
-                event.dataTransfer.effectAllowed = 'move';
-                event.dataTransfer.setData('text/plain', tab.id);
-              }}
-              onDragEnd={() => setDragId(null)}
-              onDragOver={(event) => {
-                if (dragId) event.preventDefault();
-              }}
-              onDrop={(event) => {
-                event.preventDefault();
-                if (dragId && dragId !== tab.id) onMove?.(dragId, i);
-                setDragId(null);
+              data-drop={
+                dragId === null
+                  ? undefined
+                  : dropGap === i
+                    ? 'before'
+                    : dropGap === tabs.length && i === tabs.length - 1
+                      ? 'after'
+                      : undefined
+              }
+              onPointerDown={(event) => startDrag(event, tab.id)}
+              onClickCapture={(event) => {
+                // Swallow the click that ends a drag.
+                if (dragged.current) {
+                  dragged.current = false;
+                  event.stopPropagation();
+                  event.preventDefault();
+                }
               }}
               onAuxClick={(event) => {
                 if (event.button === 1 && closeable) {
@@ -179,7 +243,9 @@ function EditorTabs({
                 'hover:bg-muted/60 data-[state=active]:bg-background data-[state=active]:text-foreground',
                 // The active tab's top edge carries the brand colour.
                 'data-[state=active]:before:absolute data-[state=active]:before:inset-x-0 data-[state=active]:before:top-0 data-[state=active]:before:h-0.5 data-[state=active]:before:bg-brand data-[state=active]:before:content-[""]',
-                'data-[dragging]:opacity-50',
+                'data-[dragging]:opacity-50 data-[dragging]:select-none',
+                // Where a dragged tab will land.
+                'data-[drop=before]:shadow-[inset_2px_0_0_var(--brand)] data-[drop=after]:shadow-[inset_-2px_0_0_var(--brand)]',
               )}
             >
               <button

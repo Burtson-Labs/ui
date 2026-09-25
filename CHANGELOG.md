@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.1
+
+Fixes from adopting the workbench primitives in Bandit Stealth.
+
+- **EditorTabs** drags with pointer events instead of HTML5 drag and drop,
+  which desktop webviews such as Tauri intercept. A line marks where the tab
+  will land, and the click that ends a drag no longer opens the tab.
+- **TreeView** gains `actionOnClick` (one click opens a file),
+  `expandOnClick` (plain clicks toggle folders in a multi-select explorer),
+  `indentGuides` (ancestor lines on hover) and a per-node `className` for app
+  states such as ignored or recently written files.
+
 ## 0.9.0
 
 Workbench primitives from the Bandit UX audit (work package 1).

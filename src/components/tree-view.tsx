@@ -20,6 +20,8 @@ export interface TreeNode {
   disabled?: boolean;
   /** Trailing detail, such as a git status letter or a count. */
   meta?: React.ReactNode;
+  /** Extra classes on the row, for app states such as an ignored file or a highlight. */
+  className?: string;
 }
 
 export interface TreeViewProps extends Omit<
@@ -39,6 +41,19 @@ export interface TreeViewProps extends Omit<
   selectionFollowsFocus?: boolean;
   /** Enter or double-click: open the file, run the item. */
   onAction?: (id: string) => void;
+  /**
+   * A plain click on a row without children also runs `onAction`, the way a
+   * file explorer opens a file on one click. Default off.
+   */
+  actionOnClick?: boolean;
+  /**
+   * A plain click on an expandable row toggles it. Defaults to on for single
+   * selection; turn it on for a multi-select explorer, where Shift and Ctrl/⌘
+   * clicks still only select.
+   */
+  expandOnClick?: boolean;
+  /** Draw a line per ancestor level while the pointer is over the tree. */
+  indentGuides?: boolean;
   /** Called once when a node with `hasChildren` and no children expands. */
   onLoadChildren?: (id: string) => void;
   /** Replace the label, e.g. with a rename input. Keys typed in an input never move focus. */
@@ -105,6 +120,9 @@ function TreeView({
   selectionMode = 'single',
   selectionFollowsFocus = false,
   onAction,
+  actionOnClick = false,
+  expandOnClick,
+  indentGuides = false,
   onLoadChildren,
   renderLabel,
   density = 'default',
@@ -333,9 +351,10 @@ function TreeView({
               data-state={isSelected ? 'selected' : undefined}
               style={{ paddingInlineStart: `${(row.level - 1) * 12 + 4}px` }}
               className={cn(
-                'flex h-7 shrink-0 cursor-default items-center gap-1 rounded-sm pe-2 outline-none group-data-[density=compact]/tree:h-6',
+                'relative flex h-7 shrink-0 cursor-default items-center gap-1 rounded-sm pe-2 outline-none group-data-[density=compact]/tree:h-6',
                 'hover:bg-muted/70 data-[state=selected]:bg-brand-soft/70 data-[state=selected]:text-foreground',
                 'focus-visible:shadow-[inset_0_0_0_1px_var(--ring)] aria-disabled:opacity-50',
+                node.className,
               )}
               onFocus={() => setFocusedId(node.id)}
               onClick={(event) => {
@@ -344,14 +363,11 @@ function TreeView({
                   node.id,
                   event.shiftKey ? 'range' : event.metaKey || event.ctrlKey ? 'toggle' : 'replace',
                 );
-                if (
-                  !event.shiftKey &&
-                  !event.metaKey &&
-                  !event.ctrlKey &&
-                  row.expandable &&
-                  selectionMode === 'single'
-                )
+                const plain = !event.shiftKey && !event.metaKey && !event.ctrlKey;
+                if (plain && row.expandable && (expandOnClick ?? selectionMode === 'single'))
                   setExpanded(row, !row.expanded);
+                if (plain && !row.expandable && actionOnClick && !node.disabled)
+                  onAction?.(node.id);
               }}
               onDoubleClick={(event) => {
                 if (!isTypingTarget(event.target) && !node.disabled) onAction?.(node.id);
@@ -360,6 +376,16 @@ function TreeView({
                 onRowContextMenu ? (event) => onRowContextMenu(node.id, event) : undefined
               }
             >
+              {indentGuides &&
+                Array.from({ length: row.level - 1 }, (_, level) => (
+                  <span
+                    key={level}
+                    aria-hidden
+                    data-slot="tree-guide"
+                    style={{ insetInlineStart: `${level * 12 + 12}px` }}
+                    className="pointer-events-none absolute inset-y-0 w-px bg-border opacity-0 transition-opacity group-hover/tree:opacity-100"
+                  />
+                ))}
               {/* A pointer shortcut only: Right and Left expand and collapse from the keyboard. */}
               <span
                 aria-hidden
