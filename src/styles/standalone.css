@@ -19,9 +19,15 @@
     box-sizing: border-box;
     border: 0 solid;
   }
-  button[data-slot] {
+  /* Buttons inside a component too (a tab's close button, a tour's step
+     dots): without preflight they would render with the browser's grey face,
+     border and padding. Utilities still win: this is the base layer. */
+  button[data-slot],
+  [data-slot] button {
     font: inherit;
+    color: inherit;
     background-color: transparent;
+    padding: 0;
     cursor: pointer;
   }
 }

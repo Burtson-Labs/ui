@@ -86,3 +86,19 @@ describe('MUI adapter', () => {
     expect(t.palette.background.default).toBe(dark.background);
   });
 });
+
+describe('standalone stylesheet', () => {
+  // Apps without Tailwind get no preflight, so a plain <button> inside a
+  // component (a tab's close button, a checklist row) would keep the
+  // browser's grey face and padding unless the scoped reset reaches it.
+  it('resets every button inside a component, not only slotted ones', () => {
+    const css = readFileSync(join(ROOT, 'src/styles/standalone.css'), 'utf8');
+    expect(css).toMatch(/\[data-slot\]\s+button\s*\{[^}]*background-color:\s*transparent/);
+    const unslotted = readdirSync(join(ROOT, 'src/components')).filter((f) => {
+      const src = readFileSync(join(ROOT, 'src/components', f), 'utf8');
+      return /<button\b/.test(src) && !/data-slot=/.test(src);
+    });
+    // Every file that renders a bare <button> puts it inside a data-slot root.
+    expect(unslotted).toEqual([]);
+  });
+});

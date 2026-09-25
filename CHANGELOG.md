@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.2
+
+- **Standalone stylesheet**: the scoped reset now covers every `<button>`
+  inside a component, not only buttons that carry `data-slot` themselves. In
+  apps without Tailwind's preflight (MUI apps), EditorTabs, Tour,
+  OnboardingChecklist, Combobox, Composer, Conversation, DataTable and
+  MobileNav rendered some buttons with the browser's grey face, border and
+  padding.
+
 ## 0.10.0
 
 App patterns from the Bandit modernization blueprint.
