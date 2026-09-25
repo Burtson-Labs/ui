@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.2
+## 0.10.1
 
 - **Standalone stylesheet**: the scoped reset now covers every `<button>`
   inside a component, not only buttons that carry `data-slot` themselves. In
