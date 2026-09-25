@@ -13,7 +13,16 @@ import pkg from '../package.json' with { type: 'json' };
 export default defineConfig({
   define: { __UI_VERSION__: JSON.stringify(pkg.version) },
   root: fileURLToPath(new URL('.', import.meta.url)),
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      // The preview-image URL carries the version, so Slack, Teams and
+      // iMessage fetch a fresh card after a release instead of a cached one.
+      name: 'ui-version-in-html',
+      transformIndexHtml: (html) => html.replaceAll('__UI_VERSION__', pkg.version),
+    },
+  ],
   resolve: {
     alias: [
       { find: /^@burtson-labs\/ui$/, replacement: `${src}/index.ts` },

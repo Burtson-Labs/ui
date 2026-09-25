@@ -58,7 +58,7 @@
   "scripts": {
     "dev": "npm run registry && vite --config site/vite.config.ts",
     "build": "node scripts/build.mjs",
-    "site": "npm run registry && vite build --config site/vite.config.ts",
+    "site": "npm run registry && vite build --config site/vite.config.ts && node --experimental-strip-types --no-warnings scripts/route-pages.mjs",
     "preview": "vite preview --config site/vite.config.ts",
     "lint": "eslint .",
     "format": "prettier --write .",

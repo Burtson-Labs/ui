@@ -121,7 +121,7 @@ export function Home() {
   ];
   return (
     <div>
-      <section className="grid gap-10 border-b py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
+      <section className="grid grid-cols-[minmax(0,1fr)] gap-10 border-b py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
         <div>
           <p className="font-mono text-xs text-muted-foreground">
             @burtson-labs/ui · v{version} · {components.length} components · MIT
@@ -143,7 +143,7 @@ export function Home() {
             </Button>
           </div>
         </div>
-        <div className="grid min-w-0 gap-3">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3">
           <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
           <div className="flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5">
             <span className="text-xs text-muted-foreground">Try an accent</span>
