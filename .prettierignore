@@ -4,3 +4,9 @@ site/public/r/
 node_modules/
 package-lock.json
 src/styles/theme.css
+
+# Pinned upstream source: retain upstream formatting.
+src/primitives/vendor/
+
+site/src/generated/
+.verify/

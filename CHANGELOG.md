@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.14.0
+
+Radix Primitives and cmdk are now local TypeScript source in the package
+instead of npm dependencies. No component API changes: every export, prop and
+class list is the same as 0.13.1.
+
+- **Local primitives**: the 48 Radix packages the components use (from the
+  radix-ui 1.6.7 install) and cmdk 1.1.1 live under `src/primitives/vendor/`
+  with their MIT notices, pinned versions, npm integrity values and original
+  file hashes (`vendor-manifest.json`, `VENDORING.md`). Local changes are
+  limited to import paths, license headers, strict TypeScript annotations and
+  a `process.env.NODE_ENV` development flag in place of a package export
+  condition. `npm run vendor:check` fails on any unrecorded edit.
+- **Dependencies**: `radix-ui` and `cmdk` are no longer installed.
+  `@floating-ui/react-dom`, `aria-hidden` and `react-remove-scroll` are now
+  direct dependencies (pinned to the versions Radix used).
+- **Client boundary**: every component and primitive module in `dist` starts
+  with `"use client"`. The entry barrel, `cn`, the platform helpers and the
+  tokens do not, so a Next.js server component can import from
+  `@burtson-labs/ui`, render components and call `cn()`. (0.13.0 could not be
+  imported from a server component at all.) Variant helpers such as
+  `buttonVariants` live in client modules; call them from client components.
+- **API references**: every component page on ui.burtson.ai lists props,
+  types, defaults and inherited primitive props for all 71 component modules.
+- **Registry**: copied components depend on granular `primitive-*` items that
+  install the local primitive source into `lib/burtson-primitives/`, with the
+  MIT notices at the top of each copied file.
+- **styles.css** (the precompiled stylesheet for apps without Tailwind) now
+  contains only the components' classes. It used to pick up utilities from
+  the docs site as well (about 9 kB, e.g. `.-mt-4`, `.text-7xl`); an app that
+  happened to use one of those stray classes from this file needs its own.
+- **Notices**: the package ships `LICENSES/` (Radix, cmdk, shadcn and every
+  runtime dependency's license) and `vendor-manifest.json`; the site serves
+  `/licenses.txt`.
+
+### Migrating
+
+Nothing to change for code that only imports from `@burtson-labs/ui`. An app
+that imported `radix-ui`, `@radix-ui/*` or `cmdk` directly and relied on this
+package to install them must add them to its own `dependencies`. Bundle size
+is unchanged or slightly smaller (Button, Dialog, Select, Command and
+DataTable: 153 kB minified vs 166 kB, excluding React).
+
 ## 0.13.1
 
 - **SelectTrigger height**: the size was set through a `data-size` attribute

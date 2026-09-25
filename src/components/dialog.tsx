@@ -1,8 +1,8 @@
 import X from '@burtson-labs/icons/react/x';
-import { Dialog as DialogPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as DialogPrimitive from '../primitives/vendor/radix/react-dialog';
 
 function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;

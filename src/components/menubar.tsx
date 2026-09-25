@@ -1,9 +1,9 @@
 import Check from '@burtson-labs/icons/react/check';
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
-import { Menubar as MenubarPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as MenubarPrimitive from '../primitives/vendor/radix/react-menubar';
 
 import { menuItemClasses as itemClasses, surfaceClasses } from './popover';
 

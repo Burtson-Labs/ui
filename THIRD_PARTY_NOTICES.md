@@ -1,6 +1,6 @@
 # Third-party notices
 
-Burtson UI is original work by Burtson Labs, released under the MIT license
+Burtson UI includes Burtson Labs components and vendored third-party primitives, released under the MIT license
 (see [LICENSE](LICENSE)). Its component API, the `data-slot` convention, the
 colour-token names and the registry format follow
 [shadcn/ui](https://github.com/shadcn-ui/ui), and several components adapt
@@ -30,5 +30,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Behaviour and accessibility come from [Radix UI](https://www.radix-ui.com)
-primitives (MIT, © WorkOS), installed as the `radix-ui` dependency.
+## Locally maintained primitives
+
+Radix Primitives and cmdk are maintained as TypeScript source under
+`src/primitives/vendor`. They are no longer installed as runtime packages.
+Their original MIT licenses are included in `LICENSES/Radix-MIT.txt` and
+`LICENSES/cmdk-MIT.txt`. `vendor-manifest.json` records exact versions,
+source origins, hashes, and local modifications. See `VENDORING.md`.
+
+Floating UI, aria-hidden, react-remove-scroll and the other declared
+dependencies remain external dependencies with their own licenses.
+`LICENSES/DEPENDENCIES.txt` preserves the installed runtime dependency and
+peer dependency notices, including class-variance-authority (Apache-2.0).
+The documentation site's `/licenses.txt` includes these notices too.
+Registry source files carry the applicable full MIT notices.

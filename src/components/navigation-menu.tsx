@@ -1,8 +1,8 @@
 import ChevronDown from '@burtson-labs/icons/react/chevron-down';
-import { NavigationMenu as NavigationMenuPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as NavigationMenuPrimitive from '../primitives/vendor/radix/react-navigation-menu';
 
 /**
  * Site navigation with dropdown panels (a products menu, docs sections).

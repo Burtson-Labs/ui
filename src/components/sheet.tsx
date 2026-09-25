@@ -1,8 +1,8 @@
 import X from '@burtson-labs/icons/react/x';
-import { Dialog as SheetPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as SheetPrimitive from '../primitives/vendor/radix/react-dialog';
 
 function Sheet(props: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;

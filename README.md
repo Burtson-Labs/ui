@@ -9,7 +9,7 @@
 
 **React components for Burtson Labs products.**
 
-Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Radix primitives handle focus and keyboard behaviour, Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
+Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Locally maintained MIT-licensed Radix primitives handle focus and keyboard behaviour, Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
 
 [![Docs](https://img.shields.io/badge/docs-ui.burtson.ai-a60ee5)](https://ui.burtson.ai)
 [![npm](https://img.shields.io/npm/v/@burtson-labs/ui?logo=npm)](https://www.npmjs.com/package/@burtson-labs/ui)
@@ -101,6 +101,10 @@ npm run check      # typecheck, lint, format, tests, package build, site build
 Adding a component: write `src/components/<name>.tsx`, export it from `src/index.ts`, add a demo in `site/src/demos/<name>.tsx` and an entry in `site/src/docs.ts`. The registry picks it up on the next build.
 
 Linting and formatting follow [Burtson Labs frontend standards](https://github.com/Burtson-Labs/frontend-standards). Every push is audited by [Sentinel](https://github.com/Burtson-Labs/sentinel-audit).
+
+## Local primitives and API references
+
+The primitive implementations and cmdk live in this repository; no external Radix or cmdk package is required. See [VENDORING.md](VENDORING.md) for provenance, retained dependencies, and maintenance, and [API_REFERENCE.md](API_REFERENCE.md) for the generated component references. Original licenses are retained in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and `LICENSES/`.
 
 ## License
 

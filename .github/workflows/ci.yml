@@ -19,6 +19,8 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Local primitive integrity and API references
+        run: npm run vendor:check && npm run api:check
       - name: Typecheck
         run: npm run typecheck
       - name: Lint (Burtson Labs frontend standards)
@@ -33,8 +35,12 @@ jobs:
         run: npm run build
       - name: Package contents
         run: npm pack --dry-run
+      - name: Packed consumers (React 18 and 19, strict types, server render)
+        run: node scripts/verify-package.mjs
       - name: Build site and registry
         run: npm run site
+      - name: Verify copied source and built primitive imports
+        run: npm run registry:check && npm run vendor:check
       - name: Upload site
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:

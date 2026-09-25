@@ -1,7 +1,7 @@
 {
   "name": "@burtson-labs/ui",
-  "version": "0.13.1",
-  "description": "React components for Burtson Labs products: Radix accessibility, Tailwind v4 styling, Burtson Icons. Install the package or copy the source.",
+  "version": "0.14.0",
+  "description": "React components for Burtson Labs products with locally maintained MIT-licensed primitives, Tailwind v4 styling, and Burtson Icons.",
   "license": "MIT",
   "author": {
     "name": "Burtson Labs",
@@ -53,23 +53,32 @@
     "dist",
     "README.md",
     "LICENSE",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSES",
+    "vendor-manifest.json"
   ],
   "scripts": {
-    "dev": "npm run registry && vite --config site/vite.config.ts",
-    "build": "node scripts/build.mjs",
-    "site": "npm run registry && vite build --config site/vite.config.ts && node --experimental-strip-types --no-warnings scripts/route-pages.mjs",
+    "dev": "npm run api && npm run registry && vite --config site/vite.config.ts",
+    "build": "npm run licenses && node scripts/build.mjs",
+    "site": "npm run api && npm run licenses && npm run registry && vite build --config site/vite.config.ts && node --experimental-strip-types --no-warnings scripts/route-pages.mjs",
     "preview": "vite preview --config site/vite.config.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npm run site",
+    "check": "npm run vendor:check && npm run api:check && npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npm run site && npm run registry:check && npm run vendor:check",
     "prepublishOnly": "npm run check",
     "theme": "node --experimental-strip-types --no-warnings scripts/theme.mjs",
     "registry": "node --experimental-strip-types --no-warnings scripts/registry.mjs",
-    "og": "npm run site && node scripts/og.mjs"
+    "og": "npm run site && node scripts/og.mjs",
+    "api": "node scripts/api-reference.mjs",
+    "api:check": "node scripts/api-reference.mjs --check",
+    "licenses": "node scripts/licenses.mjs",
+    "vendor:check": "node scripts/verify-vendor.mjs",
+    "vendor:record": "node scripts/verify-vendor.mjs --record",
+    "registry:check": "npm run registry && node scripts/verify-registry.mjs",
+    "package:check": "npm run build && node scripts/verify-package.mjs"
   },
   "peerDependencies": {
     "@burtson-labs/icons": ">=0.3.0",
@@ -89,10 +98,11 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
-    "radix-ui": "^1.6.7",
     "react-resizable-panels": "^4.13.3",
-    "tailwind-merge": "^3.7.0"
+    "tailwind-merge": "^3.7.0",
+    "@floating-ui/react-dom": "2.1.9",
+    "aria-hidden": "1.2.6",
+    "react-remove-scroll": "2.7.2"
   },
   "devDependencies": {
     "@burtson-labs/frontend-standards": "github:Burtson-Labs/frontend-standards#3d007ff818835a72aaa53087b1f86fedf35bebfe",

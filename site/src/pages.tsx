@@ -129,8 +129,9 @@ export function Home() {
           <h1 className="home-title">Burtson UI</h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             The React components behind Bandit Stealth, Sentinel, our cluster tools and client apps.
-            Radix handles focus and keyboard behaviour, Tailwind v4 handles styling, and the icons
-            are Burtson Icons. Install the package, or copy a component&apos;s source and change it.
+            Locally maintained Radix primitives handle focus and keyboard behaviour, Tailwind v4
+            handles styling, and the icons are Burtson Icons. Install the package, or copy a
+            component&apos;s source and change it.
           </p>
           <div className="mt-7 flex flex-wrap gap-2">
             <Button asChild>
@@ -427,11 +428,17 @@ export function ComponentPage({ doc }: { doc: ComponentDoc }) {
               target="_blank"
               rel="noreferrer"
             >
-              Radix {doc.radix} <ExternalLink />
+              Upstream attribution <ExternalLink />
             </a>
           </Badge>
         </div>
       )}
+      <a
+        href="#api-reference"
+        className="mb-5 inline-flex text-sm font-medium text-brand underline underline-offset-4"
+      >
+        API reference
+      </a>
       <Tabs defaultValue="preview">
         <TabsList>
           <TabsTrigger value="preview">Preview</TabsTrigger>

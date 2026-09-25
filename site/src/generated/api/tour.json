@@ -1,0 +1,974 @@
+{
+  "component": "tour",
+  "source": "src/components/tour.tsx",
+  "exports": [
+    {
+      "name": "findTourTarget",
+      "kind": "function",
+      "description": "",
+      "signatures": [
+        "(target: TourTarget | undefined): Element | null"
+      ],
+      "type": "(target: TourTarget | undefined) => Element | null",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "Spotlight",
+      "kind": "component",
+      "description": "One contextual hint beside a target: a new feature, a setup nudge. It is\ninformational, so it does not take focus or block the page. Escape (unless\nthe person is typing elsewhere) or the dismiss button closes it. If the target is\nnot on screen, nothing renders.",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "action",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "An extra button, e.g. \"Add a provider\".",
+          "native": false
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "required": false,
+          "default": "'center'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "dismissLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Got it'",
+          "description": "Default \"Got it\".",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "true",
+          "description": "Ring the target. Default true.",
+          "native": false
+        },
+        {
+          "name": "onDismiss",
+          "type": "(reason: \"dismiss\" | \"escape\") => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"right\" | \"bottom\" | \"left\" | undefined",
+          "required": false,
+          "default": "'bottom'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "target",
+          "type": "TourTarget",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "SpotlightProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "SpotlightProps",
+      "props": [
+        {
+          "name": "action",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "An extra button, e.g. \"Add a provider\".",
+          "native": false
+        },
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "dismissLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Default \"Got it\".",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Ring the target. Default true.",
+          "native": false
+        },
+        {
+          "name": "onDismiss",
+          "type": "(reason: \"dismiss\" | \"escape\") => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"right\" | \"bottom\" | \"left\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "target",
+          "type": "TourTarget",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "Tour",
+      "kind": "component",
+      "description": "A guided sequence of anchored steps. It is non-modal: the page stays\nusable and outside clicks do not end it. Focus moves into each step,\nEscape ends the tour (unless the person is typing in a field or editor\noutside it), and focus returns to where it was when the tour started.\nThe app owns the copy, the eligibility rules and what it persists.",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "dim",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "true",
+          "description": "Dim the page outside the target. Default true.",
+          "native": false
+        },
+        {
+          "name": "fallbackFocus",
+          "type": "(() => HTMLElement | null) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Where focus goes if the element that started the tour is gone.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<TourLabels> | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "missingTarget",
+          "type": "\"center\" | \"skip\" | undefined",
+          "required": false,
+          "default": "'center'",
+          "description": "`center` (default) shows a step whose target never appears in the middle; `skip` moves past it.",
+          "native": false
+        },
+        {
+          "name": "onEnd",
+          "type": "(reason: TourEndReason, step: number) => void",
+          "required": true,
+          "default": null,
+          "description": "The tour is over. Store dismissal or completion yourself, keyed by tour id and revision.",
+          "native": false
+        },
+        {
+          "name": "onStepChange",
+          "type": "(step: number) => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "Controlled, zero-based.",
+          "native": false
+        },
+        {
+          "name": "steps",
+          "type": "TourStep[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "waitMs",
+          "type": "number | undefined",
+          "required": false,
+          "default": "2000",
+          "description": "How long to wait for a late target. Default 2000ms.",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "TourAnchor",
+      "kind": "component",
+      "description": "Marks an element as a tour target. Merges onto its one child.",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement<unknown, string | React.JSXElementConstructor<any>>",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "TourEndReason",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "TourEndReason",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "TourLabels",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "TourLabels",
+      "props": [
+        {
+          "name": "back",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "close",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "done",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "next",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "progress",
+          "type": "(step: number, total: number) => string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "skip",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "TourProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "TourProps",
+      "props": [
+        {
+          "name": "dim",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Dim the page outside the target. Default true.",
+          "native": false
+        },
+        {
+          "name": "fallbackFocus",
+          "type": "(() => HTMLElement | null) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Where focus goes if the element that started the tour is gone.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<TourLabels> | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "missingTarget",
+          "type": "\"center\" | \"skip\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "`center` (default) shows a step whose target never appears in the middle; `skip` moves past it.",
+          "native": false
+        },
+        {
+          "name": "onEnd",
+          "type": "(reason: TourEndReason, step: number) => void",
+          "required": true,
+          "default": null,
+          "description": "The tour is over. Store dismissal or completion yourself, keyed by tour id and revision.",
+          "native": false
+        },
+        {
+          "name": "onStepChange",
+          "type": "(step: number) => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "Controlled, zero-based.",
+          "native": false
+        },
+        {
+          "name": "steps",
+          "type": "TourStep[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "waitMs",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "How long to wait for a late target. Default 2000ms.",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "TourStep",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "TourStep",
+      "props": [
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "prepare",
+          "type": "((signal: AbortSignal) => void | Promise<void>) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Reveal what the step points at (open a panel, switch a route) before it\nshows. Aborted if the person leaves the step first; a rejection shows the\nstep centred rather than stranding the tour.",
+          "native": false
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"right\" | \"bottom\" | \"left\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "target",
+          "type": "TourTarget | undefined",
+          "required": false,
+          "default": null,
+          "description": "Omit for a centred step with no anchor.",
+          "native": false
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "tourTarget",
+      "kind": "function",
+      "description": "The same marker as TourAnchor, for elements you render yourself.",
+      "signatures": [
+        "(id: string): { 'data-tour-target': string; }"
+      ],
+      "type": "(id: string) => { 'data-tour-target': string; }",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "TourTarget",
+      "kind": "type",
+      "description": "A registered target id (see TourAnchor), or a function returning the\nelement. Ids are stable; never target generated class names or nth-child.",
+      "signatures": [],
+      "type": "TourTarget",
+      "props": [
+        {
+          "name": "anchor",
+          "type": "(name: string) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns an `<a>` HTML anchor element and sets the name attribute to the text value",
+          "native": false
+        },
+        {
+          "name": "at",
+          "type": "(index: number) => string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Returns a new String consisting of the single UTF-16 code unit located at the specified index.",
+          "native": false
+        },
+        {
+          "name": "big",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<big>` HTML element",
+          "native": false
+        },
+        {
+          "name": "blink",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<blink>` HTML element",
+          "native": false
+        },
+        {
+          "name": "bold",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<b>` HTML element",
+          "native": false
+        },
+        {
+          "name": "charAt",
+          "type": "(pos: number) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns the character at the specified index.",
+          "native": false
+        },
+        {
+          "name": "charCodeAt",
+          "type": "(index: number) => number",
+          "required": false,
+          "default": null,
+          "description": "Returns the Unicode value of the character at the specified location.",
+          "native": false
+        },
+        {
+          "name": "codePointAt",
+          "type": "(pos: number) => number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point\nvalue of the UTF-16 encoded code point starting at the string element at position pos in\nthe String resulting from converting this object to a String.\nIf there is no element at that position, the result is undefined.\nIf a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.",
+          "native": false
+        },
+        {
+          "name": "concat",
+          "type": "(...strings: string[]) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a string that contains the concatenation of two or more strings.",
+          "native": false
+        },
+        {
+          "name": "endsWith",
+          "type": "(searchString: string, endPosition?: number) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Returns true if the sequence of elements of searchString converted to a String is the\nsame as the corresponding elements of this object (converted to a String) starting at\nendPosition – length(this). Otherwise returns false.",
+          "native": false
+        },
+        {
+          "name": "fixed",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<tt>` HTML element",
+          "native": false
+        },
+        {
+          "name": "fontcolor",
+          "type": "(color: string) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<font>` HTML element and sets the color attribute value",
+          "native": false
+        },
+        {
+          "name": "fontsize",
+          "type": "{ (size: number): string; (size: string): string; }",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<font>` HTML element and sets the size attribute value",
+          "native": false
+        },
+        {
+          "name": "includes",
+          "type": "(searchString: string, position?: number) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Returns true if searchString appears as a substring of the result of converting this\nobject to a String, at one or more positions that are\ngreater than or equal to position; otherwise, returns false.",
+          "native": false
+        },
+        {
+          "name": "indexOf",
+          "type": "(searchString: string, position?: number) => number",
+          "required": false,
+          "default": null,
+          "description": "Returns the position of the first occurrence of a substring, or -1 if it is not present.",
+          "native": false
+        },
+        {
+          "name": "italics",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns an `<i>` HTML element",
+          "native": false
+        },
+        {
+          "name": "lastIndexOf",
+          "type": "(searchString: string, position?: number) => number",
+          "required": false,
+          "default": null,
+          "description": "Returns the last occurrence of a substring in the string, or -1 if it is not present.",
+          "native": false
+        },
+        {
+          "name": "length",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "Returns the length of a String object.",
+          "native": false
+        },
+        {
+          "name": "link",
+          "type": "(url: string) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns an `<a>` HTML element and sets the href attribute value",
+          "native": false
+        },
+        {
+          "name": "localeCompare",
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }",
+          "required": false,
+          "default": null,
+          "description": "Determines whether two strings are equivalent in the current locale.\nDetermines whether two strings are equivalent in the current or specified locale.",
+          "native": false
+        },
+        {
+          "name": "match",
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }",
+          "required": false,
+          "default": null,
+          "description": "Matches a string with a regular expression, and returns an array containing the results of that search.\nMatches a string or an object that supports being matched against, and returns an array\ncontaining the results of that search, or null if no matches are found.",
+          "native": false
+        },
+        {
+          "name": "matchAll",
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>",
+          "required": false,
+          "default": null,
+          "description": "Matches a string with a regular expression, and returns an iterable of matches\ncontaining the results of that search.",
+          "native": false
+        },
+        {
+          "name": "normalize",
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }",
+          "required": false,
+          "default": null,
+          "description": "Returns the String value result of normalizing the string into the normalization form\nnamed by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.",
+          "native": false
+        },
+        {
+          "name": "padEnd",
+          "type": "(maxLength: number, fillString?: string) => string",
+          "required": false,
+          "default": null,
+          "description": "Pads the current string with a given string (possibly repeated) so that the resulting string reaches a given length.\nThe padding is applied from the end (right) of the current string.",
+          "native": false
+        },
+        {
+          "name": "padStart",
+          "type": "(maxLength: number, fillString?: string) => string",
+          "required": false,
+          "default": null,
+          "description": "Pads the current string with a given string (possibly repeated) so that the resulting string reaches a given length.\nThe padding is applied from the start (left) of the current string.",
+          "native": false
+        },
+        {
+          "name": "repeat",
+          "type": "(count: number) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a String value that is made from count copies appended together. If count is 0,\nthe empty string is returned.",
+          "native": false
+        },
+        {
+          "name": "replace",
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }",
+          "required": false,
+          "default": null,
+          "description": "Replaces text in a string, using a regular expression or search string.\nPasses a string and {@linkcode replaceValue} to the `[Symbol.replace]` method on {@linkcode searchValue}. This method is expected to implement its own replacement algorithm.\nReplaces text in a string, using an object that supports replacement within a string.",
+          "native": false
+        },
+        {
+          "name": "replaceAll",
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }",
+          "required": false,
+          "default": null,
+          "description": "Replace all instances of a substring in a string, using a regular expression or search string.",
+          "native": false
+        },
+        {
+          "name": "search",
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }",
+          "required": false,
+          "default": null,
+          "description": "Finds the first substring match in a regular expression search.",
+          "native": false
+        },
+        {
+          "name": "slice",
+          "type": "(start?: number, end?: number) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a section of a string.",
+          "native": false
+        },
+        {
+          "name": "small",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<small>` HTML element",
+          "native": false
+        },
+        {
+          "name": "split",
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }",
+          "required": false,
+          "default": null,
+          "description": "Split a string into substrings using the specified separator and return them as an array.",
+          "native": false
+        },
+        {
+          "name": "startsWith",
+          "type": "(searchString: string, position?: number) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Returns true if the sequence of elements of searchString converted to a String is the\nsame as the corresponding elements of this object (converted to a String) starting at\nposition. Otherwise returns false.",
+          "native": false
+        },
+        {
+          "name": "strike",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<strike>` HTML element",
+          "native": false
+        },
+        {
+          "name": "sub",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<sub>` HTML element",
+          "native": false
+        },
+        {
+          "name": "substr",
+          "type": "(from: number, length?: number) => string",
+          "required": false,
+          "default": null,
+          "description": "Gets a substring beginning at the specified location and having the specified length.",
+          "native": false
+        },
+        {
+          "name": "substring",
+          "type": "(start: number, end?: number) => string",
+          "required": false,
+          "default": null,
+          "description": "Returns the substring at the specified location within a String object.",
+          "native": false
+        },
+        {
+          "name": "sup",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Returns a `<sup>` HTML element",
+          "native": false
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }",
+          "required": false,
+          "default": null,
+          "description": "Converts all alphabetic characters to lowercase, taking into account the host environment's current locale.",
+          "native": false
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }",
+          "required": false,
+          "default": null,
+          "description": "Returns a string where all alphabetic characters have been converted to uppercase, taking into account the host environment's current locale.",
+          "native": false
+        },
+        {
+          "name": "toLowerCase",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Converts all the alphabetic characters in a string to lowercase.",
+          "native": false
+        },
+        {
+          "name": "toString",
+          "type": "() => string",
+          "required": true,
+          "description": "Returns a string representation of a string.\nReturns a string representation of a function.",
+          "native": false
+        },
+        {
+          "name": "toUpperCase",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Converts all the alphabetic characters in a string to uppercase.",
+          "native": false
+        },
+        {
+          "name": "trim",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Removes the leading and trailing white space and line terminator characters from a string.",
+          "native": false
+        },
+        {
+          "name": "trimEnd",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Removes the trailing white space and line terminator characters from a string.",
+          "native": false
+        },
+        {
+          "name": "trimLeft",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Removes the leading white space and line terminator characters from a string.",
+          "native": false
+        },
+        {
+          "name": "trimRight",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Removes the trailing white space and line terminator characters from a string.",
+          "native": false
+        },
+        {
+          "name": "trimStart",
+          "type": "() => string",
+          "required": false,
+          "default": null,
+          "description": "Removes the leading white space and line terminator characters from a string.",
+          "native": false
+        },
+        {
+          "name": "valueOf",
+          "type": "() => string | () => Object",
+          "required": true,
+          "description": "Returns the primitive value of the specified object.",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "waitForTourTarget",
+      "kind": "function",
+      "description": "Resolves when the target is mounted and visible, or with null after\n`timeoutMs` or when `signal` aborts. Handles targets that render late\n(lazy panels, async data) without polling forever.",
+      "signatures": [
+        "(target: TourTarget | undefined, timeoutMs: number, signal: AbortSignal): Promise<Element | null>"
+      ],
+      "type": "(target: TourTarget | undefined, timeoutMs: number, signal: AbortSignal) => Promise<Element | null>",
+      "props": [],
+      "inherited": []
+    }
+  ]
+}

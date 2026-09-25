@@ -1,0 +1,857 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 check
+> npm run vendor:check && npm run api:check && npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npm run site && npm run registry:check && npm run vendor:check
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 vendor:check
+> node scripts/verify-vendor.mjs
+
+Verified 107 vendor sources; lockfile and imports contain no external Radix/cmdk.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 api:check
+> node scripts/api-reference.mjs --check
+
+Checked 71 API pages covering 365 exports.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 lint
+> eslint .
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 test
+> vitest run
+
+
+ RUN  v5.0.1 <project>
+
+
+ Test Files  11 passed (11)
+      Tests  311 passed (311)
+   Start at  00:27:54
+   Duration  4.71s (tests 38%, transform 26%, environment 23%, import 9%, setup 3%)
+
+  Transform  transforming modules took 7.25s · 26% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 build
+> npm run licenses && node scripts/build.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 licenses
+> node scripts/licenses.mjs
+
+Preserved notices for 100 installed runtime/peer packages.
+theme.css matches tokens.ts
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-tabs/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-tabs/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-alert-dialog/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-alert-dialog/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-separator/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-separator/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-dialog/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-dialog/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-scroll-area/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-scroll-area/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-accordion/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-accordion/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-collapsible/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-collapsible/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-toast/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-toast/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-select/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-select/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-tooltip/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-tooltip/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-avatar/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-avatar/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-checkbox/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-checkbox/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-popover/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-popover/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-switch/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-switch/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-progress/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-progress/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-slot/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-slot/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-radio-group/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-radio-group/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-navigation-menu/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-navigation-menu/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-dropdown-menu/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-dropdown-menu/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-label/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-label/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-menubar/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-menubar/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-context-menu/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-context-menu/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/cmdk/index.tsx" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/cmdk/index.tsx:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-collection/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-collection/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-primitive/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-primitive/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-direction/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-direction/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-roving-focus/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-roving-focus/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-popper/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-popper/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-visually-hidden/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-visually-hidden/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-dismissable-layer/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-dismissable-layer/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-presence/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-presence/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-focus-guards/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-focus-guards/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-focus-scope/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-focus-scope/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[INVALID_ANNOTATION] A comment "/* @__NO_SIDE_EFFECTS__ */" in "src/primitives/vendor/radix/react-primitive/primitive.tsx" contains an annotation that Rolldown cannot interpret due to the position of the comment.
+    ╭─[ src/primitives/vendor/radix/react-primitive/primitive.tsx:24:1 ]
+    │
+ 24 │ /* @__NO_SIDE_EFFECTS__ */ const Primitive = NODES.reduce((primitive, node) => {
+    │ ─────────────┬────────────  
+    │              ╰────────────── comment ignored due to position
+    │ 
+    │ Help 1: Correct annotation placement: https://rolldown.rs/in-depth/dead-code-elimination#no-side-effects
+    │ 
+    │ Help 2: Disable with `checks.invalidAnnotation: false`.
+────╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-portal/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-portal/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-menu/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-menu/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+[MODULE_LEVEL_DIRECTIVE] The semantics of the module level directive "use client" in "src/primitives/vendor/radix/react-arrow/index.ts" may not be preserved when bundling.
+   ╭─[ src/primitives/vendor/radix/react-arrow/index.ts:1:1 ]
+   │
+ 1 │ "use client";
+   │ ──────┬──────  
+   │       ╰──────── module level directive may not be preserved
+   │ 
+   │ Help: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+───╯
+
+≈ tailwindcss v4.3.3
+
+Done in 137ms
+built dist/
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 site
+> npm run api && npm run licenses && npm run registry && vite build --config site/vite.config.ts && node --experimental-strip-types --no-warnings scripts/route-pages.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 api
+> node scripts/api-reference.mjs
+
+Generated 71 API pages covering 365 exports.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 licenses
+> node scripts/licenses.mjs
+
+Preserved notices for 100 installed runtime/peer packages.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 registry
+> node --experimental-strip-types --no-warnings scripts/registry.mjs
+
+registry: 122 items -> site/public/r
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 686 modules transformed.
+rendering chunks...
+computing gzip size...
+site/dist/og.html                                    0.92 kB │ gzip:  0.37 kB
+site/dist/index.html                                 3.22 kB │ gzip:  1.02 kB
+site/dist/assets/styles-CFffAv2x.css               111.01 kB │ gzip: 18.83 kB
+site/dist/assets/chevron-down-BUZBoFnE.js            0.11 kB │ gzip:  0.12 kB
+site/dist/assets/chevron-right-CUNUmA6W.js           0.11 kB │ gzip:  0.12 kB
+site/dist/assets/plus-jygdMJZm.js                    0.12 kB │ gzip:  0.12 kB
+site/dist/assets/activity-wMASg1cA.js                0.12 kB │ gzip:  0.13 kB
+site/dist/assets/more-horizontal-BJreg4Z7.js         0.12 kB │ gzip:  0.12 kB
+site/dist/assets/square-BEDWxJC9.js                  0.12 kB │ gzip:  0.13 kB
+site/dist/assets/x--hDyvtm-.js                       0.12 kB │ gzip:  0.12 kB
+site/dist/assets/arrow-down-CtE1OdAW.js              0.13 kB │ gzip:  0.13 kB
+site/dist/assets/arrow-up-BGIdozBS.js                0.13 kB │ gzip:  0.13 kB
+site/dist/assets/chevrons-up-down-eVajNcKi.js        0.13 kB │ gzip:  0.13 kB
+site/dist/assets/check-circle-DisPX_AN.js            0.15 kB │ gzip:  0.15 kB
+site/dist/assets/edit-B9e5PseN.js                    0.15 kB │ gzip:  0.14 kB
+site/dist/assets/rotate-ccw-CdvrfVe1.js              0.15 kB │ gzip:  0.14 kB
+site/dist/assets/rotate-cw-DCzujeAx.js               0.15 kB │ gzip:  0.15 kB
+site/dist/assets/alert-circle-Dc-PrWNn.js            0.16 kB │ gzip:  0.15 kB
+site/dist/assets/play-BdPEWe8H.js                    0.16 kB │ gzip:  0.15 kB
+site/dist/assets/shield-proof-5yVv6JwU.js            0.18 kB │ gzip:  0.17 kB
+site/dist/assets/terminal-DA1Wp7f2.js                0.18 kB │ gzip:  0.17 kB
+site/dist/assets/folder-CUjLjUDA.js                  0.19 kB │ gzip:  0.15 kB
+site/dist/assets/progress-BwsnjPXm.js                0.20 kB │ gzip:  0.17 kB
+site/dist/assets/download-CPEtwyRD.js                0.21 kB │ gzip:  0.17 kB
+site/dist/assets/progress-BiPfL2rv.js                0.21 kB │ gzip:  0.19 kB
+site/dist/assets/sparkles-BzrUUC_u.js                0.21 kB │ gzip:  0.17 kB
+site/dist/assets/trash-CqHeR7PH.js                   0.23 kB │ gzip:  0.17 kB
+site/dist/assets/file-text-BJF-Sx2C.js               0.23 kB │ gzip:  0.18 kB
+site/dist/assets/agent-Cf6pYYjn.js                   0.23 kB │ gzip:  0.18 kB
+site/dist/assets/truck-route-D72F3F_v.js             0.23 kB │ gzip:  0.19 kB
+site/dist/assets/skeleton-8iNmoOBl.js                0.25 kB │ gzip:  0.21 kB
+site/dist/assets/use-previous-D6W9NbSW.js            0.25 kB │ gzip:  0.18 kB
+site/dist/assets/file-code-Co2b6Aa5.js               0.26 kB │ gzip:  0.18 kB
+site/dist/assets/git-branch-C7REq0Vv.js              0.26 kB │ gzip:  0.18 kB
+site/dist/assets/textarea-CxFph77R.js                0.30 kB │ gzip:  0.24 kB
+site/dist/assets/label-p7ePCqVg.js                   0.30 kB │ gzip:  0.23 kB
+site/dist/assets/kbd-JbOM8e8c.js                     0.31 kB │ gzip:  0.22 kB
+site/dist/assets/textarea-1M0SVsDT.js                0.32 kB │ gzip:  0.24 kB
+site/dist/assets/switch-CjQD6Mr9.js                  0.32 kB │ gzip:  0.22 kB
+site/dist/assets/kbd-DJZnGcll.js                     0.33 kB │ gzip:  0.24 kB
+site/dist/assets/portal-CdjUnLJh.js                  0.35 kB │ gzip:  0.28 kB
+site/dist/assets/pagination-BDEjPsRH.js              0.35 kB │ gzip:  0.27 kB
+site/dist/assets/label-H5GSX_Hl.js                   0.35 kB │ gzip:  0.26 kB
+site/dist/assets/spinner-8lgcw2bq.js                 0.35 kB │ gzip:  0.28 kB
+site/dist/assets/secret-input-BJx8IweA.js            0.36 kB │ gzip:  0.25 kB
+site/dist/assets/textarea-DEhPlX10.js                0.36 kB │ gzip:  0.28 kB
+site/dist/assets/switch-BDDUbixa.js                  0.36 kB │ gzip:  0.25 kB
+site/dist/assets/skeleton-2VdUOCsW.js                0.37 kB │ gzip:  0.26 kB
+site/dist/assets/skeleton-BJ9Am_37.js                0.37 kB │ gzip:  0.23 kB
+site/dist/assets/skeleton-B7aXmhQh.js                0.37 kB │ gzip:  0.22 kB
+site/dist/assets/tooltip-C-r7ObP0.js                 0.39 kB │ gzip:  0.27 kB
+site/dist/assets/copy-button-ChWQIBUk.js             0.40 kB │ gzip:  0.29 kB
+site/dist/assets/input-Btkz7pp7.js                   0.40 kB │ gzip:  0.28 kB
+site/dist/assets/copy-button-Bro__Aea.js             0.41 kB │ gzip:  0.26 kB
+site/dist/assets/visually-hidden-FAufj5Uy.js         0.41 kB │ gzip:  0.31 kB
+site/dist/assets/spinner-BcxTpr2w.js                 0.41 kB │ gzip:  0.25 kB
+site/dist/assets/spinner-C0EiT3m9.js                 0.42 kB │ gzip:  0.27 kB
+site/dist/assets/checkbox-BtdN_oIX.js                0.43 kB │ gzip:  0.25 kB
+site/dist/assets/markdown-C7x6CvRO.js                0.45 kB │ gzip:  0.35 kB
+site/dist/assets/checkbox-BKBEx1gO.js                0.46 kB │ gzip:  0.29 kB
+site/dist/assets/input-D_BJ22xK.js                   0.46 kB │ gzip:  0.32 kB
+site/dist/assets/tooltip-DmORKlu-.js                 0.46 kB │ gzip:  0.26 kB
+site/dist/assets/spinner-LaCEzk7p.js                 0.48 kB │ gzip:  0.30 kB
+site/dist/assets/markdown-BCNbC1FZ.js                0.48 kB │ gzip:  0.35 kB
+site/dist/assets/reasoning-Cununf9D.js               0.49 kB │ gzip:  0.34 kB
+site/dist/assets/badge-PmWiLcYq.js                   0.51 kB │ gzip:  0.26 kB
+site/dist/assets/radio-group-Dx_E0JFo.js             0.51 kB │ gzip:  0.25 kB
+site/dist/assets/status-DhRKR-99.js                  0.53 kB │ gzip:  0.30 kB
+site/dist/assets/reasoning-CQLQ7SUX.js               0.53 kB │ gzip:  0.33 kB
+site/dist/assets/status-DszTdihi.js                  0.53 kB │ gzip:  0.32 kB
+site/dist/assets/scroll-area-BW1cLokB.js             0.53 kB │ gzip:  0.32 kB
+site/dist/assets/textarea-B9K08i2d.js                0.54 kB │ gzip:  0.32 kB
+site/dist/assets/toaster-BU9O6Hxc.js                 0.54 kB │ gzip:  0.34 kB
+site/dist/assets/badge-BGRsGOF8.js                   0.56 kB │ gzip:  0.29 kB
+site/dist/assets/steps-CHjGo4cT.js                   0.56 kB │ gzip:  0.32 kB
+site/dist/assets/avatar-BX6pM37u.js                  0.56 kB │ gzip:  0.27 kB
+site/dist/assets/settings-DNQMGWnq.js                0.57 kB │ gzip:  0.31 kB
+site/dist/assets/scroll-area-D-88H4ZV.js             0.58 kB │ gzip:  0.34 kB
+site/dist/assets/select-y4J7QXf4.js                  0.59 kB │ gzip:  0.32 kB
+site/dist/assets/icon-button-CKUFyis_.js             0.60 kB │ gzip:  0.32 kB
+site/dist/assets/separator-DD-6vLGo.js               0.61 kB │ gzip:  0.32 kB
+site/dist/assets/toast-BeCHZD-z.js                   0.62 kB │ gzip:  0.37 kB
+site/dist/assets/voice-recorder-JTJB6oUG.js          0.63 kB │ gzip:  0.43 kB
+site/dist/assets/slider-DFUeC-q8.js                  0.64 kB │ gzip:  0.36 kB
+site/dist/assets/toaster-BpcuW3KM.js                 0.64 kB │ gzip:  0.35 kB
+site/dist/assets/label-B_5xBkfo.js                   0.65 kB │ gzip:  0.37 kB
+site/dist/assets/pagination-BNEsTs5L.js              0.65 kB │ gzip:  0.36 kB
+site/dist/assets/icon-button-C0MXJn0a.js             0.66 kB │ gzip:  0.35 kB
+site/dist/assets/label-BgJ87hDK.js                   0.66 kB │ gzip:  0.42 kB
+site/dist/assets/separator-B8QiyPs8.js               0.67 kB │ gzip:  0.33 kB
+site/dist/assets/empty-state-DyIK_f8Q.js             0.68 kB │ gzip:  0.40 kB
+site/dist/assets/breadcrumb-CwgnZPXW.js              0.70 kB │ gzip:  0.24 kB
+site/dist/assets/audio-player-jypVpqLT.js            0.71 kB │ gzip:  0.41 kB
+site/dist/assets/separator-Cp-jsYEy.js               0.73 kB │ gzip:  0.35 kB
+site/dist/assets/select-RJntyNP7.js                  0.74 kB │ gzip:  0.33 kB
+site/dist/assets/tabs-Bkw0X4Xw.js                    0.74 kB │ gzip:  0.35 kB
+site/dist/assets/separator-C9B3IArn.js               0.78 kB │ gzip:  0.42 kB
+site/dist/assets/kbd-DM1pMrLN.js                     0.78 kB │ gzip:  0.40 kB
+site/dist/assets/toast-CyK2uRxt.js                   0.78 kB │ gzip:  0.40 kB
+site/dist/assets/tool-call-DOpA3cuw.js               0.82 kB │ gzip:  0.50 kB
+site/dist/assets/icon-button-DFRWKOFo.js             0.82 kB │ gzip:  0.33 kB
+site/dist/assets/voice-recorder-D-H3C7Pp.js          0.83 kB │ gzip:  0.48 kB
+site/dist/assets/composer-CqkkRvGS.js                0.83 kB │ gzip:  0.52 kB
+site/dist/assets/combobox-j7RRHcFu.js                0.86 kB │ gzip:  0.45 kB
+site/dist/assets/popover-DXkxtCsp.js                 0.86 kB │ gzip:  0.38 kB
+site/dist/assets/empty-state-PNz-XGF9.js             0.86 kB │ gzip:  0.38 kB
+site/dist/assets/tabs-C_6I8aZP.js                    0.86 kB │ gzip:  0.35 kB
+site/dist/assets/button-DyzmGVa8.js                  0.87 kB │ gzip:  0.42 kB
+site/dist/assets/popover-Cywnwvtd.js                 0.87 kB │ gzip:  0.41 kB
+site/dist/assets/button-CvJzSnJf.js                  0.88 kB │ gzip:  0.38 kB
+site/dist/assets/message-Bj_EQWTq.js                 0.88 kB │ gzip:  0.49 kB
+site/dist/assets/card-JCU_oWa5.js                    0.89 kB │ gzip:  0.44 kB
+site/dist/assets/message-actions-DGIXm5f3.js         0.93 kB │ gzip:  0.55 kB
+site/dist/assets/command-CUoP6nc4.js                 0.93 kB │ gzip:  0.46 kB
+site/dist/assets/field-DMuFbUfG.js                   0.95 kB │ gzip:  0.36 kB
+site/dist/assets/stat-card-DgzOSYZb.js               0.96 kB │ gzip:  0.45 kB
+site/dist/assets/collapsible-B7VIoFth.js             0.96 kB │ gzip:  0.45 kB
+site/dist/assets/source-CGQtKF-Y.js                  0.98 kB │ gzip:  0.52 kB
+site/dist/assets/collapsible-C3cOw8iv.js             0.99 kB │ gzip:  0.37 kB
+site/dist/assets/page-header-BGRlBkTO.js             1.00 kB │ gzip:  0.43 kB
+site/dist/assets/card-DzAOOZiQ.js                    1.02 kB │ gzip:  0.47 kB
+site/dist/assets/attachment-DwfuM1_a.js              1.04 kB │ gzip:  0.61 kB
+site/dist/assets/accordion-CIwrcILr.js               1.05 kB │ gzip:  0.43 kB
+site/dist/assets/chat-history-DvYVxOx7.js            1.06 kB │ gzip:  0.60 kB
+site/dist/assets/table-DD6fcQCr.js                   1.06 kB │ gzip:  0.50 kB
+site/dist/assets/alert-BX7e1c9I.js                   1.07 kB │ gzip:  0.55 kB
+site/dist/assets/field-DEcnTo4M.js                   1.07 kB │ gzip:  0.54 kB
+site/dist/assets/message-iEFMmbFx.js                 1.07 kB │ gzip:  0.49 kB
+site/dist/assets/empty-state-C688T04T.js             1.07 kB │ gzip:  0.46 kB
+site/dist/assets/resizable-Dm15Bck_.js               1.08 kB │ gzip:  0.49 kB
+site/dist/assets/mobile-nav-CCmJJFeY.js              1.08 kB │ gzip:  0.53 kB
+site/dist/assets/alert-DN9lMU4P.js                   1.09 kB │ gzip:  0.45 kB
+site/dist/assets/tool-call-DkBsSTzn.js               1.10 kB │ gzip:  0.53 kB
+site/dist/assets/switch-BlvhPBTL.js                  1.13 kB │ gzip:  0.55 kB
+site/dist/assets/alert-dialog-CKS-II8I.js            1.14 kB │ gzip:  0.45 kB
+site/dist/assets/chat-layout-DNSWxDOX.js             1.15 kB │ gzip:  0.63 kB
+site/dist/assets/dropdown-menu-DRo6XEgo.js           1.17 kB │ gzip:  0.59 kB
+site/dist/assets/progress-b110jEQf.js                1.18 kB │ gzip:  0.57 kB
+site/dist/assets/field-Chx6R6ch.js                   1.19 kB │ gzip:  0.53 kB
+site/dist/assets/checkbox-card-D_-vqkJB.js           1.19 kB │ gzip:  0.60 kB
+site/dist/assets/avatar-mEvCdi7R.js                  1.19 kB │ gzip:  0.46 kB
+site/dist/assets/toolbar-C9thdLL0.js                 1.21 kB │ gzip:  0.40 kB
+site/dist/assets/collapsible-CtGt_F4-.js             1.24 kB │ gzip:  0.57 kB
+site/dist/assets/command-BCzftL7w.js                 1.29 kB │ gzip:  0.47 kB
+site/dist/assets/sheet-CBD6spT0.js                   1.30 kB │ gzip:  0.53 kB
+site/dist/assets/alert-BqWo99_Q.js                   1.33 kB │ gzip:  0.58 kB
+site/dist/assets/table-BXHpR1zK.js                   1.33 kB │ gzip:  0.54 kB
+site/dist/assets/resizable-CLbpgfiE.js               1.33 kB │ gzip:  0.50 kB
+site/dist/assets/chat-layout-ME_FQPe_.js             1.34 kB │ gzip:  0.64 kB
+site/dist/assets/radio-group-CE3zYEJw.js             1.38 kB │ gzip:  0.58 kB
+site/dist/assets/stat-card-DkfSDNx4.js               1.38 kB │ gzip:  0.60 kB
+site/dist/assets/toaster-CTohJZz8.js                 1.38 kB │ gzip:  0.53 kB
+site/dist/assets/secret-input-hTJAmnH0.js            1.40 kB │ gzip:  0.79 kB
+site/dist/assets/message-BSqTG-Cp.js                 1.42 kB │ gzip:  0.66 kB
+site/dist/assets/toolbar-9BWqVJbS.js                 1.43 kB │ gzip:  0.50 kB
+site/dist/assets/breadcrumb-Cu5mtC9x.js              1.46 kB │ gzip:  0.59 kB
+site/dist/assets/composer-qg68k_xp.js                1.47 kB │ gzip:  0.72 kB
+site/dist/assets/dropdown-menu-BUGPU4my.js           1.48 kB │ gzip:  0.50 kB
+site/dist/assets/connection-status-Dpt3xfiE.js       1.50 kB │ gzip:  0.66 kB
+site/dist/assets/checkbox-DRo8fhDd.js                1.50 kB │ gzip:  0.64 kB
+site/dist/assets/context-menu-CQa9PcZD.js            1.52 kB │ gzip:  0.54 kB
+site/dist/assets/message-actions-BeCWwPCv.js         1.57 kB │ gzip:  0.67 kB
+site/dist/assets/secret-input-CmcR3dcL.js            1.57 kB │ gzip:  0.77 kB
+site/dist/assets/menubar-URbUdD0f.js                 1.58 kB │ gzip:  0.41 kB
+site/dist/assets/audio-player-gBRX9j9y.js            1.58 kB │ gzip:  0.90 kB
+site/dist/assets/chat-history-HvMJgWXe.js            1.59 kB │ gzip:  0.71 kB
+site/dist/assets/badge-C10bbnLB.js                   1.63 kB │ gzip:  0.77 kB
+site/dist/assets/scroll-area-DW4VvAZ3.js             1.64 kB │ gzip:  0.59 kB
+site/dist/assets/sheet-ZcLDWeVB.js                   1.66 kB │ gzip:  0.62 kB
+site/dist/assets/empty-state-BkxJGz2z.js             1.69 kB │ gzip:  0.55 kB
+site/dist/assets/field-Doj96JO8.js                   1.69 kB │ gzip:  0.54 kB
+site/dist/assets/status-DZf7NWT2.js                  1.72 kB │ gzip:  0.67 kB
+site/dist/assets/dialog-DXkITsx6.js                  1.73 kB │ gzip:  0.59 kB
+site/dist/assets/app-shell-mojq5WE6.js               1.74 kB │ gzip:  0.53 kB
+site/dist/assets/conversation-_bdWEIpW.js            1.74 kB │ gzip:  0.92 kB
+site/dist/assets/attachment-DIP-q5NZ.js              1.76 kB │ gzip:  0.81 kB
+site/dist/assets/reasoning-B7kYKTt-.js               1.78 kB │ gzip:  0.91 kB
+site/dist/assets/tabs-D0L8ccOB.js                    1.80 kB │ gzip:  0.64 kB
+site/dist/assets/toolbar-TXIeymw-.js                 1.82 kB │ gzip:  0.73 kB
+site/dist/assets/tree-view-CjS1bXfL.js               1.83 kB │ gzip:  0.67 kB
+site/dist/assets/page-header-DCx38vd5.js             1.86 kB │ gzip:  0.79 kB
+site/dist/assets/page-header-sNp0oT49.js             1.87 kB │ gzip:  0.59 kB
+site/dist/assets/input-DXyyoeB_.js                   1.88 kB │ gzip:  0.95 kB
+site/dist/assets/alert-CebE2kbA.js                   1.91 kB │ gzip:  0.70 kB
+site/dist/assets/conversation-vKe8mDt-.js            1.92 kB │ gzip:  0.99 kB
+site/dist/assets/stat-card-D11_kIIP.js               1.94 kB │ gzip:  0.88 kB
+site/dist/assets/app-shell-Bn5r1J7r.js               1.95 kB │ gzip:  0.83 kB
+site/dist/assets/onboarding-checklist-CnD_yL80.js    1.99 kB │ gzip:  0.76 kB
+site/dist/assets/slider-u17syFhi.js                  2.07 kB │ gzip:  0.84 kB
+site/dist/assets/navigation-menu-DaEcmeSE.js         2.11 kB │ gzip:  0.68 kB
+site/dist/assets/accordion-B1F5niTS.js               2.11 kB │ gzip:  0.77 kB
+site/dist/assets/tooltip-CeGDD2Hk.js                 2.17 kB │ gzip:  0.79 kB
+site/dist/assets/collapsible-D031bLHe.js             2.19 kB │ gzip:  0.97 kB
+site/dist/assets/copy-button-CS8nO5oe.js             2.19 kB │ gzip:  0.99 kB
+site/dist/assets/dialog-BzE-IzDh.js                  2.21 kB │ gzip:  0.65 kB
+site/dist/assets/checkbox-card-B3cro4p4.js           2.38 kB │ gzip:  1.04 kB
+site/dist/assets/breadcrumb-D99okhxe.js              2.47 kB │ gzip:  0.77 kB
+site/dist/assets/app-shell-XeT81pXV.js               2.48 kB │ gzip:  1.01 kB
+site/dist/assets/toaster-DKnTvZVp.js                 2.49 kB │ gzip:  1.11 kB
+site/dist/assets/tour-CMcDcPjN.js                    2.51 kB │ gzip:  1.01 kB
+site/dist/assets/slider-Qy17L_7s.js                  2.52 kB │ gzip:  1.00 kB
+site/dist/assets/popover-Dc3LIq6y.js                 2.55 kB │ gzip:  1.07 kB
+site/dist/assets/editor-tabs-Je2ryqGq.js             2.55 kB │ gzip:  0.99 kB
+site/dist/assets/avatar-D218TswF.js                  2.61 kB │ gzip:  1.13 kB
+site/dist/assets/table-CgzCG0g8.js                   2.62 kB │ gzip:  1.10 kB
+site/dist/assets/message-D88TEa06.js                 2.70 kB │ gzip:  1.14 kB
+site/dist/assets/reasoning-B-PR2Jmk.js               2.73 kB │ gzip:  1.15 kB
+site/dist/assets/conversation-e54l186L.js            2.77 kB │ gzip:  1.15 kB
+site/dist/assets/mobile-nav-CVgqRn06.js              2.83 kB │ gzip:  1.32 kB
+site/dist/assets/og-WDp3Oytv.js                      2.96 kB │ gzip:  1.15 kB
+site/dist/assets/steps-CDQUtD8S.js                   3.04 kB │ gzip:  1.21 kB
+site/dist/assets/combobox-FW3JKLKm.js                3.10 kB │ gzip:  1.39 kB
+site/dist/assets/markdown-DMrM2nng.js                3.20 kB │ gzip:  1.49 kB
+site/dist/assets/chat-example-C_216NBt.js            3.28 kB │ gzip:  1.61 kB
+site/dist/assets/checkbox-card-CPyDFh7e.js           3.42 kB │ gzip:  1.27 kB
+site/dist/assets/conversation-Cf5j0Enj.js            3.46 kB │ gzip:  1.47 kB
+site/dist/assets/card-COiNeaIr.js                    3.50 kB │ gzip:  1.01 kB
+site/dist/assets/onboarding-checklist-Hxd1-8Ah.js    3.66 kB │ gzip:  1.47 kB
+site/dist/assets/source-B6lW8yqX.js                  3.73 kB │ gzip:  1.52 kB
+site/dist/assets/attachment-BsQe9x1Q.js              3.73 kB │ gzip:  1.64 kB
+site/dist/assets/alert-dialog-C6D2Bh0g.js            3.88 kB │ gzip:  1.18 kB
+site/dist/assets/alert-dialog-gctZ2m1W.js            3.97 kB │ gzip:  1.42 kB
+site/dist/assets/switch-kb_-RoKJ.js                  4.04 kB │ gzip:  1.73 kB
+site/dist/assets/toast-BbdiBPD9.js                   4.11 kB │ gzip:  1.41 kB
+site/dist/assets/tool-call-C5_RUtHS.js               4.15 kB │ gzip:  1.62 kB
+site/dist/assets/button-DWehBVye.js                  4.18 kB │ gzip:  1.51 kB
+site/dist/assets/onboarding-checklist-DbrnlAmW.js    4.19 kB │ gzip:  1.50 kB
+site/dist/assets/mobile-nav-BtfCVqOd.js              4.21 kB │ gzip:  1.67 kB
+site/dist/assets/connection-status-DKc1XPHw.js       4.27 kB │ gzip:  1.74 kB
+site/dist/assets/message-actions-BUuFjlkH.js         4.32 kB │ gzip:  1.75 kB
+site/dist/assets/audio-player-BY4xR2J4.js            4.39 kB │ gzip:  2.04 kB
+site/dist/assets/data-table-DeSbv0Qu.js              4.45 kB │ gzip:  1.87 kB
+site/dist/assets/checkbox-Ckjv8oyV.js                4.51 kB │ gzip:  1.92 kB
+site/dist/assets/sheet-BEsGhN0G.js                   4.74 kB │ gzip:  1.62 kB
+site/dist/assets/dropdown-menu-Bxccvzzu.js           4.84 kB │ gzip:  1.75 kB
+site/dist/assets/combobox-0cmJq_Gq.js                4.88 kB │ gzip:  0.72 kB
+site/dist/assets/chat-layout-DOwkVZWO.js             4.92 kB │ gzip:  1.94 kB
+site/dist/assets/skeleton-CsWC_kqm.js                4.96 kB │ gzip:  2.76 kB
+site/dist/assets/composer-ehP8rxs1.js                4.99 kB │ gzip:  2.27 kB
+site/dist/assets/dismissable-layer-lKK4B8Ki.js       5.05 kB │ gzip:  1.77 kB
+site/dist/assets/dialog-13Vwt7GB.js                  5.07 kB │ gzip:  1.69 kB
+site/dist/assets/label-Clmj71I3.js                   5.08 kB │ gzip:  2.85 kB
+site/dist/assets/select-Cww1mx2Y.js                  5.09 kB │ gzip:  1.42 kB
+site/dist/assets/resizable-C2FaeNvf.js               5.15 kB │ gzip:  1.92 kB
+site/dist/assets/textarea-CO3_mHl0.js                5.20 kB │ gzip:  2.89 kB
+site/dist/assets/command-CAjuYkzf.js                 5.20 kB │ gzip:  1.57 kB
+site/dist/assets/source-CnEQ52U_.js                  5.33 kB │ gzip:  1.96 kB
+site/dist/assets/voice-recorder-COKXcxLO.js          5.34 kB │ gzip:  2.31 kB
+site/dist/assets/progress-Cf1-8npq.js                5.37 kB │ gzip:  2.93 kB
+site/dist/assets/navigation-menu-C_1UFe-b.js         5.45 kB │ gzip:  1.55 kB
+site/dist/assets/accordion-D_yYtDTZ.js               5.47 kB │ gzip:  2.14 kB
+site/dist/assets/pagination-WMiEApgF.js              5.51 kB │ gzip:  2.16 kB
+site/dist/assets/separator-CvPbHBsr.js               5.52 kB │ gzip:  3.08 kB
+site/dist/assets/switch-C7pwJLoY.js                  5.61 kB │ gzip:  2.98 kB
+site/dist/assets/combobox-C3TFh196.js                5.66 kB │ gzip:  1.83 kB
+site/dist/assets/checkbox-BBU0dEt-.js                5.69 kB │ gzip:  3.00 kB
+site/dist/assets/steps-D-y1XgBv.js                   5.69 kB │ gzip:  1.90 kB
+site/dist/assets/table-UG0M2HRP.js                   5.96 kB │ gzip:  2.02 kB
+site/dist/assets/radio-group-BJ6IjLok.js             6.14 kB │ gzip:  2.43 kB
+site/dist/assets/dropdown-menu-BRdX6Eez.js           6.31 kB │ gzip:  1.34 kB
+site/dist/assets/context-menu-mLOInETD.js            6.33 kB │ gzip:  2.09 kB
+site/dist/assets/markdown-Cn9ixjiY.js                6.36 kB │ gzip:  2.42 kB
+site/dist/assets/context-menu-HD1yMDEL.js            6.46 kB │ gzip:  1.47 kB
+site/dist/assets/menubar-Bbi4a9UI.js                 6.72 kB │ gzip:  1.61 kB
+site/dist/assets/connection-status-CJ-10XWz.js       6.76 kB │ gzip:  2.24 kB
+site/dist/assets/input-hTL-k6NW.js                   6.96 kB │ gzip:  3.88 kB
+site/dist/assets/editor-tabs-AmWfbXCT.js             7.14 kB │ gzip:  2.84 kB
+site/dist/assets/tool-call-CvQMK5XI.js               7.19 kB │ gzip:  2.40 kB
+site/dist/assets/chat-history-DnWJZF4H.js            7.45 kB │ gzip:  3.06 kB
+site/dist/assets/menubar-DunscPDZ.js                 7.49 kB │ gzip:  2.72 kB
+site/dist/assets/attachment-DiqE6Nsn.js              7.58 kB │ gzip:  2.68 kB
+site/dist/assets/tree-view-CUzKdRaS.js               7.78 kB │ gzip:  3.19 kB
+site/dist/assets/message-actions-DjX5S7pl.js         8.22 kB │ gzip:  2.64 kB
+site/dist/assets/tour-LshHGmdv.js                    8.36 kB │ gzip:  3.45 kB
+site/dist/assets/spinner-DCcZFFdu.js                 9.14 kB │ gzip:  4.83 kB
+site/dist/assets/chat-layout-Bc-pgDSa.js             9.64 kB │ gzip:  3.13 kB
+site/dist/assets/kbd-zUbkLMad.js                     9.81 kB │ gzip:  4.36 kB
+site/dist/assets/audio-player-_FTQ6Gcs.js           10.12 kB │ gzip:  3.71 kB
+site/dist/assets/voice-recorder-JXlNgN94.js         10.24 kB │ gzip:  3.39 kB
+site/dist/assets/scroll-area-DZx-rTAr.js            10.54 kB │ gzip:  3.07 kB
+site/dist/assets/conversation-CFwmI-Bo.js           10.59 kB │ gzip:  3.19 kB
+site/dist/assets/markdown-BqE0pRRW.js               10.64 kB │ gzip:  3.16 kB
+site/dist/assets/status-clJ4gNAD.js                 10.77 kB │ gzip:  3.14 kB
+site/dist/assets/badge-wRQ-u2k6.js                  10.92 kB │ gzip:  3.18 kB
+site/dist/assets/composer-7PpTJHgW.js               10.97 kB │ gzip:  3.72 kB
+site/dist/assets/stat-card-C_bF_f-z.js              11.27 kB │ gzip:  3.06 kB
+site/dist/assets/secret-input-DCfHVm9i.js           11.29 kB │ gzip:  3.40 kB
+site/dist/assets/radio-group-Cj22dPYk.js            11.38 kB │ gzip:  4.72 kB
+site/dist/assets/message-CPq8U-lt.js                11.46 kB │ gzip:  3.34 kB
+site/dist/assets/icon-button-D0AMUJcu.js            11.55 kB │ gzip:  3.21 kB
+site/dist/assets/slider-26dvIU5Y.js                 11.73 kB │ gzip:  3.42 kB
+site/dist/assets/button-BWkqzLMV.js                 11.97 kB │ gzip:  3.38 kB
+site/dist/assets/onboarding-checklist-rfT0q2mR.js   12.00 kB │ gzip:  3.42 kB
+site/dist/assets/menu-HwCa33kD.js                   12.22 kB │ gzip:  4.12 kB
+site/dist/assets/copy-button-DdQ3kzQ_.js            12.26 kB │ gzip:  3.48 kB
+site/dist/assets/steps-DCtx6cws.js                  12.27 kB │ gzip:  3.64 kB
+site/dist/assets/mobile-nav-dNQhWumH.js             12.30 kB │ gzip:  3.67 kB
+site/dist/assets/voice-recorder-C-DXM5z4.js         12.31 kB │ gzip:  3.57 kB
+site/dist/assets/toast-BsZLnV-M.js                  12.85 kB │ gzip:  4.55 kB
+site/dist/assets/editor-tabs-BTPLTzgz.js            13.09 kB │ gzip:  4.25 kB
+site/dist/assets/editor-tabs-CCi_mML5.js            13.74 kB │ gzip:  3.95 kB
+site/dist/assets/tooltip-DaLvUWs0.js                14.03 kB │ gzip:  5.64 kB
+site/dist/assets/chat-layout-0lksh_Tx.js            14.15 kB │ gzip:  3.97 kB
+site/dist/assets/data-table-DOQp9W5m.js             14.34 kB │ gzip:  5.39 kB
+site/dist/assets/chat-history-BBDwu43F.js           14.44 kB │ gzip:  4.80 kB
+site/dist/assets/navigation-menu-BZmsxFHL.js        15.23 kB │ gzip:  5.20 kB
+site/dist/assets/alert-Dgh2pKlC.js                  15.31 kB │ gzip:  3.17 kB
+site/dist/assets/pagination-BloFjfGU.js             15.36 kB │ gzip:  4.82 kB
+site/dist/assets/avatar-8GBkDUp4.js                 15.41 kB │ gzip:  4.73 kB
+site/dist/assets/reasoning-l7JDU5DP.js              15.64 kB │ gzip:  4.84 kB
+site/dist/assets/collapsible-DoTU-U-r.js            15.78 kB │ gzip:  4.83 kB
+site/dist/assets/es2015-D-PHFzuQ.js                 16.26 kB │ gzip:  6.20 kB
+site/dist/assets/chat-history-DPvS1hSo.js           16.75 kB │ gzip:  4.37 kB
+site/dist/assets/tree-view-D3P-d3a3.js              16.80 kB │ gzip:  5.36 kB
+site/dist/assets/tree-view-WnSj2se3.js              17.03 kB │ gzip:  4.60 kB
+site/dist/assets/tour-C7NFKWIs.js                   17.27 kB │ gzip:  5.69 kB
+site/dist/assets/audio-player-BDQZXkiI.js           19.00 kB │ gzip:  4.07 kB
+site/dist/assets/toolbar-Dr3Un64g.js                19.57 kB │ gzip:  2.95 kB
+site/dist/assets/pagination-K20z2H0W.js             20.14 kB │ gzip:  5.32 kB
+site/dist/assets/popover-BTtP_L1u.js                20.31 kB │ gzip:  6.40 kB
+site/dist/assets/tour-BIrgMrUm.js                   20.58 kB │ gzip:  4.05 kB
+site/dist/assets/select-CvwT0BOo.js                 20.92 kB │ gzip:  7.13 kB
+site/dist/assets/tabs-DYfxr1dr.js                   21.51 kB │ gzip:  5.27 kB
+site/dist/assets/source-CV0zI4UD.js                 22.17 kB │ gzip:  5.37 kB
+site/dist/assets/accordion-hJQSuJGh.js              22.30 kB │ gzip:  5.45 kB
+site/dist/assets/data-table-BCxmT_Go.js             22.48 kB │ gzip:  5.28 kB
+site/dist/assets/checkbox-card-CtKO_l5M.js          22.72 kB │ gzip:  5.27 kB
+site/dist/assets/tool-call-DDUI8j9o.js              23.50 kB │ gzip:  3.80 kB
+site/dist/assets/empty-state-CNUtDcj8.js            24.47 kB │ gzip:  6.16 kB
+site/dist/assets/composer-DhEs6137.js               26.27 kB │ gzip:  6.14 kB
+site/dist/assets/app-shell-Bke75fEk.js              29.32 kB │ gzip:  4.64 kB
+site/dist/assets/field-R19GzP9c.js                  29.33 kB │ gzip:  7.80 kB
+site/dist/assets/page-header-CYXx8bAY.js            29.34 kB │ gzip:  7.80 kB
+site/dist/assets/data-table-Ck7nf2Jj.js             30.78 kB │ gzip:  8.41 kB
+site/dist/assets/connection-status-D_svlzuz.js      33.10 kB │ gzip:  4.05 kB
+site/dist/assets/message-actions-BlkulGo9.js        33.54 kB │ gzip:  5.86 kB
+site/dist/assets/attachment-DCqK2ZBN.js             34.20 kB │ gzip:  5.77 kB
+site/dist/assets/breadcrumb-DbVU7Ugb.js             34.52 kB │ gzip:  9.62 kB
+site/dist/assets/toast-CYukNSjs.js                  34.61 kB │ gzip:  9.69 kB
+site/dist/assets/jsx-runtime-B49_r0DX.js            36.44 kB │ gzip: 12.07 kB
+site/dist/assets/sheet-Dw4WzNOP.js                  38.12 kB │ gzip:  9.14 kB
+site/dist/assets/select-Wggb5MrW.js                 39.03 kB │ gzip:  7.43 kB
+site/dist/assets/resizable-DAUVGwDq.js              40.64 kB │ gzip: 13.23 kB
+site/dist/assets/alert-dialog-ug0_BnK7.js           42.37 kB │ gzip:  9.10 kB
+site/dist/assets/dialog-DA3YPG7a.js                 43.60 kB │ gzip: 10.86 kB
+site/dist/assets/navigation-menu-BdFHlixo.js        44.12 kB │ gzip: 12.86 kB
+site/dist/assets/resizable-Bfs8Li3x.js              44.24 kB │ gzip:  7.40 kB
+site/dist/assets/card-D647MN3W.js                   45.01 kB │ gzip:  3.71 kB
+site/dist/assets/command-zAdRfrvu.js                45.33 kB │ gzip:  8.20 kB
+site/dist/assets/table-qdz7Zplq.js                  47.12 kB │ gzip: 14.47 kB
+site/dist/assets/context-menu-cRbAVxjX.js           67.12 kB │ gzip:  6.96 kB
+site/dist/assets/dropdown-menu-rONSsgUd.js          67.36 kB │ gzip:  8.57 kB
+site/dist/assets/menubar-tMRIsvR8.js                72.49 kB │ gzip:  8.88 kB
+site/dist/assets/main-HcvA-Pzy.js                  200.90 kB │ gzip: 61.54 kB
+site/dist/assets/styles-__nLfGfS.js                237.30 kB │ gzip: 74.88 kB
+site/dist/assets/api-native-CO240fk3.js            640.12 kB │ gzip: 70.04 kB
+
+[INVALID_ANNOTATION] A comment "/* @__NO_SIDE_EFFECTS__ */" in "src/primitives/vendor/radix/react-primitive/primitive.tsx" contains an annotation that Rolldown cannot interpret due to the position of the comment.
+    ╭─[ src/primitives/vendor/radix/react-primitive/primitive.tsx:24:1 ]
+    │
+ 24 │ /* @__NO_SIDE_EFFECTS__ */ const Primitive = NODES.reduce((primitive, node) => {
+    │ ─────────────┬────────────  
+    │              ╰────────────── comment ignored due to position
+    │ 
+    │ Help 1: Correct annotation placement: https://rolldown.rs/in-depth/dead-code-elimination#no-side-effects
+    │ 
+    │ Help 2: Disable with `checks.invalidAnnotation: false`.
+────╯
+
+✓ built in 757ms
+route pages: 75 + sitemap.xml
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 registry:check
+> npm run registry && node scripts/verify-registry.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 registry
+> node --experimental-strip-types --no-warnings scripts/registry.mjs
+
+registry: 122 items -> site/public/r
+Registry verified: 71 components, 122 resolved items, 179 source files; no external Radix/cmdk.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @burtson-labs/ui@0.13.0 vendor:check
+> node scripts/verify-vendor.mjs
+
+Verified 107 vendor sources; lockfile and imports contain no external Radix/cmdk.

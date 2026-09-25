@@ -1,0 +1,4 @@
+Checking packed consumer: React 18.3.1.
+Packed consumer passed: React 18.3.1.
+Checking packed consumer: React 19.3.0.
+Packed consumer passed: React 19.3.0.

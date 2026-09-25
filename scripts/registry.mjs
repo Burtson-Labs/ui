@@ -9,6 +9,7 @@
 // `@/lib/utils` and `@/components/ui/*` aliases a shadcn project uses.
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { primitiveRegistryItems, sourceNotice } from './vendor-registry.mjs';
 import { fileURLToPath } from 'node:url';
 
 import { say } from './log.mjs';
@@ -65,7 +66,7 @@ const utils = {
       path: 'lib/utils.ts',
       type: 'registry:lib',
       target: 'lib/utils.ts',
-      content: readFileSync(join(ROOT, 'src/lib/utils.ts'), 'utf8'),
+      content: sourceNotice(ROOT) + readFileSync(join(ROOT, 'src/lib/utils.ts'), 'utf8'),
     },
   ],
 };
@@ -80,23 +81,27 @@ const components = names.map((name) => {
   const source = readFileSync(join(componentsDir, `${name}.tsx`), 'utf8');
   const siblings = [...source.matchAll(/from '\.\/([a-z-]+)'/g)].map((m) => m[1]);
   const dependencies = [];
-  if (source.includes("from 'radix-ui'")) dependencies.push(version('radix-ui'));
-  if (source.includes("from 'cmdk'")) dependencies.push(version('cmdk'));
+  const primitives = [
+    ...source.matchAll(/from '\.\.\/primitives\/vendor\/(radix\/[a-z-]+|cmdk)'/g),
+  ].map((m) => url('primitive-' + m[1].replace('radix/', '')));
   if (source.includes("from 'react-resizable-panels'"))
     dependencies.push(version('react-resizable-panels'));
   if (source.includes('class-variance-authority'))
     dependencies.push(version('class-variance-authority'));
   if (source.includes('@burtson-labs/icons')) dependencies.push(version('@burtson-labs/icons'));
-  const content = source
-    .replaceAll("from '../lib/utils'", "from '@/lib/utils'")
-    .replace(/from '\.\/([a-z-]+)'/g, "from '@/components/ui/$1'");
+  const content =
+    sourceNotice(ROOT) +
+    source
+      .replaceAll("from '../lib/utils'", "from '@/lib/utils'")
+      .replace(/from '\.\.\/primitives\/vendor\/([^']+)'/g, "from '@/lib/burtson-primitives/$1'")
+      .replace(/from '\.\/([a-z-]+)'/g, "from '@/components/ui/$1'");
   return {
     $schema: SCHEMA_ITEM,
     name,
     type: 'registry:ui',
     title: name.replace(/(^|-)([a-z])/g, (_, s, c) => (s ? ' ' : '') + c.toUpperCase()),
     dependencies,
-    registryDependencies: [url('utils'), ...siblings.map(url)],
+    registryDependencies: [url('utils'), ...siblings.map(url), ...primitives],
     files: [
       {
         path: `components/${name}.tsx`,
@@ -108,7 +113,7 @@ const components = names.map((name) => {
   };
 });
 
-const items = [theme, utils, ...components];
+const items = [theme, utils, ...primitiveRegistryItems(ROOT, BASE), ...components];
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const item of items)

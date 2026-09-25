@@ -1,9 +1,9 @@
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import MoreHorizontal from '@burtson-labs/icons/react/more-horizontal';
-import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as Slot from '../primitives/vendor/radix/react-slot';
 
 function Breadcrumb(props: React.ComponentProps<'nav'>) {
   return <nav aria-label="Breadcrumb" data-slot="breadcrumb" {...props} />;

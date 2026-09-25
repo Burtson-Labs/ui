@@ -1,9 +1,9 @@
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import Wrench from '@burtson-labs/icons/react/wrench';
-import { Collapsible as CollapsiblePrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
 
 import { Button } from './button';
 import { StatusDot } from './status';

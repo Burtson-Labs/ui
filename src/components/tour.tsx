@@ -1,8 +1,9 @@
 import X from '@burtson-labs/icons/react/x';
-import { Popover as PopoverPrimitive, Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
+import * as Slot from '../primitives/vendor/radix/react-slot';
 
 import { Button } from './button';
 import { surfaceClasses } from './popover';

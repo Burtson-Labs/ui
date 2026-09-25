@@ -1,0 +1,86 @@
+{
+  "component": "toaster",
+  "source": "src/components/toaster.tsx",
+  "exports": [
+    {
+      "name": "toast",
+      "kind": "function",
+      "description": "Show a brief notice. Returns a function that closes it early.",
+      "signatures": [
+        "(options: ToastOptions | string): () => void"
+      ],
+      "type": "(options: ToastOptions | string) => () => void",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "Toaster",
+      "kind": "component",
+      "description": "",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ToastOptions",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ToastOptions",
+      "props": [
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "duration",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Milliseconds before it closes (Radix pauses on hover and focus).",
+          "native": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "variant",
+          "type": "ToastVariant | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ToastVariant",
+      "kind": "type",
+      "description": "Imperative toasts: call `toast({ title, description, variant })` from\nanywhere (event handlers, data hooks) and one mounted `<Toaster />` renders\nthem on the Toast primitives. Mount the Toaster once near the root.",
+      "signatures": [],
+      "type": "ToastVariant",
+      "props": [],
+      "inherited": []
+    }
+  ]
+}

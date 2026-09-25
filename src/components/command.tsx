@@ -1,8 +1,8 @@
 import Search from '@burtson-labs/icons/react/search';
-import { Command as CommandPrimitive } from 'cmdk';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import { Command as CommandPrimitive } from '../primitives/vendor/cmdk';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './dialog';
 

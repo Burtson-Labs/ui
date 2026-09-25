@@ -1,9 +1,9 @@
 import Check from '@burtson-labs/icons/react/check';
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
-import { ContextMenu as ContextMenuPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as ContextMenuPrimitive from '../primitives/vendor/radix/react-context-menu';
 
 import { menuItemClasses as itemClasses, surfaceClasses } from './popover';
 

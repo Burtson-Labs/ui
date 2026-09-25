@@ -1,0 +1,356 @@
+{
+  "component": "combobox",
+  "source": "src/components/combobox.tsx",
+  "exports": [
+    {
+      "name": "Combobox",
+      "kind": "component",
+      "description": "Pick one value from a long or remote list by typing.",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "true",
+          "description": "Let the person clear the selection by picking it again.",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "emptyText",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'No matches.'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show a spinner in the list, e.g. while `onSearchChange` fetches.",
+          "native": false
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onSearchChange",
+          "type": "((search: string) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Called as the person types. Pass it to search on a server; the options\nyou pass back are shown as-is (no client filtering).",
+          "native": false
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string | null) => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "options",
+          "type": "ComboboxOption[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Select…'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "required",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Search…'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string | null",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ComboboxOption",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ComboboxOption",
+      "props": [
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Second line, e.g. an email under a name. Also searched.",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ComboboxProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ComboboxProps",
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Let the person clear the selection by picking it again.",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "emptyText",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show a spinner in the list, e.g. while `onSearchChange` fetches.",
+          "native": false
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onSearchChange",
+          "type": "((search: string) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Called as the person types. Pass it to search on a server; the options\nyou pass back are shown as-is (no client filtering).",
+          "native": false
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string | null) => void",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "options",
+          "type": "ComboboxOption[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "required",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string | null",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    }
+  ]
+}

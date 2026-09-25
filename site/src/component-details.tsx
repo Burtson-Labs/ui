@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+import ownLicense from '../../LICENSE?raw';
+import upstreamLicense from '../../LICENSES/shadcn-MIT.txt?raw';
+
+import { ApiReference } from './api-reference';
 import { Code } from './code';
 
 const sources = import.meta.glob<string>('../../src/components/*.tsx', {
@@ -433,7 +437,15 @@ export function ComponentDetails({ name }: { name: string }) {
     if (load)
       void load()
         .then((text) => {
-          if (active) setSource(text);
+          if (active)
+            setSource(
+              '/*\n' +
+                ownLicense +
+                '\nAdapted portions: shadcn/ui\n' +
+                upstreamLicense +
+                '\n*/\n' +
+                text,
+            );
         })
         .catch(() => {
           if (active) setSource('// Source could not load. Refresh to retry.');
@@ -449,6 +461,7 @@ export function ComponentDetails({ name }: { name: string }) {
   ];
   return (
     <>
+      <ApiReference name={name} />
       <section className="mt-10" aria-labelledby="usage-heading">
         <h2 id="usage-heading" className="mb-3 text-xl font-semibold tracking-tight">
           Usage and accessibility

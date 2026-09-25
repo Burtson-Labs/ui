@@ -1,9 +1,9 @@
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import Lightbulb from '@burtson-labs/icons/react/lightbulb';
-import { Collapsible as CollapsiblePrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
 
 export interface ReasoningProps extends React.ComponentProps<'div'> {
   /** True while the model is still thinking. */

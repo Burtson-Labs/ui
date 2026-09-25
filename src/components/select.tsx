@@ -1,10 +1,10 @@
 import Check from '@burtson-labs/icons/react/check';
 import ChevronDown from '@burtson-labs/icons/react/chevron-down';
 import ChevronUp from '@burtson-labs/icons/react/chevron-up';
-import { Select as SelectPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as SelectPrimitive from '../primitives/vendor/radix/react-select';
 
 import { fieldClasses } from './input';
 import { surfaceClasses } from './popover';

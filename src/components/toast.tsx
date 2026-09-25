@@ -1,9 +1,9 @@
 import X from '@burtson-labs/icons/react/x';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Toast as ToastPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as ToastPrimitive from '../primitives/vendor/radix/react-toast';
 
 /**
  * Brief, non-blocking notices ("Message sent", "Update available"). Put one

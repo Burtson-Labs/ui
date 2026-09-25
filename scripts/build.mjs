@@ -46,7 +46,20 @@ await build({
     rolldownOptions: {
       external: (id) =>
         /^react(-dom)?(\/|$)/.test(id) || external.some((d) => id === d || id.startsWith(`${d}/`)),
-      output: { preserveModules: true, preserveModulesRoot: 'src', entryFileNames: '[name].js' },
+      output: {
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js',
+        // Keep the client boundary after upstream barrels are tree-shaken.
+        // Components and primitives are client modules. The entry barrel,
+        // lib helpers, tokens and the MUI adapter stay directive-free so a
+        // server component can import the barrel and call cn() or read
+        // tokens; the components it re-exports remain client references.
+        banner: (chunk) =>
+          /\/src\/(?:components|primitives)\//.test(chunk.facadeModuleId ?? '')
+            ? '"use client";'
+            : '',
+      },
     },
   },
 });

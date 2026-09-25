@@ -1,9 +1,9 @@
 import Check from '@burtson-labs/icons/react/check';
 import Minus from '@burtson-labs/icons/react/minus';
-import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as CheckboxPrimitive from '../primitives/vendor/radix/react-checkbox';
 
 function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
   return (

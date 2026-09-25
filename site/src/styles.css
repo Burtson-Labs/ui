@@ -2,6 +2,7 @@
 @import '../../src/styles/theme.css';
 
 @source '../../src';
+@source not '../../src/primitives/vendor';
 
 @layer base {
   html {

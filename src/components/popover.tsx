@@ -1,7 +1,7 @@
-import { Popover as PopoverPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
 
 /**
  * The floating surface shared by popovers, menus and select lists: raised,
