@@ -1,13 +1,6 @@
-import Paperclip from '@burtson-labs/icons/react/paperclip';
 import * as React from 'react';
 
-import {
-  AttachmentItem,
-  AttachmentTray,
-  Composer,
-  IconButton,
-  Suggestions,
-} from '@burtson-labs/ui';
+import { AttachmentItem, AttachmentTray, Composer, Suggestions } from '@burtson-labs/ui';
 
 export default function ComposerDemo() {
   const [sent, setSent] = React.useState<string[]>([]);
@@ -39,16 +32,8 @@ export default function ComposerDemo() {
             </AttachmentTray>
           )
         }
-        actions={
-          <IconButton
-            label="Attach a file"
-            variant="ghost"
-            size="icon-sm"
-            onClick={() => setFiles((f) => (f.length ? f : ['build-4821.log']))}
-          >
-            <Paperclip />
-          </IconButton>
-        }
+        // Paperclip, drag-and-drop and paste all arrive here.
+        onAttach={(picked) => setFiles((f) => [...f, ...picked.map((p) => p.name)])}
       />
       {sent.length > 0 && <p className="text-xs text-muted-foreground">Sent: {sent.join(' · ')}</p>}
     </div>

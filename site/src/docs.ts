@@ -222,7 +222,7 @@ const all: ComponentDoc[] = [
     name: 'composer',
     title: 'Composer',
     description:
-      'The message box: grows with its text, Enter sends, Stop while streaming, plus prompt suggestions.',
+      'The message box: grows with its text, Enter sends, attach by button, drop or paste, Stop while streaming.',
   },
   {
     name: 'conversation',
@@ -325,6 +325,31 @@ const all: ComponentDoc[] = [
     name: 'mobile-nav',
     title: 'Mobile Nav',
     description: 'A bottom tab bar for phones, with labels, badges and safe-area insets.',
+  },
+  {
+    name: 'chat-history',
+    title: 'Chat History',
+    description: 'The conversation list: grouped by day, pinned, searchable, rename and delete.',
+  },
+  {
+    name: 'chat-layout',
+    title: 'Chat Layout',
+    description: 'The chat app frame: resizable history sidebar, details column, full screen.',
+  },
+  {
+    name: 'audio-player',
+    title: 'Audio Player',
+    description: 'Plays a recording with a seekable waveform, speed, download and transcript.',
+  },
+  {
+    name: 'voice-recorder',
+    title: 'Voice Recorder',
+    description: 'Record a voice message with a live level meter, pause, stop and discard.',
+  },
+  {
+    name: 'message-actions',
+    title: 'Message Actions',
+    description: 'Copy, regenerate, edit-and-resend, feedback, and files attached to a message.',
   },
   {
     name: 'data-table',

@@ -1,4 +1,5 @@
 import ArrowUp from '@burtson-labs/icons/react/arrow-up';
+import Paperclip from '@burtson-labs/icons/react/paperclip';
 import Square from '@burtson-labs/icons/react/square';
 import * as React from 'react';
 
@@ -34,6 +35,37 @@ export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSub
   /** Extra controls left of the send button (model picker, tools). */
   actions?: React.ReactNode;
   label?: string;
+  /**
+   * Files the person picked, dropped on the composer or pasted. Setting it
+   * shows a paperclip button. The composer only hands the files over: the
+   * app uploads them and renders their state in `attachments` (an
+   * AttachmentTray), with `attachmentCount` and `canSubmit` for sending.
+   */
+  onAttach?: (files: File[]) => void;
+  /** File input `accept`, e.g. "image/*,.pdf". Dropped and pasted files are filtered too. */
+  accept?: string;
+  /** Allow several files at once. Default true. */
+  multiple?: boolean;
+  /** Accessible name of the attach button. */
+  attachLabel?: string;
+}
+
+/** Does `file` match an `accept` list ("image/*,.pdf,text/plain")? Empty accepts all. */
+export function acceptsFile(file: Pick<File, 'name' | 'type'>, accept?: string): boolean {
+  if (!accept?.trim()) return true;
+  const name = file.name.toLowerCase();
+  const type = (file.type || '').toLowerCase();
+  return accept
+    .split(',')
+    .map((a) => a.trim().toLowerCase())
+    .filter(Boolean)
+    .some((rule) =>
+      rule.startsWith('.')
+        ? name.endsWith(rule)
+        : rule.endsWith('/*')
+          ? type.startsWith(rule.slice(0, -1))
+          : type === rule,
+    );
 }
 
 /**
@@ -55,9 +87,24 @@ function Composer({
   canSubmit = true,
   actions,
   label = 'Message',
+  onAttach,
+  accept,
+  multiple = true,
+  attachLabel = 'Attach files',
   className,
   ...props
 }: ComposerProps) {
+  const fileInput = React.useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = React.useState(false);
+  const dragDepth = React.useRef(0);
+  const attach = (list: FileList | File[] | null | undefined) => {
+    if (!onAttach || !list) return;
+    let files = Array.from(list).filter((f) => acceptsFile(f, accept));
+    if (!multiple) files = files.slice(0, 1);
+    if (files.length) onAttach(files);
+  };
+  const hasFiles = (e: React.DragEvent) =>
+    Array.from(e.dataTransfer?.types ?? []).includes('Files');
   const [own, setOwn] = React.useState('');
   const value = controlled ?? own;
   const [pending, setPending] = React.useState(false);
@@ -106,17 +153,50 @@ function Composer({
   return (
     <form
       data-slot="composer"
+      data-dragging={dragging || undefined}
       onSubmit={(e) => {
         e.preventDefault();
         void send();
       }}
+      onDragEnter={(e) => {
+        if (!onAttach || disabled || !hasFiles(e)) return;
+        e.preventDefault();
+        dragDepth.current += 1;
+        setDragging(true);
+      }}
+      onDragOver={(e) => {
+        if (!onAttach || disabled || !hasFiles(e)) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      }}
+      onDragLeave={() => {
+        if (!onAttach) return;
+        dragDepth.current = Math.max(0, dragDepth.current - 1);
+        if (dragDepth.current === 0) setDragging(false);
+      }}
+      onDrop={(e) => {
+        if (!onAttach || disabled) return;
+        e.preventDefault();
+        dragDepth.current = 0;
+        setDragging(false);
+        attach(e.dataTransfer?.files);
+      }}
       className={cn(
-        'grid gap-2 rounded-lg border border-input bg-surface p-2 shadow-xs transition-[border-color,box-shadow] focus-within:border-brand focus-within:ring-[3px] focus-within:ring-ring/15 dark:bg-surface-raised',
+        'relative grid gap-2 rounded-lg border border-input bg-surface p-2 shadow-xs transition-[border-color,box-shadow] focus-within:border-brand focus-within:ring-[3px] focus-within:ring-ring/15 dark:bg-surface-raised',
+        'data-[dragging]:border-brand data-[dragging]:ring-[3px] data-[dragging]:ring-ring/20',
         disabled && 'opacity-60',
         className,
       )}
       {...props}
     >
+      {dragging && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-1 z-10 grid place-items-center rounded-md border border-dashed border-brand/50 bg-brand-soft/80 text-sm font-medium text-brand-soft-foreground"
+        >
+          Drop files to attach
+        </div>
+      )}
       <textarea
         aria-label={label}
         rows={1}
@@ -126,6 +206,15 @@ function Composer({
         aria-invalid={failed || undefined}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
+        onPaste={(e) => {
+          if (!onAttach) return;
+          const files = Array.from(e.clipboardData?.files ?? []);
+          // Only take over the paste when it carries files; text pastes as text.
+          if (files.length) {
+            e.preventDefault();
+            attach(files);
+          }
+        }}
         onKeyDown={(e) => {
           if (
             e.key === 'Enter' &&
@@ -146,6 +235,36 @@ function Composer({
       )}
       {attachments && <div className="flex flex-wrap gap-1.5 px-1">{attachments}</div>}
       <div className="flex items-center gap-1">
+        {onAttach && (
+          <>
+            <input
+              ref={fileInput}
+              type="file"
+              hidden
+              tabIndex={-1}
+              accept={accept}
+              multiple={multiple}
+              data-slot="composer-file-input"
+              onChange={(e) => {
+                attach(e.target.files);
+                // Let the same file be picked again after a removal.
+                e.target.value = '';
+              }}
+            />
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="ghost"
+              aria-label={attachLabel}
+              title={attachLabel}
+              disabled={disabled}
+              onClick={() => fileInput.current?.click()}
+              className="pointer-coarse:size-11"
+            >
+              <Paperclip />
+            </Button>
+          </>
+        )}
         {actions}
         <div className="ml-auto">
           {streaming ? (
@@ -154,6 +273,7 @@ function Composer({
               size="icon-sm"
               variant="secondary"
               aria-label="Stop"
+              className="pointer-coarse:size-11"
               onClick={onStop}
               disabled={!onStop || disabled}
             >
@@ -164,6 +284,7 @@ function Composer({
               type="submit"
               size="icon-sm"
               aria-label="Send"
+              className="pointer-coarse:size-11"
               loading={pending}
               disabled={!canSend}
             >

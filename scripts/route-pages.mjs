@@ -38,6 +38,12 @@ const routes = [
     description:
       'Share the Burtson palette with MUI apps through createBurtsonTheme, and adopt components one screen at a time.',
   },
+  {
+    path: '/docs/recipes/chat',
+    title: 'Build a chat app · Burtson UI',
+    description:
+      'A complete chat app from Burtson UI: history, file attachments by button, drop or paste, streaming replies, voice notes and full screen, with copyable code.',
+  },
   ...components.map((c) => ({
     path: `/docs/components/${c.name}`,
     title: `${c.title} · Burtson UI`,

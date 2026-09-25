@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.12.0
+
+Everything a chat app needs, and a recipe that builds one.
+
+- **Composer attachments**: `onAttach(files)` adds a paperclip button, and
+  files dropped on the composer or pasted into it arrive the same way, filtered
+  by `accept` and `multiple`. The app uploads them and shows their state in an
+  AttachmentTray. Send, Stop and the paperclip get 44 px targets on touch
+  screens. Also exported: `acceptsFile(file, accept)`.
+- **ChatHistory**: the conversation list, grouped into Pinned, Today,
+  Yesterday, Previous 7 days and Older, with search, New chat, and a row menu
+  for rename (in place), pin and delete. Arrow keys, Home and End move between
+  rows; loading, error-with-retry and empty states; a `renderItems` hook for
+  windowing long lists. `groupConversations` and `matchesConversation` are
+  exported.
+- **ChatLayout**: header, resizable history sidebar (a sheet on phones that
+  closes when a chat is picked), conversation, optional details column, and a
+  Full screen button: the Fullscreen API where allowed, a CSS fallback where
+  not, Escape to leave, nothing remounted. `useFullscreen(ref)` is exported.
+- **AudioPlayer / VoiceMessage**: play and pause, a waveform that is a slider
+  (arrow keys ±5 s, Home, End), speed 1×/1.5×/2×, download and a transcript.
+  `computePeaks(blob | url)`, `peaksFromChannelData` and `formatDuration`.
+- **VoiceRecorder**: record, pause, discard or stop, with a live level meter
+  and a timer; hands back `{ blob, mimeType, durationMs }`. Blocked and
+  unsupported microphones get a sentence saying how to fix it.
+- **MessageActions, MessageEditor, MessageAttachments**: copy, regenerate,
+  edit, a controlled thumbs rating; edit-and-resend in place; voice notes,
+  images and files shown inside a message.
+- **Recording token**: `recording` and `recording-foreground` (added to the
+  tokens in 0.11.0) colour live capture, so recording no longer borrows the
+  error colour.
+- **Docs**: a "Build a chat app" recipe at /docs/recipes/chat with a running
+  demo, a snippet per step and the complete example source.
+
 ## 0.11.0
 
 The foundation for product themes built on the kit (Bandit's first).

@@ -20,6 +20,7 @@ import {
 import { AccentPicker } from './accent';
 import { components } from './docs';
 import { ComponentPage, Home, Installation, Mui, NotFound, Theming } from './pages';
+import { ChatRecipe } from './recipes/chat';
 import { Link, usePath } from './router';
 import { DocsSearch } from './search';
 
@@ -28,6 +29,8 @@ const guides = [
   { href: '/docs/theming', title: 'Theming' },
   { href: '/docs/mui', title: 'Using with MUI' },
 ];
+
+const recipes = [{ href: '/docs/recipes/chat', title: 'Build a chat app' }];
 
 function useTheme() {
   const [isDark, setDark] = React.useState(() =>
@@ -73,6 +76,12 @@ function Nav({ path, onNavigate }: { path: string; onNavigate?: () => void }) {
       </div>
       <div className="grid gap-0.5">
         <p className="mb-1 px-2 text-xs font-semibold tracking-wide text-foreground uppercase">
+          Recipes
+        </p>
+        {recipes.map((g) => item(g.href, g.title))}
+      </div>
+      <div className="grid gap-0.5">
+        <p className="mb-1 px-2 text-xs font-semibold tracking-wide text-foreground uppercase">
           Components
         </p>
         {components.map((c) => item(`/docs/components/${c.name}`, c.title))}
@@ -87,6 +96,7 @@ function route(path: string) {
   if (clean === '/docs' || clean === '/docs/installation') return <Installation />;
   if (clean === '/docs/theming') return <Theming />;
   if (clean === '/docs/mui') return <Mui />;
+  if (clean === '/docs/recipes/chat') return <ChatRecipe />;
   const m = /^\/docs\/components\/([a-z-]+)$/.exec(clean);
   const doc = m && components.find((c) => c.name === m[1]);
   return doc ? <ComponentPage key={doc.name} doc={doc} /> : <NotFound />;
@@ -101,7 +111,11 @@ export function App() {
 
   React.useEffect(() => {
     const doc = components.find((c) => path.endsWith(`/components/${c.name}`));
-    document.title = doc ? `${doc.title} · Burtson UI` : 'Burtson UI';
+    document.title = doc
+      ? `${doc.title} · Burtson UI`
+      : path.startsWith('/docs/recipes/chat')
+        ? 'Build a chat app · Burtson UI'
+        : 'Burtson UI';
     if (previousPath.current !== path) {
       document.getElementById('main')?.focus({ preventScroll: true });
       previousPath.current = path;

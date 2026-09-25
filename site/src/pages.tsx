@@ -153,6 +153,37 @@ export function Home() {
       </section>
 
       <Playground />
+      <section
+        aria-labelledby="recipe-chat"
+        className="grid gap-6 border-t py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-center"
+      >
+        <div>
+          <p className="overline">Recipe</p>
+          <h2 id="recipe-chat" className="text-2xl font-semibold tracking-tight">
+            Build a chat app
+          </h2>
+          <p className="mt-3 leading-7 text-muted-foreground">
+            Conversation history, file attachments by button, drop or paste, streaming replies,
+            voice notes with playback, and full screen. Nine components, a running demo, and the
+            complete source to copy.
+          </p>
+          <Button className="mt-5" asChild>
+            <Link href="/docs/recipes/chat">
+              Open the recipe <ArrowRight />
+            </Link>
+          </Button>
+        </div>
+        <Code
+          code={`<ChatLayout sidebar={<ChatHistory items={chats} onSelect={open} />}>
+  <Conversation>{messages}</Conversation>
+  <Composer
+    onSubmit={send}
+    onAttach={upload}
+    actions={<VoiceRecorder onRecorded={sendVoice} />}
+  />
+</ChatLayout>`}
+        />
+      </section>
       <section id="components" className="component-catalog py-10">
         <div className="section-intro">
           <div>
