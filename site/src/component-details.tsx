@@ -8,6 +8,31 @@ const sources = import.meta.glob<string>('../../src/components/*.tsx', {
 });
 
 const guidance: Record<string, string[]> = {
+  attachment: [
+    'Show the state your app reports: queued, uploading, parsing (reading), ready or failed. The component never uploads anything.',
+    'Say why a file failed and what to do about it, and offer Retry when a retry can work.',
+    'In a Composer, pass attachmentCount so a message with only files can be sent, and canSubmit={false} while a file is still being read.',
+  ],
+  source: [
+    'Number citations in the order they first appear and use the same numbers in the SourceList.',
+    'Only http and https URLs become links; anything else is shown as plain text.',
+    'The snippet should be the passage the answer relied on, not the start of the document.',
+  ],
+  'connection-status': [
+    'Report state from real checks. Unknown means nobody has checked yet and never shows as connected.',
+    'Keep ConnectionBanner mounted; it only appears while offline, reconnecting or failed.',
+    'Say what still works while offline, e.g. that messages will send when the connection is back.',
+  ],
+  'mobile-nav': [
+    'Three to five destinations with visible labels. Put settings and administration elsewhere rather than adding tabs.',
+    'Use position="fixed" in an app and pad the page bottom by the bar height. The bar adds the safe-area inset itself.',
+    'For links, call event.preventDefault() in onValueChange and route with your router.',
+  ],
+  'data-table': [
+    'Controlled: sort, filter and page in your app or on the server and pass the rows to show. The table never reorders rows.',
+    'Rows are one tab stop: arrow keys move, Enter runs onRowAction, Space toggles selection.',
+    'Select all applies to the rows on this page. Put bulk actions in toolbar and confirm destructive ones with Alert Dialog.',
+  ],
   resizable: [
     'Give every panel an id and every handle an aria-label naming what it resizes.',
     'Arrow keys move a focused handle, Home and End jump to the limits, Enter collapses a collapsible panel. Double-click resets.',
@@ -49,6 +74,7 @@ const guidance: Record<string, string[]> = {
     'Enter sends; Shift+Enter inserts a line. IME composition does not submit.',
     'Return a promise from onSubmit. The draft clears after success and stays in place after rejection.',
     'Supply onStop when streaming. Surface a clear error through submitErrorText and use onSubmitError for application reporting.',
+    'Pass attachmentCount so a message with only files can be sent, and canSubmit={false} while an attachment is still being read.',
   ],
   combobox: [
     'Label the trigger with aria-label or a connected FieldLabel. Pass aria-describedby for help and errors.',
@@ -102,6 +128,49 @@ const guidance: Record<string, string[]> = {
 };
 
 const api: Record<string, [string, string, string][]> = {
+  attachment: [
+    ['AttachmentItem: name / size', 'string / number (bytes)', 'required / —'],
+    ['state', 'queued | uploading | parsing | ready | failed', 'ready'],
+    ['progress / error', 'number 0–100 / string', 'indeterminate / —'],
+    ['onRemove / onRetry', '() => void', '—'],
+    ['layout', 'chip | row', 'chip'],
+    [
+      'UploadQueue: files',
+      'UploadQueueFile[] { id, name, size?, state, progress?, error? }',
+      'required',
+    ],
+  ],
+  source: [
+    ['Source', '{ id, title, url?, snippet?, meta?, icon? }', '—'],
+    ['SourceCitation: index / source', 'number / Source', 'required'],
+    ['SourceList: sources / label', 'Source[] / string', 'required / Sources'],
+  ],
+  'connection-status': [
+    [
+      'ConnectionStatus: state',
+      'connected | connecting | reconnecting | offline | error | unknown',
+      'required',
+    ],
+    ['SyncStatus: state', 'synced | syncing | pending | offline | error | unknown', 'required'],
+    ['lastSynced / pendingCount', 'Date / number', '—'],
+    ['detail / onRetry', 'ReactNode (tooltip) / () => void', '—'],
+    ['ConnectionBanner: description', 'ReactNode', '—'],
+  ],
+  'mobile-nav': [
+    ['items', 'MobileNavItem[] { id, label, icon, href?, badge? }', 'required'],
+    ['value / onValueChange', 'string / (id, event) => void', 'required / —'],
+    ['position', 'fixed | static', 'static'],
+  ],
+  'data-table': [
+    ['columns', 'DataTableColumn[] { id, header, cell, sortable?, numeric? }', 'required'],
+    ['rows / getRowId / getRowLabel', 'T[] / (row) => string', 'required'],
+    ['sort / onSortChange', '{ columnId, direction } | null', '—'],
+    ['filter / onFilterChange', 'string / (value) => void', '—'],
+    ['selected / onSelectedChange', 'string[] / (ids) => void', '—'],
+    ['onRowAction / rowActions', '(row) => void / (row) => ReactNode', '—'],
+    ['page / pageCount / onPageChange', 'number / number / (page) => void', '—'],
+    ['loading / error / onRetry / empty', 'boolean / ReactNode / () => void / ReactNode', '—'],
+  ],
   resizable: [
     ['orientation', 'horizontal | vertical', 'horizontal'],
     ['layout / onLayoutChange', 'Record<panelId, percent> and handler', 'uncontrolled'],
@@ -163,6 +232,8 @@ const api: Record<string, [string, string, string][]> = {
     ['onSubmitError', '(error: unknown) => void', '—'],
     ['submitErrorText', 'string', 'draft-preserving error message'],
     ['streaming / onStop', 'boolean / () => void', 'false / —'],
+    ['attachmentCount', 'number; above 0 allows an empty message', '0'],
+    ['canSubmit', 'boolean; gate sending without disabling typing', 'true'],
   ],
   progress: [
     ['value', 'number | null', 'indeterminate'],

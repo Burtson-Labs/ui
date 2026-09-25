@@ -306,6 +306,31 @@ const all: ComponentDoc[] = [
     title: 'Onboarding Checklist',
     description: 'First tasks with progress, completed by real app events.',
   },
+  {
+    name: 'attachment',
+    title: 'Attachment',
+    description: 'Files on their way into a message: upload and read progress, failure, retry.',
+  },
+  {
+    name: 'source',
+    title: 'Source',
+    description: 'Numbered citations in an answer and the list of sources behind them.',
+  },
+  {
+    name: 'connection-status',
+    title: 'Connection Status',
+    description: 'Connection and sync state reported by the app, with a banner for outages.',
+  },
+  {
+    name: 'mobile-nav',
+    title: 'Mobile Nav',
+    description: 'A bottom tab bar for phones, with labels, badges and safe-area insets.',
+  },
+  {
+    name: 'data-table',
+    title: 'Data Table',
+    description: 'A controlled table for records: sort, search, select, page and row actions.',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

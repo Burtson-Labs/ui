@@ -58,7 +58,7 @@ npx shadcn@latest add https://ui.burtson.ai/r/button.json
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/panel-grid.svg"/><img src="https://icons.burtson.ai/svg-black/panel-grid.svg" align="center" alt=""/></picture> Components
 
-Accordion · Alert · Alert Dialog · App Shell · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Collapsible · Combobox · Command · Context Menu · Copy Button · Dialog · Dropdown Menu · Editor Tabs · Empty State · Field · Icon Button · Input · Kbd · Label · Menubar · Navigation Menu · Onboarding Checklist · Page Header · Pagination · Popover · Progress · Radio Group · Reasoning · Resizable · Scroll Area · Secret Input · Select · Separator · Sheet · Skeleton · Slider · Spinner · Stat Card · Status · Steps · Switch · Table · Tabs · Textarea · Toast · Toaster · Toolbar · Tooltip · Tour · Tree View
+Accordion · Alert · Alert Dialog · App Shell · Attachment · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Collapsible · Combobox · Command · Connection Status · Context Menu · Copy Button · Data Table · Dialog · Dropdown Menu · Editor Tabs · Empty State · Field · Icon Button · Input · Kbd · Label · Menubar · Mobile Nav · Navigation Menu · Onboarding Checklist · Page Header · Pagination · Popover · Progress · Radio Group · Reasoning · Resizable · Scroll Area · Secret Input · Select · Separator · Sheet · Skeleton · Slider · Source · Spinner · Stat Card · Status · Steps · Switch · Table · Tabs · Textarea · Toast · Toaster · Toolbar · Tooltip · Tour · Tree View
 
 Live previews and code for each one are at [ui.burtson.ai](https://ui.burtson.ai/docs/components/button).
 

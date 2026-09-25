@@ -19,18 +19,28 @@ function SheetClose(props: React.ComponentProps<typeof SheetPrimitive.Close>) {
 const sideClasses = {
   right: 'inset-y-0 right-0 h-full w-3/4 border-l [--bl-sheet-x:100%] sm:max-w-sm',
   left: 'inset-y-0 left-0 h-full w-3/4 border-r [--bl-sheet-x:-100%] sm:max-w-sm',
-  // Top and bottom sheets are the mobile drawers.
-  top: 'inset-x-0 top-0 max-h-[85dvh] rounded-b-xl border-b [--bl-sheet-x:0] [--bl-sheet-y:-100%]',
+  // Top and bottom sheets are the mobile drawers. Each keeps clear of the
+  // notch or home indicator on its edge (safe-area insets).
+  top: 'inset-x-0 top-0 max-h-[85dvh] rounded-b-xl border-b pt-[env(safe-area-inset-top)] [--bl-sheet-x:0] [--bl-sheet-y:-100%]',
   bottom:
-    'inset-x-0 bottom-0 max-h-[85dvh] rounded-t-xl border-t [--bl-sheet-x:0] [--bl-sheet-y:100%]',
+    'inset-x-0 bottom-0 max-h-[85dvh] rounded-t-xl border-t pb-[env(safe-area-inset-bottom)] [--bl-sheet-x:0] [--bl-sheet-y:100%]',
 } as const;
 
 function SheetContent({
   className,
   children,
   side = 'right',
+  handle = side === 'bottom',
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Content> & { side?: keyof typeof sideClasses }) {
+}: React.ComponentProps<typeof SheetPrimitive.Content> & {
+  side?: keyof typeof sideClasses;
+  /**
+   * A grab bar at the top edge, the cue that this is a drawer. Visual only:
+   * it does not drag; close with the button, Escape or the overlay. On by
+   * default for bottom sheets.
+   */
+  handle?: boolean;
+}) {
   return (
     <SheetPrimitive.Portal>
       <SheetPrimitive.Overlay
@@ -46,8 +56,21 @@ function SheetContent({
         )}
         {...props}
       >
+        {handle && (
+          <div
+            data-slot="sheet-handle"
+            aria-hidden
+            className="mx-auto mt-2 -mb-2 h-1 w-10 shrink-0 rounded-full bg-border-strong"
+          />
+        )}
         {children}
-        <SheetPrimitive.Close className="absolute top-3.5 right-3.5 grid size-8 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 [&_svg]:size-4">
+        {/* 44px on touch screens, 32px with a mouse. */}
+        <SheetPrimitive.Close
+          className={cn(
+            'absolute right-3 grid size-8 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 pointer-coarse:size-11 [&_svg]:size-4 pointer-coarse:[&_svg]:size-5',
+            side === 'top' ? 'top-[calc(env(safe-area-inset-top)+0.75rem)]' : 'top-3',
+          )}
+        >
           <X aria-hidden />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.10.0
+
+App patterns from the Bandit modernization blueprint.
+
+- **Composer** sends with only attachments: `attachmentCount` above zero makes
+  an empty message sendable, and `canSubmit={false}` holds sending (e.g. while
+  a file is being read) without disabling typing. IME, duplicate-send and
+  draft-on-rejection behaviour are unchanged. (The props first shipped,
+  undocumented, in 0.9.1.)
+- **AttachmentItem**, **AttachmentTray**, **UploadQueue**: files on their way
+  into a message. Queued, uploading, parsing, ready and failed states, progress,
+  named remove and retry, failure reasons, polite state announcements, and a
+  "2 of 4 ready, 1 failed" summary. Presentation only; the app uploads.
+- **SourceCitation**, **SourceList**: numbered [n] markers that open the source
+  in a popover, and the list under an answer. Only http(s) URLs become links
+  (`safeSourceHref`).
+- **ConnectionStatus**, **SyncStatus**, **ConnectionBanner**: host-reported
+  connection and sync state. `unknown` never reads as connected; Retry appears
+  only when it can help; the banner renders nothing unless there is trouble.
+- **MobileNav**: a bottom tab bar with visible labels, 44px+ targets, count or
+  dot badges, `aria-current`, and safe-area insets. Destinations come from the
+  app.
+- **Sheet**: bottom sheets get a grab handle (visual only, `handle` prop) and
+  clear the home indicator; top sheets clear the notch; the close button is
+  44px on touch screens.
+- **DataTable**: a controlled recipe over Table. Sort (asc, desc, none) with
+  `aria-sort`, a search box, page-scoped select-all with an indeterminate state,
+  pagination, per-row actions, loading, empty and error-with-retry states. Rows
+  are one tab stop: arrows, Home/End, Enter runs `onRowAction`, Space selects.
+  It never reorders rows itself, so server-side data works.
+
 ## 0.9.1
 
 Fixes from adopting the workbench primitives in Bandit Stealth.
