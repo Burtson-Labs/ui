@@ -88,6 +88,18 @@ describe('MUI adapter', () => {
     expect(t.transitions.duration.standard).toBe(duration.standard);
   });
 
+  it('keeps text on secondary (brand) fills legible in both modes', () => {
+    for (const mode of ['light', 'dark'] as const) {
+      const t = createBurtsonTheme({ mode, accent: '#c65ef1' });
+      expect(
+        contrast(t.palette.secondary.main, t.palette.secondary.contrastText),
+      ).toBeGreaterThanOrEqual(4.5);
+      expect(
+        contrast(t.palette.primary.main, t.palette.primary.contrastText),
+      ).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
   it('applies overrides after the Burtson options', () => {
     const t = createBurtsonTheme('dark', { palette: { primary: { main: '#000000' } } });
     expect(t.palette.primary.main).toBe('#000000');

@@ -16,6 +16,7 @@ import { createTheme, type Shadows, type Theme, type ThemeOptions } from '@mui/m
 
 import {
   accentTokens,
+  contrast,
   dark,
   duration,
   easing,
@@ -72,7 +73,12 @@ export function burtsonThemeOptions(
     palette: {
       mode,
       primary: { main: p.primary, contrastText: p['primary-foreground'] },
-      secondary: { main: p.brand, contrastText: p['primary-foreground'] },
+      // Secondary fills use the brand text tone, which is light in dark mode;
+      // their text is whichever of white or the page background reads.
+      secondary: {
+        main: p.brand,
+        contrastText: contrast(p.brand, '#ffffff') >= 4.5 ? '#ffffff' : p.background,
+      },
       info: { main: p.info, contrastText: p['info-foreground'] },
       error: { main: p.destructive, contrastText: p['destructive-foreground'] },
       warning: { main: p.warning, contrastText: p['warning-foreground'] },

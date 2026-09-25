@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.2
+
+- **MUI adapter**: text on `secondary` fills (the brand tone, light in dark
+  mode) is now white or the page background, whichever reaches 4.5:1. Chips
+  and contained secondary buttons in dark mode had white on light purple.
+
 ## 0.12.1
 
 - **Accent tokens**: primary fills keep white text whenever darkening the
