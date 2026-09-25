@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
+import { fieldFocusClasses } from './input';
 
 export interface ChatHistoryItem {
   id: string;
@@ -237,7 +238,10 @@ function ChatHistory({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search chats"
-                className="h-8 w-full rounded-md border border-input bg-surface pr-2 pl-8 text-base outline-none placeholder:text-muted-foreground focus-visible:border-brand focus-visible:ring-[3px] focus-visible:ring-ring/15 sm:text-sm"
+                className={cn(
+                  'h-8 w-full rounded-md border border-input bg-surface pr-2 pl-8 text-base placeholder:text-muted-foreground sm:text-sm',
+                  fieldFocusClasses,
+                )}
               />
             </label>
           )}
@@ -398,7 +402,7 @@ function RenameRow({ title, onDone }: { title: string; onDone: (title: string) =
             onDone(title);
           }
         }}
-        className="h-8 w-full rounded-md border border-brand bg-surface px-2 text-base ring-[3px] ring-ring/15 outline-none sm:text-sm"
+        className="h-8 w-full rounded-md border border-ring bg-surface px-2 text-base inset-ring-1 inset-ring-ring outline-hidden! sm:text-sm"
       />
     </li>
   );

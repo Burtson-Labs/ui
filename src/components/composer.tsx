@@ -182,8 +182,9 @@ function Composer({
         attach(e.dataTransfer?.files);
       }}
       className={cn(
-        'relative grid gap-2 rounded-lg border border-input bg-surface p-2 shadow-xs transition-[border-color,box-shadow] focus-within:border-brand focus-within:ring-[3px] focus-within:ring-ring/15 dark:bg-surface-raised',
-        'data-[dragging]:border-brand data-[dragging]:ring-[3px] data-[dragging]:ring-ring/20',
+        // The box is the field: same focus as Input (ring border + 1px inset ring).
+        'relative grid gap-2 rounded-lg border border-input bg-surface p-2 shadow-xs transition-[border-color,box-shadow] has-[textarea:focus-visible]:border-ring has-[textarea:focus-visible]:inset-ring-1 has-[textarea:focus-visible]:inset-ring-ring dark:bg-surface-raised',
+        'data-[dragging]:border-brand data-[dragging]:inset-ring-1 data-[dragging]:inset-ring-brand',
         disabled && 'opacity-60',
         className,
       )}
@@ -226,7 +227,7 @@ function Composer({
             void send();
           }
         }}
-        className="field-sizing-content max-h-48 min-h-9 w-full resize-none bg-transparent px-2 py-1.5 text-base sm:text-sm leading-6 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
+        className="field-sizing-content max-h-48 min-h-9 w-full resize-none rounded-none border-0 bg-transparent px-2 py-1.5 text-base sm:text-sm leading-6 shadow-none outline-hidden! placeholder:text-muted-foreground disabled:cursor-not-allowed"
       />
       {failed && (
         <p id={errorId} role="alert" className="px-2 text-sm text-destructive">

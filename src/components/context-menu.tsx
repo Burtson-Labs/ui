@@ -173,7 +173,7 @@ function ContextMenuSubTrigger({
     <ContextMenuPrimitive.SubTrigger
       data-slot="context-menu-sub-trigger"
       data-inset={inset || undefined}
-      className={cn(itemClasses, 'data-[state=open]:bg-muted', className)}
+      className={cn(itemClasses, 'data-[state=open]:bg-secondary', className)}
       {...props}
     >
       {children}

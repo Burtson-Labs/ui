@@ -175,7 +175,12 @@ export function burtsonThemeOptions(
       },
       MuiMenu: {
         styleOverrides: {
-          paper: { borderRadius: radius.lg, border: `1px solid ${p.border}`, boxShadow: shadow.md },
+          paper: {
+            borderRadius: radius.lg,
+            border: `1px solid ${p['border-strong']}`,
+            boxShadow: shadow.md,
+          },
+          list: { paddingTop: 4, paddingBottom: 4 },
         },
       },
       MuiPopover: {
@@ -205,11 +210,43 @@ export function burtsonThemeOptions(
             backgroundColor: p.surface,
             '& .MuiOutlinedInput-notchedOutline': { borderColor: p.input },
             '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: p['border-strong'] },
+            // Same focus as the Tailwind fields: a 2px ring-coloured edge inside
+            // the radius, no outer halo that a scroll container could clip.
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
               borderColor: p.ring,
-              borderWidth: 1,
+              borderWidth: 2,
             },
-            '&.Mui-focused': { boxShadow: focusRing },
+            '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: p.destructive },
+          },
+        },
+      },
+      // Menu, Select and Autocomplete rows: inset 4px in a 12px surface, 8px
+      // radius, a quiet secondary fill for the active row (as MenuItem and
+      // SelectItem in the Tailwind kit).
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            margin: '0 4px',
+            borderRadius: radius.sm,
+            '&.Mui-focusVisible, &:hover': { backgroundColor: p.secondary },
+            '&.Mui-selected': { backgroundColor: 'transparent', fontWeight: 600 },
+            '&.Mui-selected.Mui-focusVisible, &.Mui-selected:hover': {
+              backgroundColor: p.secondary,
+            },
+          },
+        },
+      },
+      MuiAutocomplete: {
+        styleOverrides: {
+          paper: { borderRadius: radius.lg, border: `1px solid ${p['border-strong']}` },
+          listbox: {
+            padding: 4,
+            '& .MuiAutocomplete-option': {
+              borderRadius: radius.sm,
+              '&.Mui-focused, &.Mui-focusVisible': { backgroundColor: p.secondary },
+              '&[aria-selected="true"]': { backgroundColor: 'transparent', fontWeight: 600 },
+              '&[aria-selected="true"].Mui-focused': { backgroundColor: p.secondary },
+            },
           },
         },
       },

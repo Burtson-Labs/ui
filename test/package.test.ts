@@ -144,6 +144,28 @@ describe('standalone stylesheet', () => {
       reset.indexOf('border:0 solid'),
     );
   });
+
+  // Parts that draw focus another way (a combobox's search input, menu and
+  // select rows, the composer's textarea) must beat an app's unlayered
+  // `:focus-visible { outline }`, which outranks any layered utility unless
+  // the utility is !important.
+  it('compiles the outline suppression as !important and the inset field ring', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'burtson-ui-css-'));
+    const out = join(dir, 'styles.css');
+    const r = spawnSync(
+      join(ROOT, 'node_modules/.bin/tailwindcss'),
+      ['-i', 'src/styles/standalone.css', '-o', out, '--minify'],
+      { cwd: ROOT, encoding: 'utf8' },
+    );
+    expect(r.status, r.stderr).toBe(0);
+    const css = readFileSync(out, 'utf8');
+    rmSync(dir, { recursive: true, force: true });
+    const hidden = /\.outline-hidden\\!\{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(hidden).toContain('outline-style:none!important');
+    expect(css).toMatch(/\.focus-visible\\:inset-ring-1:focus-visible\{/);
+    // The one-sided brand bar on the active command row is gone.
+    expect(css).not.toMatch(/data-\\\[selected\\=true\\\]\\:shadow-/);
+  });
 });
 
 describe('accent tokens', () => {

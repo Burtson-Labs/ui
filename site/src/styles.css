@@ -260,9 +260,14 @@
 #components {
   scroll-margin-top: 5rem;
 }
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 3px;
+/* In the base layer: unlayered, this outranked every component's own focus
+   utilities and boxed the combobox's search field, select rows and the
+   composer's textarea. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
 }
 #main:focus {
   outline: none;
@@ -326,8 +331,10 @@
     animation-duration: 0ms !important;
   }
 }
-@media (forced-colors: active) {
-  :focus-visible {
-    outline: 2px solid Highlight;
+@layer base {
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline: 2px solid Highlight;
+    }
   }
 }

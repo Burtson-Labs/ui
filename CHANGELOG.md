@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.12.4
+
+Form controls: one radius scale, one focus ring, no stray borders.
+
+- **Combobox and Command**: the search input inside the popover drew a square,
+  offset outline from the popover's top edge to the divider, and the active
+  row had a 2px inset brand bar that the row's radius bent into a bracket on
+  its left side. Cause: a host page's unlayered `:focus-visible { outline }`
+  rule (the docs site had one) outranks the input's layered `outline-hidden`
+  utility; the bar was CommandItem's `shadow-[inset_2px_0_0_var(--color-brand)]`.
+  Not a 0.12.3 regression. The search row is now the field (icon and
+  borderless input, ruled off from the list) and the input's outline is
+  suppressed with `!important`; the active row is a fill only, and the chosen
+  value keeps its check. A standalone Command with a border turns that border
+  the ring colour while its input has keyboard focus. Command groups inset
+  rows 4px, so an 8px row sits in the 12px surface like Select's.
+- **One field focus ring**: Input, Textarea, SecretInput, Select and Combobox
+  triggers, ChatHistory's search and rename fields and the message editor had
+  up to three indicators at once (brand border, a 3px halo and a 2px outline
+  2px out). Focus is now the border in the ring colour plus a 1px inset ring:
+  2px, inside the border box, so it follows the radius and no overflow can
+  clip it. Invalid fields keep the destructive colour when focused. The
+  Composer box uses the same ring when its textarea has keyboard focus, and
+  its textarea no longer draws its own. Exported: `fieldFocusClasses`.
+- **Menu, Select and Command rows**: the active row's fill is `secondary`
+  (muted was the same colour as the raised surface in dark mode, so the
+  highlight disappeared), and the rows' outline is suppressed with
+  `!important` so a host focus rule cannot box them.
+- **MUI adapter**: OutlinedInput focus is a 2px ring-coloured border without
+  the outer halo (red when in error); MenuItem, Select and Autocomplete
+  options are 8px-radius rows inset 4px in the 12px surface with the same
+  secondary fill; menu and Autocomplete surfaces use the strong border.
+- **Docs site**: its global `:focus-visible` outline moved into the base layer
+  so it no longer overrides component focus styles.
+
 ## 0.12.3
 
 - **Borders in styles.css**: the preflight scoped to `[data-slot]` set

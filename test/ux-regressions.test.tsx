@@ -233,3 +233,90 @@ describe('shortcut labels', () => {
     expect(shortcutLabel('k')).toBe('Ctrl K');
   });
 });
+
+// 0.12.4: in the open combobox the search input drew a square, offset outline
+// (a host page's unlayered `:focus-visible` rule beat the input's
+// `outline-hidden` utility) and the active row carried a 2px inset brand bar
+// that the row's radius bent into a one-sided bracket.
+describe('combobox popover borders', () => {
+  const options = [
+    { value: 'a', label: 'Dana Ortiz', description: 'dana@burtson.ai' },
+    { value: 'b', label: 'Luis Park', description: 'luis@burtson.ai' },
+  ];
+  const classes = (el: Element | null) => (el?.getAttribute('class') ?? '').split(/\s+/);
+
+  it('keeps the search input borderless, with the outline suppressed against host CSS', async () => {
+    render(
+      <Combobox options={options} value={null} onValueChange={() => {}} placeholder="Users" />,
+    );
+    await userEvent.click(screen.getByRole('combobox', { name: 'Users' }));
+    const input = screen.getByPlaceholderText('Search…');
+    const c = classes(input);
+    expect(c).toContain('outline-hidden!');
+    expect(c).toContain('border-0');
+    expect(c).toContain('rounded-none');
+    expect(
+      c.filter((k) =>
+        /(^|:)(outline-(2|offset|ring)|ring-|inset-ring|border-(brand|ring|input))/.test(k),
+      ),
+    ).toEqual([]);
+    // The row is the field: ruled off from the list, no box of its own.
+    const row = input.closest('[data-slot="command-input-wrapper"]');
+    expect(classes(row)).toContain('border-b');
+    expect(classes(row).filter((k) => /^(border|rounded|ring|outline)(-|$)/.test(k))).toEqual([
+      'border-b',
+    ]);
+  });
+
+  it('marks the active option with a fill only, never a side border or inset bar', async () => {
+    render(<Combobox options={options} value="a" onValueChange={() => {}} placeholder="Users" />);
+    await userEvent.click(screen.getByRole('combobox', { name: 'Users' }));
+    await userEvent.keyboard('{ArrowDown}');
+    const active = document.querySelector('[cmdk-item][data-selected="true"]');
+    expect(active?.textContent).toContain('Luis Park');
+    const c = classes(active);
+    expect(c).toContain('data-[selected=true]:bg-secondary');
+    expect(c).toContain('outline-hidden!');
+    expect(
+      c.filter((k) => /shadow-\[inset|border-[lrse]|border-l-|ring-|outline-(2|offset)/.test(k)),
+    ).toEqual([]);
+    // The chosen value keeps its check, the non-colour selected cue.
+    const chosen = screen.getByRole('option', { name: /Dana Ortiz/ });
+    expect(chosen.querySelector('svg')?.getAttribute('class')).toContain('opacity-100');
+  });
+
+  it('gives every field the same inset focus ring, not an offset outline or halo', () => {
+    render(
+      <>
+        <Input aria-label="URL" />
+        <Textarea aria-label="Notes" />
+      </>,
+    );
+    for (const el of [screen.getByLabelText('URL'), screen.getByLabelText('Notes')]) {
+      const c = classes(el);
+      expect(c).toEqual(
+        expect.arrayContaining([
+          'outline-hidden!',
+          'focus-visible:border-ring',
+          'focus-visible:inset-ring-1',
+          'focus-visible:inset-ring-ring',
+          'rounded-md',
+        ]),
+      );
+      expect(c.filter((k) => /focus-visible:(outline-(2|offset|ring)|ring-)/.test(k))).toEqual([]);
+    }
+  });
+
+  it('draws the composer focus on the box, not the textarea', () => {
+    render(<Composer onSubmit={() => {}} />);
+    const textarea = screen.getByRole('textbox');
+    expect(classes(textarea)).toEqual(expect.arrayContaining(['outline-hidden!', 'border-0']));
+    const box = textarea.closest('[data-slot="composer"]');
+    expect(classes(box)).toEqual(
+      expect.arrayContaining([
+        'has-[textarea:focus-visible]:border-ring',
+        'has-[textarea:focus-visible]:inset-ring-1',
+      ]),
+    );
+  });
+});

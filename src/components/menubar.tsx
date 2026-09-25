@@ -196,7 +196,7 @@ function MenubarSubTrigger({
     <MenubarPrimitive.SubTrigger
       data-slot="menubar-sub-trigger"
       data-inset={inset || undefined}
-      className={cn(itemClasses, 'data-[state=open]:bg-muted', className)}
+      className={cn(itemClasses, 'data-[state=open]:bg-secondary', className)}
       {...props}
     >
       {children}

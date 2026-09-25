@@ -11,7 +11,10 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        'flex h-full w-full flex-col overflow-hidden rounded-lg bg-surface-raised text-popover-foreground',
+        // Standalone with a border, the box is the field: its border takes the
+        // ring colour while the search input has keyboard focus. In a popover or
+        // dialog there is no border of its own, so the rule draws nothing.
+        'flex h-full w-full flex-col overflow-hidden rounded-lg bg-surface-raised text-popover-foreground has-[[cmdk-input]:focus-visible]:border-ring',
         className,
       )}
       {...props}
@@ -57,12 +60,14 @@ function CommandInput({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
+    // The row is the field (icon + input, ruled off from the list); the input
+    // itself draws no border or outline, whatever the host page's CSS says.
     <div data-slot="command-input-wrapper" className="flex h-11 items-center gap-2 border-b px-3">
       <Search className="size-4 shrink-0 opacity-50" aria-hidden />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          'flex h-10 w-full bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+          'flex h-10 w-full rounded-none border-0 bg-transparent py-3 text-sm shadow-none outline-hidden! placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}
         {...props}
@@ -99,7 +104,7 @@ function CommandGroup({
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
+        'overflow-hidden py-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
         className,
       )}
       {...props}
@@ -125,7 +130,7 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-muted data-[selected=true]:text-foreground data-[selected=true]:shadow-[inset_2px_0_0_var(--color-brand)] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
+        "relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-hidden! select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-secondary data-[selected=true]:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
         className,
       )}
       {...props}

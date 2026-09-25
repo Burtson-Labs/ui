@@ -154,7 +154,7 @@ function MessageEditor({
             send();
           }
         }}
-        className="field-sizing-content max-h-60 min-h-16 w-full resize-none rounded-lg border border-brand bg-surface px-3 py-2 text-base leading-6 ring-[3px] ring-ring/15 outline-none sm:text-sm"
+        className="field-sizing-content max-h-60 min-h-16 w-full resize-none rounded-lg border border-ring bg-surface px-3 py-2 text-base leading-6 inset-ring-1 inset-ring-ring outline-hidden! sm:text-sm"
       />
       <div className="flex justify-end gap-2">
         <Button type="button" variant="ghost" size="sm" onClick={onCancel}>
