@@ -1,4 +1,3 @@
-import ArrowRight from '@burtson-labs/icons/react/arrow-right';
 import * as React from 'react';
 
 import {
@@ -22,8 +21,25 @@ export function Playground() {
   const [variant, setVariant] = React.useState<ButtonProps['variant']>('default');
   const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
-  const [label, setLabel] = React.useState('Launch workspace');
-  const [message, setMessage] = React.useState('Click the button to see its state here.');
+  const [label, setLabel] = React.useState('Save changes');
+  const [clicks, setClicks] = React.useState(0);
+  const [running, setRunning] = React.useState(false);
+  const timer = React.useRef<number | undefined>(undefined);
+  React.useEffect(() => () => window.clearTimeout(timer.current), []);
+  // A click shows what the button does with a real async action: loading while
+  // it runs, then done. Nothing leaves this page.
+  const run = () => {
+    setRunning(true);
+    timer.current = window.setTimeout(() => {
+      setRunning(false);
+      setClicks((n) => n + 1);
+    }, 900);
+  };
+  const message = running
+    ? 'Running… the button shows its loading state and ignores further clicks.'
+    : clicks
+      ? `Done (${clicks} ${clicks === 1 ? 'click' : 'clicks'}). A demo action: nothing is sent anywhere.`
+      : 'Click to see the loading state a real action would show.';
   return (
     <section className="playground" aria-labelledby="playground-title">
       <div className="section-intro">
@@ -48,12 +64,11 @@ export function Playground() {
             <div className="flex min-h-32 flex-col items-center justify-center gap-5 rounded-lg border border-dashed bg-surface-muted p-5">
               <Button
                 variant={variant}
-                loading={loading}
+                loading={loading || running}
                 disabled={disabled}
-                onClick={() => setMessage('Workspace launched. This is a local preview.')}
+                onClick={run}
               >
-                {label || 'Launch workspace'}
-                <ArrowRight aria-hidden />
+                {label || 'Save changes'}
               </Button>
               <p role="status" className="text-center text-xs text-muted-foreground">
                 {message}
@@ -109,7 +124,7 @@ export function Playground() {
               </label>
             </div>
             <Code
-              code={`<Button variant="${variant}"${loading ? ' loading' : ''}${disabled ? ' disabled' : ''}>\n  ${label.replace(/[<>&{}]/g, '') || 'Launch workspace'}\n</Button>`}
+              code={`<Button variant="${variant}"${loading ? ' loading' : ''}${disabled ? ' disabled' : ''}>\n  ${label.replace(/[<>&{}]/g, '') || 'Save changes'}\n</Button>`}
             />
           </CardContent>
         </Card>
