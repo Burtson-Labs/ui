@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.1
+
+- **Accent tokens**: primary fills keep white text whenever darkening the
+  accent reaches 4.5:1 (purples, blues, greens, reds), and switch to dark text
+  only for genuinely light accents such as yellow. A light brand tone passed as
+  the accent (the kit's own dark-mode purple, for one) had turned every
+  contained MUI button's text near-black.
+
 ## 0.12.0
 
 Everything a chat app needs, and a recipe that builds one.

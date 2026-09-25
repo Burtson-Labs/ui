@@ -305,7 +305,11 @@ export function accentTokens(accent: string, mode: 'light' | 'dark'): AccentToke
   const p = mode === 'dark' ? dark : light;
   const white = '#ffffff';
   // A dark foreground on light fills (yellow, cyan) instead of forcing white.
-  const onFill = contrast(accent, white) >= contrast(accent, '#111111') ? white : '#111111';
+  // White text on the fill whenever darkening the accent a little gets there
+  // (purples, blues, greens, reds: the usual brand colours, which read as the
+  // brand when they carry white). Dark text only for genuinely light accents
+  // such as yellow or pale cyan, where white would need the colour ruined.
+  const onFill = contrast(accent, white) >= 2.6 ? white : '#111111';
   const primary =
     onFill === white
       ? ensureContrast(accent, white, 4.5, '#000000')

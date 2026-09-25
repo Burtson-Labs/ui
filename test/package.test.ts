@@ -112,6 +112,13 @@ describe('standalone stylesheet', () => {
 });
 
 describe('accent tokens', () => {
+  it('keeps white text on brand-coloured fills, dark text only on light accents', () => {
+    // A light purple (a dark-mode brand tone) still carries white, darkened to fit.
+    expect(accentTokens('#c65ef1', 'dark')['primary-foreground']).toBe('#ffffff');
+    expect(accentTokens('#4d90fe', 'dark')['primary-foreground']).toBe('#ffffff');
+    expect(accentTokens('#facc15', 'dark')['primary-foreground']).toBe('#111111');
+  });
+
   // Tenants pick a colour; the kit keeps it legible.
   for (const accent of ['#a60ee5', '#2563eb', '#16a34a', '#facc15', '#e11d48', '#06b6d4']) {
     for (const mode of ['light', 'dark'] as const) {
