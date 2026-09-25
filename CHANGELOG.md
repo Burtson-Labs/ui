@@ -1,5 +1,59 @@
 # Changelog
 
+## 0.13.0
+
+Phone layouts for records: DataTable cards, paging with a rows-per-page menu,
+compact Steps. Ported from the RWT load-intake app and generalised.
+
+- **DataTable cards**: below `cardsBelow` (`md`, 768px, by default; `sm`,
+  `lg`, `xl` or `false`) the rows render as a list of articles, each named by
+  its title. Columns choose their place with `card`: `title`, `subtitle`,
+  `aside` (a status badge), `field` (a labelled value in a two-column grid),
+  `footer` (links or buttons) or `hidden`; with nothing marked, the first
+  column is the title and the rest are fields. `cardLabel`, `cardCell` (a
+  shorter rendering) and `cardOnly` refine it, and `hideBelow` drops a table
+  column below a width. The title is the row's open button and its hit area
+  covers the card; the selection checkbox has a 44px target and row actions
+  and footer controls keep their own clicks. Select all and a Sort by menu
+  move into the toolbar, since the headers are gone. Loading, empty and error
+  states have card forms. The layout is chosen with `matchMedia`; without it
+  (server render, tests) the table is shown. **Behaviour change**: existing
+  DataTables become cards on phones; pass `cardsBelow={false}` to keep the
+  table.
+- **DataTable paging**: `paginate` (or `{ pageSize, pageSizeOptions,
+storageKey }`) pages every row passed in, with a rows-per-page menu, and
+  goes back to page 1 when `filter` or `sort` changes. For server paging,
+  `pageSize`, `pageSizeOptions`, `onPageSizeChange` and `totalRows` add the
+  menu and the "1–25 of 312" summary; `rowNoun` appends "members".
+- **DataTable in a grid**: the root is a single `minmax(0, 1fr)` track, so a
+  wide table scrolls inside its frame instead of widening a grid or flex
+  parent.
+- **Pagination**: `pageSize`, `pageSizeOptions` (25, 50, 100) and
+  `onPageSizeChange` add a rows-per-page menu; `total` gives a default
+  summary. Below 640px it is "Page 2 of 13" between two 44px previous and next
+  buttons, with the summary and menu underneath; the new page is announced to
+  screen readers. The page-size trigger is 44px tall on touch screens.
+- **usePagination** (headless): slices rows, clamps the page, returns to page
+  1 when `resetKey` changes (not on the first render, so a link to page 3
+  stays there), optionally remembers the size in localStorage
+  (`storageKey`), accepts a controlled `page` / `pageSize` for URL sync and a
+  `total` for server pages. `paginationProps` spreads onto Pagination. Pure
+  helpers: `paginate`, `pageWindow`, `pageCountFor`, `clampPage`,
+  `paginationSummary`, `DEFAULT_PAGE_SIZES`.
+- **Steps**: below `compactBelow` (`sm` by default for horizontal steps)
+  only the current step shows, with "Step 2 of 5" (`formatCounter`) and a
+  segmented progress bar, instead of titles squeezed to a few letters.
+- **CheckboxCard** and **CheckboxCardGroup** (new): a checkbox with a title
+  and a sentence where the whole card, 44px or taller, is the target; one
+  focus ring on the card; a fieldset with a legend around them.
+- **SheetContent** `showCloseButton={false}` leaves out the corner X when the
+  sheet has its own close control (matches DialogContent).
+- **DialogContent** `mobile="sheet"`: below 640px the dialog docks to the
+  bottom edge, full width, with a grab bar and a slide-up entrance; larger
+  screens keep the centred window.
+- **Docs and registry**: demos, usage notes and prop tables for each;
+  `checkbox-card` is a new registry item.
+
 ## 0.12.4
 
 Form controls: one radius scale, one focus ring, no stray borders.

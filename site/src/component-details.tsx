@@ -37,6 +37,24 @@ const guidance: Record<string, string[]> = {
     'Controlled: sort, filter and page in your app or on the server and pass the rows to show. The table never reorders rows.',
     'Rows are one tab stop: arrow keys move, Enter runs onRowAction, Space toggles selection.',
     'Select all applies to the rows on this page. Put bulk actions in toolbar and confirm destructive ones with Alert Dialog.',
+    'Below cardsBelow (768px by default) the rows are a list of cards, each an article named by its title. Place columns with card: title, subtitle, aside (a status), field, footer or hidden. The title is the open button and covers the card; the checkbox and row actions keep their own 44px targets. Sorting moves to a Sort by menu.',
+    'paginate pages in the browser: pass every row and it shows one page with a rows-per-page menu, back to page 1 when filter or sort changes. For server paging pass page, pageCount, onPageChange, and pageSize, onPageSizeChange and totalRows for the menu and the "1–25 of 312" summary.',
+    'The table sits in a single minmax(0, 1fr) grid track, so a wide table scrolls inside its frame instead of widening a grid or flex parent.',
+  ],
+  pagination: [
+    'Below 640px the pages collapse to "Page 2 of 13" between two 44px buttons; the summary and page-size menu move under them. The current page is announced when it changes.',
+    'usePagination(rows, { resetKey, storageKey }) slices rows, clamps the page, goes back to page 1 when resetKey (search text, a filter) changes and can remember the page size. Spread its paginationProps onto Pagination.',
+    'To keep the page in the URL, pass page and onPageChange (and pageSize, onPageSizeChange) from your router: read ?page= with clampPage, write it back with replace, and leave page 1 out of the URL so plain links stay plain.',
+    'Server paging: pageWindow({ page, pageSize, total }) and paginationSummary() give the numbers without slicing, or pass total to usePagination.',
+  ],
+  'checkbox-card': [
+    'Use for choices that need a sentence of explanation: roles, permissions, notification types. For short labels a plain Checkbox and Label is enough.',
+    'The whole card toggles the checkbox; the title names it and the description describes it for screen readers. Focus shows once, on the card.',
+    'Wrap related cards in CheckboxCardGroup so they get a legend. Disabling the group disables every card.',
+  ],
+  sheet: [
+    'Always include SheetTitle. Bottom sheets show a grab bar and keep clear of the home indicator.',
+    'showCloseButton={false} when the sheet has its own close control, such as a Done button or a header with a SheetClose, so there are not two.',
   ],
   resizable: [
     'Give every panel an id and every handle an aria-label naming what it resizes.',
@@ -145,6 +163,7 @@ const guidance: Record<string, string[]> = {
     'Always include DialogTitle. Add DialogDescription when additional context is useful.',
     'Escape closes and focus returns to the trigger. Long content scrolls inside the bounded panel.',
     'Use AlertDialog for a consequential confirmation and make Cancel the safe path.',
+    'mobile="sheet" docks the dialog to the bottom edge below 640px, full width with a grab bar, which suits forms on a phone. Larger screens keep the centred window.',
   ],
   'alert-dialog': [
     'Include a title, a specific description, and a clearly labeled Cancel action.',
@@ -155,6 +174,7 @@ const guidance: Record<string, string[]> = {
     'current is a zero-based index. Use items.length when all steps are complete.',
     'Keep titles short; longer titles wrap rather than disappearing.',
     'Use vertical orientation for narrow layouts or steps with substantial descriptions.',
+    'Below compactBelow (640px by default) horizontal steps collapse to the current title, "Step 2 of 5" and a segmented bar. Screen readers get the current step with its position.',
   ],
 };
 
@@ -206,7 +226,77 @@ const api: Record<string, [string, string, string][]> = {
     ['selected / onSelectedChange', 'string[] / (ids) => void', '—'],
     ['onRowAction / rowActions', '(row) => void / (row) => ReactNode', '—'],
     ['page / pageCount / onPageChange', 'number / number / (page) => void', '—'],
+    [
+      'pageSize / pageSizeOptions / onPageSizeChange',
+      'number / number[] / (size) => void',
+      '— / 25, 50, 100 / —',
+    ],
+    ['totalRows / rowNoun', 'number (server paging summary) / string ("members")', '—'],
+    [
+      'paginate',
+      'boolean | { pageSize?, pageSizeOptions?, storageKey? }; pages rows in the browser',
+      '—',
+    ],
+    ['cardsBelow', 'sm | md | lg | xl | false', 'md'],
+    [
+      'column.card',
+      'title | subtitle | aside | field | footer | hidden',
+      'first column title, others field',
+    ],
+    ['column.cardLabel / cardCell / cardOnly', 'string / (row) => ReactNode / boolean', '—'],
+    ['column.hideBelow', 'sm | md | lg | xl; drops the table column below that width', '—'],
     ['loading / error / onRetry / empty', 'boolean / ReactNode / () => void / ReactNode', '—'],
+  ],
+  pagination: [
+    ['page / pageCount / onPageChange', 'number (1-based) / number / (page) => void', 'required'],
+    ['summary', 'ReactNode; worked out from total and pageSize when left out', '—'],
+    ['total / pageSize', 'number / number', '—'],
+    [
+      'pageSizeOptions / onPageSizeChange',
+      'number[] / (size) => void; adds the menu',
+      '25, 50, 100 / —',
+    ],
+    [
+      'pageSizeLabel / formatPageSize',
+      'string / (size) => string',
+      'Rows per page / "25 per page"',
+    ],
+    [
+      'usePagination(rows, options)',
+      '{ page?, defaultPage?, onPageChange?, pageSize?, defaultPageSize?, onPageSizeChange?, pageSizeOptions?, resetKey?, storageKey?, total? }',
+      '—',
+    ],
+    [
+      'returns',
+      '{ rows, page, pageCount, pageSize, total, from, to, summary, hasPages, setPage, setPageSize, paginationProps }',
+      '—',
+    ],
+    [
+      'helpers',
+      'paginate, pageWindow, pageCountFor, clampPage, paginationSummary, paginationRange',
+      '—',
+    ],
+  ],
+  steps: [
+    ['items / current', 'StepItem[] { title, description? } / number (0-based)', 'required'],
+    ['orientation', 'horizontal | vertical', 'horizontal'],
+    ['compactBelow', 'sm | md | lg | false', 'sm (horizontal), false (vertical)'],
+    ['formatCounter', '(step, total) => string', '"Step 2 of 5"'],
+  ],
+  dialog: [
+    ['DialogContent: showCloseButton', 'boolean', 'true'],
+    ['mobile', 'center | sheet; sheet docks to the bottom below 640px', 'center'],
+  ],
+  sheet: [
+    ['SheetContent: side', 'top | right | bottom | left', 'right'],
+    ['handle', 'boolean; grab bar', 'true for bottom'],
+    ['showCloseButton', 'boolean', 'true'],
+  ],
+  'checkbox-card': [
+    ['CheckboxCard: title / description', 'ReactNode / ReactNode', 'required / —'],
+    ['checked / onCheckedChange / disabled', 'Radix Checkbox props', '—'],
+    ['cardClassName / className', 'classes for the card / the checkbox', '—'],
+    ['CheckboxCardGroup: label / description', 'ReactNode (legend) / ReactNode', 'required / —'],
   ],
   resizable: [
     ['orientation', 'horizontal | vertical', 'horizontal'],

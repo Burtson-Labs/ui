@@ -42,9 +42,15 @@ const all: ComponentDoc[] = [
     radix: 'checkbox',
   },
   {
+    name: 'checkbox-card',
+    title: 'Checkbox Card',
+    description: 'A checkbox with a title and a sentence; the whole card is the target.',
+    radix: 'checkbox',
+  },
+  {
     name: 'dialog',
     title: 'Dialog',
-    description: 'A modal window that traps focus until dismissed.',
+    description: 'A modal window that traps focus until dismissed; a bottom sheet on phones.',
     radix: 'dialog',
   },
   {
@@ -215,9 +221,14 @@ const all: ComponentDoc[] = [
   {
     name: 'pagination',
     title: 'Pagination',
-    description: 'Page controls for tables and lists, with a summary.',
+    description:
+      'Page controls with a summary and rows per page, "Page 2 of 13" on phones, and a paging hook.',
   },
-  { name: 'steps', title: 'Steps', description: 'Progress through a short multi-step flow.' },
+  {
+    name: 'steps',
+    title: 'Steps',
+    description: 'Progress through a short multi-step flow; "Step 2 of 5" on phones.',
+  },
   {
     name: 'composer',
     title: 'Composer',
@@ -354,7 +365,8 @@ const all: ComponentDoc[] = [
   {
     name: 'data-table',
     title: 'Data Table',
-    description: 'A controlled table for records: sort, search, select, page and row actions.',
+    description:
+      'A controlled table for records: sort, search, select, page and row actions; cards on phones.',
   },
 ];
 

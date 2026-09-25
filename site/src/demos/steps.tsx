@@ -1,14 +1,17 @@
 import { Steps } from '@burtson-labs/ui';
 
 export default function StepsDemo() {
+  // Below 640px this becomes "Step 2 of 5" with a progress bar.
   return (
     <Steps
-      className="w-full max-w-2xl"
+      className="w-full max-w-3xl"
       current={1}
       items={[
-        { title: 'Sign in', description: 'Email or Google' },
-        { title: 'Verify', description: 'One-time code' },
-        { title: 'Done', description: 'Open your workspace' },
+        { title: 'Company', description: 'Name and domain' },
+        { title: 'Sign-in', description: 'SSO or email' },
+        { title: 'Mailbox', description: 'Where loads arrive' },
+        { title: 'Brand', description: 'Logo and colours' },
+        { title: 'Review' },
       ]}
     />
   );

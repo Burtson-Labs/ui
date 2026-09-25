@@ -20,7 +20,8 @@ export default function SheetDemo() {
         <SheetTrigger asChild>
           <Button variant="outline">Open bottom drawer</Button>
         </SheetTrigger>
-        <SheetContent side="bottom">
+        {/* It has its own Done button, so no X in the corner. */}
+        <SheetContent side="bottom" showCloseButton={false}>
           <SheetHeader>
             <SheetTitle>Run 4821</SheetTitle>
             <SheetDescription>release-captain · finished 2m 14s ago</SheetDescription>

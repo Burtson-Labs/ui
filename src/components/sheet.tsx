@@ -31,9 +31,15 @@ function SheetContent({
   children,
   side = 'right',
   handle = side === 'bottom',
+  showCloseButton = true,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: keyof typeof sideClasses;
+  /**
+   * The X in the corner. Turn it off when the sheet draws its own header
+   * with a close control (a SheetClose), so there are not two.
+   */
+  showCloseButton?: boolean;
   /**
    * A grab bar at the top edge, the cue that this is a drawer. Visual only:
    * it does not drag; close with the button, Escape or the overlay. On by
@@ -65,15 +71,17 @@ function SheetContent({
         )}
         {children}
         {/* 44px on touch screens, 32px with a mouse. */}
-        <SheetPrimitive.Close
-          className={cn(
-            'absolute right-3 grid size-8 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 pointer-coarse:size-11 [&_svg]:size-4 pointer-coarse:[&_svg]:size-5',
-            side === 'top' ? 'top-[calc(env(safe-area-inset-top)+0.75rem)]' : 'top-3',
-          )}
-        >
-          <X aria-hidden />
-          <span className="sr-only">Close</span>
-        </SheetPrimitive.Close>
+        {showCloseButton && (
+          <SheetPrimitive.Close
+            className={cn(
+              'absolute right-3 grid size-8 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 pointer-coarse:size-11 [&_svg]:size-4 pointer-coarse:[&_svg]:size-5',
+              side === 'top' ? 'top-[calc(env(safe-area-inset-top)+0.75rem)]' : 'top-3',
+            )}
+          >
+            <X aria-hidden />
+            <span className="sr-only">Close</span>
+          </SheetPrimitive.Close>
+        )}
       </SheetPrimitive.Content>
     </SheetPrimitive.Portal>
   );

@@ -15,6 +15,7 @@ export * from './components/card';
 export * from './components/chat-history';
 export * from './components/chat-layout';
 export * from './components/checkbox';
+export * from './components/checkbox-card';
 export * from './components/collapsible';
 export * from './components/combobox';
 export * from './components/command';
