@@ -8,6 +8,41 @@ export interface TableProps extends React.ComponentProps<'table'> {
   /** Keep the header visible while the container scrolls; give it a height. */
   stickyHeader?: boolean;
   containerClassName?: string;
+  /**
+   * Props for the scrolling wrapper (`tabIndex`, `role`, `aria-*`, `ref`, ...).
+   * Anything set here wins over what `scrollLabel` sets.
+   */
+  containerProps?: React.ComponentProps<'div'>;
+  /**
+   * Accessible name for the scroll container. With it (or an `aria-label` /
+   * `aria-labelledby` in `containerProps`) the wrapper becomes a named region
+   * that joins the tab order while its content overflows, so keyboard users
+   * can scroll it (WCAG 2.1.1, axe scrollable-region-focusable).
+   */
+  scrollLabel?: string;
+}
+
+/** True while the element's content is larger than its box. */
+function useOverflows(ref: React.RefObject<HTMLElement | null>, enabled: boolean): boolean {
+  const [overflows, setOverflows] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!enabled || !el) return;
+    const update = () =>
+      setOverflows(el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight);
+    update();
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    return () => ro.disconnect();
+  }, [ref, enabled]);
+  return overflows;
+}
+
+function assignRef<T>(ref: React.Ref<T> | undefined, node: T | null) {
+  if (typeof ref === 'function') ref(node);
+  else if (ref) ref.current = node;
 }
 
 function Table({
@@ -15,14 +50,43 @@ function Table({
   density = 'default',
   stickyHeader = false,
   containerClassName,
+  containerProps,
+  scrollLabel,
   ...props
 }: TableProps) {
+  const {
+    className: containerPropsClassName,
+    ref: containerRef,
+    ...wrapperProps
+  } = containerProps ?? {};
+  const local = React.useRef<HTMLDivElement | null>(null);
+  const setRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      local.current = node;
+      assignRef(containerRef, node);
+    },
+    [containerRef],
+  );
+  const named = Boolean(
+    scrollLabel || wrapperProps['aria-label'] || wrapperProps['aria-labelledby'],
+  );
+  const overflows = useOverflows(local, named);
   return (
     <div
       data-slot="table-container"
       data-density={density}
       data-sticky={stickyHeader || undefined}
-      className={cn('group/table relative w-full overflow-auto', containerClassName)}
+      role={named ? 'region' : undefined}
+      aria-label={scrollLabel}
+      // A scrollable region must be reachable by keyboard; only while it scrolls.
+      tabIndex={named && overflows ? 0 : undefined}
+      {...wrapperProps}
+      ref={setRef}
+      className={cn(
+        'group/table relative w-full overflow-auto',
+        containerClassName,
+        containerPropsClassName,
+      )}
     >
       <table
         data-slot="table"

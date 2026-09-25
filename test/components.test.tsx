@@ -200,6 +200,77 @@ describe('vNext patterns', () => {
     expect(screen.getByText('2m 14s').className).toContain('text-right');
   });
 
+  it('makes a labelled table scroller focusable only while it overflows', async () => {
+    const { Table, TableBody, TableCell, TableRow } = await import('@burtson-labs/ui');
+    const rows = (
+      <TableBody>
+        <TableRow>
+          <TableCell>run-1</TableCell>
+        </TableRow>
+      </TableBody>
+    );
+    // jsdom has no layout: fake a scroller whose content is wider than its box.
+    const scrollWidth = vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(900);
+    const clientWidth = vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(320);
+    try {
+      const { unmount } = render(<Table scrollLabel="Compare plans">{rows}</Table>);
+      const region = screen.getByRole('region', { name: 'Compare plans' });
+      expect(region.getAttribute('data-slot')).toBe('table-container');
+      expect(region.getAttribute('tabindex')).toBe('0');
+      unmount();
+
+      clientWidth.mockReturnValue(900);
+      render(<Table scrollLabel="Compare plans">{rows}</Table>);
+      expect(
+        screen.getByRole('region', { name: 'Compare plans' }).getAttribute('tabindex'),
+      ).toBeNull();
+    } finally {
+      scrollWidth.mockRestore();
+      clientWidth.mockRestore();
+    }
+  });
+
+  it('passes containerProps to the scroll wrapper and keeps it unnamed by default', async () => {
+    const { Table, TableBody, TableCell, TableRow } = await import('@burtson-labs/ui');
+    const ref = React.createRef<HTMLDivElement>();
+    const { container } = render(
+      <>
+        <h2 id="t-title">Usage</h2>
+        <Table
+          containerClassName="max-h-40"
+          containerProps={{
+            ref,
+            tabIndex: 0,
+            'aria-labelledby': 't-title',
+            className: 'rounded-lg',
+          }}
+        >
+          <TableBody>
+            <TableRow>
+              <TableCell>run-1</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell>run-2</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </>,
+    );
+    const region = screen.getByRole('region', { name: 'Usage' });
+    expect(ref.current).toBe(region);
+    expect(region.getAttribute('tabindex')).toBe('0');
+    expect(region.className).toContain('overflow-auto');
+    expect(region.className).toContain('max-h-40');
+    expect(region.className).toContain('rounded-lg');
+    const plain = container.querySelectorAll('[data-slot="table-container"]')[1];
+    expect(plain?.getAttribute('role')).toBeNull();
+    expect(plain?.getAttribute('tabindex')).toBeNull();
+  });
+
   it('adds new badge variants without dropping secondary', async () => {
     const { badgeVariants } = await import('@burtson-labs/ui');
     expect(badgeVariants({ variant: 'info' })).toContain('text-info');

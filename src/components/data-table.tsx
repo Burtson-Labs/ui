@@ -310,6 +310,7 @@ function DataTable<T>({
       <div ref={frameRef} className="rounded-lg border bg-surface">
         <Table
           aria-label={ariaLabel}
+          scrollLabel={ariaLabel}
           aria-busy={loading || undefined}
           density={density}
           stickyHeader={stickyHeader}

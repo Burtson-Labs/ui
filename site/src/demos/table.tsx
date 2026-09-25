@@ -17,7 +17,7 @@ const runs = [
 
 export default function TableDemo() {
   return (
-    <Table className="max-w-xl">
+    <Table className="max-w-xl" scrollLabel="Recent agent runs">
       <TableCaption>Recent agent runs</TableCaption>
       <TableHeader>
         <TableRow>

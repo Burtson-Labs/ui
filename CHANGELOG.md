@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.12.3
+
+- **Borders in styles.css**: the preflight scoped to `[data-slot]` set
+  `border: 0 solid`, which reset border-color to the text colour and outranked
+  the kit's own border colour. Parts that draw a border without naming a
+  colour (OnboardingChecklist, CardFooter's rule) showed a bright outline in
+  apps using `@burtson-labs/ui/styles.css`. The reset now keeps
+  `var(--border)`; colour utilities still win.
+- **Table**: `scrollLabel` names the scroll container; it becomes a region
+  that joins the tab order while its content overflows, so keyboard users can
+  scroll it (axe `scrollable-region-focusable`). `containerProps` passes
+  `tabIndex`, `aria-*`, a ref or a class to the wrapper. DataTable names its
+  scroller from its `aria-label`.
+
 ## 0.12.2
 
 - **MUI adapter**: text on `secondary` fills (the brand tone, light in dark

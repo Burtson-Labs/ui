@@ -28,6 +28,11 @@ const guidance: Record<string, string[]> = {
     'Use position="fixed" in an app and pad the page bottom by the bar height. The bar adds the safe-area inset itself.',
     'For links, call event.preventDefault() in onValueChange and route with your router.',
   ],
+  table: [
+    'Give the table a caption or an aria-label, and scope="col" on header cells.',
+    'Pass scrollLabel when the table can scroll (narrow screens, a height with stickyHeader): the container becomes a named region that joins the tab order while it overflows, so keyboard users can scroll it.',
+    'containerProps reach the scrolling wrapper, for a tabIndex, aria-labelledby or ref of your own.',
+  ],
   'data-table': [
     'Controlled: sort, filter and page in your app or on the server and pass the rows to show. The table never reorders rows.',
     'Rows are one tab stop: arrow keys move, Enter runs onRowAction, Space toggles selection.',
@@ -186,6 +191,12 @@ const api: Record<string, [string, string, string][]> = {
     ['items', 'MobileNavItem[] { id, label, icon, href?, badge? }', 'required'],
     ['value / onValueChange', 'string / (id, event) => void', 'required / —'],
     ['position', 'fixed | static', 'static'],
+  ],
+  table: [
+    ['density', 'compact | default', 'default'],
+    ['stickyHeader', 'boolean', 'false'],
+    ['scrollLabel', 'string (names the scroll region)', '—'],
+    ['containerProps / containerClassName', 'div props / string', '—'],
   ],
   'data-table': [
     ['columns', 'DataTableColumn[] { id, header, cell, sortable?, numeric? }', 'required'],

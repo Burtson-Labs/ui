@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process';
-import { readdirSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { createElement } from 'react';
@@ -120,6 +121,28 @@ describe('standalone stylesheet', () => {
     });
     // Every file that renders a bare <button> puts it inside a data-slot root.
     expect(unslotted).toEqual([]);
+  });
+
+  // `border: 0 solid` resets border-color to currentColor and, at [data-slot]
+  // specificity, beats theme.css's `* { border-color }`: a part that draws a
+  // border without naming a colour (OnboardingChecklist, CardFooter) showed a
+  // text-coloured outline. The compiled sheet must put the token back.
+  it('keeps the border token after the scoped border reset', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'burtson-ui-css-'));
+    const out = join(dir, 'styles.css');
+    const r = spawnSync(
+      join(ROOT, 'node_modules/.bin/tailwindcss'),
+      ['-i', 'src/styles/standalone.css', '-o', out, '--minify'],
+      { cwd: ROOT, encoding: 'utf8' },
+    );
+    expect(r.status, r.stderr).toBe(0);
+    const css = readFileSync(out, 'utf8');
+    rmSync(dir, { recursive: true, force: true });
+    const reset = /\[data-slot\],\[data-slot\] \*,[^{]*\{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(reset).toContain('border:0 solid');
+    expect(reset.indexOf('border-color:var(--border)')).toBeGreaterThan(
+      reset.indexOf('border:0 solid'),
+    );
   });
 });
 

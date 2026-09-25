@@ -18,6 +18,13 @@
   [data-slot]::after {
     box-sizing: border-box;
     border: 0 solid;
+    /* The shorthand above resets border-color to currentColor, and at this
+       specificity it beats theme.css's `* { border-color }`. Put the token
+       back so a part that draws a border without naming a colour (the
+       onboarding checklist, a card footer's rule) gets the border colour, not
+       the text colour. var(--border) follows an element-scoped theme;
+       utility colour classes still win (utilities layer). */
+    border-color: var(--border);
   }
   /* Buttons inside a component too (a tab's close button, a tour's step
      dots): without preflight they would render with the browser's grey face,
