@@ -268,6 +268,44 @@ const all: ComponentDoc[] = [
     title: 'Secret Input',
     description: 'A masked field for keys and tokens, with show and hide.',
   },
+  {
+    name: 'resizable',
+    title: 'Resizable',
+    description:
+      'Panels split by draggable, keyboard-operable handles, with min, max and collapse.',
+  },
+  {
+    name: 'tree-view',
+    title: 'Tree View',
+    description: 'A controlled file-explorer tree: arrows, typeahead, multi-select, lazy children.',
+  },
+  {
+    name: 'editor-tabs',
+    title: 'Editor Tabs',
+    description: 'Open files above an editor: unsaved markers, close requests, reorder, overflow.',
+  },
+  {
+    name: 'context-menu',
+    title: 'Context Menu',
+    description: 'A right-click menu with the same rows as Dropdown Menu.',
+    radix: 'context-menu',
+  },
+  {
+    name: 'menubar',
+    title: 'Menubar',
+    description: 'An application menu bar: File, Edit, View.',
+    radix: 'menubar',
+  },
+  {
+    name: 'tour',
+    title: 'Tour',
+    description: 'An opt-in guided tour of anchored steps, and a single Spotlight hint.',
+  },
+  {
+    name: 'onboarding-checklist',
+    title: 'Onboarding Checklist',
+    description: 'First tasks with progress, completed by real app events.',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

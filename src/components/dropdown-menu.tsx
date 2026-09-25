@@ -5,11 +5,7 @@ import * as React from 'react';
 
 import { cn } from '../lib/utils';
 
-import { surfaceClasses } from './popover';
-
-// 32px rows, 8px radius; the focused row is a quiet fill, like an active tab.
-const itemClasses =
-  "relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-hidden select-none focus:bg-muted focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground";
+import { menuItemClasses as itemClasses, surfaceClasses } from './popover';
 
 function DropdownMenu(props: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;

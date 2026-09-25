@@ -8,6 +8,38 @@ const sources = import.meta.glob<string>('../../src/components/*.tsx', {
 });
 
 const guidance: Record<string, string[]> = {
+  resizable: [
+    'Give every panel an id and every handle an aria-label naming what it resizes.',
+    'Arrow keys move a focused handle, Home and End jump to the limits, Enter collapses a collapsible panel. Double-click resets.',
+    'The pointer is captured while dragging, so moving over an iframe or terminal keeps resizing. Persist sizes from onLayoutChanged.',
+  ],
+  'tree-view': [
+    'Controlled: pass expanded and selected ids and update them in the callbacks. Ids must be stable across renders.',
+    'One tab stop. Up and Down move, Right expands or enters, Left collapses or goes to the parent, Home and End, and typing jumps by label. Enter runs onAction.',
+    'Typing in an input inside a row (rename) never moves focus. If the focused row is removed, focus moves to its parent or neighbour.',
+  ],
+  'editor-tabs': [
+    'onClose is a request: for a dirty tab, ask to save or discard and only then remove it from tabs.',
+    'Left and Right move focus, Enter opens, Delete asks to close, Ctrl+Shift+PageUp and PageDown reorder. Middle-click closes; drag reorders.',
+    'Unsaved state is announced with the tab name. The strip scrolls and keeps the active tab in view.',
+  ],
+  'context-menu': [
+    'Opens at the pointer on right-click, and from the keyboard with the context-menu key or Shift+F10 on the focused target.',
+    'Keep the same command names and shortcuts as the menubar and palette.',
+  ],
+  menubar: [
+    'Left and Right move between menus, Down opens one. Once a menu is open, hovering another trigger switches to it.',
+    'Show shortcuts with MenubarShortcut; handle the shortcut itself in your command layer.',
+  ],
+  tour: [
+    'Start tours from a button, never during typing, a running task or a permission prompt. Store completion yourself, keyed by tour id and revision.',
+    'Mark targets with TourAnchor or tourTarget(id). Use prepare to open a panel first; a target that never appears shows the step centred (or skip it with missingTarget="skip").',
+    'Escape ends the tour unless the person is typing in a field or editor. Focus returns to what started it. Spotlight is informational and never takes focus.',
+  ],
+  'onboarding-checklist': [
+    'Mark an item done from a real event, such as a repository opening, not from a click on the list.',
+    'Keep it to a few meaningful tasks and let people dismiss it. Persisting the dismissal is up to the app.',
+  ],
   button: [
     'Use a verb that describes the outcome. Reserve one primary action per section.',
     'Buttons default to type="button". Set type="submit" for form submission. Loading and disabled asChild links block activation.',
@@ -70,6 +102,47 @@ const guidance: Record<string, string[]> = {
 };
 
 const api: Record<string, [string, string, string][]> = {
+  resizable: [
+    ['orientation', 'horizontal | vertical', 'horizontal'],
+    ['layout / onLayoutChange', 'Record<panelId, percent> and handler', 'uncontrolled'],
+    ['onLayoutChanged', '(layout, { isUserInteraction }) => void; persist here', '—'],
+    ['Panel: minSize / maxSize / collapsible', 'number (px) or "20%"', '0 / 100% / false'],
+    ['ResizeHandle: aria-label / withHandle', 'string (required) / boolean', '— / false'],
+  ],
+  'tree-view': [
+    [
+      'nodes',
+      'TreeNode[] { id, label, children?, hasChildren?, loading?, icon?, meta? }',
+      'required',
+    ],
+    ['expanded / onExpandedChange', 'string[] / (ids) => void', 'required'],
+    ['selected / onSelectedChange', 'string[] / (ids) => void', 'required'],
+    ['selectionMode', 'single | multiple', 'single'],
+    ['onAction', '(id) => void; Enter and double-click', '—'],
+    ['onLoadChildren', '(id) => void', '—'],
+    ['renderLabel', '(node) => ReactNode; e.g. a rename input', 'label'],
+    ['density', 'compact | default', 'default'],
+  ],
+  'editor-tabs': [
+    ['tabs', 'EditorTab[] { id, label, description?, dirty?, closeable?, preview? }', 'required'],
+    ['activeId / onActiveChange', 'string | null / (id) => void', 'required'],
+    ['onClose', '(id) => void; a request, the app decides', '—'],
+    ['onMove', '(id, toIndex) => void', '—'],
+    ['actions', 'ReactNode; right-hand buttons', '—'],
+  ],
+  tour: [
+    ['steps', 'TourStep[] { id, target?, title, content, side?, prepare? }', 'required'],
+    ['open / step / onStepChange', 'boolean / number / (step) => void', 'required'],
+    ['onEnd', "(reason: 'complete' | 'skip' | 'close' | 'escape', step) => void", 'required'],
+    ['missingTarget', 'center | skip', 'center'],
+    ['waitMs', 'number; how long to wait for a late target', '2000'],
+    ['dim', 'boolean', 'true'],
+  ],
+  'onboarding-checklist': [
+    ['items', 'ChecklistItem[] { id, title, description?, done, action? }', 'required'],
+    ['onDismiss', '() => void', '—'],
+    ['complete', 'ReactNode; shown once every item is done', '—'],
+  ],
   button: [
     [
       'variant',

@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.9.0
+
+Workbench primitives from the Bandit UX audit (work package 1).
+
+- **Resizable** (`ResizablePanelGroup`, `ResizablePanel`, `ResizeHandle`): split
+  panels on react-resizable-panels. Both axes, min/max in px or %, collapse,
+  keyboard resizing on a labelled separator, pointer capture so drags over
+  iframes and terminals keep tracking. `layout` makes sizes controlled;
+  persist from `onLayoutChanged`.
+- **TreeView**: a controlled explorer tree with stable ids, one tab stop,
+  arrows/Home/End/Right/Left, typeahead that ignores rename inputs, single or
+  multiple selection (Shift ranges, Ctrl/⌘ toggles), lazy children with a
+  loading row, and focus recovery when the focused row is removed or hidden.
+- **EditorTabs**: open-file tabs with unsaved markers, close requests the app
+  decides on (never discards), Delete to close, Ctrl+Shift+PageUp/PageDown and
+  drag to reorder, middle-click close, overflow scrolling.
+- **ContextMenu** and **Menubar** on Radix, sharing DropdownMenu's rows
+  (`menuItemClasses` is exported from popover).
+- **Tour**, **Spotlight**, **TourAnchor** and **OnboardingChecklist**: an
+  opt-in guided tour (Back/Next/Skip/Close, progress, `prepare` hooks with
+  cancellation, late or missing targets shown centred or skipped, Escape that
+  does not steal from editors, focus restored to the starter) and a
+  non-focus-taking contextual hint. Apps own copy, eligibility and
+  persistence.
+- New dependency: `react-resizable-panels`.
+
 ## 0.8.1
 
 - Fix: the default keyboard-focus outline (0.8.0) sat outside the cascade

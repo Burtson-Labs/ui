@@ -82,6 +82,8 @@ const components = names.map((name) => {
   const dependencies = [];
   if (source.includes("from 'radix-ui'")) dependencies.push(version('radix-ui'));
   if (source.includes("from 'cmdk'")) dependencies.push(version('cmdk'));
+  if (source.includes("from 'react-resizable-panels'"))
+    dependencies.push(version('react-resizable-panels'));
   if (source.includes('class-variance-authority'))
     dependencies.push(version('class-variance-authority'));
   if (source.includes('@burtson-labs/icons')) dependencies.push(version('@burtson-labs/icons'));
