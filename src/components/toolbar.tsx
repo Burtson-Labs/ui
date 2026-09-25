@@ -6,7 +6,7 @@ function Toolbar({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="toolbar"
-      role="toolbar"
+      role="group"
       className={cn(
         'flex min-h-10 flex-wrap items-center gap-1 rounded-lg border border-border bg-surface p-1.5 shadow-xs',
         className,

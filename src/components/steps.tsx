@@ -43,7 +43,7 @@ function Steps({ items, current, orientation = 'horizontal', className, ...props
             <span
               className={cn(
                 'grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold tabular-nums',
-                state === 'complete' && 'border-brand bg-brand text-primary-foreground',
+                state === 'complete' && 'border-primary bg-primary text-primary-foreground',
                 state === 'current' && 'border-brand bg-brand-soft text-brand',
                 state === 'upcoming' && 'border-border-strong text-muted-foreground',
               )}
@@ -53,7 +53,7 @@ function Steps({ items, current, orientation = 'horizontal', className, ...props
             <span className="grid min-w-0 gap-0.5 pt-0.5">
               <span
                 className={cn(
-                  'truncate text-[13px] font-semibold',
+                  'break-words text-[13px] font-semibold',
                   state === 'upcoming' && 'text-muted-foreground',
                 )}
               >

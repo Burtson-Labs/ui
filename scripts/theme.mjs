@@ -85,7 +85,22 @@ ${Object.entries(motion.keyframes)
   ::after {
     animation-duration: 1ms !important;
     transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+@media (pointer: coarse) {
+  [data-slot='button'], [data-slot='icon-button'], [data-slot='combobox-trigger'] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  [data-slot='input'] { min-height: 44px; }
+}
+
+[data-slot]:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+@media (forced-colors: active) {
+  [data-slot]:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
 }
 
 @layer base {

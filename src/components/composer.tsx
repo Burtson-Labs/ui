@@ -7,8 +7,10 @@ import { cn } from '../lib/utils';
 import { Button } from './button';
 
 export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSubmit' | 'onChange'> {
-  /** Called with the trimmed text; the composer clears itself afterwards. */
-  onSubmit: (text: string) => void;
+  /** Clears after success. Reject a returned promise to retain the draft. */
+  onSubmit: (text: string) => void | Promise<void>;
+  onSubmitError?: (error: unknown) => void;
+  submitErrorText?: string;
   /** Controlled value; leave out to let the composer keep its own. */
   value?: string;
   onValueChange?: (value: string) => void;
@@ -30,6 +32,8 @@ export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSub
  */
 function Composer({
   onSubmit,
+  onSubmitError,
+  submitErrorText = 'Message could not be sent. Your draft is saved here. Try again.',
   value: controlled,
   onValueChange,
   streaming = false,
@@ -44,15 +48,42 @@ function Composer({
 }: ComposerProps) {
   const [own, setOwn] = React.useState('');
   const value = controlled ?? own;
+  const [pending, setPending] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+  const sending = React.useRef(false);
+  const latest = React.useRef(value);
+  const mounted = React.useRef(true);
+  const errorId = React.useId();
+  React.useEffect(() => {
+    latest.current = value;
+  }, [value]);
+  React.useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
   const setValue = (v: string) => {
     if (controlled === undefined) setOwn(v);
     onValueChange?.(v);
   };
-  const canSend = !disabled && !streaming && value.trim().length > 0;
-  const send = () => {
-    if (!canSend) return;
-    onSubmit(value.trim());
-    setValue('');
+  const canSend = !disabled && !streaming && !pending && value.trim().length > 0;
+  const send = async () => {
+    if (!canSend || sending.current) return;
+    const draft = value;
+    sending.current = true;
+    setFailed(false);
+    setPending(true);
+    try {
+      await onSubmit(draft.trim());
+      if (mounted.current && latest.current === draft) setValue('');
+    } catch (error) {
+      if (mounted.current) setFailed(true);
+      onSubmitError?.(error);
+    } finally {
+      sending.current = false;
+      if (mounted.current) setPending(false);
+    }
   };
 
   return (
@@ -60,7 +91,7 @@ function Composer({
       data-slot="composer"
       onSubmit={(e) => {
         e.preventDefault();
-        send();
+        void send();
       }}
       className={cn(
         'grid gap-2 rounded-lg border border-input bg-surface p-2 shadow-xs transition-[border-color,box-shadow] focus-within:border-brand focus-within:ring-[3px] focus-within:ring-ring/15 dark:bg-surface-raised',
@@ -73,17 +104,29 @@ function Composer({
         aria-label={label}
         rows={1}
         value={value}
-        disabled={disabled}
+        disabled={disabled || pending}
+        aria-describedby={failed ? errorId : undefined}
+        aria-invalid={failed || undefined}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+          if (
+            e.key === 'Enter' &&
+            !e.shiftKey &&
+            !e.nativeEvent.isComposing &&
+            e.nativeEvent.keyCode !== 229
+          ) {
             e.preventDefault();
-            send();
+            void send();
           }
         }}
-        className="field-sizing-content max-h-48 min-h-9 w-full resize-none bg-transparent px-2 py-1.5 text-sm leading-6 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
+        className="field-sizing-content max-h-48 min-h-9 w-full resize-none bg-transparent px-2 py-1.5 text-base sm:text-sm leading-6 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
       />
+      {failed && (
+        <p id={errorId} role="alert" className="px-2 text-sm text-destructive">
+          {submitErrorText}
+        </p>
+      )}
       {attachments && <div className="flex flex-wrap gap-1.5 px-1">{attachments}</div>}
       <div className="flex items-center gap-1">
         {actions}
@@ -95,11 +138,18 @@ function Composer({
               variant="secondary"
               aria-label="Stop"
               onClick={onStop}
+              disabled={!onStop || disabled}
             >
               <Square className="fill-current" />
             </Button>
           ) : (
-            <Button type="submit" size="icon-sm" aria-label="Send" disabled={!canSend}>
+            <Button
+              type="submit"
+              size="icon-sm"
+              aria-label="Send"
+              loading={pending}
+              disabled={!canSend}
+            >
               <ArrowUp />
             </Button>
           )}

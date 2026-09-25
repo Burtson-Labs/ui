@@ -29,7 +29,18 @@ export function Link({
       href={href}
       onClick={(e) => {
         onClick?.(e);
-        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || !href.startsWith('/'))
+        if (
+          e.defaultPrevented ||
+          e.button !== 0 ||
+          e.metaKey ||
+          e.ctrlKey ||
+          e.shiftKey ||
+          e.altKey ||
+          props.target === '_blank' ||
+          props.download != null ||
+          !href.startsWith('/') ||
+          href.startsWith('//')
+        )
           return;
         e.preventDefault();
         navigate(href);

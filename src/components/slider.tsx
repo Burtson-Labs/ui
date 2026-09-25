@@ -28,7 +28,7 @@ function Slider({
   style,
   ...props
 }: SliderProps) {
-  const percent = max > min ? ((value - min) / (max - min)) * 100 : 0;
+  const percent = max > min ? Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100)) : 0;
   return (
     <input
       type="range"

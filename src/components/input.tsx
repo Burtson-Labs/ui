@@ -3,11 +3,15 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 
 export const fieldClasses =
-  'w-full min-w-0 rounded-md border border-input bg-surface px-3 text-sm text-foreground shadow-xs outline-none transition-[border-color,box-shadow,background-color] placeholder:text-muted-foreground/80 hover:border-border-strong focus-visible:border-brand focus-visible:ring-[3px] focus-visible:ring-ring/15 disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:ring-destructive/15 dark:bg-surface-raised';
+  'w-full min-w-0 rounded-md border border-input bg-surface px-3 text-base sm:text-sm text-foreground shadow-xs outline-none transition-[border-color,box-shadow,background-color] placeholder:text-muted-foreground/80 hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-brand focus-visible:ring-[3px] focus-visible:ring-ring/15 disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:ring-destructive/15 dark:bg-surface-raised';
 
-function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(function Input(
+  { className, type, ...props }: React.ComponentProps<'input'>,
+  ref,
+) {
   return (
     <input
+      ref={ref}
       type={type}
       data-slot="input"
       className={cn(
@@ -18,6 +22,6 @@ function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
       {...props}
     />
   );
-}
+});
 
 export { Input };

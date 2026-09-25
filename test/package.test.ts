@@ -2,6 +2,8 @@ import { spawnSync } from 'node:child_process';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import * as ui from '../src/index';
@@ -33,7 +35,9 @@ describe('index', () => {
   it('exports every component module', () => {
     const index = readFileSync(join(ROOT, 'src/index.ts'), 'utf8');
     for (const name of components) expect(index).toContain(`'./components/${name}'`);
-    expect(typeof ui.Button).toBe('function');
+    expect(renderToStaticMarkup(createElement(ui.Button, null, 'Ready'))).toContain(
+      'data-slot="button"',
+    );
   });
 });
 

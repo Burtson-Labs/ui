@@ -36,7 +36,7 @@ function PopoverContent({
         sideOffset={sideOffset}
         className={cn(
           surfaceClasses,
-          'w-72 origin-(--radix-popover-content-transform-origin) p-4 outline-hidden',
+          'w-72 max-w-[calc(100vw-2rem)] max-h-(--radix-popover-content-available-height) overflow-y-auto origin-(--radix-popover-content-transform-origin) p-4 outline-hidden',
           className,
         )}
         {...props}

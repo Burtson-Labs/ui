@@ -73,7 +73,7 @@ function Message({
         <div
           data-slot="message-body"
           className={cn(
-            'min-w-0 text-sm leading-6',
+            'min-w-0 break-words text-sm leading-6',
             user && 'rounded-lg rounded-tr-xs bg-secondary px-3.5 py-2 text-secondary-foreground',
           )}
         >

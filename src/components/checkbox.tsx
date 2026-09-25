@@ -1,4 +1,5 @@
 import Check from '@burtson-labs/icons/react/check';
+import Minus from '@burtson-labs/icons/react/minus';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import * as React from 'react';
 
@@ -16,9 +17,18 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="grid place-content-center text-current"
+        className="group/indicator grid place-content-center text-current"
       >
-        <Check className="size-3.5" strokeWidth={2.5} aria-hidden />
+        <Check
+          className="size-3.5 group-data-[state=indeterminate]/indicator:hidden"
+          strokeWidth={2.5}
+          aria-hidden
+        />
+        <Minus
+          className="hidden size-3.5 group-data-[state=indeterminate]/indicator:block"
+          strokeWidth={2.5}
+          aria-hidden
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

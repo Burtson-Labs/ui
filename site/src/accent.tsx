@@ -21,6 +21,11 @@ function readAccent(): Accent {
 
 export function useAccent(): [Accent, (a: Accent) => void] {
   const [accent, setState] = React.useState<Accent>(readAccent);
+  React.useEffect(() => {
+    const sync = () => setState(readAccent());
+    window.addEventListener('bl-accent-change', sync);
+    return () => window.removeEventListener('bl-accent-change', sync);
+  }, []);
   const set = (a: Accent) => {
     document.documentElement.dataset.accent = a;
     try {
@@ -30,6 +35,7 @@ export function useAccent(): [Accent, (a: Accent) => void] {
       void err;
     }
     setState(a);
+    window.dispatchEvent(new Event('bl-accent-change'));
   };
   return [accent, set];
 }
@@ -39,7 +45,7 @@ export function AccentSwatches({ className }: { className?: string }) {
   const [accent, setAccent] = useAccent();
   return (
     <div role="radiogroup" aria-label="Accent colour" className={cn('flex gap-1.5', className)}>
-      {ACCENTS.map((a) => (
+      {ACCENTS.map((a, index) => (
         <button
           key={a.id}
           type="button"
@@ -47,6 +53,25 @@ export function AccentSwatches({ className }: { className?: string }) {
           aria-checked={accent === a.id}
           aria-label={a.label}
           title={a.label}
+          tabIndex={accent === a.id ? 0 : -1}
+          onKeyDown={(event) => {
+            const next = ['ArrowRight', 'ArrowDown'].includes(event.key)
+              ? (index + 1) % ACCENTS.length
+              : ['ArrowLeft', 'ArrowUp'].includes(event.key)
+                ? (index + ACCENTS.length - 1) % ACCENTS.length
+                : event.key === 'Home'
+                  ? 0
+                  : event.key === 'End'
+                    ? ACCENTS.length - 1
+                    : null;
+            if (next !== null) {
+              event.preventDefault();
+              setAccent(ACCENTS[next]!.id);
+              event.currentTarget.parentElement
+                ?.querySelectorAll<HTMLButtonElement>('button')
+                [next]?.focus();
+            }
+          }}
           onClick={() => setAccent(a.id)}
           className="grid size-6 place-items-center rounded-full border border-border-strong outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
           style={{ background: a.swatch }}

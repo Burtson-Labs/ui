@@ -37,7 +37,7 @@ function Conversation({
 
   React.useEffect(() => {
     const el = content.current;
-    if (!el) return;
+    if (!el || typeof ResizeObserver === 'undefined') return;
     // Content grows while a reply streams; follow it only if pinned.
     const ro = new ResizeObserver(() => {
       if (pinned.current) scrollToBottom();
@@ -82,7 +82,12 @@ function Conversation({
           onClick={() => {
             pinned.current = true;
             setAtBottom(true);
-            scrollToBottom('smooth');
+            scrollToBottom(
+              typeof matchMedia === 'function' &&
+                matchMedia('(prefers-reduced-motion: reduce)').matches
+                ? 'auto'
+                : 'smooth',
+            );
           }}
           className="absolute bottom-3 left-1/2 inline-flex -translate-x-1/2 animate-in items-center gap-1.5 rounded-full border border-border-strong bg-surface-raised px-3 py-1.5 text-xs font-semibold shadow-md outline-none hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/20 [&_svg]:size-3.5"
         >

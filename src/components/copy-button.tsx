@@ -10,6 +10,8 @@ export interface CopyButtonProps extends Omit<IconButtonProps, 'label' | 'childr
   value: string;
   /** Accessible name, e.g. "Copy API key". */
   label?: string;
+  onCopySuccess?: () => void;
+  onCopyError?: (error: unknown) => void;
 }
 
 /**
@@ -22,8 +24,11 @@ function CopyButton({
   label = 'Copy',
   variant = 'ghost',
   size = 'icon-sm',
+  onCopySuccess,
+  onCopyError,
   ...props
 }: CopyButtonProps) {
+  const [message, setMessage] = React.useState('');
   const [copied, setCopied] = React.useState(false);
   const timer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   React.useEffect(() => () => clearTimeout(timer.current), []);
@@ -32,9 +37,13 @@ function CopyButton({
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
+      setMessage('Copied to clipboard.');
+      onCopySuccess?.();
       clearTimeout(timer.current);
       timer.current = setTimeout(() => setCopied(false), 1600);
-    } catch {
+    } catch (error) {
+      setMessage('Copy blocked. Select the text and copy it manually.');
+      onCopyError?.(error);
       toast({
         title: 'Copy blocked by the browser',
         description: 'Select the text and copy it by hand.',
@@ -44,16 +53,21 @@ function CopyButton({
   };
 
   return (
-    <IconButton
-      data-slot="copy-button"
-      label={copied ? 'Copied' : label}
-      variant={variant}
-      size={size}
-      onClick={() => void copy()}
-      {...props}
-    >
-      {copied ? <Check aria-hidden className="text-success" /> : <Copy aria-hidden />}
-    </IconButton>
+    <>
+      <IconButton
+        data-slot="copy-button"
+        label={copied ? 'Copied' : label}
+        variant={variant}
+        size={size}
+        onClick={() => void copy()}
+        {...props}
+      >
+        {copied ? <Check aria-hidden className="text-success" /> : <Copy aria-hidden />}
+      </IconButton>
+      <span role="status" className="sr-only">
+        {message}
+      </span>
+    </>
   );
 }
 

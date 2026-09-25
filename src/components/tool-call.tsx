@@ -23,7 +23,28 @@ const statusDot = {
   error: 'danger',
 } as const;
 
-const json = (v: unknown) => (typeof v === 'string' ? v : JSON.stringify(v, null, 2));
+const json = (value: unknown) => {
+  if (typeof value === 'string') return value;
+  const seen = new WeakSet<object>();
+  try {
+    return (
+      JSON.stringify(
+        value,
+        (_key, item: unknown) => {
+          if (typeof item === 'bigint') return item.toString();
+          if (item && typeof item === 'object') {
+            if (seen.has(item)) return '[Repeated reference]';
+            seen.add(item);
+          }
+          return item;
+        },
+        2,
+      ) ?? String(value)
+    );
+  } catch {
+    return '[Value could not be displayed]';
+  }
+};
 
 export interface ToolCallProps extends Omit<React.ComponentProps<'div'>, 'title'> {
   /** The tool's name, e.g. `get_load`. */
@@ -123,6 +144,8 @@ export interface ToolApprovalProps extends Omit<React.ComponentProps<'div'>, 'ti
   args?: unknown;
   /** `pending` shows the buttons; the others record the decision. */
   state?: 'pending' | 'approved' | 'denied';
+  /** Disable decision controls while the application records the choice. */
+  busy?: boolean;
   onApprove?: () => void;
   onDeny?: () => void;
   approveLabel?: string;
@@ -135,6 +158,7 @@ function ToolApproval({
   description,
   args,
   state = 'pending',
+  busy = false,
   onApprove,
   onDeny,
   approveLabel = 'Approve',
@@ -145,6 +169,7 @@ function ToolApproval({
   return (
     <div
       data-slot="tool-approval"
+      aria-busy={busy || undefined}
       data-state={state}
       className={cn(
         'grid animate-in gap-3 rounded-md border p-3 text-[13px]',
@@ -172,10 +197,10 @@ function ToolApproval({
       )}
       {state === 'pending' && (
         <div className="flex justify-end gap-2">
-          <Button size="sm" variant="outline" onClick={onDeny}>
+          <Button size="sm" variant="outline" onClick={onDeny} disabled={busy || !onDeny}>
             {denyLabel}
           </Button>
-          <Button size="sm" onClick={onApprove}>
+          <Button size="sm" onClick={onApprove} disabled={busy || !onApprove}>
             {approveLabel}
           </Button>
         </div>

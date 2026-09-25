@@ -40,7 +40,7 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          'fixed z-50 flex flex-col gap-4 border-border-strong bg-surface-raised text-foreground shadow-[0_24px_80px_rgb(0_0_0_/_0.28)] outline-none data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in',
+          'fixed z-50 max-h-dvh overflow-y-auto overscroll-contain flex flex-col gap-4 border-border-strong bg-surface-raised text-foreground shadow-[0_24px_80px_rgb(0_0_0_/_0.28)] outline-none data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in',
           sideClasses[side],
           className,
         )}

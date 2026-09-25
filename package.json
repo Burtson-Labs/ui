@@ -1,6 +1,6 @@
 {
   "name": "@burtson-labs/ui",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "React components for Burtson Labs products: Radix accessibility, Tailwind v4 styling, Burtson Icons. Install the package or copy the source.",
   "license": "MIT",
   "author": {

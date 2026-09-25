@@ -101,7 +101,7 @@ export const dark: Palette = {
   'card-foreground': '#f2eef5',
   popover: '#18171f',
   'popover-foreground': '#f2eef5',
-  primary: '#b836ed',
+  primary: '#8f0bc7',
   'primary-foreground': '#ffffff',
   secondary: '#211e28',
   'secondary-foreground': '#e7e0eb',

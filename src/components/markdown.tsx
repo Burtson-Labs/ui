@@ -1,8 +1,8 @@
-import Check from '@burtson-labs/icons/react/check';
-import Copy from '@burtson-labs/icons/react/copy';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
+
+import { CopyButton } from './copy-button';
 
 /*
  * A small, safe Markdown renderer for chat: paragraphs, headings, bullet and
@@ -61,7 +61,6 @@ function inline(text: string, key: string): React.ReactNode[] {
 
 /** A fenced code block with a language label and a copy button. */
 function CodeBlock({ code, lang, className }: { code: string; lang?: string; className?: string }) {
-  const [copied, setCopied] = React.useState(false);
   return (
     <div
       data-slot="code-block"
@@ -69,19 +68,11 @@ function CodeBlock({ code, lang, className }: { code: string; lang?: string; cla
     >
       <div className="flex h-8 items-center justify-between border-b border-white/10 px-3 text-[11px] text-code-foreground/60">
         <span className="font-mono">{lang || 'text'}</span>
-        <button
-          type="button"
-          aria-label={copied ? 'Copied' : 'Copy code'}
-          className="grid size-6 place-items-center rounded-xs outline-none hover:bg-white/10 focus-visible:ring-[3px] focus-visible:ring-ring/30 [&_svg]:size-3.5"
-          onClick={() => {
-            void navigator.clipboard?.writeText(code).then(() => {
-              setCopied(true);
-              setTimeout(() => setCopied(false), 1400);
-            });
-          }}
-        >
-          {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-        </button>
+        <CopyButton
+          value={code}
+          label="Copy code"
+          className="size-7 text-code-foreground hover:bg-white/10 hover:text-code-foreground"
+        />
       </div>
       <pre className="overflow-x-auto p-3 font-mono text-[12.5px] leading-5">
         <code>{code}</code>

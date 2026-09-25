@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 
 const alertVariants = cva(
-  'relative grid w-full grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 rounded-lg border px-4 py-3.5 text-sm shadow-xs [&>svg]:mt-0.5 [&>svg]:size-4',
+  'group/alert relative grid w-full grid-cols-1 has-[>svg]:grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 rounded-lg border px-4 py-3.5 text-sm shadow-xs [&>svg]:mt-0.5 [&>svg]:size-4',
   {
     variants: {
       variant: {
@@ -50,7 +50,10 @@ function AlertDescription({ className, ...props }: React.ComponentProps<'div'>) 
   return (
     <div
       data-slot="alert-description"
-      className={cn('col-start-2 text-[13px] leading-5 text-muted-foreground', className)}
+      className={cn(
+        'col-start-1 group-has-[>svg]/alert:col-start-2 text-[13px] leading-5 text-muted-foreground',
+        className,
+      )}
       {...props}
     />
   );

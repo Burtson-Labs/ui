@@ -1,8 +1,6 @@
-import Check from '@burtson-labs/icons/react/check';
-import Copy from '@burtson-labs/icons/react/copy';
 import * as React from 'react';
 
-import { Button, cn } from '@burtson-labs/ui';
+import { CopyButton as UICopyButton, cn } from '@burtson-labs/ui';
 
 const TOKEN =
   /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|('(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`)|\b(import|from|export|default|function|return|const|let|type|interface|extends|as|if|else|new|typeof|true|false|null|undefined)\b|(<\/?[A-Z][\w.]*|<\/?[a-z][\w-]*)|(\b\d+(?:\.\d+)?\b)/g;
@@ -34,23 +32,7 @@ function highlight(code: string): React.ReactNode[] {
 }
 
 export function CopyButton({ text, className }: { text: string; className?: string }) {
-  const [done, setDone] = React.useState(false);
-  return (
-    <Button
-      size="icon-sm"
-      variant="ghost"
-      aria-label={done ? 'Copied' : 'Copy'}
-      className={cn('text-muted-foreground', className)}
-      onClick={() => {
-        void navigator.clipboard.writeText(text).then(() => {
-          setDone(true);
-          setTimeout(() => setDone(false), 1400);
-        });
-      }}
-    >
-      {done ? <Check /> : <Copy />}
-    </Button>
-  );
+  return <UICopyButton value={text} label="Copy code" className={className} />;
 }
 
 export function Code({

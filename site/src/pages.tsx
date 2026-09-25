@@ -21,16 +21,15 @@ import {
 
 import { AccentSwatches } from './accent';
 import { Code } from './code';
+import { ComponentDetails } from './component-details';
 import { components, type ComponentDoc } from './docs';
+import { Playground } from './playground';
 import { Link } from './router';
 
 const version = __UI_VERSION__;
 
-const demoModules = import.meta.glob<{ default: React.ComponentType }>('./demos/*.tsx', {
-  eager: true,
-});
+const demoModules = import.meta.glob<{ default: React.ComponentType }>('./demos/*.tsx');
 const demoSources = import.meta.glob<string>('./demos/*.tsx', {
-  eager: true,
   query: '?raw',
   import: 'default',
 });
@@ -38,10 +37,10 @@ const demoSources = import.meta.glob<string>('./demos/*.tsx', {
 const demos: Record<string, React.ReactElement> = Object.fromEntries(
   Object.entries(demoModules).map(([path, mod]) => [
     path.slice('./demos/'.length, -'.tsx'.length),
-    React.createElement(mod.default),
+    React.createElement(React.lazy(mod)),
   ]),
 );
-const source = (name: string) => demoSources[`./demos/${name}.tsx`] ?? '';
+const source = (name: string) => demoSources[`./demos/${name}.tsx`]?.() ?? Promise.resolve('');
 
 function H1({ children, lead }: { children: React.ReactNode; lead?: React.ReactNode }) {
   return (
@@ -64,17 +63,53 @@ function P({ children }: { children: React.ReactNode }) {
   );
 }
 
+class PreviewBoundary extends React.Component<{ children: React.ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    if (this.state.failed)
+      return (
+        <div role="alert" className="grid gap-3 text-center text-sm">
+          <p>This preview could not load.</p>
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            Reload preview
+          </Button>
+        </div>
+      );
+    return this.props.children;
+  }
+}
+
 function Preview({ name, className }: { name: string; className?: string }) {
   return (
     <div
       className={`flex min-h-56 min-w-0 items-center justify-center overflow-x-auto rounded-lg border bg-background p-6 sm:p-8 ${className ?? ''}`}
     >
-      {demos[name] ?? null}
+      <PreviewBoundary>
+        <React.Suspense
+          fallback={
+            <p role="status" className="text-sm text-muted-foreground">
+              Loading preview…
+            </p>
+          }
+        >
+          {demos[name] ?? null}
+        </React.Suspense>
+      </PreviewBoundary>
     </div>
   );
 }
 
 export function Home() {
+  const [query, setQuery] = React.useState('');
+  const filtered = components.filter((component) =>
+    query
+      .toLowerCase()
+      .split(/\s+/)
+      .every((term) => `${component.title} ${component.description}`.toLowerCase().includes(term)),
+  );
   // Wide demos span two columns so they render at a realistic width.
   const showcase: [string, string][] = [
     ['stat-card', 'md:col-span-2'],
@@ -91,7 +126,7 @@ export function Home() {
           <p className="font-mono text-xs text-muted-foreground">
             @burtson-labs/ui · v{version} · {components.length} components · MIT
           </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Burtson UI</h1>
+          <h1 className="home-title">Burtson UI</h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             The React components behind Bandit Stealth, Sentinel, our cluster tools and client apps.
             Radix handles focus and keyboard behaviour, Tailwind v4 handles styling, and the icons
@@ -104,7 +139,7 @@ export function Home() {
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/docs/components/button">Components</Link>
+              <a href="#components">Explore components</a>
             </Button>
           </div>
         </div>
@@ -117,22 +152,56 @@ export function Home() {
         </div>
       </section>
 
-      <section className="py-10">
-        <h2 className="mb-4 text-sm font-semibold">Components</h2>
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3 lg:grid-cols-5">
-          {components.map((c) => (
+      <Playground />
+      <section id="components" className="component-catalog py-10">
+        <div className="section-intro">
+          <div>
+            <p className="overline">Your building blocks</p>
+            <h2>Find the right component.</h2>
+          </div>
+          <label className="catalog-search">
+            <span className="sr-only">Filter components</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search components…"
+            />
+          </label>
+        </div>
+        <p role="status" className="mb-4 text-sm text-muted-foreground">
+          {filtered.length} components
+        </p>
+        <ul className="component-grid">
+          {filtered.map((c) => (
             <li key={c.name}>
-              <Link
-                href={`/docs/components/${c.name}`}
-                className="block truncate rounded-sm py-1 text-muted-foreground hover:text-foreground"
-              >
-                {c.title}
+              <Link href={`/docs/components/${c.name}`} className="component-link">
+                <span>
+                  {c.title}
+                  <ArrowRight aria-hidden className="size-4" />
+                </span>
+                <p>{c.description}</p>
               </Link>
             </li>
           ))}
         </ul>
+        {filtered.length === 0 && (
+          <div className="catalog-empty">
+            <h3>No matching components</h3>
+            <p>Try a shorter term or clear your search.</p>
+            <Button variant="outline" onClick={() => setQuery('')}>
+              Clear search
+            </Button>
+          </div>
+        )}
       </section>
 
+      <div className="section-intro">
+        <div>
+          <p className="overline">Built together</p>
+          <h2>Patterns for real products.</h2>
+        </div>
+      </div>
       <section className="grid grid-cols-1 gap-4 pb-16 md:grid-cols-3">
         {showcase.map(([name, span]) => (
           <Preview key={name} name={name} className={`min-h-72 bg-surface-muted ${span}`} />
@@ -291,7 +360,20 @@ export function App({ children }: { children: React.ReactNode }) {
 }
 
 export function ComponentPage({ doc }: { doc: ComponentDoc }) {
-  const code = source(doc.name);
+  const [code, setCode] = React.useState('// Loading example…');
+  React.useEffect(() => {
+    let active = true;
+    void source(doc.name)
+      .then((text) => {
+        if (active) setCode(text);
+      })
+      .catch(() => {
+        if (active) setCode('// Example could not load. Refresh to retry.');
+      });
+    return () => {
+      active = false;
+    };
+  }, [doc.name]);
   return (
     <article>
       <H1 lead={doc.description}>{doc.title}</H1>
@@ -333,6 +415,7 @@ export function ComponentPage({ doc }: { doc: ComponentDoc }) {
           <Code lang="sh" code={`npx shadcn@latest add https://ui.burtson.ai/r/${doc.name}.json`} />
         </TabsContent>
       </Tabs>
+      <ComponentDetails name={doc.name} />
       <Pager name={doc.name} />
     </article>
   );

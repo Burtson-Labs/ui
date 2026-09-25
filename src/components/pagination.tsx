@@ -15,6 +15,9 @@ export function paginationRange(
   pageCount: number,
   siblings = 1,
 ): (number | 'ellipsis')[] {
+  pageCount = Number.isFinite(pageCount) ? Math.max(0, Math.floor(pageCount)) : 0;
+  siblings = Number.isFinite(siblings) ? Math.min(5, Math.max(0, Math.floor(siblings))) : 1;
+  page = Number.isFinite(page) ? Math.max(1, Math.min(pageCount, Math.floor(page))) : 1;
   if (pageCount <= 0) return [];
   const window = siblings * 2 + 5; // first, last, current, siblings, two gaps
   if (pageCount <= window) return Array.from({ length: pageCount }, (_, i) => i + 1);
@@ -40,14 +43,21 @@ export interface PaginationProps extends Omit<React.ComponentProps<'nav'>, 'onCh
 
 /** Page controls for a table or list. Buttons are real buttons, keyboard-reachable. */
 function Pagination({
-  page,
-  pageCount,
+  page: requestedPage,
+  pageCount: requestedCount,
   onPageChange,
   siblings = 1,
   summary,
   className,
   ...props
 }: PaginationProps) {
+  const pageCount = Number.isFinite(requestedCount) ? Math.max(0, Math.floor(requestedCount)) : 0;
+  const page =
+    pageCount === 0
+      ? 0
+      : Number.isFinite(requestedPage)
+        ? Math.max(1, Math.min(pageCount, Math.floor(requestedPage)))
+        : 1;
   const pages = paginationRange(page, pageCount, siblings);
   const go = (p: number) => onPageChange(Math.min(Math.max(1, p), Math.max(1, pageCount)));
   return (

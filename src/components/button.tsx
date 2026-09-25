@@ -5,14 +5,14 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-150 select-none focus-visible:ring-[3px] focus-visible:ring-ring/20 active:translate-y-px disabled:pointer-events-none disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-150 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-[3px] focus-visible:ring-ring/20 active:translate-y-px disabled:pointer-events-none disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          'border border-primary bg-primary text-primary-foreground shadow-xs hover:border-brand-hover hover:bg-brand-hover',
+          'border border-primary bg-primary text-primary-foreground shadow-xs hover:brightness-90',
         brand:
-          'border border-brand bg-brand text-white shadow-[0_1px_2px_rgb(68_8_94_/_0.18)] hover:border-brand-hover hover:bg-brand-hover',
+          'border border-primary bg-primary text-primary-foreground shadow-xs hover:brightness-90',
         soft: 'border border-brand/15 bg-brand-soft text-brand-soft-foreground hover:bg-brand/15',
         secondary:
           'border border-border bg-secondary text-secondary-foreground shadow-xs hover:border-border-strong hover:bg-muted',
@@ -43,26 +43,52 @@ export interface ButtonProps
   loading?: boolean;
 }
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  loading = false,
-  disabled,
-  children,
-  ...props
-}: ButtonProps) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    className,
+    variant,
+    size,
+    asChild = false,
+    loading = false,
+    disabled,
+    children,
+    type,
+    onClickCapture,
+    onKeyDownCapture,
+    ...props
+  }: ButtonProps,
+  ref,
+) {
   const Comp = asChild ? Slot.Root : 'button';
 
   return (
     <Comp
+      ref={ref}
+      type={asChild ? undefined : (type ?? 'button')}
       data-slot="button"
       data-loading={loading ? '' : undefined}
       aria-busy={loading || undefined}
       disabled={!asChild ? disabled || loading : undefined}
       className={cn(buttonVariants({ variant, size }), className)}
       {...props}
+      aria-disabled={asChild && (disabled || loading) ? true : props['aria-disabled']}
+      tabIndex={asChild && (disabled || loading) ? -1 : props.tabIndex}
+      onClickCapture={(event) => {
+        if (disabled || loading) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        onClickCapture?.(event);
+      }}
+      onKeyDownCapture={(event) => {
+        if ((disabled || loading) && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        onKeyDownCapture?.(event);
+      }}
     >
       {asChild ? (
         // Slot needs exactly one child to merge onto, so no spinner here.
@@ -80,6 +106,6 @@ function Button({
       )}
     </Comp>
   );
-}
+});
 
 export { Button, buttonVariants };

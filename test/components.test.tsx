@@ -316,7 +316,7 @@ describe('0.5 components', () => {
         placeholder="Pick user"
       />,
     );
-    await userEvent.click(screen.getByRole('combobox'));
+    await userEvent.click(screen.getByRole('combobox', { name: 'Pick user' }));
     await userEvent.type(screen.getByPlaceholderText('Search…'), 'luis');
     await userEvent.keyboard('{Enter}');
     expect(onValueChange).toHaveBeenCalledWith('b');

@@ -44,6 +44,11 @@ export interface ComboboxProps {
   id?: string;
   className?: string;
   'aria-invalid'?: boolean;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  'aria-describedby'?: string;
+  name?: string;
+  required?: boolean;
 }
 
 /** Pick one value from a long or remote list by typing. */
@@ -60,84 +65,108 @@ function Combobox({
   clearable = true,
   id,
   className,
+  name,
+  required,
   ...aria
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const listId = React.useId();
   const selected = options.find((o) => o.value === value);
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          id={id}
-          role="combobox"
-          aria-expanded={open}
-          aria-controls={listId}
-          aria-invalid={aria['aria-invalid']}
-          disabled={disabled}
-          data-slot="combobox-trigger"
-          className={cn(
-            fieldClasses,
-            'flex h-9 items-center justify-between gap-2 text-left',
-            !selected && 'text-muted-foreground',
-            className,
-          )}
+    <>
+      {name && <input type="hidden" name={name} value={value ?? ''} disabled={disabled} />}
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            role="combobox"
+            aria-required={required || undefined}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                setOpen(true);
+              }
+            }}
+            id={id}
+            aria-expanded={open}
+            aria-haspopup="dialog"
+            aria-controls={open ? listId : undefined}
+            aria-label={
+              aria['aria-label'] ?? (aria['aria-labelledby'] || id ? undefined : placeholder)
+            }
+            aria-labelledby={aria['aria-labelledby']}
+            aria-describedby={aria['aria-describedby']}
+            data-required={required || undefined}
+            aria-invalid={aria['aria-invalid']}
+            disabled={disabled}
+            data-slot="combobox-trigger"
+            className={cn(
+              fieldClasses,
+              'flex h-9 items-center justify-between gap-2 text-left',
+              !selected && 'text-muted-foreground',
+              className,
+            )}
+          >
+            <span className="truncate">{selected?.label ?? value ?? placeholder}</span>
+            <ChevronsUpDown className="size-4 shrink-0 opacity-60" aria-hidden />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          id={listId}
+          aria-label={aria['aria-label'] ?? placeholder}
+          className="w-(--radix-popover-trigger-width) min-w-64 p-0"
+          align="start"
         >
-          <span className="truncate">{selected?.label ?? value ?? placeholder}</span>
-          <ChevronsUpDown className="size-4 shrink-0 opacity-60" aria-hidden />
-        </button>
-      </PopoverTrigger>
-      <PopoverContent
-        id={listId}
-        className="w-(--radix-popover-trigger-width) min-w-64 p-0"
-        align="start"
-      >
-        <Command shouldFilter={!onSearchChange}>
-          <CommandInput placeholder={searchPlaceholder} onValueChange={onSearchChange} />
-          <CommandList>
-            {loading ? (
-              <div className="flex items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
-                <Spinner /> Searching…
-              </div>
-            ) : (
-              <CommandEmpty>{emptyText}</CommandEmpty>
-            )}
-            {!loading && (
-              <CommandGroup>
-                {options.map((o) => (
-                  <CommandItem
-                    key={o.value}
-                    value={`${o.label} ${o.description ?? ''} ${o.value}`}
-                    disabled={o.disabled}
-                    onSelect={() => {
-                      onValueChange(clearable && o.value === value ? null : o.value);
-                      setOpen(false);
-                    }}
-                  >
-                    <span className="grid min-w-0 flex-1">
-                      <span className="truncate">{o.label}</span>
-                      {o.description && (
-                        <span className="truncate text-xs text-muted-foreground">
-                          {o.description}
-                        </span>
-                      )}
-                    </span>
-                    <Check
-                      aria-hidden
-                      className={cn(
-                        'ml-auto size-4 text-brand',
-                        o.value === value ? 'opacity-100' : 'opacity-0',
-                      )}
-                    />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            )}
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+          <Command shouldFilter={!onSearchChange}>
+            <CommandInput
+              aria-label={searchPlaceholder}
+              placeholder={searchPlaceholder}
+              onValueChange={onSearchChange}
+            />
+            <CommandList>
+              {loading ? (
+                <div className="flex items-center justify-center gap-2 py-6 text-sm text-muted-foreground">
+                  <Spinner /> Searching…
+                </div>
+              ) : (
+                <CommandEmpty>{emptyText}</CommandEmpty>
+              )}
+              {!loading && (
+                <CommandGroup>
+                  {options.map((o) => (
+                    <CommandItem
+                      key={o.value}
+                      value={`${o.label} ${o.description ?? ''} ${o.value}`}
+                      disabled={o.disabled}
+                      onSelect={() => {
+                        onValueChange(clearable && o.value === value ? null : o.value);
+                        setOpen(false);
+                      }}
+                    >
+                      <span className="grid min-w-0 flex-1">
+                        <span className="truncate">{o.label}</span>
+                        {o.description && (
+                          <span className="truncate text-xs text-muted-foreground">
+                            {o.description}
+                          </span>
+                        )}
+                      </span>
+                      <Check
+                        aria-hidden
+                        className={cn(
+                          'ml-auto size-4 text-brand',
+                          o.value === value ? 'opacity-100' : 'opacity-0',
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 }
 

@@ -3,21 +3,27 @@ import * as React from 'react';
 
 import { cn } from '../lib/utils';
 
+const HasTooltipProvider = React.createContext(false);
+
 function TooltipProvider({
   delayDuration = 200,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
   return (
-    <TooltipPrimitive.Provider
-      data-slot="tooltip-provider"
-      delayDuration={delayDuration}
-      {...props}
-    />
+    <HasTooltipProvider.Provider value={true}>
+      <TooltipPrimitive.Provider
+        data-slot="tooltip-provider"
+        delayDuration={delayDuration}
+        {...props}
+      />
+    </HasTooltipProvider.Provider>
   );
 }
 
 /** Wraps its own provider, so a lone tooltip works without app-level setup. */
 function Tooltip(props: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+  const hasProvider = React.useContext(HasTooltipProvider);
+  if (hasProvider) return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
   return (
     <TooltipProvider>
       <TooltipPrimitive.Root data-slot="tooltip" {...props} />

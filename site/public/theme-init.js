@@ -6,15 +6,19 @@
     theme = theme || localStorage.getItem('bl-ui-theme');
   } catch (err) {
     // Storage can be blocked (private windows, strict cookie settings); the
-    // default dark theme is the right answer then, so this is not an error.
+    // system preference still applies for this visit.
     void err;
   }
-  if (theme === 'light') document.documentElement.classList.remove('dark');
+  document.documentElement.classList.toggle(
+    'dark',
+    theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches),
+  );
   var accent = new URLSearchParams(location.search).get('accent');
   try {
     accent = accent || localStorage.getItem('bl-ui-accent');
   } catch (err) {
     void err;
   }
-  if (accent) document.documentElement.dataset.accent = accent;
+  if (['ink', 'violet', 'blue', 'teal', 'orange'].includes(accent))
+    document.documentElement.dataset.accent = accent;
 })();

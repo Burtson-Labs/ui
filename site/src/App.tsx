@@ -11,6 +11,7 @@ import {
   ScrollArea,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
   TooltipProvider,
@@ -20,6 +21,7 @@ import { AccentPicker } from './accent';
 import { components } from './docs';
 import { ComponentPage, Home, Installation, Mui, NotFound, Theming } from './pages';
 import { Link, usePath } from './router';
+import { DocsSearch } from './search';
 
 const guides = [
   { href: '/docs/installation', title: 'Installation' },
@@ -94,11 +96,16 @@ export function App() {
   const path = usePath();
   const { isDark, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const previousPath = React.useRef(path);
   const isHome = path === '/';
 
   React.useEffect(() => {
     const doc = components.find((c) => path.endsWith(`/components/${c.name}`));
     document.title = doc ? `${doc.title} · Burtson UI` : 'Burtson UI';
+    if (previousPath.current !== path) {
+      document.getElementById('main')?.focus({ preventScroll: true });
+      previousPath.current = path;
+    }
   }, [path]);
 
   return (
@@ -124,6 +131,9 @@ export function App() {
             </SheetTrigger>
             <SheetContent side="left" className="w-72 p-0">
               <SheetTitle className="border-b px-4 py-4">Burtson UI</SheetTitle>
+              <SheetDescription className="sr-only">
+                Browse guides and all components.
+              </SheetDescription>
               <ScrollArea className="h-[calc(100dvh-4rem)] px-2 pb-6">
                 <Nav path={path} onNavigate={() => setMenuOpen(false)} />
               </ScrollArea>
@@ -148,7 +158,8 @@ export function App() {
             </a>
           </nav>
           <div className="ml-auto flex items-center gap-1">
-            <Button variant="ghost" size="sm" asChild>
+            <DocsSearch />
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" asChild>
               <a href="https://github.com/Burtson-Labs/ui" target="_blank" rel="noreferrer">
                 GitHub
               </a>
@@ -173,7 +184,11 @@ export function App() {
             </ScrollArea>
           </aside>
         )}
-        <main id="main" className={cn('min-w-0 flex-1', !isHome && 'max-w-3xl py-10')}>
+        <main
+          id="main"
+          tabIndex={-1}
+          className={cn('min-w-0 flex-1', !isHome && 'max-w-3xl py-10')}
+        >
           {route(path)}
         </main>
       </div>

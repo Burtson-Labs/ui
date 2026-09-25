@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.8.0
+
+UX audit and upgrade (Astra; findings in AUDIT.md).
+
+- **Behaviour changes:** Button defaults to `type="button"` (add `type="submit"`
+  for form submits) and forwards refs, as do Input and Textarea; disabled or
+  loading `asChild` links no longer activate. Toolbar is a labelled `group`
+  instead of `toolbar`. Progress honours `max`, clamps, and is indeterminate
+  for null. Composer awaits a returned promise, keeps the draft on failure and
+  blocks double sends. Tooltip reuses an existing TooltipProvider.
+- **Accessibility:** stronger focus outlines, forced-colours support, 44px
+  targets on coarse pointers, contrast-paired filled buttons (automated 4.5:1
+  checks), indeterminate checkbox mark, bounded dialogs, sheets and popovers.
+- **Components:** Combobox naming, `name` and `required`; CopyButton success
+  and error callbacks; ToolApproval `busy`; safe tool-output serialisation;
+  Pagination and Steps edge cases; Alerts without an icon.
+- **Docs site:** ⌘K search, searchable catalog, playground, usage and
+  accessibility notes with prop tables, source view, lazy demos, focus moves
+  to content on navigation.
+
 ## 0.7.0
 
 - Toaster and `toast()`: raise toasts from event handlers and data hooks;
