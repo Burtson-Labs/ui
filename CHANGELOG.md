@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.11.0
+
+The foundation for product themes built on the kit (Bandit's first).
+
+- **MUI adapter**: `createBurtsonTheme` and `burtsonThemeOptions` take a
+  config, `{ mode, accent, density, palette }`, as well as a mode (the old
+  form still works). MUI buttons, icon buttons, inputs, cards, dialogs, menus,
+  popovers, chips, tabs, switches and tooltips now get the kit's radius per
+  role, focus ring and borders; shadows map onto the three-level Burtson
+  scale; transitions use the kit's timing; ripples are off; `compact` density
+  makes controls small and lists, tables and toolbars dense.
+- **Accent tokens**: `accentTokens(accent, mode)` derives primary, brand,
+  brand-soft and ring tones from any colour while keeping 4.5:1 for the
+  primary fill's text, brand text on the background, and soft chips. Also
+  `contrast(a, b)` and `mix(a, b, t)`.
+- **Motion and elevation tokens**: `duration` (fast 120 ms, standard 180,
+  emphasis 240, exit 140) and `easing` (standard, emphasized, exit), exposed
+  in `theme.css` as `--duration-*` and `--ease-*`; `elevation` names the
+  shadow levels 0–3.
+
 ## 0.10.1
 
 - **Standalone stylesheet**: the scoped reset now covers every `<button>`

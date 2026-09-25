@@ -75,7 +75,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createBurtsonTheme } from '@burtson-labs/ui/mui';
 
 <ThemeProvider theme={createBurtsonTheme('dark')}>{app}</ThemeProvider>;
+
+// A product accent and admin density; contrast is kept for any accent.
+createBurtsonTheme({ mode: 'dark', accent: '#2563eb', density: 'compact' });
 ```
+
+`@burtson-labs/ui/tokens` also exports `accentTokens(accent, mode)` for the CSS side, and the motion timing (`duration`, `easing`) and `elevation` levels that `theme.css` exposes as `--duration-*` and `--ease-*`.
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/terminal.svg"/><img src="https://icons.burtson.ai/svg-black/terminal.svg" align="center" alt=""/></picture> Develop
 

@@ -347,9 +347,20 @@ export function App({ children }: { children: React.ReactNode }) {
       <P>
         <br />
         <code>createBurtsonTheme(mode, ...overrides)</code> maps the tokens onto the MUI palette,
-        shape and typography. Pass your own theme options after the mode to extend it.{' '}
-        <code>burtsonThemeOptions(mode)</code> returns the raw options if you merge themes yourself.
+        shape, shadows, typography and transitions, and gives MUI buttons, inputs, cards, dialogs,
+        menus, chips and tabs the same radius and focus ring as the Burtson components. Pass your
+        own theme options after the mode to extend it. <code>burtsonThemeOptions(mode)</code>{' '}
+        returns the raw options if you merge themes yourself.
       </P>
+      <Code
+        code={`// A product accent and admin density. The primary fill, link colour and
+// focus ring are derived from the accent with 4.5:1 contrast kept.
+createBurtsonTheme({ mode: 'dark', accent: '#2563eb', density: 'compact' });
+
+// The same derivation for the CSS side (Burtson UI components):
+import { accentTokens } from '@burtson-labs/ui/tokens';
+accentTokens('#2563eb', 'dark'); // { primary, brand, 'brand-soft', ring, … }`}
+      />
       <P>
         To use Burtson UI components inside an MUI app, import{' '}
         <code>@burtson-labs/ui/styles.css</code> once. It leaves out Tailwind&apos;s global reset,

@@ -9,7 +9,7 @@ import { fail, say } from './log.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'src/styles/theme.css');
-const { light, dark, radius, shadow, motion, fontSans, fontMono } =
+const { light, dark, radius, shadow, motion, duration, easing, fontSans, fontMono } =
   await import('../src/tokens.ts');
 
 const vars = (palette, indent) =>
@@ -34,6 +34,12 @@ const css = `/*
 :root {
 ${vars(light, '  ')}
   --radius: ${radius.md};
+${Object.entries(duration)
+  .map(([k, v]) => `  --duration-${k}: ${v}ms;`)
+  .join('\n')}
+${Object.entries(easing)
+  .map(([k, v]) => `  --ease-${k}: ${v};`)
+  .join('\n')}
   color-scheme: light;
 }
 

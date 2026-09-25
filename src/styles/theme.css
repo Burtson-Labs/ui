@@ -38,6 +38,8 @@
   --warning-foreground: #ffffff;
   --info: #2563eb;
   --info-foreground: #ffffff;
+  --recording: #d6293e;
+  --recording-foreground: #ffffff;
   --border: #e5dfe8;
   --border-strong: #cfc5d5;
   --input: #d8cfdd;
@@ -49,6 +51,13 @@
   --code: #18141d;
   --code-foreground: #f5f0f7;
   --radius: 0.625rem;
+  --duration-fast: 120ms;
+  --duration-standard: 180ms;
+  --duration-emphasis: 240ms;
+  --duration-exit: 140ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   color-scheme: light;
 }
 
@@ -79,6 +88,8 @@
   --warning-foreground: #201304;
   --info: #6ea8ff;
   --info-foreground: #071226;
+  --recording: #f2616d;
+  --recording-foreground: #1b090b;
   --border: #2a2732;
   --border-strong: #403a49;
   --input: #34303d;
@@ -118,6 +129,8 @@
   --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
+  --color-recording: var(--recording);
+  --color-recording-foreground: var(--recording-foreground);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-input: var(--input);

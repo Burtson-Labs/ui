@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 
 import * as ui from '../src/index';
 import { burtsonThemeOptions, createBurtsonTheme } from '../src/mui/index';
-import { dark, light } from '../src/tokens';
+import { accentTokens, contrast, dark, duration, light } from '../src/tokens';
 
 const ROOT = join(import.meta.dirname, '..');
 const components = readdirSync(join(ROOT, 'src/components'))
@@ -80,6 +80,14 @@ describe('MUI adapter', () => {
     expect(burtsonThemeOptions('dark').shape?.borderRadius).toBe(10);
   });
 
+  it('takes a config with accent and density', () => {
+    const t = createBurtsonTheme({ mode: 'dark', accent: '#2563eb', density: 'compact' });
+    expect(t.palette.primary.main).not.toBe(dark.primary);
+    expect(t.typography.fontSize).toBe(13);
+    expect(t.components?.MuiButton?.defaultProps?.size).toBe('small');
+    expect(t.transitions.duration.standard).toBe(duration.standard);
+  });
+
   it('applies overrides after the Burtson options', () => {
     const t = createBurtsonTheme('dark', { palette: { primary: { main: '#000000' } } });
     expect(t.palette.primary.main).toBe('#000000');
@@ -101,4 +109,19 @@ describe('standalone stylesheet', () => {
     // Every file that renders a bare <button> puts it inside a data-slot root.
     expect(unslotted).toEqual([]);
   });
+});
+
+describe('accent tokens', () => {
+  // Tenants pick a colour; the kit keeps it legible.
+  for (const accent of ['#a60ee5', '#2563eb', '#16a34a', '#facc15', '#e11d48', '#06b6d4']) {
+    for (const mode of ['light', 'dark'] as const) {
+      it(`${accent} in ${mode}: primary fill and brand text reach 4.5:1`, () => {
+        const t = accentTokens(accent, mode);
+        const bg = mode === 'dark' ? dark.background : light.background;
+        expect(contrast(t.primary, t['primary-foreground'])).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(t.brand, bg)).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(t['brand-soft-foreground'], t['brand-soft'])).toBeGreaterThanOrEqual(4.5);
+      });
+    }
+  }
 });

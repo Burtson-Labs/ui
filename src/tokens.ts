@@ -37,6 +37,8 @@ export type ColorToken =
   | 'warning-foreground'
   | 'info'
   | 'info-foreground'
+  | 'recording'
+  | 'recording-foreground'
   | 'border'
   | 'border-strong'
   | 'input'
@@ -79,6 +81,10 @@ export const light: Palette = {
   'warning-foreground': '#ffffff',
   info: '#2563eb',
   'info-foreground': '#ffffff',
+  // Live microphone capture. Red by convention, but its own token: recording
+  // is a state, not an error, and apps can retint it without touching errors.
+  recording: '#d6293e',
+  'recording-foreground': '#ffffff',
   border: '#e5dfe8',
   'border-strong': '#cfc5d5',
   input: '#d8cfdd',
@@ -117,6 +123,8 @@ export const dark: Palette = {
   'warning-foreground': '#201304',
   info: '#6ea8ff',
   'info-foreground': '#071226',
+  recording: '#f2616d',
+  'recording-foreground': '#1b090b',
   border: '#2a2732',
   'border-strong': '#403a49',
   input: '#34303d',
@@ -210,5 +218,129 @@ export const motion = {
   },
 } as const;
 
-export const tokens = { brand, light, dark, radius, shadow, motion, fontSans, fontMono } as const;
+/**
+ * Motion timing for code that animates outside CSS (MUI transitions, JS
+ * animation). Things leave faster than they arrive; `emphasis` is for
+ * surfaces that change the layout (drawers, dialogs, expanding panels).
+ */
+export const duration = { fast: 120, standard: 180, emphasis: 240, exit: 140 } as const;
+export const easing = {
+  standard: 'cubic-bezier(0.2, 0, 0, 1)',
+  emphasized: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  exit: 'cubic-bezier(0.4, 0, 1, 1)',
+} as const;
+
+/** Named elevation levels over the shadow scale: 0 flat, 1 resting control, 2 card, 3 floating. */
+export const elevation = { 0: 'none', 1: shadow.xs, 2: shadow.sm, 3: shadow.md } as const;
+
+// ─── Accent ────────────────────────────────────────────────────────────────
+
+export type AccentTokens = Pick<
+  Palette,
+  | 'primary'
+  | 'primary-foreground'
+  | 'brand'
+  | 'brand-hover'
+  | 'brand-soft'
+  | 'brand-soft-foreground'
+  | 'accent'
+  | 'accent-foreground'
+  | 'ring'
+>;
+
+type Rgb = [number, number, number];
+
+function parseHex(hex: string): Rgb {
+  const h = hex.replace('#', '').trim();
+  const full = h.length === 3 ? [...h].map((c) => c + c).join('') : h.slice(0, 6);
+  if (!/^[0-9a-f]{6}$/i.test(full)) throw new Error(`Not a hex colour: ${hex}`);
+  return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16)) as Rgb;
+}
+
+const toHex = (rgb: Rgb) =>
+  '#' +
+  rgb
+    .map((v) =>
+      Math.round(Math.max(0, Math.min(255, v)))
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('');
+
+/** Mix `a` toward `b` by `t` (0 = a, 1 = b), in sRGB. */
+export function mix(a: string, b: string, t: number): string {
+  const x = parseHex(a);
+  const y = parseHex(b);
+  return toHex([0, 1, 2].map((i) => x[i]! + (y[i]! - x[i]!) * t) as Rgb);
+}
+
+function luminance(hex: string): number {
+  const c = parseHex(hex).map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]!;
+}
+
+/** WCAG contrast ratio between two hex colours. */
+export function contrast(a: string, b: string): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((m, n) => n - m) as [number, number];
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+/** Step `color` toward `target` until it reaches `ratio` against `against`. */
+function ensureContrast(color: string, against: string, ratio: number, target: string): string {
+  let c = color;
+  for (let i = 0; i < 20 && contrast(c, against) < ratio; i++) c = mix(c, target, 0.1);
+  return c;
+}
+
+/**
+ * Brand tokens for any accent colour, kept legible: the primary fill always
+ * carries its foreground at 4.5:1, and the brand colour used for links, focus
+ * and selected text reads at 4.5:1 on the page background. Tenants and skins
+ * choose an accent; they never choose the contrast.
+ */
+export function accentTokens(accent: string, mode: 'light' | 'dark'): AccentTokens {
+  const p = mode === 'dark' ? dark : light;
+  const white = '#ffffff';
+  // A dark foreground on light fills (yellow, cyan) instead of forcing white.
+  const onFill = contrast(accent, white) >= contrast(accent, '#111111') ? white : '#111111';
+  const primary =
+    onFill === white
+      ? ensureContrast(accent, white, 4.5, '#000000')
+      : ensureContrast(accent, '#111111', 4.5, white);
+  const brand =
+    mode === 'dark'
+      ? ensureContrast(mix(accent, white, 0.12), p.background, 4.5, white)
+      : ensureContrast(accent, p.background, 4.5, '#000000');
+  const brandHover = mode === 'dark' ? mix(brand, white, 0.18) : mix(brand, '#000000', 0.14);
+  const soft = mode === 'dark' ? mix(p.background, accent, 0.16) : mix(white, accent, 0.1);
+  const softFg = mode === 'dark' ? mix(accent, white, 0.72) : mix(accent, '#000000', 0.55);
+  return {
+    primary,
+    'primary-foreground': onFill,
+    brand,
+    'brand-hover': brandHover,
+    'brand-soft': soft,
+    'brand-soft-foreground': ensureContrast(softFg, soft, 4.5, mode === 'dark' ? white : '#000000'),
+    accent: soft,
+    'accent-foreground': ensureContrast(softFg, soft, 4.5, mode === 'dark' ? white : '#000000'),
+    ring: brand,
+  };
+}
+
+export const tokens = {
+  brand,
+  light,
+  dark,
+  radius,
+  shadow,
+  elevation,
+  motion,
+  duration,
+  easing,
+  fontSans,
+  fontMono,
+} as const;
 export default tokens;
