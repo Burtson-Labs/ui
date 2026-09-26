@@ -28,9 +28,28 @@ const pages = import.meta.glob<ApiPage>('./generated/api/*.json', { import: 'def
 function PropTable({ props, label }: { props: Prop[]; label: string }) {
   if (!props.length) return null;
   return (
-    <div className="overflow-x-auto rounded-lg border">
-      <table className="w-full text-left text-sm">
+    // min-w-0 so the wrapper can shrink inside the grid that holds it; without
+    // it the wrapper grows to the table and the table paints past the card.
+    <div className="min-w-0 overflow-x-auto rounded-lg border">
+      {/* table-fixed + colgroup, NOT min-w/max-w on the cells. In
+          table-layout:auto a cell's min-width raises the whole column's
+          minimum while its max-width is all but ignored, so `min-w-44` and
+          `min-w-48` pushed the table's intrinsic width past the container;
+          the columns were then squeezed and long descriptions and type
+          signatures painted outside their cell. Fixed layout honours these
+          proportions exactly and wraps inside the cell instead. The min width
+          is sm: only — an unconditional one sizes the grid column that holds
+          this table to 704px, which overflowed the whole PAGE sideways on a
+          phone (that predates the fixed layout: min-w-44 + min-w-48 on the
+          cells did the same). Below sm the columns just get narrow. */}
+      <table className="w-full table-fixed text-left text-sm sm:min-w-[44rem]">
         <caption className="sr-only">{label} properties</caption>
+        <colgroup>
+          <col className="w-[22%]" />
+          <col className="w-[34%]" />
+          <col className="w-[12%]" />
+          <col className="w-[32%]" />
+        </colgroup>
         <thead className="bg-muted">
           <tr>
             {['Property', 'Type', 'Default', 'Description'].map((heading) => (
@@ -44,20 +63,20 @@ function PropTable({ props, label }: { props: Prop[]; label: string }) {
           {props.map((prop) => (
             <tr key={prop.name} className="border-t align-top">
               <th scope="row" className="p-3 text-left font-normal">
-                <code>{prop.name}</code>
+                <code className="break-words">{prop.name}</code>
                 {prop.required && (
                   <span className="mt-1 block text-xs font-medium text-brand">Required</span>
                 )}
               </th>
-              <td className="min-w-44 max-w-lg p-3">
+              <td className="p-3">
                 <code className="break-words whitespace-pre-wrap text-xs">{prop.type}</code>
               </td>
-              <td className="max-w-56 p-3">
+              <td className="p-3">
                 <code className="break-words whitespace-pre-wrap text-xs">
                   {prop.default ?? '—'}
                 </code>
               </td>
-              <td className="min-w-48 p-3 whitespace-pre-line text-muted-foreground">
+              <td className="p-3 break-words whitespace-pre-line text-muted-foreground">
                 {prop.description || '—'}
               </td>
             </tr>
