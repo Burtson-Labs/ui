@@ -5,7 +5,7 @@
     {
       "name": "Skeleton",
       "kind": "component",
-      "description": "",
+      "description": "A placeholder block. Give it the size of what it stands in for; hidden from screen readers.",
       "signatures": [],
       "type": null,
       "props": [],

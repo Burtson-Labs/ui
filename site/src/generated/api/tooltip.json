@@ -63,7 +63,7 @@
     {
       "name": "TooltipContent",
       "kind": "component",
-      "description": "",
+      "description": "A dark label on any theme, 8px radius, elevation 3.",
       "signatures": [],
       "type": null,
       "props": [

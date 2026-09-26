@@ -454,6 +454,80 @@
       "inherited": []
     },
     {
+      "name": "CommandDialogProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "CommandDialogProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "modal",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "title",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
       "name": "CommandEmpty",
       "kind": "component",
       "description": "",
@@ -1092,7 +1166,7 @@
     {
       "name": "CommandInput",
       "kind": "component",
-      "description": "",
+      "description": "The row is the field (icon + input, ruled off from the list); the input\nitself draws no border or outline, whatever the host page's CSS says.",
       "signatures": [],
       "type": null,
       "props": [
@@ -1434,7 +1508,7 @@
     {
       "name": "CommandItem",
       "kind": "component",
-      "description": "",
+      "description": "A row: 32px (44px on touch screens), 8px radius, a fill when active.",
       "signatures": [],
       "type": null,
       "props": [

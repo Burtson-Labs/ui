@@ -38,7 +38,7 @@ const all: ComponentDoc[] = [
   {
     name: 'checkbox',
     title: 'Checkbox',
-    description: 'A two-state (or indeterminate) toggle for forms.',
+    description: 'A two-state (or indeterminate) toggle for forms, alone or as a labelled row.',
     radix: 'checkbox',
   },
   {
@@ -59,7 +59,11 @@ const all: ComponentDoc[] = [
     description: 'A menu of actions opened from a trigger, with keyboard navigation.',
     radix: 'dropdown-menu',
   },
-  { name: 'input', title: 'Input', description: 'A single-line text field.' },
+  {
+    name: 'input',
+    title: 'Input',
+    description: 'A single-line text field, with widths by content and a search variant.',
+  },
   { name: 'kbd', title: 'Kbd', description: 'A keyboard key or shortcut.' },
   {
     name: 'label',
@@ -82,7 +86,7 @@ const all: ComponentDoc[] = [
   {
     name: 'radio-group',
     title: 'Radio Group',
-    description: 'One choice from a small set.',
+    description: 'One choice from a small set, as dots or as cards.',
     radix: 'radio-group',
   },
   {
@@ -118,10 +122,15 @@ const all: ComponentDoc[] = [
   {
     name: 'switch',
     title: 'Switch',
-    description: 'An on/off toggle for settings.',
+    description: 'An on/off toggle for settings, alone or as a labelled row in a list.',
     radix: 'switch',
   },
-  { name: 'table', title: 'Table', description: 'Semantic table markup with Burtson styling.' },
+  {
+    name: 'table',
+    title: 'Table',
+    description:
+      'Semantic table markup with Burtson styling; scrolls sideways with a pinned first column.',
+  },
   {
     name: 'tabs',
     title: 'Tabs',
@@ -152,7 +161,8 @@ const all: ComponentDoc[] = [
   {
     name: 'field',
     title: 'Field',
-    description: 'Label, hint, description and error around any control.',
+    description:
+      'Label, hint, description and error around any control, wired for you; grids and sets.',
   },
   {
     name: 'icon-button',
@@ -167,7 +177,7 @@ const all: ComponentDoc[] = [
   {
     name: 'stat-card',
     title: 'Stat Card',
-    description: 'One metric with context, without dashboard chrome.',
+    description: 'One metric with context, or several side by side in a strip.',
   },
   {
     name: 'status',
@@ -366,7 +376,30 @@ const all: ComponentDoc[] = [
     name: 'data-table',
     title: 'Data Table',
     description:
-      'A controlled table for records: sort, search, select, page and row actions; cards on phones.',
+      'A controlled table for records: sort, search, select, page and row actions; cards on phones when columns ask for them.',
+  },
+  {
+    name: 'number-input',
+    title: 'Number Input',
+    description:
+      'A number with its unit inside the field, right-aligned, numeric keyboard on phones.',
+  },
+  {
+    name: 'native-select',
+    title: 'Native Select',
+    description:
+      "The browser's own select, drawn like the kit's fields: the phone picker, no portal.",
+  },
+  {
+    name: 'error-summary',
+    title: 'Error Summary',
+    description: 'The errors of a long form after a failed submit, each a link to its field.',
+  },
+  {
+    name: 'form-actions',
+    title: 'Form Actions',
+    description:
+      "A form's buttons: right-aligned on desktop, one shared row on phones, optionally pinned.",
   },
 ];
 

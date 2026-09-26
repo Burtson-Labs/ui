@@ -21,42 +21,52 @@ const alertVariants = cva(
   },
 );
 
-function Alert({
-  className,
-  variant,
-  ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof alertVariants>) {
+export interface AlertProps
+  extends React.ComponentProps<'div'>, VariantProps<typeof alertVariants> {}
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  { className, variant, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="alert"
+      data-variant={variant ?? 'default'}
       role="alert"
       className={cn(alertVariants({ variant }), className)}
       {...props}
     />
   );
-}
+});
 
-function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="alert-title"
-      className={cn('font-semibold tracking-[-0.01em]', className)}
-      {...props}
-    />
-  );
-}
+const AlertTitle = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
+  function AlertTitle({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="alert-title"
+        className={cn('font-semibold tracking-[-0.01em]', className)}
+        {...props}
+      />
+    );
+  },
+);
 
-function AlertDescription({ className, ...props }: React.ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="alert-description"
-      className={cn(
-        'col-start-1 group-has-[>svg]/alert:col-start-2 text-[13px] leading-5 text-muted-foreground',
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+const AlertDescription = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
+  function AlertDescription({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="alert-description"
+        className={cn(
+          'col-start-1 group-has-[>svg]/alert:col-start-2 text-[13px] leading-5 text-muted-foreground',
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 
 export { Alert, AlertDescription, AlertTitle, alertVariants };

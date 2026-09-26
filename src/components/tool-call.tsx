@@ -2,7 +2,7 @@ import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import Wrench from '@burtson-labs/icons/react/wrench';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
 
 import { Button } from './button';
@@ -20,7 +20,7 @@ const statusDot = {
   pending: 'neutral',
   running: 'brand',
   success: 'success',
-  error: 'danger',
+  error: 'destructive',
 } as const;
 
 const json = (value: unknown) => {
@@ -61,21 +61,15 @@ export interface ToolCallProps extends Omit<React.ComponentProps<'div'>, 'title'
 }
 
 /** A tool call an agent made: name, live status, and collapsible arguments and result. */
-function ToolCall({
-  name,
-  status,
-  args,
-  result,
-  error,
-  durationMs,
-  defaultOpen = false,
-  className,
-  ...props
-}: ToolCallProps) {
+const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(function ToolCall(
+  { name, status, args, result, error, durationMs, defaultOpen = false, className, ...props },
+  ref,
+) {
   const hasDetail = args !== undefined || result !== undefined || Boolean(error);
   return (
     <CollapsiblePrimitive.Root defaultOpen={defaultOpen} disabled={!hasDetail}>
       <div
+        ref={ref}
         data-slot="tool-call"
         data-status={status}
         className={cn(
@@ -85,7 +79,13 @@ function ToolCall({
         )}
         {...props}
       >
-        <CollapsiblePrimitive.Trigger className="group/tool flex h-9 w-full items-center gap-2 px-3 text-left outline-none hover:bg-muted/60 focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:cursor-default disabled:hover:bg-transparent">
+        <CollapsiblePrimitive.Trigger
+          className={cn(
+            'group/tool flex h-9 w-full items-center gap-2 px-3 text-left hover:bg-muted/60 disabled:cursor-default disabled:hover:bg-transparent pointer-coarse:h-11',
+            focusRingClasses,
+            'focus-visible:outline-offset-[-2px]',
+          )}
+        >
           <Wrench className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
           <span className="min-w-0 flex-1 truncate font-mono text-[12.5px]">{name}</span>
           <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -135,7 +135,7 @@ function ToolCall({
       </div>
     </CollapsiblePrimitive.Root>
   );
-}
+});
 
 export interface ToolApprovalProps extends Omit<React.ComponentProps<'div'>, 'title'> {
   name: string;
@@ -153,21 +153,25 @@ export interface ToolApprovalProps extends Omit<React.ComponentProps<'div'>, 'ti
 }
 
 /** A gate before an agent runs a tool with side effects: the person approves or denies it. */
-function ToolApproval({
-  name,
-  description,
-  args,
-  state = 'pending',
-  busy = false,
-  onApprove,
-  onDeny,
-  approveLabel = 'Approve',
-  denyLabel = 'Deny',
-  className,
-  ...props
-}: ToolApprovalProps) {
+const ToolApproval = React.forwardRef<HTMLDivElement, ToolApprovalProps>(function ToolApproval(
+  {
+    name,
+    description,
+    args,
+    state = 'pending',
+    busy = false,
+    onApprove,
+    onDeny,
+    approveLabel = 'Approve',
+    denyLabel = 'Deny',
+    className,
+    ...props
+  },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="tool-approval"
       aria-busy={busy || undefined}
       data-state={state}
@@ -207,6 +211,6 @@ function ToolApproval({
       )}
     </div>
   );
-}
+});
 
 export { ToolApproval, ToolCall };

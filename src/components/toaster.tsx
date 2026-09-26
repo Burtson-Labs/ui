@@ -61,9 +61,15 @@ const subscribe = (listener: () => void) => {
   };
 };
 const snapshot = () => records;
+const serverSnapshot = (): ToastRecord[] => [];
 
-function Toaster({ className }: { className?: string }) {
-  const list = React.useSyncExternalStore(subscribe, snapshot, snapshot);
+export interface ToasterProps {
+  /** Classes for the viewport (position, width). */
+  className?: string;
+}
+
+function Toaster({ className }: ToasterProps) {
+  const list = React.useSyncExternalStore(subscribe, snapshot, serverSnapshot);
   return (
     <ToastProvider swipeDirection="right">
       {list.map((r) => (
@@ -81,7 +87,7 @@ function Toaster({ className }: { className?: string }) {
           <ToastClose />
         </Toast>
       ))}
-      <ToastViewport className={className} />
+      <ToastViewport data-slot="toaster" className={className} />
     </ToastProvider>
   );
 }

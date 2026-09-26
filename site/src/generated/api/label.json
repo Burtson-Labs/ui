@@ -5,7 +5,7 @@
     {
       "name": "Label",
       "kind": "component",
-      "description": "",
+      "description": "A caption for a control. Wrap a Checkbox, Switch or RadioGroupItem in it\nand the whole caption toggles the control; at least 44px tall on touch\nscreens when it does.",
       "signatures": [],
       "type": null,
       "props": [

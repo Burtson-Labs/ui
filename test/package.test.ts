@@ -160,8 +160,12 @@ describe('standalone stylesheet', () => {
     expect(r.status, r.stderr).toBe(0);
     const css = readFileSync(out, 'utf8');
     rmSync(dir, { recursive: true, force: true });
-    const hidden = /\.outline-hidden\\!\{([^}]*)\}/.exec(css)?.[1] ?? '';
-    expect(hidden).toContain('outline-style:none!important');
+    const none = /\.outline-none\\!\{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(none).toContain('outline-style:none!important');
+    // No rest ring in forced-colors mode: outline-hidden (a transparent outline
+    // that high contrast reveals) is gone; focus gets a system outline instead.
+    expect(css).not.toMatch(/\.outline-hidden\\!/);
+    expect(css).toMatch(/forced-colors:active\)[^}]*\{[^}]*outline:2px solid highlight!important/i);
     expect(css).toMatch(/\.focus-visible\\:inset-ring-1:focus-visible\{/);
     // The one-sided brand bar on the active command row is gone.
     expect(css).not.toMatch(/data-\\\[selected\\=true\\\]\\:shadow-/);

@@ -87,7 +87,10 @@ export const light: Palette = {
   'recording-foreground': '#ffffff',
   border: '#e5dfe8',
   'border-strong': '#cfc5d5',
-  input: '#d8cfdd',
+  // The field border: 3:1 on every light surface (WCAG 1.4.11), so a field
+  // is identifiable by its outline alone. Also the unchecked box, dot and
+  // off track of Checkbox, RadioGroup and Switch.
+  input: '#908a95',
   ring: '#a60ee5',
   brand: '#a60ee5',
   'brand-hover': '#8f0bc7',
@@ -127,7 +130,7 @@ export const dark: Palette = {
   'recording-foreground': '#1b090b',
   border: '#2a2732',
   'border-strong': '#403a49',
-  input: '#34303d',
+  input: '#68646e',
   ring: '#c65ef1',
   brand: '#c65ef1',
   'brand-hover': '#d384f3',
@@ -146,10 +149,17 @@ export const radius = {
   full: '9999px',
 } as const;
 
+/**
+ * Shadows by elevation: xs resting controls, sm cards, md raised cards and
+ * tooltips, lg floating surfaces (popovers, menus, toasts), xl modal windows
+ * (dialogs, sheets). Borders carry hierarchy; the shadow only says "floating".
+ */
 export const shadow = {
   xs: '0 1px 2px rgb(10 8 14 / 0.05)',
   sm: '0 1px 3px rgb(10 8 14 / 0.08), 0 1px 2px rgb(10 8 14 / 0.05)',
   md: '0 10px 30px rgb(10 8 14 / 0.10), 0 2px 8px rgb(10 8 14 / 0.06)',
+  lg: '0 16px 48px rgb(0 0 0 / 0.18)',
+  xl: '0 24px 80px rgb(0 0 0 / 0.28)',
   focus: '0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent)',
 } as const;
 
@@ -159,24 +169,40 @@ export const fontMono =
   '"JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace';
 
 /**
+ * Motion timing, for CSS (theme.css exposes them as --duration-* and
+ * --ease-*, and every `transition-*` utility uses fast/standard by default)
+ * and for code that animates outside CSS (MUI transitions, JS animation).
+ * Things leave faster than they arrive; `emphasis` is for surfaces that
+ * change the layout (drawers, dialogs, expanding panels).
+ */
+export const duration = { fast: 120, standard: 180, emphasis: 240, exit: 140 } as const;
+export const easing = {
+  standard: 'cubic-bezier(0.2, 0, 0, 1)',
+  emphasized: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  exit: 'cubic-bezier(0.4, 0, 1, 1)',
+  /** A drawer's glide: fast start, long settle. */
+  drawer: 'cubic-bezier(0.32, 0.72, 0, 1)',
+} as const;
+
+/**
  * Motion. Surfaces enter from where they come from: popovers and menus slide a
  * few pixels from their trigger side (--bl-tx/--bl-ty, set per side by the
- * component), dialogs zoom slightly, sheets glide in with a drawer ease, and
- * everything leaves faster than it arrived. prefers-reduced-motion turns all
- * of it off (theme.css).
+ * component), dialogs zoom slightly, sheets glide in with the drawer ease, and
+ * everything leaves faster than it arrived, all on the duration and easing
+ * tokens above. prefers-reduced-motion turns all of it off (theme.css).
  */
 export const motion = {
   animations: {
-    in: 'bl-in 200ms cubic-bezier(0.16, 1, 0.3, 1)',
-    out: 'bl-out 140ms cubic-bezier(0.4, 0, 1, 1) forwards',
-    'fade-in': 'bl-fade-in 200ms ease-out',
-    'fade-out': 'bl-fade-out 150ms ease-in forwards',
-    'sheet-in': 'bl-sheet-in 340ms cubic-bezier(0.32, 0.72, 0, 1)',
-    'sheet-out': 'bl-sheet-out 220ms cubic-bezier(0.4, 0, 1, 1) forwards',
-    'accordion-down': 'bl-accordion-down 200ms cubic-bezier(0.16, 1, 0.3, 1)',
-    'accordion-up': 'bl-accordion-up 160ms ease-out',
-    'collapsible-down': 'bl-collapsible-down 200ms cubic-bezier(0.16, 1, 0.3, 1)',
-    'collapsible-up': 'bl-collapsible-up 160ms ease-out',
+    in: `bl-in ${duration.standard}ms ${easing.emphasized}`,
+    out: `bl-out ${duration.exit}ms ${easing.exit} forwards`,
+    'fade-in': `bl-fade-in ${duration.standard}ms ${easing.standard}`,
+    'fade-out': `bl-fade-out ${duration.exit}ms ${easing.exit} forwards`,
+    'sheet-in': `bl-sheet-in ${duration.emphasis}ms ${easing.drawer}`,
+    'sheet-out': `bl-sheet-out ${duration.standard}ms ${easing.exit} forwards`,
+    'accordion-down': `bl-accordion-down ${duration.standard}ms ${easing.emphasized}`,
+    'accordion-up': `bl-accordion-up ${duration.exit}ms ${easing.exit}`,
+    'collapsible-down': `bl-collapsible-down ${duration.standard}ms ${easing.emphasized}`,
+    'collapsible-up': `bl-collapsible-up ${duration.exit}ms ${easing.exit}`,
   },
   keyframes: {
     'bl-in': {
@@ -219,19 +245,27 @@ export const motion = {
 } as const;
 
 /**
- * Motion timing for code that animates outside CSS (MUI transitions, JS
- * animation). Things leave faster than they arrive; `emphasis` is for
- * surfaces that change the layout (drawers, dialogs, expanding panels).
+ * Named elevation levels over the shadow scale: 0 flat, 1 resting control,
+ * 2 card, 3 raised card or tooltip, 4 floating surface (popover, menu,
+ * toast), 5 modal (dialog, sheet).
  */
-export const duration = { fast: 120, standard: 180, emphasis: 240, exit: 140 } as const;
-export const easing = {
-  standard: 'cubic-bezier(0.2, 0, 0, 1)',
-  emphasized: 'cubic-bezier(0.16, 1, 0.3, 1)',
-  exit: 'cubic-bezier(0.4, 0, 1, 1)',
+export const elevation = {
+  0: 'none',
+  1: shadow.xs,
+  2: shadow.sm,
+  3: shadow.md,
+  4: shadow.lg,
+  5: shadow.xl,
 } as const;
 
-/** Named elevation levels over the shadow scale: 0 flat, 1 resting control, 2 card, 3 floating. */
-export const elevation = { 0: 'none', 1: shadow.xs, 2: shadow.sm, 3: shadow.md } as const;
+/**
+ * Stacking order, so an app's own layers can slot between the kit's: sticky
+ * table headers and lifted controls (10), app chrome such as headers and
+ * bottom tab bars (40), floating and modal surfaces (50; nesting order comes
+ * from DOM order, a popover inside a dialog is appended later and sits above
+ * it), toasts (100), which stay visible over a dialog.
+ */
+export const layer = { raised: 10, chrome: 40, overlay: 50, toast: 100 } as const;
 
 // ─── Accent ────────────────────────────────────────────────────────────────
 
@@ -341,6 +375,7 @@ export const tokens = {
   radius,
   shadow,
   elevation,
+  layer,
   motion,
   duration,
   easing,

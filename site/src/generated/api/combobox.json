@@ -5,7 +5,7 @@
     {
       "name": "Combobox",
       "kind": "component",
-      "description": "Pick one value from a long or remote list by typing.",
+      "description": "Pick one value from a long or remote list by typing. The ref reaches the\ntrigger button, so a form library or an ErrorSummary can focus it.",
       "signatures": [],
       "type": null,
       "props": [
@@ -42,6 +42,14 @@
           "native": false
         },
         {
+          "name": "aria-required",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
           "name": "className",
           "type": "string | undefined",
           "required": false,
@@ -55,6 +63,14 @@
           "required": false,
           "default": "true",
           "description": "Let the person clear the selection by picking it again.",
+          "native": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": "null",
+          "description": "The starting value when uncontrolled.",
           "native": false
         },
         {
@@ -107,8 +123,8 @@
         },
         {
           "name": "onValueChange",
-          "type": "(value: string | null) => void",
-          "required": true,
+          "type": "((value: string | null) => void) | undefined",
+          "required": false,
           "default": null,
           "description": "",
           "native": false
@@ -147,14 +163,25 @@
         },
         {
           "name": "value",
-          "type": "string | null",
-          "required": true,
+          "type": "string | null | undefined",
+          "required": false,
           "default": null,
-          "description": "",
+          "description": "Controlled: the chosen value, or null. Leave out for an uncontrolled combobox.",
+          "native": false
+        },
+        {
+          "name": "width",
+          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "How wide the trigger is from 640px up; full width on phones.",
           "native": false
         }
       ],
-      "inherited": []
+      "inherited": [
+        "62313f065a13fa53",
+        "ec21f15f624921d5"
+      ]
     },
     {
       "name": "ComboboxOption",
@@ -238,6 +265,14 @@
           "native": false
         },
         {
+          "name": "aria-required",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
           "name": "className",
           "type": "string | undefined",
           "required": false,
@@ -251,6 +286,14 @@
           "required": false,
           "default": null,
           "description": "Let the person clear the selection by picking it again.",
+          "native": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "The starting value when uncontrolled.",
           "native": false
         },
         {
@@ -303,8 +346,8 @@
         },
         {
           "name": "onValueChange",
-          "type": "(value: string | null) => void",
-          "required": true,
+          "type": "((value: string | null) => void) | undefined",
+          "required": false,
           "default": null,
           "description": "",
           "native": false
@@ -343,10 +386,18 @@
         },
         {
           "name": "value",
-          "type": "string | null",
-          "required": true,
+          "type": "string | null | undefined",
+          "required": false,
           "default": null,
-          "description": "",
+          "description": "Controlled: the chosen value, or null. Leave out for an uncontrolled combobox.",
+          "native": false
+        },
+        {
+          "name": "width",
+          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "How wide the trigger is from 640px up; full width on phones.",
           "native": false
         }
       ],

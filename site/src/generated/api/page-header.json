@@ -295,7 +295,7 @@
     {
       "name": "PageHeaderActions",
       "kind": "component",
-      "description": "",
+      "description": "The actions: wrap under the title on narrow screens rather than squeezing it; share the row on phones.",
       "signatures": [],
       "type": null,
       "props": [],

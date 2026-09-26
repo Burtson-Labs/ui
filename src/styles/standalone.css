@@ -9,9 +9,11 @@
 @import 'tailwindcss/utilities.css' layer(utilities) source(none);
 @import './theme.css';
 
-/* source(none) above: only the components' classes, not the docs site's or
-   words in the pinned upstream source that look like utilities (blur). */
+/* source(none) above: only the components' classes (and the shared classes
+   in src/lib), not the docs site's, the tests', the changelog's or words in
+   the pinned upstream source that look like utilities (blur). */
 @source '../components';
+@source '../lib';
 
 @layer base {
   [data-slot],

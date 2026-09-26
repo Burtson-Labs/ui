@@ -5,10 +5,18 @@
     {
       "name": "Slider",
       "kind": "component",
-      "description": "A single-value range slider on the native input, so keyboard, touch and\nscreen readers work without extra code. Pass `aria-valuetext` when the raw\nnumber isn't meaningful (\"45% change\").",
+      "description": "A single-value range slider on the native input, so keyboard, touch and\nscreen readers work without extra code. The track is 6px; the thumb 16px,\nwith the whole 44px-tall input as its target on touch screens. Pass\n`aria-valuetext` when the raw number isn't meaningful (\"45% change\").",
       "signatures": [],
       "type": null,
       "props": [
+        {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "The starting value when uncontrolled.",
+          "native": false
+        },
         {
           "name": "max",
           "type": "number | undefined",
@@ -27,8 +35,8 @@
         },
         {
           "name": "onValueChange",
-          "type": "(value: number) => void",
-          "required": true,
+          "type": "((value: number) => void) | undefined",
+          "required": false,
           "default": null,
           "description": "",
           "native": false
@@ -43,10 +51,10 @@
         },
         {
           "name": "value",
-          "type": "number",
-          "required": true,
+          "type": "number | undefined",
+          "required": false,
           "default": null,
-          "description": "",
+          "description": "Controlled value. Leave out for an uncontrolled slider.",
           "native": false
         }
       ],
@@ -124,7 +132,6 @@
         "a292e87de141d89b",
         "c6583aa484155862",
         "f18bda0a7fa197a2",
-        "49fce62f28c19ed4",
         "7b0e7b054db60a5b",
         "ae848349ad446c7f",
         "66d72eaa9bbf171a",
@@ -365,6 +372,14 @@
       "type": "SliderProps",
       "props": [
         {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "The starting value when uncontrolled.",
+          "native": false
+        },
+        {
           "name": "max",
           "type": "number | undefined",
           "required": false,
@@ -382,8 +397,8 @@
         },
         {
           "name": "onValueChange",
-          "type": "(value: number) => void",
-          "required": true,
+          "type": "((value: number) => void) | undefined",
+          "required": false,
           "default": null,
           "description": "",
           "native": false
@@ -398,10 +413,10 @@
         },
         {
           "name": "value",
-          "type": "number",
-          "required": true,
+          "type": "number | undefined",
+          "required": false,
           "default": null,
-          "description": "",
+          "description": "Controlled value. Leave out for an uncontrolled slider.",
           "native": false
         }
       ],
@@ -479,7 +494,6 @@
         "a292e87de141d89b",
         "c6583aa484155862",
         "f18bda0a7fa197a2",
-        "49fce62f28c19ed4",
         "7b0e7b054db60a5b",
         "ae848349ad446c7f",
         "66d72eaa9bbf171a",

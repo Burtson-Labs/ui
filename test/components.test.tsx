@@ -117,7 +117,10 @@ describe('display', () => {
 
   it('renders badge variants', () => {
     render(<Badge variant="success">Passing</Badge>);
-    expect(screen.getByText('Passing').className).toContain('text-success');
+    const badge = screen.getByText('Passing');
+    expect(badge.dataset.variant).toBe('success');
+    // 0.13.2: status text is the tone mixed toward the foreground (6:1 on its tint).
+    expect(badge.className).toContain('var(--success)');
   });
 });
 
@@ -273,7 +276,7 @@ describe('vNext patterns', () => {
 
   it('adds new badge variants without dropping secondary', async () => {
     const { badgeVariants } = await import('@burtson-labs/ui');
-    expect(badgeVariants({ variant: 'info' })).toContain('text-info');
+    expect(badgeVariants({ variant: 'info' })).toContain('var(--info)');
     expect(badgeVariants({ variant: 'secondary' })).toContain('bg-surface-muted');
   });
 });

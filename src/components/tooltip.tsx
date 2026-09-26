@@ -31,19 +31,22 @@ function Tooltip(props: React.ComponentProps<typeof TooltipPrimitive.Root>) {
   );
 }
 
-function TooltipTrigger(props: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
-}
+const TooltipTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof TooltipPrimitive.Trigger>
+>(function TooltipTrigger(props, ref) {
+  return <TooltipPrimitive.Trigger ref={ref} data-slot="tooltip-trigger" {...props} />;
+});
 
-function TooltipContent({
-  className,
-  sideOffset = 6,
-  children,
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content>) {
+/** A dark label on any theme, 8px radius, elevation 3. */
+const TooltipContent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof TooltipPrimitive.Content>
+>(function TooltipContent({ className, sideOffset = 6, children, ...props }, ref) {
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
+        ref={ref}
         data-slot="tooltip-content"
         sideOffset={sideOffset}
         className={cn(
@@ -57,6 +60,6 @@ function TooltipContent({
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
-}
+});
 
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };

@@ -8,7 +8,7 @@ import Search from '@burtson-labs/icons/react/search';
 import Trash from '@burtson-labs/icons/react/trash';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses, noOutlineClasses, touchTargetClasses } from '../lib/utils';
 
 import { Button } from './button';
 import {
@@ -140,27 +140,30 @@ export interface ChatHistoryProps extends Omit<React.ComponentProps<'div'>, 'onS
  * rows, Home and End jump, Enter opens; each row has a menu for rename, pin
  * and delete. The app owns the data; this only reports what the person did.
  */
-function ChatHistory({
-  items,
-  activeId,
-  onSelect,
-  onNewChat,
-  onRename,
-  onDelete,
-  onPinChange,
-  query: controlledQuery,
-  onQueryChange,
-  searchable = true,
-  loading = false,
-  error,
-  onRetry,
-  empty,
-  now,
-  renderItems,
-  label = 'Chat history',
-  className,
-  ...props
-}: ChatHistoryProps) {
+const ChatHistory = React.forwardRef<HTMLDivElement, ChatHistoryProps>(function ChatHistory(
+  {
+    items,
+    activeId,
+    onSelect,
+    onNewChat,
+    onRename,
+    onDelete,
+    onPinChange,
+    query: controlledQuery,
+    onQueryChange,
+    searchable = true,
+    loading = false,
+    error,
+    onRetry,
+    empty,
+    now,
+    renderItems,
+    label = 'Chat history',
+    className,
+    ...props
+  },
+  ref,
+) {
   const [ownQuery, setOwnQuery] = React.useState('');
   const query = controlledQuery ?? ownQuery;
   const setQuery = (q: string) => {
@@ -212,6 +215,7 @@ function ChatHistory({
 
   return (
     <div
+      ref={ref}
       data-slot="chat-history"
       aria-label={label}
       role="navigation"
@@ -239,7 +243,7 @@ function ChatHistory({
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search chats"
                 className={cn(
-                  'h-8 w-full rounded-md border border-input bg-surface pr-2 pl-8 text-base placeholder:text-muted-foreground sm:text-sm',
+                  'h-8 w-full rounded-md border border-input bg-surface pr-2 pl-8 text-base placeholder:text-muted-foreground sm:text-sm pointer-coarse:h-11',
                   fieldFocusClasses,
                 )}
               />
@@ -284,7 +288,7 @@ function ChatHistory({
         ) : (
           groups.map((g) => (
             <section key={g.key} aria-label={g.label} className="mt-2 first:mt-0">
-              <h3 className="px-2 pt-2 pb-1 text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
+              <h3 className="px-2 pt-2 pb-1 text-[11px] font-semibold tracking-[0.06em] text-muted-foreground uppercase">
                 {g.label}
               </h3>
               <ul className="grid grid-cols-[minmax(0,1fr)] gap-0.5">
@@ -296,7 +300,7 @@ function ChatHistory({
       </div>
     </div>
   );
-}
+});
 
 function HistoryRow({
   item,
@@ -330,7 +334,9 @@ function HistoryRow({
         onClick={onSelect}
         onKeyDown={onKeyDown}
         className={cn(
-          'flex h-8 w-full items-center gap-2 rounded-md px-2 text-left text-sm outline-none transition-colors hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/20 pointer-coarse:h-11',
+          'flex h-8 w-full items-center gap-2 rounded-md px-2 text-left text-sm transition-colors hover:bg-muted pointer-coarse:h-11',
+          focusRingClasses,
+          'focus-visible:outline-offset-[-2px]',
           hasMenu && 'pr-9',
           active && 'bg-accent font-medium text-accent-foreground hover:bg-accent',
         )}
@@ -342,7 +348,10 @@ function HistoryRow({
           <DropdownMenuTrigger
             aria-label={`Actions for ${item.title || 'chat'}`}
             className={cn(
-              'absolute top-1/2 right-1 grid size-7 -translate-y-1/2 place-items-center rounded-sm text-muted-foreground opacity-0 outline-none transition-opacity hover:bg-background hover:text-foreground focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/20 group-hover/row:opacity-100 data-[state=open]:opacity-100 pointer-coarse:size-9 pointer-coarse:opacity-100 [&_svg]:size-4',
+              'absolute top-1/2 right-1 grid size-7 -translate-y-1/2 place-items-center rounded-sm text-muted-foreground opacity-0 transition-opacity hover:bg-background hover:text-foreground focus-visible:opacity-100 group-hover/row:opacity-100 data-[state=open]:opacity-100 pointer-coarse:size-9 pointer-coarse:opacity-100 [&_svg]:size-4',
+              focusRingClasses,
+              touchTargetClasses,
+              'absolute',
               active && 'opacity-100',
             )}
           >
@@ -402,7 +411,10 @@ function RenameRow({ title, onDone }: { title: string; onDone: (title: string) =
             onDone(title);
           }
         }}
-        className="h-8 w-full rounded-md border border-ring bg-surface px-2 text-base inset-ring-1 inset-ring-ring outline-hidden! sm:text-sm"
+        className={cn(
+          'h-8 w-full rounded-md border border-ring bg-surface px-2 text-base inset-ring-1 inset-ring-ring sm:text-sm',
+          noOutlineClasses,
+        )}
       />
     </li>
   );

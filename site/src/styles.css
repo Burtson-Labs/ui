@@ -4,6 +4,26 @@
 @source '../../src';
 @source not '../../src/primitives/vendor';
 
+/*
+ * Inter, the first face in the kit's --font-sans, served from this origin so
+ * the docs render the same on every machine (and the screenshot smoke is
+ * deterministic). SIL OFL 1.1: public/fonts/LICENSE-Inter.txt.
+ */
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable-Italic.woff2') format('woff2');
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -40,7 +60,7 @@
   --muted-foreground: #52525b;
   --border: #e4e4e7;
   --border-strong: #d4d4d8;
-  --input: #d4d4d8;
+  --input: #909093; /* 3:1 on white and the muted surface */
 }
 :root.dark {
   --background: #09090b;
@@ -58,7 +78,7 @@
   --muted-foreground: #a1a1aa;
   --border: #27272a;
   --border-strong: #3f3f46;
-  --input: #3f3f46;
+  --input: #656569; /* 3:1 on the raised surface */
 }
 
 :root:not([data-accent]),

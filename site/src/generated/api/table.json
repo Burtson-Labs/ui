@@ -3,6 +3,17 @@
   "source": "src/components/table.tsx",
   "exports": [
     {
+      "name": "overflowState",
+      "kind": "function",
+      "description": "How a box overflows sideways: more to the `end`, more to the `start`, or `both`.",
+      "signatures": [
+        "(el: { scrollLeft: number; scrollWidth: number; clientWidth: number; }): \"start\" | \"end\" | \"both\" | undefined"
+      ],
+      "type": "(el: { scrollLeft: number; scrollWidth: number; clientWidth: number; }) => \"start\" | \"end\" | \"both\" | undefined",
+      "props": [],
+      "inherited": []
+    },
+    {
       "name": "Table",
       "kind": "component",
       "description": "",
@@ -31,6 +42,22 @@
           "required": false,
           "default": "'default'",
           "description": "`compact` for dense ops screens (32px rows), `default` 40px.",
+          "native": false
+        },
+        {
+          "name": "overflowHint",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": "'Swipe for more'",
+          "description": "The line under a table that scrolls sideways, until it is scrolled to the\nend. Shown on touch screens only (a mouse has a scrollbar). `false`\nturns it off.",
+          "native": false
+        },
+        {
+          "name": "pinFirstColumn",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "Keep the first column in view while the table scrolls sideways (a name\ncolumn beside numbers). The pinned cells take the surface colour.",
           "native": false
         },
         {
@@ -325,7 +352,7 @@
         "c766562d468e464d",
         "49cc8e7bf4001801",
         "a962037a3ea6b2d0",
-        "d2acc39e79b50519",
+        "06923e71f71a4ac3",
         "e99a27ce9eea38f9",
         "7572226a1bef6e7a",
         "7a63d48f4b4dc4b8",
@@ -902,7 +929,7 @@
         "d0605367d41d08c1",
         "b2d424151db148ef",
         "3ef32487d3248132",
-        "f80cc1219f9fc8ab",
+        "2be71a792b6058d5",
         "fc673bc478da336c",
         "65d21d253fab9158",
         "c766562d468e464d",
@@ -1206,7 +1233,7 @@
         "d0605367d41d08c1",
         "b2d424151db148ef",
         "3ef32487d3248132",
-        "8d438536d2f94c81",
+        "73e0ca847069743b",
         "fc673bc478da336c",
         "65d21d253fab9158",
         "c766562d468e464d",
@@ -1803,7 +1830,7 @@
         "d0605367d41d08c1",
         "b2d424151db148ef",
         "3ef32487d3248132",
-        "6a2a2516ade8dced",
+        "73e0ca847069743b",
         "fc673bc478da336c",
         "65d21d253fab9158",
         "c766562d468e464d",
@@ -2147,6 +2174,22 @@
           "native": false
         },
         {
+          "name": "overflowHint",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The line under a table that scrolls sideways, until it is scrolled to the\nend. Shown on touch screens only (a mouse has a scrollbar). `false`\nturns it off.",
+          "native": false
+        },
+        {
+          "name": "pinFirstColumn",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Keep the first column in view while the table scrolls sideways (a name\ncolumn beside numbers). The pinned cells take the surface colour.",
+          "native": false
+        },
+        {
           "name": "scrollLabel",
           "type": "string | undefined",
           "required": false,
@@ -2438,7 +2481,7 @@
         "c766562d468e464d",
         "49cc8e7bf4001801",
         "a962037a3ea6b2d0",
-        "d2acc39e79b50519",
+        "06923e71f71a4ac3",
         "e99a27ce9eea38f9",
         "7572226a1bef6e7a",
         "7a63d48f4b4dc4b8",
@@ -2458,7 +2501,7 @@
     {
       "name": "TableRow",
       "kind": "component",
-      "description": "Set `data-state=\"selected\"` (or `selected`) to mark a chosen row.",
+      "description": "Set `selected` to mark a chosen row: a soft fill and a brand bar on its left edge.",
       "signatures": [],
       "type": null,
       "props": [

@@ -59,13 +59,19 @@ ${Object.keys(light)
   --radius-md: ${radius.md};
   --radius-lg: ${radius.lg};
   --radius-xl: ${radius.xl};
-  /* Borders carry hierarchy; shadows stay quiet except on floating surfaces. */
+  /* Borders carry hierarchy; shadows stay quiet except on floating surfaces:
+     lg for popovers, menus and toasts, xl for dialogs and sheets. */
   --shadow-xs: ${shadow.xs};
   --shadow-sm: ${shadow.sm};
   --shadow-md: ${shadow.md};
+  --shadow-lg: ${shadow.lg};
+  --shadow-xl: ${shadow.xl};
   --shadow-focus: ${shadow.focus};
   --font-sans: ${fontSans};
   --font-mono: ${fontMono};
+  /* Every transition-* utility runs on the motion tokens unless it says otherwise. */
+  --default-transition-duration: var(--duration-fast);
+  --default-transition-timing-function: var(--ease-standard);
 ${Object.entries(motion.animations)
   .map(([k, v]) => `  --animate-${k}: ${v};`)
   .join('\n')}
@@ -95,12 +101,24 @@ ${Object.entries(motion.keyframes)
   }
 }
 
-@media (pointer: coarse) {
-  [data-slot='button'], [data-slot='icon-button'], [data-slot='combobox-trigger'] {
-    min-height: 44px;
-    min-width: 44px;
+/*
+ * Touch screens: 44px targets for buttons and fields (Apple HIG, WCAG 2.5.5)
+ * without making the desktop chunkier. In the base layer at zero specificity,
+ * so a utility can opt a control out (\`pointer-coarse:min-h-8\` on a button in
+ * a dense header). Link-styled buttons stay inline text. Checkboxes, radios,
+ * switches and tabs keep their size and grow an invisible hit area instead
+ * (touchTargetClasses).
+ */
+@layer base {
+  @media (pointer: coarse) {
+    :where([data-slot='button']:not([data-variant='link']), [data-slot='icon-button'], [data-slot='combobox-trigger']) {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    :where([data-slot='input'], [data-slot='select-trigger'], [data-slot='native-select'], [data-slot='number-input']) {
+      min-height: 44px;
+    }
   }
-  [data-slot='input'] { min-height: 44px; }
 }
 
 /*

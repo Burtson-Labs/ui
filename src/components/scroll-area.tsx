@@ -1,22 +1,27 @@
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 import * as ScrollAreaPrimitive from '../primitives/vendor/radix/react-scroll-area';
 
-function ScrollArea({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
+/** The viewport joins the tab order; its focus outline is drawn inside the box, so nothing clips it. */
+const ScrollArea = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ScrollAreaPrimitive.Root>
+>(function ScrollArea({ className, children, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Root
+      ref={ref}
       data-slot="scroll-area"
       className={cn('relative', className)}
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
-        className="size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        className={cn(
+          'size-full rounded-[inherit] transition-[color,box-shadow]',
+          focusRingClasses,
+          'focus-visible:outline-offset-[-2px]',
+        )}
       >
         {children}
       </ScrollAreaPrimitive.Viewport>
@@ -24,15 +29,15 @@ function ScrollArea({
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   );
-}
+});
 
-function ScrollBar({
-  className,
-  orientation = 'vertical',
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>) {
+const ScrollBar = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
+>(function ScrollBar({ className, orientation = 'vertical', ...props }, ref) {
   return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
+      ref={ref}
       data-slot="scroll-area-scrollbar"
       orientation={orientation}
       className={cn(
@@ -49,6 +54,6 @@ function ScrollBar({
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   );
-}
+});
 
 export { ScrollArea, ScrollBar };

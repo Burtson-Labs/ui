@@ -1,4 +1,11 @@
-export { cn } from './lib/utils';
+export {
+  cn,
+  focusRingClasses,
+  noOutlineClasses,
+  touchTargetClasses,
+  touchTargetRowClasses,
+} from './lib/utils';
+export { breakpoints, type Breakpoint, useMediaQuery, useNarrowerThan } from './lib/media';
 export { isApplePlatform, modKeyLabel, shortcutLabel } from './lib/platform';
 export * from './tokens';
 export * from './components/accordion';
@@ -29,7 +36,9 @@ export * from './components/dialog';
 export * from './components/dropdown-menu';
 export * from './components/editor-tabs';
 export * from './components/empty-state';
+export * from './components/error-summary';
 export * from './components/field';
+export * from './components/form-actions';
 export * from './components/icon-button';
 export * from './components/input';
 export * from './components/kbd';
@@ -39,7 +48,9 @@ export * from './components/menubar';
 export * from './components/message';
 export * from './components/message-actions';
 export * from './components/mobile-nav';
+export * from './components/native-select';
 export * from './components/navigation-menu';
+export * from './components/number-input';
 export * from './components/onboarding-checklist';
 export * from './components/page-header';
 export * from './components/pagination';

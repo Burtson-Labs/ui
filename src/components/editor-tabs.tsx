@@ -1,7 +1,7 @@
 import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 export interface EditorTab {
   /** Stable identity, usually the file path. */
@@ -52,18 +52,21 @@ export interface EditorTabsProps extends Omit<
  * and PageDown move the tab. Middle-click closes. The strip scrolls when the
  * tabs overflow and keeps the active tab in view.
  */
-function EditorTabs({
-  tabs,
-  activeId,
-  onActiveChange,
-  onClose,
-  onMove,
-  actions,
-  onTabContextMenu,
-  className,
-  'aria-label': ariaLabel,
-  ...props
-}: EditorTabsProps) {
+const EditorTabs = React.forwardRef<HTMLDivElement, EditorTabsProps>(function EditorTabs(
+  {
+    tabs,
+    activeId,
+    onActiveChange,
+    onClose,
+    onMove,
+    actions,
+    onTabContextMenu,
+    className,
+    'aria-label': ariaLabel,
+    ...props
+  },
+  ref,
+) {
   const baseId = React.useId();
   const tabRefs = React.useRef(new Map<string, HTMLButtonElement>());
   const listRef = React.useRef<HTMLDivElement>(null);
@@ -185,6 +188,7 @@ function EditorTabs({
 
   return (
     <div
+      ref={ref}
       data-slot="editor-tabs"
       className={cn('flex h-9 min-w-0 items-stretch border-b bg-surface-muted', className)}
       {...props}
@@ -265,7 +269,9 @@ function EditorTabs({
                 onClick={() => onActiveChange(tab.id)}
                 onKeyDown={(event) => onKeyDown(event, tab)}
                 className={cn(
-                  'flex h-full min-w-0 items-center gap-1.5 ps-3 outline-none focus-visible:shadow-[inset_0_0_0_1px_var(--ring)]',
+                  'flex h-full min-w-0 items-center gap-1.5 ps-3',
+                  focusRingClasses,
+                  'focus-visible:outline-offset-[-2px]',
                   closeable ? 'pe-1' : 'pe-3',
                 )}
               >
@@ -289,7 +295,11 @@ function EditorTabs({
                   aria-label={`Close ${tab.label}`}
                   title="Close (Delete)"
                   onClick={() => onClose?.(tab.id)}
-                  className="me-1 flex size-5 shrink-0 items-center justify-center rounded-xs text-muted-foreground outline-none hover:bg-muted hover:text-foreground"
+                  className={cn(
+                    'me-1 flex size-5 shrink-0 items-center justify-center rounded-xs text-muted-foreground hover:bg-muted hover:text-foreground',
+                    focusRingClasses,
+                    'focus-visible:outline-offset-[-1px]',
+                  )}
                 >
                   {tab.dirty && (
                     <span
@@ -321,6 +331,6 @@ function EditorTabs({
       )}
     </div>
   );
-}
+});
 
 export { EditorTabs };

@@ -1,7 +1,7 @@
 import ArrowDown from '@burtson-labs/icons/react/arrow-down';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 export interface ConversationProps extends React.ComponentProps<'div'> {
   /** Shown instead of the messages when there are none. */
@@ -15,13 +15,10 @@ export interface ConversationProps extends React.ComponentProps<'div'> {
  * streams, unless the reader has scrolled up; then a "Jump to latest" button
  * appears instead of yanking them back down.
  */
-function Conversation({
-  children,
-  empty,
-  label = 'Conversation',
-  className,
-  ...props
-}: ConversationProps) {
+const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(function Conversation(
+  { children, empty, label = 'Conversation', className, ...props },
+  ref,
+) {
   const scroller = React.useRef<HTMLDivElement>(null);
   const content = React.useRef<HTMLDivElement>(null);
   const pinned = React.useRef(true);
@@ -59,7 +56,12 @@ function Conversation({
   };
 
   return (
-    <div data-slot="conversation" className={cn('relative min-h-0', className)} {...props}>
+    <div
+      ref={ref}
+      data-slot="conversation"
+      className={cn('relative min-h-0', className)}
+      {...props}
+    >
       <div
         ref={scroller}
         role="log"
@@ -70,7 +72,11 @@ function Conversation({
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
         onScroll={onScroll}
-        className="size-full overflow-y-auto outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20"
+        className={cn(
+          'size-full overflow-y-auto',
+          focusRingClasses,
+          'focus-visible:outline-offset-[-2px]',
+        )}
       >
         <div ref={content} className="grid gap-5 p-4">
           {hasMessages ? children : empty}
@@ -89,13 +95,16 @@ function Conversation({
                 : 'smooth',
             );
           }}
-          className="absolute bottom-3 left-1/2 inline-flex -translate-x-1/2 animate-in items-center gap-1.5 rounded-full border border-border-strong bg-surface-raised px-3 py-1.5 text-xs font-semibold shadow-md outline-none hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/20 [&_svg]:size-3.5"
+          className={cn(
+            'absolute bottom-3 left-1/2 inline-flex -translate-x-1/2 animate-in items-center gap-1.5 rounded-full border border-border-strong bg-surface-raised px-3 py-1.5 text-xs font-semibold shadow-md hover:bg-muted [&_svg]:size-3.5 pointer-coarse:min-h-11',
+            focusRingClasses,
+          )}
         >
           <ArrowDown aria-hidden /> Jump to latest
         </button>
       )}
     </div>
   );
-}
+});
 
 export { Conversation };

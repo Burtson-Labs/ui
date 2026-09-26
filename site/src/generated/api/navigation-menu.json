@@ -2257,16 +2257,16 @@
     {
       "name": "navigationMenuTriggerStyle",
       "kind": "value",
-      "description": "The look of a top-level entry, for links that sit beside triggers.",
+      "description": "The look of a top-level entry, for links that sit beside triggers; 44px on touch screens.",
       "signatures": [],
-      "type": "\"group inline-flex h-9 w-max items-center justify-center gap-1 rounded-md px-3 text-sm font-semibold text-foreground/80 outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:pointer-events-none disabled:opacity-50 data-[active]:text-foreground data-[state=open]:bg-muted data-[state=open]:text-foreground\"",
+      "type": "string",
       "props": [],
       "inherited": []
     },
     {
       "name": "NavigationMenuViewport",
       "kind": "component",
-      "description": "",
+      "description": "The shared panel: the floating surface (12px radius, elevation 4).",
       "signatures": [],
       "type": null,
       "props": [

@@ -24,6 +24,10 @@ import { ChatRecipe } from './recipes/chat';
 import { Link, usePath } from './router';
 import { DocsSearch } from './search';
 
+// The state matrix is a harness for the visual pass and the Playwright smoke,
+// not a docs page: no chrome, not in the nav, not in the sitemap.
+const Matrix = React.lazy(() => import('./matrix').then((m) => ({ default: m.Matrix })));
+
 const guides = [
   { href: '/docs/installation', title: 'Installation' },
   { href: '/docs/theming', title: 'Theming' },
@@ -108,6 +112,7 @@ export function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const previousPath = React.useRef(path);
   const isHome = path === '/';
+  const isMatrix = path.replace(/\/+$/, '') === '/matrix';
 
   React.useEffect(() => {
     const doc = components.find((c) => path.endsWith(`/components/${c.name}`));
@@ -121,6 +126,15 @@ export function App() {
       previousPath.current = path;
     }
   }, [path]);
+
+  if (isMatrix)
+    return (
+      <TooltipProvider>
+        <React.Suspense fallback={null}>
+          <Matrix />
+        </React.Suspense>
+      </TooltipProvider>
+    );
 
   return (
     <TooltipProvider>

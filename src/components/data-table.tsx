@@ -1,14 +1,14 @@
 import ArrowDown from '@burtson-labs/icons/react/arrow-down';
 import ArrowUp from '@burtson-labs/icons/react/arrow-up';
 import ChevronsUpDown from '@burtson-labs/icons/react/chevrons-up-down';
-import Search from '@burtson-labs/icons/react/search';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { useNarrowerThan } from '../lib/media';
+import { cn, focusRingClasses, noOutlineClasses } from '../lib/utils';
 
 import { Button } from './button';
 import { Checkbox } from './checkbox';
-import { Input } from './input';
+import { SearchInput } from './input';
 import { Pagination, pageWindow, paginationSummary, usePagination } from './pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Skeleton } from './skeleton';
@@ -125,12 +125,15 @@ export interface DataTableProps<T> extends Omit<React.ComponentProps<'div'>, 'ch
   stickyHeader?: boolean;
   /**
    * Below this width the rows become a list of cards (see DataTableColumn
-   * `card`). `md` (768px) by default; `false` keeps the table everywhere.
+   * `card`). Cards need a column that says where it goes: with no `card`
+   * placement and no `cardsBelow`, the table stays a table (a scrolling
+   * region) at every width. Set `cardsBelow` (`md` is 768px) to get cards
+   * with the first column as the title; `false` keeps the table.
    */
   cardsBelow?: DataTableBreakpoint | false;
+  /** Keep the first column in view while the table scrolls sideways. */
+  pinFirstColumn?: boolean;
 }
-
-const BREAKPOINTS: Record<DataTableBreakpoint, number> = { sm: 640, md: 768, lg: 1024, xl: 1280 };
 
 const hideBelowClass: Record<DataTableBreakpoint, string> = {
   sm: 'hidden sm:table-cell',
@@ -138,30 +141,6 @@ const hideBelowClass: Record<DataTableBreakpoint, string> = {
   lg: 'hidden lg:table-cell',
   xl: 'hidden xl:table-cell',
 };
-
-const subscribeNone = () => () => undefined;
-
-/**
- * True while the viewport is narrower than `bp`. Without matchMedia (server
- * render, tests) it is false, so the table is the fallback.
- */
-function useNarrowerThan(bp: DataTableBreakpoint | false): boolean {
-  const query = bp ? `(max-width: ${BREAKPOINTS[bp] - 0.02}px)` : null;
-  const subscribe = React.useCallback(
-    (onChange: () => void) => {
-      if (!query || typeof matchMedia !== 'function') return () => undefined;
-      const mq = matchMedia(query);
-      mq.addEventListener?.('change', onChange);
-      return () => mq.removeEventListener?.('change', onChange);
-    },
-    [query],
-  );
-  return React.useSyncExternalStore(
-    query ? subscribe : subscribeNone,
-    () => Boolean(query && typeof matchMedia === 'function' && matchMedia(query).matches),
-    () => false,
-  );
-}
 
 const textOf = (node: React.ReactNode): string | undefined =>
   typeof node === 'string' || typeof node === 'number' ? String(node) : undefined;
@@ -212,7 +191,8 @@ function DataTable<T>({
   toolbar,
   density = 'default',
   stickyHeader,
-  cardsBelow = 'md',
+  cardsBelow,
+  pinFirstColumn,
   className,
   ...props
 }: DataTableProps<T>) {
@@ -225,7 +205,9 @@ function DataTable<T>({
     resetKey: `${filter ?? ''}\u0000${sort?.columnId ?? ''}\u0000${sort?.direction ?? ''}`,
   });
   const rows = paginateOptions ? paging.rows : rowsProp;
-  const cards = useNarrowerThan(cardsBelow);
+  // Cards only where a column has placed itself, or the caller asked.
+  const placed = columns.some((c) => c.card !== undefined);
+  const cards = useNarrowerThan(cardsBelow ?? (placed ? 'md' : false));
   const uid = React.useId();
 
   const selectable = Boolean(onSelectedChange);
@@ -387,20 +369,13 @@ function DataTable<T>({
   const toolbarNode = showToolbar && (
     <div className="flex flex-wrap items-center gap-2">
       {onFilterChange && (
-        <div className="relative min-w-0 basis-full sm:max-w-xs sm:flex-1 sm:basis-0">
-          <Search
-            className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
-            aria-hidden
-          />
-          <Input
-            type="search"
-            value={filter ?? ''}
-            onChange={(e) => onFilterChange(e.target.value)}
-            placeholder={filterPlaceholder}
-            aria-label={`Search ${ariaLabel.toLowerCase()}`}
-            className="pl-8"
-          />
-        </div>
+        <SearchInput
+          value={filter ?? ''}
+          onChange={(e) => onFilterChange(e.target.value)}
+          placeholder={filterPlaceholder}
+          aria-label={`Search ${ariaLabel.toLowerCase()}`}
+          containerClassName="min-w-0 basis-full sm:max-w-xs sm:flex-1 sm:basis-0"
+        />
       )}
       {cardSelectAll}
       {selectable && (
@@ -423,7 +398,7 @@ function DataTable<T>({
       data-layout={cards ? 'cards' : 'table'}
       // One minmax(0,1fr) track: a wide table scrolls inside its frame instead
       // of stretching a grid or flex parent.
-      className={cn('grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3', className)}
+      className={cn('grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-3', className)}
       {...props}
     >
       {toolbarNode}
@@ -451,6 +426,7 @@ function DataTable<T>({
             aria-busy={loading || undefined}
             density={density}
             stickyHeader={stickyHeader}
+            pinFirstColumn={pinFirstColumn}
             className={cn(loading && rows.length > 0 && 'opacity-60 transition-opacity')}
           >
             <TableHeader>
@@ -487,7 +463,9 @@ function DataTable<T>({
                           type="button"
                           onClick={() => onSortChange(nextSort(sort, col.id))}
                           className={cn(
-                            '-mx-1.5 inline-flex h-7 items-center gap-1 rounded-sm px-1.5 uppercase outline-none hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20',
+                            '-mx-1.5 inline-flex h-7 items-center gap-1 rounded-sm px-1.5 uppercase hover:bg-muted hover:text-foreground',
+                            focusRingClasses,
+                            'focus-visible:outline-offset-[-2px]',
                             sorted && 'text-foreground',
                             col.numeric && 'flex-row-reverse',
                           )}
@@ -762,7 +740,10 @@ function DataTableCards<T>({
                               type="button"
                               data-row-action=""
                               onClick={() => onRowAction(row)}
-                              className="text-left outline-hidden! after:absolute after:inset-0 after:rounded-lg"
+                              className={cn(
+                                'text-left after:absolute after:inset-0 after:rounded-lg',
+                                noOutlineClasses,
+                              )}
                             >
                               {show(c, row)}
                             </button>

@@ -61,20 +61,24 @@ const compactClasses: Record<
  * phone a horizontal Steps collapses to the current step, "Step 2 of 5" and
  * a progress bar, instead of squeezing every title into a few letters.
  */
-function Steps({
-  items,
-  current,
-  orientation = 'horizontal',
-  compactBelow = orientation === 'horizontal' ? 'sm' : false,
-  formatCounter = (step, total) => `Step ${step} of ${total}`,
-  className,
-  ...props
-}: StepsProps) {
+const Steps = React.forwardRef<HTMLOListElement, StepsProps>(function Steps(
+  {
+    items,
+    current,
+    orientation = 'horizontal',
+    compactBelow = orientation === 'horizontal' ? 'sm' : false,
+    formatCounter = (step, total) => `Step ${step} of ${total}`,
+    className,
+    ...props
+  },
+  ref,
+) {
   const compact = compactBelow ? compactClasses[compactBelow] : null;
   // The step the compact form shows: the current one, or the last when all are done.
   const focus = Math.min(Math.max(0, current), items.length - 1);
   return (
     <ol
+      ref={ref}
       data-slot="steps"
       data-orientation={orientation}
       className={cn(
@@ -154,6 +158,6 @@ function Steps({
       })}
     </ol>
   );
-}
+});
 
 export { Steps };

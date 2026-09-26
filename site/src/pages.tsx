@@ -398,6 +398,17 @@ accentTokens('#2563eb', 'dark'); // { primary, brand, 'brand-soft', ring, … }`
         <code>@burtson-labs/ui/styles.css</code> once. It leaves out Tailwind&apos;s global reset,
         so it will not fight <code>CssBaseline</code>.
       </P>
+      <P>
+        Burtson Icons ship an MUI entry per icon (0.5.0), an <code>SvgIcon</code> that takes{' '}
+        <code>fontSize</code> and <code>color</code> like any MUI icon, so buttons, list items and
+        chips in an MUI screen use the same set as the Burtson components:
+      </P>
+      <Code
+        code={`import Button from '@mui/material/Button';
+import Plus from '@burtson-labs/icons/mui/plus';
+
+<Button variant="contained" startIcon={<Plus />}>New agent</Button>;`}
+      />
     </article>
   );
 }
@@ -475,17 +486,21 @@ function Pager({ name }: { name: string }) {
   const prev = components[i - 1];
   const next = components[i + 1];
   return (
-    <nav className="mt-12 flex justify-between gap-4 border-t pt-6" aria-label="Pager">
+    <nav className="mt-12 grid grid-cols-2 gap-3 border-t pt-6" aria-label="Pager">
       {prev ? (
-        <Button variant="outline" asChild>
-          <Link href={`/docs/components/${prev.name}`}>← {prev.title}</Link>
+        <Button variant="outline" className="min-w-0 justify-start" asChild>
+          <Link href={`/docs/components/${prev.name}`}>
+            <span className="truncate">← {prev.title}</span>
+          </Link>
         </Button>
       ) : (
         <span />
       )}
       {next && (
-        <Button variant="outline" asChild>
-          <Link href={`/docs/components/${next.name}`}>{next.title} →</Link>
+        <Button variant="outline" className="col-start-2 min-w-0 justify-end" asChild>
+          <Link href={`/docs/components/${next.name}`}>
+            <span className="truncate">{next.title} →</span>
+          </Link>
         </Button>
       )}
     </nav>

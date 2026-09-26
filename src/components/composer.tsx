@@ -3,7 +3,7 @@ import Paperclip from '@burtson-labs/icons/react/paperclip';
 import Square from '@burtson-labs/icons/react/square';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses, noOutlineClasses } from '../lib/utils';
 
 import { Button } from './button';
 
@@ -72,28 +72,31 @@ export function acceptsFile(file: Pick<File, 'name' | 'type'>, accept?: string):
  * The message box: grows with its text, Enter sends, Shift+Enter adds a
  * line, and it never sends mid-composition (IME input).
  */
-function Composer({
-  onSubmit,
-  onSubmitError,
-  submitErrorText = 'Message could not be sent. Your draft is saved here. Try again.',
-  value: controlled,
-  onValueChange,
-  streaming = false,
-  onStop,
-  disabled = false,
-  placeholder = 'Ask anything…',
-  attachments,
-  attachmentCount = 0,
-  canSubmit = true,
-  actions,
-  label = 'Message',
-  onAttach,
-  accept,
-  multiple = true,
-  attachLabel = 'Attach files',
-  className,
-  ...props
-}: ComposerProps) {
+const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Composer(
+  {
+    onSubmit,
+    onSubmitError,
+    submitErrorText = 'Message could not be sent. Your draft is saved here. Try again.',
+    value: controlled,
+    onValueChange,
+    streaming = false,
+    onStop,
+    disabled = false,
+    placeholder = 'Ask anything…',
+    attachments,
+    attachmentCount = 0,
+    canSubmit = true,
+    actions,
+    label = 'Message',
+    onAttach,
+    accept,
+    multiple = true,
+    attachLabel = 'Attach files',
+    className,
+    ...props
+  },
+  ref,
+) {
   const fileInput = React.useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = React.useState(false);
   const dragDepth = React.useRef(0);
@@ -152,6 +155,7 @@ function Composer({
 
   return (
     <form
+      ref={ref}
       data-slot="composer"
       data-dragging={dragging || undefined}
       onSubmit={(e) => {
@@ -227,7 +231,10 @@ function Composer({
             void send();
           }
         }}
-        className="field-sizing-content max-h-48 min-h-9 w-full resize-none rounded-none border-0 bg-transparent px-2 py-1.5 text-base sm:text-sm leading-6 shadow-none outline-hidden! placeholder:text-muted-foreground disabled:cursor-not-allowed"
+        className={cn(
+          'field-sizing-content max-h-48 min-h-9 w-full resize-none rounded-none border-0 bg-transparent px-2 py-1.5 text-base sm:text-sm leading-6 shadow-none placeholder:text-muted-foreground disabled:cursor-not-allowed pointer-coarse:min-h-11 pointer-coarse:py-2.5',
+          noOutlineClasses,
+        )}
       />
       {failed && (
         <p id={errorId} role="alert" className="px-2 text-sm text-destructive">
@@ -296,7 +303,7 @@ function Composer({
       </div>
     </form>
   );
-}
+});
 
 export interface SuggestionsProps extends Omit<React.ComponentProps<'div'>, 'onSelect'> {
   items: string[];
@@ -304,9 +311,13 @@ export interface SuggestionsProps extends Omit<React.ComponentProps<'div'>, 'onS
 }
 
 /** Starter prompts as chips. */
-function Suggestions({ items, onSelect, className, ...props }: SuggestionsProps) {
+const Suggestions = React.forwardRef<HTMLDivElement, SuggestionsProps>(function Suggestions(
+  { items, onSelect, className, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="suggestions"
       role="group"
       aria-label="Suggestions"
@@ -318,13 +329,16 @@ function Suggestions({ items, onSelect, className, ...props }: SuggestionsProps)
           key={item}
           type="button"
           onClick={() => onSelect(item)}
-          className="animate-in rounded-full border border-border-strong bg-surface px-3 py-1.5 text-[13px] text-foreground outline-none transition-colors hover:border-brand/40 hover:bg-brand-soft hover:text-brand-soft-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20"
+          className={cn(
+            'animate-in rounded-full border border-border-strong bg-surface px-3 py-1.5 text-[13px] text-foreground transition-colors hover:border-brand/40 hover:bg-brand-soft hover:text-brand-soft-foreground pointer-coarse:min-h-11',
+            focusRingClasses,
+          )}
         >
           {item}
         </button>
       ))}
     </div>
   );
-}
+});
 
 export { Composer, Suggestions };

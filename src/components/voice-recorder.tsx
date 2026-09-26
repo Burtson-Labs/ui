@@ -49,16 +49,19 @@ function recordingSupported() {
  * When the browser can't record or the microphone is blocked it says so and
  * how to fix it.
  */
-function VoiceRecorder({
-  onRecorded,
-  onCancel,
-  onStateChange,
-  maxDurationMs = 5 * 60 * 1000,
-  mimeType,
-  label = 'Record a voice message',
-  className,
-  ...props
-}: VoiceRecorderProps) {
+const VoiceRecorder = React.forwardRef<HTMLDivElement, VoiceRecorderProps>(function VoiceRecorder(
+  {
+    onRecorded,
+    onCancel,
+    onStateChange,
+    maxDurationMs = 5 * 60 * 1000,
+    mimeType,
+    label = 'Record a voice message',
+    className,
+    ...props
+  },
+  ref,
+) {
   const [state, setStateRaw] = React.useState<VoiceRecorderState>('idle');
   const [elapsed, setElapsed] = React.useState(0);
   const [levels, setLevels] = React.useState<number[]>(() =>
@@ -226,6 +229,7 @@ function VoiceRecorder({
             : null;
     return (
       <div
+        ref={ref}
         data-slot="voice-recorder"
         data-state={state}
         className={cn('inline-flex items-center gap-2', className)}
@@ -254,6 +258,7 @@ function VoiceRecorder({
 
   return (
     <div
+      ref={ref}
       data-slot="voice-recorder"
       data-state={state}
       role="group"
@@ -322,6 +327,6 @@ function VoiceRecorder({
       </Button>
     </div>
   );
-}
+});
 
 export { VoiceRecorder };

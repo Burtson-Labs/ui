@@ -308,21 +308,24 @@ export interface PaginationProps extends Omit<React.ComponentProps<'nav'>, 'onCh
  * previous and next buttons. Buttons are real buttons, keyboard-reachable,
  * and 44px on touch screens.
  */
-function Pagination({
-  page: requestedPage,
-  pageCount: requestedCount,
-  onPageChange,
-  siblings = 1,
-  summary,
-  total,
-  pageSize,
-  pageSizeOptions = DEFAULT_PAGE_SIZES,
-  onPageSizeChange,
-  pageSizeLabel = 'Rows per page',
-  formatPageSize = (size) => `${size} per page`,
-  className,
-  ...props
-}: PaginationProps) {
+const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
+  {
+    page: requestedPage,
+    pageCount: requestedCount,
+    onPageChange,
+    siblings = 1,
+    summary,
+    total,
+    pageSize,
+    pageSizeOptions = DEFAULT_PAGE_SIZES,
+    onPageSizeChange,
+    pageSizeLabel = 'Rows per page',
+    formatPageSize = (size) => `${size} per page`,
+    className,
+    ...props
+  },
+  ref,
+) {
   const pageCount = Number.isFinite(requestedCount) ? Math.max(0, Math.floor(requestedCount)) : 0;
   const page =
     pageCount === 0
@@ -344,6 +347,7 @@ function Pagination({
   const position = `Page ${page} of ${pageCount}`;
   return (
     <nav
+      ref={ref}
       aria-label="Pagination"
       data-slot="pagination"
       className={cn('flex flex-wrap items-center justify-between gap-x-3 gap-y-2', className)}
@@ -437,6 +441,6 @@ function Pagination({
       )}
     </nav>
   );
-}
+});
 
 export { Pagination };

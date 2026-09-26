@@ -19,7 +19,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"brand\" | \"success\" | \"warning\" | \"destructive\" | \"info\" | \"secondary\" | \"outline\" | null | undefined",
+          "type": "\"destructive\" | \"default\" | \"brand\" | \"success\" | \"warning\" | \"info\" | \"secondary\" | \"outline\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -326,7 +326,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"brand\" | \"success\" | \"warning\" | \"destructive\" | \"info\" | \"secondary\" | \"outline\" | null | undefined",
+          "type": "\"destructive\" | \"default\" | \"brand\" | \"success\" | \"warning\" | \"info\" | \"secondary\" | \"outline\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",

@@ -665,7 +665,7 @@
     {
       "name": "TabsList",
       "kind": "component",
-      "description": "",
+      "description": "A 36px strip with a 10px radius; a strip wider than its container scrolls\nsideways rather than pushing the layout.",
       "signatures": [],
       "type": null,
       "props": [
@@ -972,7 +972,7 @@
     {
       "name": "TabsTrigger",
       "kind": "component",
-      "description": "",
+      "description": "A 28px tab with a 6px radius (the strip's 10px less its 4px inset); 44px tall to a touch.",
       "signatures": [],
       "type": null,
       "props": [

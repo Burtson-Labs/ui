@@ -875,7 +875,7 @@
     {
       "name": "AppShellHeader",
       "kind": "component",
-      "description": "",
+      "description": "The top bar: sticky, over the page (z 40), clear of the notch.",
       "signatures": [],
       "type": null,
       "props": [],

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 export interface MobileNavItem {
   id: string;
@@ -33,17 +33,21 @@ export interface MobileNavProps extends Omit<React.ComponentProps<'nav'>, 'onCha
  * room for the home indicator (safe-area insets). Destinations come from the
  * app; don't pad it with empty sections.
  */
-function MobileNav({
-  items,
-  value,
-  onValueChange,
-  position = 'static',
-  className,
-  'aria-label': ariaLabel = 'Primary',
-  ...props
-}: MobileNavProps) {
+const MobileNav = React.forwardRef<HTMLElement, MobileNavProps>(function MobileNav(
+  {
+    items,
+    value,
+    onValueChange,
+    position = 'static',
+    className,
+    'aria-label': ariaLabel = 'Primary',
+    ...props
+  },
+  ref,
+) {
   return (
     <nav
+      ref={ref}
       data-slot="mobile-nav"
       aria-label={ariaLabel}
       className={cn(
@@ -79,7 +83,9 @@ function MobileNav({
             </>
           );
           const classes = cn(
-            'flex min-h-14 w-full min-w-11 flex-col items-center justify-center gap-1 px-1 py-1.5 text-[11px] font-medium text-muted-foreground outline-none transition-colors select-none [-webkit-tap-highlight-color:transparent] hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:ring-inset',
+            'flex min-h-14 w-full min-w-11 flex-col items-center justify-center gap-1 px-1 py-1.5 text-[11px] font-medium text-muted-foreground transition-colors select-none [-webkit-tap-highlight-color:transparent] hover:text-foreground',
+            focusRingClasses,
+            'focus-visible:outline-offset-[-2px]',
             active && 'text-brand hover:text-brand',
           );
           return (
@@ -109,6 +115,6 @@ function MobileNav({
       </ul>
     </nav>
   );
-}
+});
 
 export { MobileNav };

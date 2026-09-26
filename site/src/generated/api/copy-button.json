@@ -51,7 +51,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": "'icon-sm'",
           "description": "",
@@ -67,7 +67,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": "'ghost'",
           "description": "",
@@ -413,7 +413,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -429,7 +429,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",

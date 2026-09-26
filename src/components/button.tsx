@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 import * as Slot from '../primitives/vendor/radix/react-slot';
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-150 select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-[3px] focus-visible:ring-ring/20 active:translate-y-px disabled:pointer-events-none disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  `inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] transition-[background-color,border-color,color,box-shadow,transform,filter] select-none ${focusRingClasses} pointer-coarse:min-h-11 pointer-coarse:min-w-11 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4`,
   {
     variants: {
       variant: {
@@ -21,7 +21,7 @@ const buttonVariants = cva(
         ghost: 'border border-transparent text-foreground hover:bg-muted',
         destructive:
           'border border-destructive bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90',
-        link: 'h-auto rounded-none border-0 p-0 text-brand shadow-none hover:text-brand-hover hover:underline hover:underline-offset-4 active:translate-y-0',
+        link: 'h-auto rounded-none border-0 p-0 text-brand shadow-none hover:text-brand-hover hover:underline hover:underline-offset-4 active:translate-y-0 pointer-coarse:min-h-0 pointer-coarse:min-w-0',
       },
       size: {
         xs: 'h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg:not([class*=size-])]:size-3.5',
@@ -43,6 +43,13 @@ export interface ButtonProps
   loading?: boolean;
 }
 
+/**
+ * The action primitive. On touch screens every button is at least 44px
+ * (`pointer-coarse:min-h-8` opts a button in a dense header out); link-styled
+ * buttons stay inline. `data-variant` and `data-size` are set for CSS that
+ * needs them. A trigger's `asChild` replaces `data-slot` with its own
+ * (`dialog-trigger`), which is why the sizing lives in the classes.
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     className,
@@ -66,6 +73,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       ref={ref}
       type={asChild ? undefined : (type ?? 'button')}
       data-slot="button"
+      data-variant={variant ?? 'default'}
+      data-size={size ?? 'default'}
       data-loading={loading ? '' : undefined}
       aria-busy={loading || undefined}
       disabled={!asChild ? disabled || loading : undefined}

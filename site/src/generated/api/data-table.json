@@ -21,8 +21,8 @@
           "name": "cardsBelow",
           "type": "false | DataTableBreakpoint | undefined",
           "required": false,
-          "default": "'md'",
-          "description": "Below this width the rows become a list of cards (see DataTableColumn\n`card`). `md` (768px) by default; `false` keeps the table everywhere.",
+          "default": null,
+          "description": "Below this width the rows become a list of cards (see DataTableColumn\n`card`). Cards need a column that says where it goes: with no `card`\nplacement and no `cardsBelow`, the table stays a table (a scrolling\nregion) at every width. Set `cardsBelow` (`md` is 768px) to get cards\nwith the first column as the title; `false` keeps the table.",
           "native": false
         },
         {
@@ -199,6 +199,14 @@
           "required": false,
           "default": null,
           "description": "Page in the browser: pass every row in `rows` and the table shows one\npage, with a rows-per-page menu. It goes back to page 1 when `filter` or\n`sort` changes. Leave out to page in your app or on the server.",
+          "native": false
+        },
+        {
+          "name": "pinFirstColumn",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Keep the first column in view while the table scrolls sideways.",
           "native": false
         },
         {
@@ -717,7 +725,7 @@
           "type": "false | DataTableBreakpoint | undefined",
           "required": false,
           "default": null,
-          "description": "Below this width the rows become a list of cards (see DataTableColumn\n`card`). `md` (768px) by default; `false` keeps the table everywhere.",
+          "description": "Below this width the rows become a list of cards (see DataTableColumn\n`card`). Cards need a column that says where it goes: with no `card`\nplacement and no `cardsBelow`, the table stays a table (a scrolling\nregion) at every width. Set `cardsBelow` (`md` is 768px) to get cards\nwith the first column as the title; `false` keeps the table.",
           "native": false
         },
         {
@@ -894,6 +902,14 @@
           "required": false,
           "default": null,
           "description": "Page in the browser: pass every row in `rows` and the table shows one\npage, with a rows-per-page menu. It goes back to page 1 when `filter` or\n`sort` changes. Leave out to page in your app or on the server.",
+          "native": false
+        },
+        {
+          "name": "pinFirstColumn",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Keep the first column in view while the table scrolls sideways.",
           "native": false
         },
         {

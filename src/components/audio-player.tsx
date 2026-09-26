@@ -4,7 +4,7 @@ import Pause from '@burtson-labs/icons/react/pause';
 import Play from '@burtson-labs/icons/react/play';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 import { Button } from './button';
 
@@ -86,18 +86,21 @@ export interface AudioPlayerProps extends Omit<React.ComponentProps<'div'>, 'tit
  * time, speed (1×, 1.5×, 2×), download and a transcript. The waveform is a
  * slider for screen readers.
  */
-function AudioPlayer({
-  src,
-  peaks,
-  title = 'Audio',
-  duration: knownDuration,
-  transcript,
-  downloadName,
-  variant = 'default',
-  onPlayChange,
-  className,
-  ...props
-}: AudioPlayerProps) {
+const AudioPlayer = React.forwardRef<HTMLDivElement, AudioPlayerProps>(function AudioPlayer(
+  {
+    src,
+    peaks,
+    title = 'Audio',
+    duration: knownDuration,
+    transcript,
+    downloadName,
+    variant = 'default',
+    onPlayChange,
+    className,
+    ...props
+  },
+  ref,
+) {
   const audio = React.useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = React.useState(false);
   const [current, setCurrent] = React.useState(0);
@@ -154,6 +157,7 @@ function AudioPlayer({
 
   return (
     <div
+      ref={ref}
       data-slot="audio-player"
       data-variant={variant}
       className={cn(
@@ -211,8 +215,10 @@ function AudioPlayer({
             seek(((e.clientX - rect.left) / rect.width) * total);
           }}
           className={cn(
-            'relative flex min-w-0 flex-1 cursor-pointer items-center rounded-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20',
+            'relative flex min-w-0 flex-1 cursor-pointer items-center rounded-sm',
+            focusRingClasses,
             compact ? 'h-7' : 'h-9',
+            'pointer-coarse:h-11',
           )}
         >
           {bars ? (
@@ -285,11 +291,13 @@ function AudioPlayer({
       )}
     </div>
   );
-}
+});
 
 /** A voice note inside a message: the compact AudioPlayer. */
-function VoiceMessage(props: Omit<AudioPlayerProps, 'variant'>) {
-  return <AudioPlayer title="Voice message" {...props} variant="compact" />;
-}
+const VoiceMessage = React.forwardRef<HTMLDivElement, Omit<AudioPlayerProps, 'variant'>>(
+  function VoiceMessage(props, ref) {
+    return <AudioPlayer ref={ref} title="Voice message" {...props} variant="compact" />;
+  },
+);
 
 export { AudioPlayer, VoiceMessage };

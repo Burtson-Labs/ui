@@ -5,7 +5,7 @@
     {
       "name": "IconButton",
       "kind": "component",
-      "description": "",
+      "description": "An icon-only Button with its name built in. Keeps `data-slot=\"button\"`, since it is one.",
       "signatures": [],
       "type": null,
       "props": [
@@ -30,7 +30,7 @@
           "type": "string",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "The accessible name, also the tooltip: \"Open terminal\".",
           "native": false
         },
         {
@@ -43,7 +43,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": "'icon'",
           "description": "",
@@ -51,7 +51,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -378,7 +378,7 @@
           "type": "string",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "The accessible name, also the tooltip: \"Open terminal\".",
           "native": false
         },
         {
@@ -391,7 +391,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -399,7 +399,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",

@@ -124,23 +124,26 @@ export interface ChatLayoutProps extends Omit<React.ComponentProps<'div'>, 'titl
  * details column, and a Full screen mode. Put a Conversation and a Composer
  * in `children`; the layout stacks them and keeps the composer at the bottom.
  */
-function ChatLayout({
-  sidebar,
-  sidebarLabel = 'Chats',
-  details,
-  detailsLabel = 'Details',
-  title,
-  actions,
-  sidebarOpen: controlledOpen,
-  defaultSidebarOpen = true,
-  onSidebarOpenChange,
-  allowFullscreen = true,
-  onFullscreenChange,
-  sidebarSize = '24%',
-  children,
-  className,
-  ...props
-}: ChatLayoutProps) {
+const ChatLayout = React.forwardRef<HTMLDivElement, ChatLayoutProps>(function ChatLayout(
+  {
+    sidebar,
+    sidebarLabel = 'Chats',
+    details,
+    detailsLabel = 'Details',
+    title,
+    actions,
+    sidebarOpen: controlledOpen,
+    defaultSidebarOpen = true,
+    onSidebarOpenChange,
+    allowFullscreen = true,
+    onFullscreenChange,
+    sidebarSize = '24%',
+    children,
+    className,
+    ...props
+  },
+  ref,
+) {
   const root = React.useRef<HTMLDivElement>(null);
   const desktop = useDesktop();
   const [ownOpen, setOwnOpen] = React.useState(defaultSidebarOpen);
@@ -185,7 +188,11 @@ function ChatLayout({
 
   return (
     <div
-      ref={root}
+      ref={(node) => {
+        root.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      }}
       data-slot="chat-layout"
       data-fullscreen={fullscreen || undefined}
       className={cn(
@@ -270,6 +277,6 @@ function ChatLayout({
       )}
     </div>
   );
-}
+});
 
 export { ChatLayout };

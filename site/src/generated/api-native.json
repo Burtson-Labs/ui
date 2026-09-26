@@ -20263,6 +20263,1358 @@
     "description": "",
     "native": true
   },
+  "012ee28997e531f2": {
+    "name": "onAbort",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "baf08ab4aff07afb": {
+    "name": "onAbortCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a100ebabb47bce8c": {
+    "name": "onAnimationEnd",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "30b388e6137ac1ac": {
+    "name": "onAnimationEndCapture",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ec13f3fd552ebd6d": {
+    "name": "onAnimationIteration",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7360af82b95d5f29": {
+    "name": "onAnimationIterationCapture",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f689090e0a7c43c5": {
+    "name": "onAnimationStart",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2a9ce8f598638397": {
+    "name": "onAnimationStartCapture",
+    "type": "React.AnimationEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c00c57a98c59606c": {
+    "name": "onAuxClick",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6e7744f1132715c6": {
+    "name": "onAuxClickCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0807d62faeb4537a": {
+    "name": "onBeforeInput",
+    "type": "React.InputEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "07293c1f44892c9c": {
+    "name": "onBeforeInputCapture",
+    "type": "React.InputEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "69b5f533c9145fee": {
+    "name": "onBeforeToggle",
+    "type": "React.ToggleEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "67dc087c14fe9c67": {
+    "name": "onBlur",
+    "type": "React.FocusEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "56863bdc99075c80": {
+    "name": "onBlurCapture",
+    "type": "React.FocusEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "00afe0a1498a4d50": {
+    "name": "onCanPlay",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d4c6aa5c3f7440b8": {
+    "name": "onCanPlayCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a75e5fea8660b155": {
+    "name": "onCanPlayThrough",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "99f5218e788fa781": {
+    "name": "onCanPlayThroughCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3d1fd628c215cad0": {
+    "name": "onChange",
+    "type": "React.ChangeEventHandler<HTMLSelectElement, HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9f56c998abb318f0": {
+    "name": "onChangeCapture",
+    "type": "React.ChangeEventHandler<HTMLSelectElement, Element> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e9190635cefbf256": {
+    "name": "onClick",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3abcc4f5411ad55e": {
+    "name": "onClickCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b61eb3997d78dca1": {
+    "name": "onCompositionEnd",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "713a12395cb0f4e9": {
+    "name": "onCompositionEndCapture",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "149a9a66cedd3165": {
+    "name": "onCompositionStart",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7125d81976e9f3eb": {
+    "name": "onCompositionStartCapture",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e27c2021910ac548": {
+    "name": "onCompositionUpdate",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5f0ea0b342ac2a84": {
+    "name": "onCompositionUpdateCapture",
+    "type": "React.CompositionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ac45d88bf6b30e3d": {
+    "name": "onContextMenu",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4cef663cc22b8934": {
+    "name": "onContextMenuCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "cf79727cc0b64e95": {
+    "name": "onCopy",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a7f720080d34bf45": {
+    "name": "onCopyCapture",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "543328cc6c86e977": {
+    "name": "onCut",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "99648e3f78a476a8": {
+    "name": "onCutCapture",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "bd59e4d294cd3725": {
+    "name": "onDoubleClick",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0a6a899bb59a9d08": {
+    "name": "onDoubleClickCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "94c377df0f2f5caa": {
+    "name": "onDrag",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1f36e62c2e618585": {
+    "name": "onDragCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "02faac0fa983f215": {
+    "name": "onDragEnd",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ca6bbbee7ff8dd10": {
+    "name": "onDragEndCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "bc5992b85e59b5f8": {
+    "name": "onDragEnter",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fc331fc27db62c87": {
+    "name": "onDragEnterCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fe55fea38d2c1816": {
+    "name": "onDragExit",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5b3f8623b87a8c9e": {
+    "name": "onDragExitCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b224b8516a0bd1f9": {
+    "name": "onDragLeave",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "92e7ae34830ea6de": {
+    "name": "onDragLeaveCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "55a8eccbe00d5dbb": {
+    "name": "onDragOver",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d0ed65322faad3ab": {
+    "name": "onDragOverCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "825533724b650b2a": {
+    "name": "onDragStart",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "843cd09a31553844": {
+    "name": "onDragStartCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5c859742ef69b5cd": {
+    "name": "onDrop",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d675a48a19f02db2": {
+    "name": "onDropCapture",
+    "type": "React.DragEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d338d1df431b9b61": {
+    "name": "onDurationChange",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a8a3e6dee82c716a": {
+    "name": "onDurationChangeCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "179daadd4ad771e0": {
+    "name": "onEmptied",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "eceb6321a451ce57": {
+    "name": "onEmptiedCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7a4a52a455f42819": {
+    "name": "onEncrypted",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b21f0e7201849c3c": {
+    "name": "onEncryptedCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "486e4b7dd77afe48": {
+    "name": "onEnded",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "462396e5d4f63107": {
+    "name": "onEndedCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b71ab4311f4d8644": {
+    "name": "onError",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a66895201088f6b7": {
+    "name": "onErrorCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "325b6ff3324df11f": {
+    "name": "onFocus",
+    "type": "React.FocusEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "58b9c32148e51db4": {
+    "name": "onFocusCapture",
+    "type": "React.FocusEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "510108129f06b857": {
+    "name": "onGotPointerCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3e0e10ebe5182008": {
+    "name": "onGotPointerCaptureCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "04b0ae27566996df": {
+    "name": "onInput",
+    "type": "React.InputEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "edaf885d0505416e": {
+    "name": "onInputCapture",
+    "type": "React.InputEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ee2061ac91d8beaa": {
+    "name": "onInvalid",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f406fd7c7ce04981": {
+    "name": "onInvalidCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6ebacddcc9e22b31": {
+    "name": "onKeyDown",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "52e1dfa5d7126b64": {
+    "name": "onKeyDownCapture",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fbe764ed4a6fb2d4": {
+    "name": "onKeyPress",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "97e3ea0946a2ecdd": {
+    "name": "onKeyPressCapture",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "04e781cf20e7826b": {
+    "name": "onKeyUp",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "016dd509bad30ab1": {
+    "name": "onKeyUpCapture",
+    "type": "React.KeyboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9080d27f33b3bf4e": {
+    "name": "onLoad",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3d99aa873733fe97": {
+    "name": "onLoadCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f2630cc88aca2d6c": {
+    "name": "onLoadStart",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "730ccb49ba4ea181": {
+    "name": "onLoadStartCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "186594d944e9d9ba": {
+    "name": "onLoadedData",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2ccd15d7a00ab344": {
+    "name": "onLoadedDataCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6a315767534a86d4": {
+    "name": "onLoadedMetadata",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5e5a7f21b212eb46": {
+    "name": "onLoadedMetadataCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6c2848e27a6859e0": {
+    "name": "onLostPointerCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "130089b84c1514cd": {
+    "name": "onLostPointerCaptureCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9fb852c4c2c82126": {
+    "name": "onMouseDown",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c0cfab1dd7e5442f": {
+    "name": "onMouseDownCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "438b82cea92bd52b": {
+    "name": "onMouseEnter",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "06add5284f8a9e3a": {
+    "name": "onMouseLeave",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d9b78ed707a208a4": {
+    "name": "onMouseMove",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "706a1c407365cd8f": {
+    "name": "onMouseMoveCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0daa2eed0919d9cb": {
+    "name": "onMouseOut",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c7cf0103bc02672d": {
+    "name": "onMouseOutCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "556ca1f34d1764c4": {
+    "name": "onMouseOver",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c92cca0b11e4a963": {
+    "name": "onMouseOverCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "83dc1798b2c6c2d1": {
+    "name": "onMouseUp",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "68bc24f3e425d9b5": {
+    "name": "onMouseUpCapture",
+    "type": "React.MouseEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a3dfe3285e6087f7": {
+    "name": "onPaste",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c74193b611b79af7": {
+    "name": "onPasteCapture",
+    "type": "React.ClipboardEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e859b5e3509d825e": {
+    "name": "onPause",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "621202028a72ab56": {
+    "name": "onPauseCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "652185e62b195d01": {
+    "name": "onPlay",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a45e505974a7deb6": {
+    "name": "onPlayCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "759d834f9e616a98": {
+    "name": "onPlaying",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "feeca406e9af2767": {
+    "name": "onPlayingCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "307527fb0cbc135f": {
+    "name": "onPointerCancel",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "382cb51d72ffe337": {
+    "name": "onPointerCancelCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "38e92d2a9b10cfe8": {
+    "name": "onPointerDown",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7bef27c9f8f18ab8": {
+    "name": "onPointerDownCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ea17090eff426f55": {
+    "name": "onPointerEnter",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ed4f4352a97c2b83": {
+    "name": "onPointerLeave",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ca4caf04064609d8": {
+    "name": "onPointerMove",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0245142dc63719bd": {
+    "name": "onPointerMoveCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "befdc20ad0aae0be": {
+    "name": "onPointerOut",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9568ba73b297bb27": {
+    "name": "onPointerOutCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "698b6e39319e4dec": {
+    "name": "onPointerOver",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e9672d3824fd29ce": {
+    "name": "onPointerOverCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "05755680c700e8c7": {
+    "name": "onPointerUp",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0e9a9ebb79320e8f": {
+    "name": "onPointerUpCapture",
+    "type": "React.PointerEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "efe7a6c74fd25afa": {
+    "name": "onProgress",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6289d20c72c54e27": {
+    "name": "onProgressCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6c8cbcbec859e7b4": {
+    "name": "onRateChange",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6311a3e9093cd55b": {
+    "name": "onRateChangeCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "56a648cba1dc9137": {
+    "name": "onReset",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "15e5169ad2c8debb": {
+    "name": "onResetCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7037116fd8f762f7": {
+    "name": "onScroll",
+    "type": "React.UIEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9cf9e6d77bbe4a53": {
+    "name": "onScrollCapture",
+    "type": "React.UIEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "dbd8a3ab7a1e2c0b": {
+    "name": "onScrollEnd",
+    "type": "React.UIEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "62895013ad925dd6": {
+    "name": "onScrollEndCapture",
+    "type": "React.UIEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8a28a333723802cd": {
+    "name": "onSeeked",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c9e9d2f3be8d35de": {
+    "name": "onSeekedCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1c160187ee656102": {
+    "name": "onSeeking",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7677d3f7cd541cba": {
+    "name": "onSeekingCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8b89e73cfdf9661a": {
+    "name": "onSelect",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "afe9c23c8a827a5c": {
+    "name": "onSelectCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d7ebf7383f5ebed6": {
+    "name": "onStalled",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "66c9f098d468b353": {
+    "name": "onStalledCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a31a4a7a1476f327": {
+    "name": "onSubmit",
+    "type": "React.SubmitEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c05731d1a3470591": {
+    "name": "onSubmitCapture",
+    "type": "React.SubmitEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0457348f426065c6": {
+    "name": "onSuspend",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2f0becd5f7de6be9": {
+    "name": "onSuspendCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3b6068d175620d57": {
+    "name": "onTimeUpdate",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4e1ee7cbca00e56f": {
+    "name": "onTimeUpdateCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2d5d5c5c56f788eb": {
+    "name": "onToggle",
+    "type": "React.ToggleEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8e4e52010c284089": {
+    "name": "onTouchCancel",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "891a7ab5cc48f240": {
+    "name": "onTouchCancelCapture",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "841f375e0521a7b9": {
+    "name": "onTouchEnd",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0b87a823edd65005": {
+    "name": "onTouchEndCapture",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6c3b74e2202bdfeb": {
+    "name": "onTouchMove",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "80f624011202701a": {
+    "name": "onTouchMoveCapture",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "cdf95b33c8177fdf": {
+    "name": "onTouchStart",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e421b63c51e61680": {
+    "name": "onTouchStartCapture",
+    "type": "React.TouchEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "70f4a701d743c21c": {
+    "name": "onTransitionCancel",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5e1901e2187d6bcd": {
+    "name": "onTransitionCancelCapture",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0a28863a4a27cb6b": {
+    "name": "onTransitionEnd",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7b034a6aacc5e455": {
+    "name": "onTransitionEndCapture",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "543968c457d7c914": {
+    "name": "onTransitionRun",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e1c4b97a07ff5303": {
+    "name": "onTransitionRunCapture",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fcd9bcf0e59149d5": {
+    "name": "onTransitionStart",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "72ae1cecd88d23ec": {
+    "name": "onTransitionStartCapture",
+    "type": "React.TransitionEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2b8d69ae49e04e03": {
+    "name": "onVolumeChange",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e35d54cc5b053a7c": {
+    "name": "onVolumeChangeCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "874fade3d2d2a985": {
+    "name": "onWaiting",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "53f4b58cd0afbebe": {
+    "name": "onWaitingCapture",
+    "type": "React.ReactEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "744d4b606195c19d": {
+    "name": "onWheel",
+    "type": "React.WheelEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0d79ac7c69edbf35": {
+    "name": "onWheelCapture",
+    "type": "React.WheelEventHandler<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "983d3d168802fac6": {
+    "name": "ref",
+    "type": "React.Ref<HTMLSelectElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
+    "native": true
+  },
   "9b78bdced733e7fe": {
     "name": "onAbort",
     "type": "React.ReactEventHandler<HTMLUListElement> | undefined",
@@ -26287,9 +27639,9 @@
     "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
     "native": true
   },
-  "d2acc39e79b50519": {
+  "06923e71f71a4ac3": {
     "name": "rules",
-    "type": "\"none\" | \"all\" | \"groups\" | \"rows\" | \"columns\" | undefined",
+    "type": "\"none\" | \"all\" | \"columns\" | \"groups\" | \"rows\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -27650,6 +29002,14 @@
   "ad721d6513acae89": {
     "name": "ref",
     "type": "React.Ref<HTMLTableSectionElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
+    "native": true
+  },
+  "2be71a792b6058d5": {
+    "name": "ref",
+    "type": "React.Ref<HTMLTableCaptionElement> | undefined",
     "required": false,
     "default": null,
     "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
@@ -29031,9 +30391,9 @@
     "description": "",
     "native": true
   },
-  "8d438536d2f94c81": {
+  "73e0ca847069743b": {
     "name": "ref",
-    "type": "React.Ref<HTMLTableDataCellElement> | undefined",
+    "type": "React.Ref<HTMLTableCellElement> | undefined",
     "required": false,
     "default": null,
     "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
@@ -30405,14 +31765,6 @@
     "required": false,
     "default": null,
     "description": "",
-    "native": true
-  },
-  "6a2a2516ade8dced": {
-    "name": "ref",
-    "type": "React.Ref<HTMLTableHeaderCellElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
     "native": true
   },
   "2403cfbeb9286060": {

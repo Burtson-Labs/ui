@@ -3,13 +3,18 @@ import * as React from 'react';
 
 import { cn } from '../lib/utils';
 
-function Spinner({
-  className,
-  label = 'Loading',
-  ...props
-}: React.ComponentProps<typeof Loader> & { label?: string }) {
+export interface SpinnerProps extends React.ComponentProps<typeof Loader> {
+  /** What is loading, for screen readers. */
+  label?: string;
+}
+
+const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
+  { className, label = 'Loading', ...props },
+  ref,
+) {
   return (
     <Loader
+      ref={ref}
       role="status"
       aria-label={label}
       data-slot="spinner"
@@ -17,6 +22,6 @@ function Spinner({
       {...props}
     />
   );
-}
+});
 
 export { Spinner };

@@ -2,7 +2,7 @@ import ExternalLink from '@burtson-labs/icons/react/external-link';
 import FileText from '@burtson-labs/icons/react/file-text';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
@@ -59,7 +59,10 @@ function SourceBody({ source, index }: { source: Source; index?: number }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-w-0 font-medium text-foreground underline-offset-2 outline-none hover:underline focus-visible:underline"
+            className={cn(
+              'min-w-0 rounded-xs font-medium text-foreground underline-offset-2 hover:underline',
+              focusRingClasses,
+            )}
           >
             <span className="line-clamp-2">{source.title}</span>
             <span className="sr-only"> (opens in a new tab)</span>
@@ -91,26 +94,30 @@ export interface SourceCitationProps extends Omit<
 }
 
 /** An inline [n] marker in an answer; opens the source it points to. */
-function SourceCitation({ index, source, className, ...props }: SourceCitationProps) {
-  return (
-    <Popover>
-      <PopoverTrigger
-        data-slot="source-citation"
-        aria-label={`Source ${index}: ${source.title}`}
-        className={cn(
-          'mx-0.5 inline-grid h-4 min-w-4 translate-y-[-0.1em] place-items-center rounded-xs border bg-surface-muted px-1 align-baseline font-mono text-[10px] leading-none font-semibold text-muted-foreground tabular-nums transition-colors outline-none hover:border-brand/40 hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20 data-[state=open]:border-brand data-[state=open]:text-foreground',
-          className,
-        )}
-        {...props}
-      >
-        {index}
-      </PopoverTrigger>
-      <PopoverContent side="top" align="start" className="w-80 p-3 text-sm">
-        <SourceBody source={source} />
-      </PopoverContent>
-    </Popover>
-  );
-}
+const SourceCitation = React.forwardRef<HTMLButtonElement, SourceCitationProps>(
+  function SourceCitation({ index, source, className, ...props }, ref) {
+    return (
+      <Popover>
+        <PopoverTrigger
+          ref={ref}
+          data-slot="source-citation"
+          aria-label={`Source ${index}: ${source.title}`}
+          className={cn(
+            'mx-0.5 inline-grid h-4 min-w-4 translate-y-[-0.1em] place-items-center rounded-xs border bg-surface-muted px-1 align-baseline font-mono text-[10px] leading-none font-semibold text-muted-foreground tabular-nums transition-colors hover:border-brand/40 hover:text-foreground data-[state=open]:border-brand data-[state=open]:text-foreground',
+            focusRingClasses,
+            className,
+          )}
+          {...props}
+        >
+          {index}
+        </PopoverTrigger>
+        <PopoverContent side="top" align="start" className="w-80 p-3 text-sm">
+          <SourceBody source={source} />
+        </PopoverContent>
+      </Popover>
+    );
+  },
+);
 
 export interface SourceListProps extends React.ComponentProps<'section'> {
   sources: Source[];
@@ -119,11 +126,15 @@ export interface SourceListProps extends React.ComponentProps<'section'> {
 }
 
 /** Numbered sources under an answer, in citation order. */
-function SourceList({ sources, label = 'Sources', className, ...props }: SourceListProps) {
+const SourceList = React.forwardRef<HTMLElement, SourceListProps>(function SourceList(
+  { sources, label = 'Sources', className, ...props },
+  ref,
+) {
   const headingId = React.useId();
   if (sources.length === 0) return null;
   return (
     <section
+      ref={ref}
       data-slot="source-list"
       aria-labelledby={headingId}
       className={cn('grid gap-2', className)}
@@ -147,6 +158,6 @@ function SourceList({ sources, label = 'Sources', className, ...props }: SourceL
       </ol>
     </section>
   );
-}
+});
 
 export { SourceCitation, SourceList };

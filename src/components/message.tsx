@@ -22,19 +22,14 @@ export interface MessageProps extends React.ComponentProps<'div'> {
  * assistant turns read full width with an optional avatar, and system notes
  * are centred and small.
  */
-function Message({
-  from,
-  avatar,
-  name,
-  meta,
-  actions,
-  children,
-  className,
-  ...props
-}: MessageProps) {
+const Message = React.forwardRef<HTMLDivElement, MessageProps>(function Message(
+  { from, avatar, name, meta, actions, children, className, ...props },
+  ref,
+) {
   if (from === 'system') {
     return (
       <div
+        ref={ref}
         data-slot="message"
         data-role="system"
         className={cn('mx-auto max-w-prose text-center text-xs text-muted-foreground', className)}
@@ -47,6 +42,7 @@ function Message({
   const user = from === 'user';
   return (
     <div
+      ref={ref}
       data-slot="message"
       data-role={from}
       className={cn(
@@ -87,6 +83,6 @@ function Message({
       </div>
     </div>
   );
-}
+});
 
 export { Message };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, noOutlineClasses } from '../lib/utils';
 import * as CheckboxPrimitive from '../primitives/vendor/radix/react-checkbox';
 
 import { Checkbox } from './checkbox';
@@ -22,15 +22,10 @@ export interface CheckboxCardProps extends Omit<
  * area (44px or taller). For choices that need explaining: roles,
  * permissions, notification types. One focus ring, on the card.
  */
-function CheckboxCard({
-  title,
-  description,
-  id: idProp,
-  disabled,
-  className,
-  cardClassName,
-  ...props
-}: CheckboxCardProps) {
+const CheckboxCard = React.forwardRef<HTMLButtonElement, CheckboxCardProps>(function CheckboxCard(
+  { title, description, id: idProp, disabled, className, cardClassName, ...props },
+  ref,
+) {
   const auto = React.useId();
   const id = idProp ?? auto;
   return (
@@ -47,14 +42,13 @@ function CheckboxCard({
       )}
     >
       <Checkbox
+        ref={ref}
         id={id}
         disabled={disabled}
         aria-labelledby={`${id}-title`}
         aria-describedby={description ? `${id}-description` : undefined}
-        className={cn(
-          'mt-0.5 outline-hidden! focus-visible:ring-0 focus-visible:outline-none',
-          className,
-        )}
+        // The card draws the focus ring; the box keeps a system outline in forced colors.
+        className={cn('mt-0.5 focus-visible:outline-none', noOutlineClasses, className)}
         {...props}
       />
       <span className="grid min-w-0 gap-0.5">
@@ -69,7 +63,7 @@ function CheckboxCard({
       </span>
     </label>
   );
-}
+});
 
 export interface CheckboxCardGroupProps extends React.ComponentProps<'fieldset'> {
   /** The group's name, shown as its legend. */
@@ -79,30 +73,27 @@ export interface CheckboxCardGroupProps extends React.ComponentProps<'fieldset'>
 }
 
 /** A fieldset of CheckboxCards with a visible legend. `disabled` disables every card. */
-function CheckboxCardGroup({
-  label,
-  description,
-  className,
-  children,
-  ...props
-}: CheckboxCardGroupProps) {
-  const id = React.useId();
-  return (
-    <fieldset
-      data-slot="checkbox-card-group"
-      aria-describedby={description ? `${id}-description` : undefined}
-      className={cn('grid min-w-0 gap-2', className)}
-      {...props}
-    >
-      <legend className="mb-1.5 text-sm font-medium">{label}</legend>
-      {description && (
-        <p id={`${id}-description`} className="-mt-1.5 text-[13px] text-muted-foreground">
-          {description}
-        </p>
-      )}
-      {children}
-    </fieldset>
-  );
-}
+const CheckboxCardGroup = React.forwardRef<HTMLFieldSetElement, CheckboxCardGroupProps>(
+  function CheckboxCardGroup({ label, description, className, children, ...props }, ref) {
+    const id = React.useId();
+    return (
+      <fieldset
+        ref={ref}
+        data-slot="checkbox-card-group"
+        aria-describedby={description ? `${id}-description` : undefined}
+        className={cn('grid min-w-0 gap-2', className)}
+        {...props}
+      >
+        <legend className="mb-1.5 text-sm font-semibold">{label}</legend>
+        {description && (
+          <p id={`${id}-description`} className="-mt-1.5 text-[13px] text-muted-foreground">
+            {description}
+          </p>
+        )}
+        {children}
+      </fieldset>
+    );
+  },
+);
 
 export { CheckboxCard, CheckboxCardGroup };

@@ -236,14 +236,17 @@ describe('shortcut labels', () => {
 
 // 0.12.4: in the open combobox the search input drew a square, offset outline
 // (a host page's unlayered `:focus-visible` rule beat the input's
-// `outline-hidden` utility) and the active row carried a 2px inset brand bar
+// `outline-hidden` utility; 0.13.2 suppresses the outline outright and
+// restores a system-colour one only in forced-colors mode) and the active row carried a 2px inset brand bar
 // that the row's radius bent into a one-sided bracket.
 describe('combobox popover borders', () => {
   const options = [
     { value: 'a', label: 'Dana Ortiz', description: 'dana@burtson.ai' },
     { value: 'b', label: 'Luis Park', description: 'luis@burtson.ai' },
   ];
-  const classes = (el: Element | null) => (el?.getAttribute('class') ?? '').split(/\s+/);
+  // Forced-colors classes restore a system outline for high contrast only.
+  const classes = (el: Element | null) =>
+    (el?.getAttribute('class') ?? '').split(/\s+/).filter((k) => !k.startsWith('forced-colors:'));
 
   it('keeps the search input borderless, with the outline suppressed against host CSS', async () => {
     render(
@@ -252,7 +255,7 @@ describe('combobox popover borders', () => {
     await userEvent.click(screen.getByRole('combobox', { name: 'Users' }));
     const input = screen.getByPlaceholderText('Search…');
     const c = classes(input);
-    expect(c).toContain('outline-hidden!');
+    expect(c).toContain('outline-none!');
     expect(c).toContain('border-0');
     expect(c).toContain('rounded-none');
     expect(
@@ -276,7 +279,7 @@ describe('combobox popover borders', () => {
     expect(active?.textContent).toContain('Luis Park');
     const c = classes(active);
     expect(c).toContain('data-[selected=true]:bg-secondary');
-    expect(c).toContain('outline-hidden!');
+    expect(c).toContain('outline-none!');
     expect(
       c.filter((k) => /shadow-\[inset|border-[lrse]|border-l-|ring-|outline-(2|offset)/.test(k)),
     ).toEqual([]);
@@ -296,7 +299,7 @@ describe('combobox popover borders', () => {
       const c = classes(el);
       expect(c).toEqual(
         expect.arrayContaining([
-          'outline-hidden!',
+          'outline-none!',
           'focus-visible:border-ring',
           'focus-visible:inset-ring-1',
           'focus-visible:inset-ring-ring',
@@ -310,7 +313,7 @@ describe('combobox popover borders', () => {
   it('draws the composer focus on the box, not the textarea', () => {
     render(<Composer onSubmit={() => {}} />);
     const textarea = screen.getByRole('textbox');
-    expect(classes(textarea)).toEqual(expect.arrayContaining(['outline-hidden!', 'border-0']));
+    expect(classes(textarea)).toEqual(expect.arrayContaining(['outline-none!', 'border-0']));
     const box = textarea.closest('[data-slot="composer"]');
     expect(classes(box)).toEqual(
       expect.arrayContaining([

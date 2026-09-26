@@ -5,6 +5,7 @@ import upstreamLicense from '../../LICENSES/shadcn-MIT.txt?raw';
 
 import { ApiReference } from './api-reference';
 import { Code } from './code';
+import { usage } from './usage';
 
 const sources = import.meta.glob<string>('../../src/components/*.tsx', {
   query: '?raw',
@@ -221,6 +222,16 @@ const api: Record<string, [string, string, string][]> = {
     ['stickyHeader', 'boolean', 'false'],
     ['scrollLabel', 'string (names the scroll region)', '—'],
     ['containerProps / containerClassName', 'div props / string', '—'],
+    [
+      'pinFirstColumn',
+      'boolean; the first column stays in view while the table scrolls sideways',
+      'false',
+    ],
+    [
+      'overflowHint',
+      'ReactNode | false; the line under a table that scrolls sideways, touch screens only',
+      'Swipe for more',
+    ],
   ],
   'data-table': [
     ['columns', 'DataTableColumn[] { id, header, cell, sortable?, numeric? }', 'required'],
@@ -241,11 +252,16 @@ const api: Record<string, [string, string, string][]> = {
       'boolean | { pageSize?, pageSizeOptions?, storageKey? }; pages rows in the browser',
       '—',
     ],
-    ['cardsBelow', 'sm | md | lg | xl | false', 'md'],
+    [
+      'cardsBelow',
+      'sm | md | lg | xl | false',
+      'md when a column has a card placement, else false',
+    ],
+    ['pinFirstColumn', 'boolean', 'false'],
     [
       'column.card',
-      'title | subtitle | aside | field | footer | hidden',
-      'first column title, others field',
+      'title | subtitle | aside | field | footer | hidden; any placement turns cards on',
+      'first column title, others field (once cards are on)',
     ],
     ['column.cardLabel / cardCell / cardOnly', 'string / (row) => ReactNode / boolean', '—'],
     ['column.hideBelow', 'sm | md | lg | xl; drops the table column below that width', '—'],
@@ -417,10 +433,76 @@ const api: Record<string, [string, string, string][]> = {
     ['onCopySuccess', '() => void', '—'],
     ['onCopyError', '(error: unknown) => void', '—'],
   ],
+  input: [
+    ['width', 'xs | sm | md | lg | full; the field’s width from 640px, full on phones', 'full'],
+    [
+      'SearchInput: containerClassName',
+      'string; classes for the wrapper that positions the icon',
+      '—',
+    ],
+  ],
+  'number-input': [
+    ['prefix / suffix', 'ReactNode inside the field, before or after the number', '—'],
+    ['decimal', 'boolean; inputMode="decimal" instead of "numeric"', 'false'],
+    ['width', 'xs | sm | md | lg | full', 'sm'],
+    ['containerClassName', 'string; classes for the box (className goes to the input)', '—'],
+  ],
+  'native-select': [
+    ['width', 'xs | sm | md | lg | full', 'full'],
+    ['containerClassName', 'string; classes for the wrapper that positions the chevron', '—'],
+  ],
+  field: [
+    ['label', 'ReactNode; sets the recipe (label, control, help), wiring the control', '—'],
+    [
+      'description / error / hint',
+      'ReactNode under the control / under it, sets aria-invalid / right of the label',
+      '—',
+    ],
+    ['optional / required', 'boolean; shows "Optional" / sets aria-required', '—'],
+    ['group', 'boolean; the child is several inputs, the label names the group', 'false'],
+    ['span', 'boolean; across every column of a FieldGrid', 'false'],
+    ['FieldGrid: columns', '1 | 2 | 3 | 4 (from 640px; one column on phones)', '2'],
+    ['FieldSet: legend / description / action', 'ReactNode', '—'],
+    ['useField()', '{ id, describedBy, invalid, required } of the enclosing Field', '—'],
+  ],
+  'error-summary': [
+    ['errors', '{ id, message }[]; nothing renders while empty', 'required'],
+    ['title', 'ReactNode', 'Fix these to continue'],
+    ['onSelect', '(id) => void, after the field is focused', '—'],
+  ],
+  'form-actions': [
+    ['start', 'ReactNode; Cancel, Back or Delete, left-aligned', '—'],
+    ['sticky', 'boolean; pinned to the bottom of the screen on phones', 'false'],
+  ],
+  switch: [
+    ['SwitchRow: label / description / badge', 'ReactNode', 'required / — / —'],
+    ['inset', 'boolean; padding for a row in a SwitchList', 'false'],
+    ['before', 'ReactNode; a control that belongs to the switch', '—'],
+    ['SwitchList: bordered', 'boolean', 'false'],
+    ['InlineSwitch: label', 'ReactNode', 'required'],
+  ],
+  checkbox: [
+    ['CheckboxRow: label / description', 'ReactNode', 'required / —'],
+    ['rowClassName', 'string; classes for the row (className goes to the checkbox)', '—'],
+  ],
+  'radio-group': [
+    [
+      'RadioCard: value / title / description',
+      'string / ReactNode / ReactNode',
+      'required / required / —',
+    ],
+    ['cardClassName', 'string; classes for the card (className goes to the radio)', '—'],
+  ],
+  'stat-card': [
+    ['label / value / detail / trend / icon', 'ReactNode', 'required / required / —'],
+    ['StatStrip: stats', '{ label, value, detail?, href?, onSelect? }[]', 'required'],
+    ['renderLink', '(href, children, className) => ReactNode; your router’s link', 'plain <a>'],
+  ],
   combobox: [
     ['options', 'ComboboxOption[]', 'required'],
-    ['value', 'string | null', 'required'],
-    ['onValueChange', '(value: string | null) => void', 'required'],
+    ['value / defaultValue', 'string | null; controlled / uncontrolled start', '— / null'],
+    ['onValueChange', '(value: string | null) => void', '—'],
+    ['width', 'xs | sm | md | lg | full', 'full'],
     ['onSearchChange', '(search: string) => void; disables client filtering', '—'],
     ['name', 'string; FormData field name', '—'],
     ['clearable', 'boolean', 'true'],
@@ -454,24 +536,38 @@ export function ComponentDetails({ name }: { name: string }) {
       active = false;
     };
   }, [name, showSource]);
-  const notes = guidance[name] ?? [
-    'Keep labels and status messages understandable without relying on color or icons alone.',
-    'Compose this component with the matching Burtson form, feedback, and layout primitives.',
-    'Check keyboard navigation and light/dark contrast in the final application context.',
-  ];
+  const u = usage[name];
+  const notes = guidance[name] ?? [];
+  const list = (items: string[]) => (
+    <ul className="grid list-disc gap-1.5 pl-5 text-sm leading-6 text-muted-foreground">
+      {items.map((note) => (
+        <li key={note}>{note}</li>
+      ))}
+    </ul>
+  );
   return (
     <>
-      <ApiReference name={name} />
+      {u && (
+        <section className="mt-10 grid gap-6 sm:grid-cols-2" aria-labelledby="when-heading">
+          <div>
+            <h2 id="when-heading" className="mb-2 text-base font-semibold tracking-tight">
+              When to use
+            </h2>
+            {list(u.use)}
+          </div>
+          <div>
+            <h2 className="mb-2 text-base font-semibold tracking-tight">Don&apos;t</h2>
+            {list(u.avoid)}
+          </div>
+        </section>
+      )}
       <section className="mt-10" aria-labelledby="usage-heading">
         <h2 id="usage-heading" className="mb-3 text-xl font-semibold tracking-tight">
-          Usage and accessibility
+          Accessibility and behaviour
         </h2>
-        <ul className="grid list-disc gap-2 pl-5 text-sm leading-6 text-muted-foreground">
-          {notes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
+        {list([...(u?.a11y ?? []), ...notes])}
       </section>
+      <ApiReference name={name} />
       {api[name] && (
         <section className="mt-10">
           <h2 className="mb-3 text-xl font-semibold tracking-tight">Key props</h2>

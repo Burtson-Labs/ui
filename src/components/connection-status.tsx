@@ -2,14 +2,14 @@ import CloudOff from '@burtson-labs/icons/react/cloud-off';
 import WifiOff from '@burtson-labs/icons/react/wifi-off';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses, touchTargetRowClasses } from '../lib/utils';
 
 import { Alert, AlertDescription, AlertTitle } from './alert';
 import { Button } from './button';
 import { Status } from './status';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
-type Tone = 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'info';
+type Tone = 'neutral' | 'brand' | 'success' | 'warning' | 'destructive' | 'info';
 
 /**
  * The host reports the state; these components only present it. `unknown`
@@ -23,7 +23,7 @@ const connection: Record<ConnectionState, { text: string; tone: Tone; pulse?: bo
   connecting: { text: 'Connecting', tone: 'info', pulse: true },
   reconnecting: { text: 'Reconnecting', tone: 'warning', pulse: true },
   offline: { text: 'Offline', tone: 'neutral' },
-  error: { text: 'Connection failed', tone: 'danger' },
+  error: { text: 'Connection failed', tone: 'destructive' },
   unknown: { text: 'Status unknown', tone: 'neutral' },
 };
 
@@ -34,7 +34,7 @@ const sync: Record<SyncState, { text: string; tone: Tone; pulse?: boolean }> = {
   syncing: { text: 'Syncing', tone: 'info', pulse: true },
   pending: { text: 'Changes not synced yet', tone: 'warning' },
   offline: { text: 'Offline, saved on this device', tone: 'neutral' },
-  error: { text: 'Sync failed', tone: 'danger' },
+  error: { text: 'Sync failed', tone: 'destructive' },
   unknown: { text: 'Sync status unknown', tone: 'neutral' },
 };
 
@@ -54,17 +54,7 @@ function WithDetail({
   );
 }
 
-function StatusLine({
-  slot,
-  state,
-  text,
-  tone,
-  pulse,
-  detail,
-  onRetry,
-  className,
-  ...props
-}: Omit<React.ComponentProps<'div'>, 'children'> & {
+interface StatusLineProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   slot: string;
   state: string;
   text: React.ReactNode;
@@ -72,9 +62,15 @@ function StatusLine({
   pulse?: boolean;
   detail?: React.ReactNode;
   onRetry?: () => void;
-}) {
+}
+
+const StatusLine = React.forwardRef<HTMLDivElement, StatusLineProps>(function StatusLine(
+  { slot, state, text, tone, pulse, detail, onRetry, className, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot={slot}
       data-state={state}
       role="status"
@@ -86,7 +82,7 @@ function StatusLine({
           status={tone}
           pulse={pulse}
           tabIndex={detail ? 0 : undefined}
-          className="rounded-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20"
+          className={cn('rounded-sm', focusRingClasses, detail && touchTargetRowClasses)}
         >
           {text}
           {detail && typeof detail === 'string' && <span className="sr-only">. {detail}</span>}
@@ -99,7 +95,7 @@ function StatusLine({
       )}
     </div>
   );
-}
+});
 
 export interface ConnectionStatusProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   state: ConnectionState;
@@ -112,21 +108,24 @@ export interface ConnectionStatusProps extends Omit<React.ComponentProps<'div'>,
 }
 
 /** A dot and a word for a live connection: model provider, gateway, socket. */
-function ConnectionStatus({ state, label, detail, onRetry, ...props }: ConnectionStatusProps) {
-  const c = connection[state];
-  return (
-    <StatusLine
-      slot="connection-status"
-      state={state}
-      text={label ?? c.text}
-      tone={c.tone}
-      pulse={c.pulse}
-      detail={detail}
-      onRetry={state === 'offline' || state === 'error' ? onRetry : undefined}
-      {...props}
-    />
-  );
-}
+const ConnectionStatus = React.forwardRef<HTMLDivElement, ConnectionStatusProps>(
+  function ConnectionStatus({ state, label, detail, onRetry, ...props }, ref) {
+    const c = connection[state];
+    return (
+      <StatusLine
+        ref={ref}
+        slot="connection-status"
+        state={state}
+        text={label ?? c.text}
+        tone={c.tone}
+        pulse={c.pulse}
+        detail={detail}
+        onRetry={state === 'offline' || state === 'error' ? onRetry : undefined}
+        {...props}
+      />
+    );
+  },
+);
 
 export interface SyncStatusProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   state: SyncState;
@@ -142,15 +141,18 @@ export interface SyncStatusProps extends Omit<React.ComponentProps<'div'>, 'chil
 }
 
 /** Whether local changes have reached the server. */
-function SyncStatus({
-  state,
-  lastSynced,
-  pendingCount,
-  detail,
-  onRetry,
-  formatTime = (d) => d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
-  ...props
-}: SyncStatusProps) {
+const SyncStatus = React.forwardRef<HTMLDivElement, SyncStatusProps>(function SyncStatus(
+  {
+    state,
+    lastSynced,
+    pendingCount,
+    detail,
+    onRetry,
+    formatTime = (d) => d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+    ...props
+  },
+  ref,
+) {
   const s = sync[state];
   let text = s.text;
   if (state === 'synced' && lastSynced) text = `Synced ${formatTime(lastSynced)}`;
@@ -158,6 +160,7 @@ function SyncStatus({
     text = `${pendingCount} ${pendingCount === 1 ? 'change' : 'changes'} not synced yet`;
   return (
     <StatusLine
+      ref={ref}
       slot="sync-status"
       state={state}
       text={text}
@@ -168,7 +171,7 @@ function SyncStatus({
       {...props}
     />
   );
-}
+});
 
 export interface ConnectionBannerProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   state: ConnectionState;
@@ -181,42 +184,39 @@ export interface ConnectionBannerProps extends Omit<React.ComponentProps<'div'>,
  * A full-width notice for connection trouble. It renders nothing while
  * connected, connecting or unknown, so it can stay mounted.
  */
-function ConnectionBanner({
-  state,
-  description,
-  onRetry,
-  className,
-  ...props
-}: ConnectionBannerProps) {
-  if (state !== 'offline' && state !== 'error' && state !== 'reconnecting') return null;
-  const title =
-    state === 'offline'
-      ? 'You are offline'
-      : state === 'reconnecting'
-        ? 'Reconnecting…'
-        : 'Could not connect';
-  return (
-    <Alert
-      data-slot="connection-banner"
-      data-state={state}
-      variant={state === 'error' ? 'destructive' : 'warning'}
-      className={cn('items-center', className)}
-      {...props}
-    >
-      {state === 'offline' ? <WifiOff aria-hidden /> : <CloudOff aria-hidden />}
-      <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <div className="min-w-0">
-          <AlertTitle>{title}</AlertTitle>
-          {description && <AlertDescription>{description}</AlertDescription>}
+const ConnectionBanner = React.forwardRef<HTMLDivElement, ConnectionBannerProps>(
+  function ConnectionBanner({ state, description, onRetry, className, ...props }, ref) {
+    if (state !== 'offline' && state !== 'error' && state !== 'reconnecting') return null;
+    const title =
+      state === 'offline'
+        ? 'You are offline'
+        : state === 'reconnecting'
+          ? 'Reconnecting…'
+          : 'Could not connect';
+    return (
+      <Alert
+        ref={ref}
+        data-slot="connection-banner"
+        data-state={state}
+        variant={state === 'error' ? 'destructive' : 'warning'}
+        className={cn('items-center', className)}
+        {...props}
+      >
+        {state === 'offline' ? <WifiOff aria-hidden /> : <CloudOff aria-hidden />}
+        <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="min-w-0">
+            <AlertTitle>{title}</AlertTitle>
+            {description && <AlertDescription>{description}</AlertDescription>}
+          </div>
+          {onRetry && state !== 'reconnecting' && (
+            <Button type="button" size="sm" variant="outline" onClick={onRetry}>
+              Retry
+            </Button>
+          )}
         </div>
-        {onRetry && state !== 'reconnecting' && (
-          <Button type="button" size="sm" variant="outline" onClick={onRetry}>
-            Retry
-          </Button>
-        )}
-      </div>
-    </Alert>
-  );
-}
+      </Alert>
+    );
+  },
+);
 
 export { ConnectionBanner, ConnectionStatus, SyncStatus };

@@ -12,7 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from './command';
-import { fieldClasses } from './input';
+import { fieldClasses, type FieldWidth, fieldWidthClasses } from './input';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Spinner } from './spinner';
 
@@ -26,8 +26,11 @@ export interface ComboboxOption {
 
 export interface ComboboxProps {
   options: ComboboxOption[];
-  value: string | null;
-  onValueChange: (value: string | null) => void;
+  /** Controlled: the chosen value, or null. Leave out for an uncontrolled combobox. */
+  value?: string | null;
+  /** The starting value when uncontrolled. */
+  defaultValue?: string | null;
+  onValueChange?: (value: string | null) => void;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyText?: string;
@@ -41,35 +44,52 @@ export interface ComboboxProps {
   onSearchChange?: (search: string) => void;
   /** Let the person clear the selection by picking it again. */
   clearable?: boolean;
+  /** How wide the trigger is from 640px up; full width on phones. */
+  width?: FieldWidth;
   id?: string;
   className?: string;
   'aria-invalid'?: boolean;
   'aria-label'?: string;
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
+  'aria-required'?: boolean;
   name?: string;
   required?: boolean;
 }
 
-/** Pick one value from a long or remote list by typing. */
-function Combobox({
-  options,
-  value,
-  onValueChange,
-  placeholder = 'Select…',
-  searchPlaceholder = 'Search…',
-  emptyText = 'No matches.',
-  disabled,
-  loading,
-  onSearchChange,
-  clearable = true,
-  id,
-  className,
-  name,
-  required,
-  ...aria
-}: ComboboxProps) {
+/**
+ * Pick one value from a long or remote list by typing. The ref reaches the
+ * trigger button, so a form library or an ErrorSummary can focus it.
+ */
+const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(function Combobox(
+  {
+    options,
+    value: valueProp,
+    defaultValue = null,
+    onValueChange,
+    placeholder = 'Select…',
+    searchPlaceholder = 'Search…',
+    emptyText = 'No matches.',
+    disabled,
+    loading,
+    onSearchChange,
+    clearable = true,
+    width,
+    id,
+    className,
+    name,
+    required,
+    ...aria
+  },
+  ref,
+) {
   const [open, setOpen] = React.useState(false);
+  const [own, setOwn] = React.useState<string | null>(defaultValue);
+  const value = valueProp === undefined ? own : valueProp;
+  const setValue = (next: string | null) => {
+    if (valueProp === undefined) setOwn(next);
+    onValueChange?.(next);
+  };
   const listId = React.useId();
   const selected = options.find((o) => o.value === value);
   return (
@@ -78,9 +98,10 @@ function Combobox({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button
+            ref={ref}
             type="button"
             role="combobox"
-            aria-required={required || undefined}
+            aria-required={aria['aria-required'] ?? (required || undefined)}
             onKeyDown={(event) => {
               if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
                 event.preventDefault();
@@ -104,11 +125,12 @@ function Combobox({
               fieldClasses,
               'flex h-9 items-center justify-between gap-2 text-left',
               !selected && 'text-muted-foreground',
+              width && fieldWidthClasses[width],
               className,
             )}
           >
             <span className="truncate">{selected?.label ?? value ?? placeholder}</span>
-            <ChevronsUpDown className="size-4 shrink-0 opacity-60" aria-hidden />
+            <ChevronsUpDown className="size-4 shrink-0 text-muted-foreground" aria-hidden />
           </button>
         </PopoverTrigger>
         <PopoverContent
@@ -139,7 +161,7 @@ function Combobox({
                       value={`${o.label} ${o.description ?? ''} ${o.value}`}
                       disabled={o.disabled}
                       onSelect={() => {
-                        onValueChange(clearable && o.value === value ? null : o.value);
+                        setValue(clearable && o.value === value ? null : o.value);
                         setOpen(false);
                       }}
                     >
@@ -168,6 +190,6 @@ function Combobox({
       </Popover>
     </>
   );
-}
+});
 
 export { Combobox };

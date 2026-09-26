@@ -25,7 +25,25 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Classes for the viewport (position, width).",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ToasterProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ToasterProps",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Classes for the viewport (position, width).",
           "native": false
         }
       ],

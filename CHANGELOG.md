@@ -1,5 +1,122 @@
 # Changelog
 
+## 0.14.1
+
+A consistency pass over every component, measured in a browser rather than
+eyeballed: each component in each of its states, light and dark, five
+accents, comfortable and compact, at 1440 with a mouse and 390 as a phone,
+in Chromium and WebKit (the `/matrix` page on the docs site renders it all).
+Four form patterns and a stat strip come in from the RWT load-intake app.
+
+- **DataTable cards are opt-in by column** (behaviour change). Rows become
+  cards on phones only when a column says where it goes (`card: 'title'`,
+  `'subtitle'`, `'aside'`, `'field'`, `'footer'` or `'hidden'`) or
+  `cardsBelow` is set; a table with no placements stays a table at every
+  width, in a named scroll region that fades on the side with more, pins
+  nothing and says "Swipe for more" on touch screens. 0.13.0 turned every
+  table into cards below 768px with the first column as the title, which
+  suited record lists and not number tables. Migration: a table that relied
+  on that default needs `cardsBelow="md"`; `cardsBelow={false}` still works
+  and is now the default for a table without placements. New
+  `pinFirstColumn` keeps a name column in view while numbers scroll.
+- **One focus style per kind of control.** `focusRingClasses` (a 2px
+  ring-colour outline, 2px out, solid, following the radius) is now on every
+  button, toggle, tab, link, row and scroll region; it replaces a mix of 3px
+  halos at 20% opacity, inset shadows and bare outlines that read differently
+  from one component to the next and in places did not reach 3:1. Fields
+  keep the 0.12.4 border-plus-inset ring (`fieldFocusClasses`); menu, select,
+  command, tree and history rows keep their fill. `noOutlineClasses`
+  suppresses an outline with `!important` (a host page's unlayered
+  `:focus-visible` rule cannot draw a second box) and restores a system
+  outline in forced-colors mode, where no ring colour survives. The old
+  `outline-hidden!` drew a transparent outline that high-contrast mode showed
+  as a rest ring on every field; it is gone.
+- **44px on touch screens for every control.** Button carries its own
+  `pointer-coarse:min-h-11 min-w-11` (a trigger's `asChild` replaces
+  `data-slot`, so the theme rule missed DialogTrigger, DropdownMenuTrigger,
+  TooltipTrigger and Collapsible buttons); link-styled buttons stay inline
+  and `pointer-coarse:min-h-8` opts a dense one out. Checkbox, RadioGroupItem
+  and Switch keep their size and grow an invisible 44px hit area
+  (`touchTargetClasses`); tabs and menubar triggers grow to 44px tall
+  (`touchTargetRowClasses`); menu, select and command rows, tree and chat
+  history rows, tool-call headers, table rows at the default density, a
+  Label around a toggle, ToastClose and ToastAction, the Composer textarea,
+  the chat history search, the audio waveform, message attachment chips,
+  a Badge used as a link, and the Dialog and Sheet close buttons are all 44px
+  to a touch. The theme's touch rule moved into `@layer base` with
+  `:where()` so any utility beats it.
+- **Contrast, measured.** The `input` token (the field border, and now the
+  unchecked box, dot and off track of Checkbox, RadioGroup and Switch) is a
+  3:1 tone on every surface in both palettes (`#908a95` light, `#68646e`
+  dark; it was 1.45:1 and 1.5:1, a hairline). Checked toggles in dark mode
+  fill with brand, the ring colour at 4.5:1 on the page, instead of primary
+  at 2.8:1. Status badge text is the tone mixed a quarter toward the
+  foreground: 6:1 on its tint (was 4.3 to 4.5:1), and inside a terminal Card
+  it lightens instead. Placeholders are the full muted foreground (was 80%).
+  The Skeleton, Progress rail and Slider rest track are a shade stronger. A
+  terminal Card re-points `--foreground`, `--muted-foreground`, `--muted` and
+  `--border` at the code palette so text, ghost buttons and rules inside it
+  read. Every text pair on the matrix now measures at least 4.5:1 and every
+  field and toggle boundary at least 3:1, for all five accents.
+- **Elevation, motion and layering tokens.** `shadow.lg` (floating:
+  popovers, menus, toasts, the navigation viewport) and `shadow.xl` (modal:
+  dialogs, sheets) replace hard-coded shadows; `elevation` gains levels 4 and
+  5, and the MUI adapter maps its 25 elevations onto the five. `layer`
+  documents the z-index scale: raised 10, chrome 40, overlay 50, toast 100.
+  Every `transition-*` utility runs on `--duration-fast` and
+  `--ease-standard` unless it says otherwise, and the enter and exit
+  animations are built from the `duration` and `easing` tokens (new
+  `easing.drawer` for sheets), so one edit retimes everything.
+- **API consistency.** `forwardRef` on every component whose root is a DOM
+  element, 50 of them newly (DataTable, Tour, Resizable and the Toaster keep
+  their shapes), `data-slot` on every part, `data-variant` and `data-size` on Button,
+  `data-variant` on Badge, Alert, Card and Toast, `data-status` on Status.
+  Combobox and Slider work uncontrolled (`defaultValue`); Combobox takes
+  `aria-required` and `width` and forwards its ref to the trigger;
+  SelectTrigger takes `width`; Toaster reads an empty server snapshot;
+  StatusDot and Status accept `destructive` (`danger` still works);
+  ConnectionStatus reports failures as `destructive`. `useMediaQuery`,
+  `useNarrowerThan` and `breakpoints` are exported (false on the server, so
+  the desktop layout is the fallback) and DataTable uses them. Menu, select
+  and command group headings share `menuLabelClasses` (11px, 0.06em). Sheet
+  headers keep clear of the close button; Dialog, AlertDialog and Sheet share
+  `overlayClasses`. Button's disabled opacity is 50%, like everything else.
+- **Field recipe.** `<Field label description error hint optional required>`
+  wires the control's `id`, `aria-describedby` (error first), `aria-invalid`
+  and `aria-required` for you, including a kit Select's trigger; `group`
+  names a set of inputs instead; `span` crosses a `FieldGrid`. `FieldGrid`
+  (1 to 4 columns from 640px) puts each field on a three-row subgrid so
+  controls in a row share a top edge when a label wraps or one field has
+  help; `FieldSet` groups fields under a legend with a rule between sets;
+  `useField()` reaches the wiring from a custom control. The composed form
+  (`FieldLabel`, `FieldHint`, `FieldDescription`, `FieldError`) is unchanged.
+- **New, from RWT load-intake.** Input `width` (`xs` 96px, `sm` 144, `md`
+  192, `lg` max 384, `full`; every width is full on phones) and
+  `SearchInput`; `NumberInput` (unit inside the field, right-aligned tabular
+  figures, numeric keyboard, the box carries border, focus and invalid
+  state); `NativeSelect` (the platform picker, drawn like the kit's fields);
+  `CheckboxRow`, `RadioCard`, `SwitchRow`, `SwitchList` and `InlineSwitch`;
+  `ErrorSummary` (focus moves to it, each entry focuses its field);
+  `FormActions` (right-aligned, one shared row on phones, `sticky`);
+  `StatStrip` (two to four figures in one card). `fieldWidthClasses` is
+  exported for custom fields.
+- **Table.** `pinFirstColumn`, `overflowHint`, a fade on the scrolling side,
+  the focus outline drawn inside the box (the frame around it clipped an
+  offset one), 44px rows at the default density on touch screens.
+- **Docs.** Every component page has When to use, Don't, and Accessibility
+  and behaviour notes (`site/src/usage.ts`); four new pages; the pager no
+  longer widens phone pages; Inter is bundled with the site; the CSP allows
+  the audio demos' blob URLs. `/matrix` renders every component in every
+  state for review.
+- **CI.** A Playwright smoke (`npm run smoke`, Chromium at 1440 with a mouse
+  and 390 as a phone, animations off) checks every control's touch target,
+  that every control shows keyboard focus, DataTable cards and paging, the
+  mobile Dialog and Sheet, Select, Combobox and ⌘K from the keyboard, and
+  that no docs or matrix page scrolls sideways. It found fourteen things
+  before this release; all are fixed above.
+- **Icons.** Peer range `@burtson-labs/icons >=0.5.0`; the MUI page shows
+  the per-icon MUI entries (`@burtson-labs/icons/mui/<name>`).
+
 ## 0.14.0
 
 Radix Primitives and cmdk are now local TypeScript source in the package

@@ -7,3 +7,5 @@ site/public/r/
 *.tsbuildinfo
 
 .verify/
+playwright-report/
+test-results/

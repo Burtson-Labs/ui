@@ -60,13 +60,23 @@ function inline(text: string, key: string): React.ReactNode[] {
 }
 
 /** A fenced code block with a language label and a copy button. */
-function CodeBlock({ code, lang, className }: { code: string; lang?: string; className?: string }) {
+export interface CodeBlockProps {
+  code: string;
+  lang?: string;
+  className?: string;
+}
+
+const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(function CodeBlock(
+  { code, lang, className },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="code-block"
       className={cn('overflow-hidden rounded-md border bg-code text-code-foreground', className)}
     >
-      <div className="flex h-8 items-center justify-between border-b border-white/10 px-3 text-[11px] text-code-foreground/60">
+      <div className="flex min-h-8 items-center justify-between border-b border-white/10 px-3 text-[11px] text-code-foreground/70">
         <span className="font-mono">{lang || 'text'}</span>
         <CopyButton
           value={code}
@@ -79,7 +89,7 @@ function CodeBlock({ code, lang, className }: { code: string; lang?: string; cla
       </pre>
     </div>
   );
-}
+});
 
 type Block =
   | { type: 'p'; text: string }
@@ -145,10 +155,14 @@ export interface MarkdownProps extends Omit<React.ComponentProps<'div'>, 'childr
 }
 
 /** Renders a Markdown string safely, for assistant messages. */
-function Markdown({ children, className, ...props }: MarkdownProps) {
+const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(function Markdown(
+  { children, className, ...props },
+  ref,
+) {
   const blocks = React.useMemo(() => parseMarkdown(children), [children]);
   return (
     <div
+      ref={ref}
       data-slot="markdown"
       className={cn('grid gap-3 text-sm leading-6 [&_li]:leading-6', className)}
       {...props}
@@ -195,6 +209,6 @@ function Markdown({ children, className, ...props }: MarkdownProps) {
       })}
     </div>
   );
-}
+});
 
 export { CodeBlock, Markdown };

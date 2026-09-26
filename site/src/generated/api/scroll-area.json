@@ -5,7 +5,7 @@
     {
       "name": "ScrollArea",
       "kind": "component",
-      "description": "",
+      "description": "The viewport joins the tab order; its focus outline is drawn inside the box, so nothing clips it.",
       "signatures": [],
       "type": null,
       "props": [

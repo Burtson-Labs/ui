@@ -5,9 +5,46 @@
     {
       "name": "CodeBlock",
       "kind": "component",
-      "description": "A fenced code block with a language label and a copy button.",
+      "description": "",
       "signatures": [],
       "type": null,
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "lang",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": [
+        "62313f065a13fa53",
+        "de37aa9732c114a0"
+      ]
+    },
+    {
+      "name": "CodeBlockProps",
+      "kind": "type",
+      "description": "A fenced code block with a language label and a copy button.",
+      "signatures": [],
+      "type": "CodeBlockProps",
       "props": [
         {
           "name": "className",

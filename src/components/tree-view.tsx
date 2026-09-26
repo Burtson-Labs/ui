@@ -1,7 +1,7 @@
 import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 
 import { Spinner } from './spinner';
 
@@ -111,26 +111,29 @@ const isTypingTarget = (target: EventTarget | null) =>
  * render flat (role="treeitem" with aria-level), one tab stop for the tree,
  * arrows to move, Right/Left to open and close, Home/End, typeahead.
  */
-function TreeView({
-  nodes,
-  expanded,
-  onExpandedChange,
-  selected,
-  onSelectedChange,
-  selectionMode = 'single',
-  selectionFollowsFocus = false,
-  onAction,
-  actionOnClick = false,
-  expandOnClick,
-  indentGuides = false,
-  onLoadChildren,
-  renderLabel,
-  density = 'default',
-  empty,
-  onRowContextMenu,
-  className,
-  ...props
-}: TreeViewProps) {
+const TreeView = React.forwardRef<HTMLDivElement, TreeViewProps>(function TreeView(
+  {
+    nodes,
+    expanded,
+    onExpandedChange,
+    selected,
+    onSelectedChange,
+    selectionMode = 'single',
+    selectionFollowsFocus = false,
+    onAction,
+    actionOnClick = false,
+    expandOnClick,
+    indentGuides = false,
+    onLoadChildren,
+    renderLabel,
+    density = 'default',
+    empty,
+    onRowContextMenu,
+    className,
+    ...props
+  },
+  ref,
+) {
   const expandedSet = React.useMemo(() => new Set(expanded), [expanded]);
   const selectedSet = React.useMemo(() => new Set(selected), [selected]);
   const rows = React.useMemo(() => flattenTree(nodes, expandedSet), [nodes, expandedSet]);
@@ -303,7 +306,11 @@ function TreeView({
 
   return (
     <div
-      ref={treeRef}
+      ref={(node) => {
+        treeRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      }}
       role="tree"
       tabIndex={-1}
       data-slot="tree-view"
@@ -351,9 +358,10 @@ function TreeView({
               data-state={isSelected ? 'selected' : undefined}
               style={{ paddingInlineStart: `${(row.level - 1) * 12 + 4}px` }}
               className={cn(
-                'relative flex h-7 shrink-0 cursor-default items-center gap-1 rounded-sm pe-2 outline-none group-data-[density=compact]/tree:h-6',
+                'relative flex h-7 shrink-0 cursor-default items-center gap-1 rounded-sm pe-2 group-data-[density=compact]/tree:h-6 pointer-coarse:h-11',
                 'hover:bg-muted/70 data-[state=selected]:bg-brand-soft/70 data-[state=selected]:text-foreground',
-                'focus-visible:shadow-[inset_0_0_0_1px_var(--ring)] aria-disabled:opacity-50',
+                focusRingClasses,
+                'focus-visible:outline-offset-[-2px] aria-disabled:opacity-50',
                 node.className,
               )}
               onFocus={() => setFocusedId(node.id)}
@@ -433,6 +441,6 @@ function TreeView({
       })}
     </div>
   );
-}
+});
 
 export { TreeView };

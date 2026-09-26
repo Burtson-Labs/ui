@@ -5,9 +5,18 @@
     {
       "name": "menuItemClasses",
       "kind": "value",
-      "description": "A menu row: 32px, 8px radius (the surface's 12px less its 4px padding); the\nfocused row is a quiet secondary fill (muted is too close to the raised\nsurface in dark mode to read). The outline is suppressed\nwith !important so a host page's global focus outline cannot box the row.",
+      "description": "A menu row: 32px (44px on touch screens), 8px radius (the surface's 12px\nless its 4px padding); the focused row is a quiet secondary fill (muted is\ntoo close to the raised surface in dark mode to read). The outline is\nsuppressed with !important so a host page's global focus outline cannot box\nthe row; forced-colors mode gets a system outline instead.",
       "signatures": [],
-      "type": "\"relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-hidden! select-none focus:bg-secondary focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground\"",
+      "type": "\"relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 text-[13px] outline-none! forced-colors:focus-visible:[outline:2px_solid_Highlight]! forced-colors:focus-visible:outline-offset-2 select-none focus:bg-secondary focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 pointer-coarse:min-h-11 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground\"",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "menuLabelClasses",
+      "kind": "value",
+      "description": "The small uppercase heading over a group of rows, shared by menus and Select.",
+      "signatures": [],
+      "type": "\"px-2 pt-2 pb-1 text-[11px] font-semibold tracking-[0.06em] text-muted-foreground uppercase\"",
       "props": [],
       "inherited": []
     },
@@ -1131,9 +1140,9 @@
     {
       "name": "surfaceClasses",
       "kind": "value",
-      "description": "The floating surface shared by popovers, menus and select lists: raised,\nwith a strong border, and the one place a heavy shadow is allowed.",
+      "description": "The floating surface shared by popovers, menus and select lists: raised,\nwith a strong border, 12px radius and the floating shadow (elevation 4).",
       "signatures": [],
-      "type": "\"z-50 animate-in rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-[0_16px_48px_rgb(0_0_0_/_0.18)] data-[state=closed]:animate-out data-[side=bottom]:[--bl-ty:-6px] data-[side=top]:[--bl-ty:6px] data-[side=left]:[--bl-tx:6px] data-[side=right]:[--bl-tx:-6px]\"",
+      "type": "\"z-50 animate-in rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-lg data-[state=closed]:animate-out data-[side=bottom]:[--bl-ty:-6px] data-[side=top]:[--bl-ty:6px] data-[side=left]:[--bl-tx:6px] data-[side=right]:[--bl-tx:-6px]\"",
       "props": [],
       "inherited": []
     }

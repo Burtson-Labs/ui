@@ -55,9 +55,21 @@ export function burtsonPalette(config: BurtsonThemeConfig = {}): Palette {
 }
 
 function shadows(): Shadows {
-  // MUI indexes elevation 0–24; the Burtson scale has three real levels.
-  const levels = ['none', shadow.xs, shadow.xs, shadow.sm, shadow.sm, shadow.sm];
-  return Array.from({ length: 25 }, (_, i) => levels[i] ?? shadow.md) as Shadows;
+  // MUI indexes elevation 0–24; the Burtson scale has five real levels:
+  // resting, card, raised, floating (8+: menus, popovers) and modal (24).
+  const levels = [
+    'none',
+    shadow.xs,
+    shadow.xs,
+    shadow.sm,
+    shadow.sm,
+    shadow.sm,
+    shadow.md,
+    shadow.md,
+  ];
+  return Array.from({ length: 25 }, (_, i) =>
+    i === 24 ? shadow.xl : (levels[i] ?? shadow.lg),
+  ) as Shadows;
 }
 
 /** Theme options only, for apps that deep-merge their own overrides first. */
@@ -170,7 +182,7 @@ export function burtsonThemeOptions(
       },
       MuiDialog: {
         styleOverrides: {
-          paper: { borderRadius: radius.xl, border: `1px solid ${p.border}`, boxShadow: shadow.md },
+          paper: { borderRadius: radius.xl, border: `1px solid ${p.border}`, boxShadow: shadow.xl },
         },
       },
       MuiMenu: {
@@ -178,13 +190,15 @@ export function burtsonThemeOptions(
           paper: {
             borderRadius: radius.lg,
             border: `1px solid ${p['border-strong']}`,
-            boxShadow: shadow.md,
+            boxShadow: shadow.lg,
           },
           list: { paddingTop: 4, paddingBottom: 4 },
         },
       },
       MuiPopover: {
-        styleOverrides: { paper: { borderRadius: radius.lg, border: `1px solid ${p.border}` } },
+        styleOverrides: {
+          paper: { borderRadius: radius.lg, border: `1px solid ${p.border}`, boxShadow: shadow.lg },
+        },
       },
       MuiChip: {
         defaultProps: { size: 'small' },
@@ -238,7 +252,11 @@ export function burtsonThemeOptions(
       },
       MuiAutocomplete: {
         styleOverrides: {
-          paper: { borderRadius: radius.lg, border: `1px solid ${p['border-strong']}` },
+          paper: {
+            borderRadius: radius.lg,
+            border: `1px solid ${p['border-strong']}`,
+            boxShadow: shadow.lg,
+          },
           listbox: {
             padding: 4,
             '& .MuiAutocomplete-option': {
@@ -265,9 +283,31 @@ export function burtsonThemeOptions(
       MuiSwitch: {
         styleOverrides: {
           switchBase: {
-            '&.Mui-checked + .MuiSwitch-track': { backgroundColor: p.brand, opacity: 1 },
+            '&.Mui-checked + .MuiSwitch-track': {
+              backgroundColor: mode === 'dark' ? p.brand : p.primary,
+              opacity: 1,
+            },
           },
-          track: { backgroundColor: p['border-strong'], opacity: 1 },
+          // The off track is the field border tone: 3:1 on the page.
+          track: { backgroundColor: p.input, opacity: 1 },
+        },
+      },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            color: p.input,
+            '&.Mui-checked, &.MuiCheckbox-indeterminate': {
+              color: mode === 'dark' ? p.brand : p.primary,
+            },
+          },
+        },
+      },
+      MuiRadio: {
+        styleOverrides: {
+          root: {
+            color: p.input,
+            '&.Mui-checked': { color: mode === 'dark' ? p.brand : p.primary },
+          },
         },
       },
       MuiList: { defaultProps: { dense: compact } },

@@ -1,7 +1,7 @@
 import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses, touchTargetClasses } from '../lib/utils';
 import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
 import * as Slot from '../primitives/vendor/radix/react-slot';
 
@@ -335,7 +335,11 @@ function Tour({
                 type="button"
                 aria-label={labels.close}
                 onClick={() => onEnd('close', step)}
-                className="-me-1 -mt-1 flex size-7 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:shadow-[inset_0_0_0_1px_var(--ring)]"
+                className={cn(
+                  '-me-1 -mt-1 flex size-7 shrink-0 items-center justify-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground',
+                  focusRingClasses,
+                  touchTargetClasses,
+                )}
               >
                 <X aria-hidden className="size-4" />
               </button>

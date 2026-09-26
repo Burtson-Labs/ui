@@ -63,99 +63,108 @@ export interface AttachmentItemProps extends Omit<React.ComponentProps<'div'>, '
  * One attached file: name, size, state, progress, and remove/retry. State
  * changes are announced politely; a failure says why.
  */
-function AttachmentItem({
-  name,
-  size,
-  state = 'ready',
-  progress,
-  error,
-  preview,
-  icon,
-  onRemove,
-  onRetry,
-  layout = 'chip',
-  className,
-  ...props
-}: AttachmentItemProps) {
-  const inTray = React.useContext(InTray);
-  const busy = state === 'uploading' || state === 'parsing';
-  const failed = state === 'failed';
-  const meta = [size !== undefined ? formatBytes(size) : null, stateText[state]]
-    .filter(Boolean)
-    .join(' · ');
-  return (
-    <div
-      data-slot="attachment-item"
-      data-state={state}
-      data-layout={layout}
-      role={inTray ? 'listitem' : undefined}
-      aria-busy={busy || undefined}
-      className={cn(
-        'group/attachment relative flex min-w-0 items-center gap-2.5 rounded-md border bg-surface text-sm',
-        layout === 'chip' ? 'w-60 max-w-full shrink-0 p-1.5 pr-1' : 'w-full p-2.5',
-        failed && 'border-destructive/40 bg-destructive/5',
-        className,
-      )}
-      {...props}
-    >
+const AttachmentItem = React.forwardRef<HTMLDivElement, AttachmentItemProps>(
+  function AttachmentItem(
+    {
+      name,
+      size,
+      state = 'ready',
+      progress,
+      error,
+      preview,
+      icon,
+      onRemove,
+      onRetry,
+      layout = 'chip',
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    const inTray = React.useContext(InTray);
+    const busy = state === 'uploading' || state === 'parsing';
+    const failed = state === 'failed';
+    const meta = [size !== undefined ? formatBytes(size) : null, stateText[state]]
+      .filter(Boolean)
+      .join(' · ');
+    return (
       <div
+        ref={ref}
+        data-slot="attachment-item"
+        data-state={state}
+        data-layout={layout}
+        role={inTray ? 'listitem' : undefined}
+        aria-busy={busy || undefined}
         className={cn(
-          'grid shrink-0 place-items-center overflow-hidden rounded-sm bg-muted text-muted-foreground [&_svg]:size-4',
-          layout === 'chip' ? 'size-9' : 'size-10',
+          'group/attachment relative flex min-w-0 items-center gap-2.5 rounded-md border bg-surface text-sm',
+          layout === 'chip' ? 'w-60 max-w-full shrink-0 p-1.5 pr-1' : 'w-full p-2.5',
+          failed && 'border-destructive/40 bg-destructive/5',
+          className,
         )}
+        {...props}
       >
-        {preview ? (
-          <img src={preview} alt="" className="size-full object-cover" />
-        ) : failed ? (
-          <AlertCircle className="text-destructive" aria-hidden />
-        ) : busy ? (
-          <Spinner className="size-4" role="presentation" aria-hidden />
-        ) : (
-          (icon ?? <FileText aria-hidden />)
+        <div
+          className={cn(
+            'grid shrink-0 place-items-center overflow-hidden rounded-sm bg-muted text-muted-foreground [&_svg]:size-4',
+            layout === 'chip' ? 'size-9' : 'size-10',
+          )}
+        >
+          {preview ? (
+            <img src={preview} alt="" className="size-full object-cover" />
+          ) : failed ? (
+            <AlertCircle className="text-destructive" aria-hidden />
+          ) : busy ? (
+            <Spinner className="size-4" role="presentation" aria-hidden />
+          ) : (
+            (icon ?? <FileText aria-hidden />)
+          )}
+        </div>
+        <div className="grid min-w-0 flex-1 gap-1">
+          <span className="truncate font-medium text-foreground" title={name}>
+            {name}
+          </span>
+          <span
+            aria-live="polite"
+            className={cn(
+              'truncate text-xs',
+              failed ? 'text-destructive' : 'text-muted-foreground',
+            )}
+          >
+            <span className="sr-only">{name}: </span>
+            {failed && error ? error : meta}
+          </span>
+          {busy && (
+            <Progress value={progress} aria-label={`${stateText[state]} ${name}`} className="h-1" />
+          )}
+        </div>
+        {failed && onRetry && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Retry ${name}`}
+            title="Retry"
+            onClick={onRetry}
+          >
+            <RotateCw />
+          </Button>
+        )}
+        {onRemove && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`Remove ${name}`}
+            title="Remove"
+            onClick={onRemove}
+          >
+            <X />
+          </Button>
         )}
       </div>
-      <div className="grid min-w-0 flex-1 gap-1">
-        <span className="truncate font-medium text-foreground" title={name}>
-          {name}
-        </span>
-        <span
-          aria-live="polite"
-          className={cn('truncate text-xs', failed ? 'text-destructive' : 'text-muted-foreground')}
-        >
-          <span className="sr-only">{name}: </span>
-          {failed && error ? error : meta}
-        </span>
-        {busy && (
-          <Progress value={progress} aria-label={`${stateText[state]} ${name}`} className="h-1" />
-        )}
-      </div>
-      {failed && onRetry && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`Retry ${name}`}
-          title="Retry"
-          onClick={onRetry}
-        >
-          <RotateCw />
-        </Button>
-      )}
-      {onRemove && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`Remove ${name}`}
-          title="Remove"
-          onClick={onRemove}
-        >
-          <X />
-        </Button>
-      )}
-    </div>
-  );
-}
+    );
+  },
+);
 
 export interface AttachmentTrayProps extends React.ComponentProps<'div'> {
   /** Accessible name for the list. */
@@ -163,26 +172,24 @@ export interface AttachmentTrayProps extends React.ComponentProps<'div'> {
 }
 
 /** Attachments waiting to send, in a row that scrolls sideways when full. */
-function AttachmentTray({
-  label = 'Attachments',
-  className,
-  children,
-  ...props
-}: AttachmentTrayProps) {
-  return (
-    <InTray.Provider value={true}>
-      <div
-        data-slot="attachment-tray"
-        role="list"
-        aria-label={label}
-        className={cn('flex max-w-full gap-1.5 overflow-x-auto pb-0.5', className)}
-        {...props}
-      >
-        {children}
-      </div>
-    </InTray.Provider>
-  );
-}
+const AttachmentTray = React.forwardRef<HTMLDivElement, AttachmentTrayProps>(
+  function AttachmentTray({ label = 'Attachments', className, children, ...props }, ref) {
+    return (
+      <InTray.Provider value={true}>
+        <div
+          ref={ref}
+          data-slot="attachment-tray"
+          role="list"
+          aria-label={label}
+          className={cn('flex max-w-full gap-1.5 overflow-x-auto pb-0.5', className)}
+          {...props}
+        >
+          {children}
+        </div>
+      </InTray.Provider>
+    );
+  },
+);
 
 export interface UploadQueueFile {
   id: string;
@@ -203,15 +210,10 @@ export interface UploadQueueProps extends Omit<React.ComponentProps<'section'>, 
 }
 
 /** A list of uploads with a summary: "2 of 4 ready, 1 failed". */
-function UploadQueue({
-  files,
-  title = 'Uploads',
-  onRemove,
-  onRetry,
-  empty,
-  className,
-  ...props
-}: UploadQueueProps) {
+const UploadQueue = React.forwardRef<HTMLElement, UploadQueueProps>(function UploadQueue(
+  { files, title = 'Uploads', onRemove, onRetry, empty, className, ...props },
+  ref,
+) {
   const headingId = React.useId();
   const ready = files.filter((f) => f.state === 'ready').length;
   const failed = files.filter((f) => f.state === 'failed').length;
@@ -220,6 +222,7 @@ function UploadQueue({
     : '';
   return (
     <section
+      ref={ref}
       data-slot="upload-queue"
       aria-labelledby={headingId}
       className={cn('grid gap-2', className)}
@@ -256,6 +259,6 @@ function UploadQueue({
       )}
     </section>
   );
-}
+});
 
 export { AttachmentItem, AttachmentTray, UploadQueue };

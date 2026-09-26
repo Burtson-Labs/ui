@@ -10,6 +10,8 @@ const statusDotVariants = cva('size-2 shrink-0 rounded-full ring-2 ring-current/
       brand: 'bg-brand text-brand',
       success: 'bg-success text-success',
       warning: 'bg-warning text-warning',
+      destructive: 'bg-destructive text-destructive',
+      /** 0.x name for `destructive`; kept so existing apps keep compiling. */
       danger: 'bg-destructive text-destructive',
       info: 'bg-info text-info',
     },
@@ -17,15 +19,23 @@ const statusDotVariants = cva('size-2 shrink-0 rounded-full ring-2 ring-current/
   defaultVariants: { status: 'neutral' },
 });
 
-function StatusDot({
-  className,
-  status,
-  pulse = false,
-  ...props
-}: React.ComponentProps<'span'> & VariantProps<typeof statusDotVariants> & { pulse?: boolean }) {
+export type StatusTone = NonNullable<VariantProps<typeof statusDotVariants>['status']>;
+
+export interface StatusDotProps
+  extends React.ComponentProps<'span'>, VariantProps<typeof statusDotVariants> {
+  /** A ripple for a live state (running, connecting). Still under reduced motion. */
+  pulse?: boolean;
+}
+
+const StatusDot = React.forwardRef<HTMLSpanElement, StatusDotProps>(function StatusDot(
+  { className, status, pulse = false, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="status-dot"
+      data-status={status ?? 'neutral'}
       className={cn('relative inline-flex', className)}
       aria-hidden="true"
       {...props}
@@ -41,18 +51,17 @@ function StatusDot({
       <span className={statusDotVariants({ status })} />
     </span>
   );
-}
+});
 
-function Status({
-  className,
-  status,
-  pulse,
-  children,
-  ...props
-}: React.ComponentProps<'span'> & VariantProps<typeof statusDotVariants> & { pulse?: boolean }) {
+const Status = React.forwardRef<HTMLSpanElement, StatusDotProps>(function Status(
+  { className, status, pulse, children, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="status"
+      data-status={status ?? 'neutral'}
       className={cn(
         'inline-flex items-center gap-2 text-xs font-medium text-muted-foreground',
         className,
@@ -63,6 +72,6 @@ function Status({
       {children}
     </span>
   );
-}
+});
 
 export { Status, StatusDot, statusDotVariants };

@@ -7,16 +7,20 @@ function Collapsible(props: React.ComponentProps<typeof CollapsiblePrimitive.Roo
   return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />;
 }
 
-function CollapsibleTrigger(props: React.ComponentProps<typeof CollapsiblePrimitive.Trigger>) {
-  return <CollapsiblePrimitive.Trigger data-slot="collapsible-trigger" {...props} />;
-}
+const CollapsibleTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof CollapsiblePrimitive.Trigger>
+>(function CollapsibleTrigger(props, ref) {
+  return <CollapsiblePrimitive.Trigger ref={ref} data-slot="collapsible-trigger" {...props} />;
+});
 
-function CollapsibleContent({
-  className,
-  ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.Content>) {
+const CollapsibleContent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof CollapsiblePrimitive.Content>
+>(function CollapsibleContent({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Content
+      ref={ref}
       data-slot="collapsible-content"
       className={cn(
         'overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down',
@@ -25,6 +29,6 @@ function CollapsibleContent({
       {...props}
     />
   );
-}
+});
 
 export { Collapsible, CollapsibleContent, CollapsibleTrigger };

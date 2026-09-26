@@ -5,7 +5,7 @@
     {
       "name": "Button",
       "kind": "component",
-      "description": "",
+      "description": "The action primitive. On touch screens every button is at least 44px\n(`pointer-coarse:min-h-8` opts a button in a dense header out); link-styled\nbuttons stay inline. `data-variant` and `data-size` are set for CSS that\nneeds them. A trigger's `asChild` replaces `data-slot` with its own\n(`dialog-trigger`), which is why the sizing lives in the classes.",
       "signatures": [],
       "type": null,
       "props": [
@@ -27,7 +27,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -35,7 +35,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -360,7 +360,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -368,7 +368,7 @@
         },
         {
           "name": "variant",
-          "type": "\"link\" | \"default\" | \"brand\" | \"destructive\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
+          "type": "\"link\" | \"destructive\" | \"default\" | \"brand\" | \"secondary\" | \"outline\" | \"soft\" | \"ghost\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",

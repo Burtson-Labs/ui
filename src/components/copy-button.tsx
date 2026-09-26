@@ -19,15 +19,18 @@ export interface CopyButtonProps extends Omit<IconButtonProps, 'label' | 'childr
  * browser blocks the clipboard it raises a toast (needs a mounted Toaster)
  * asking the person to copy by hand.
  */
-function CopyButton({
-  value,
-  label = 'Copy',
-  variant = 'ghost',
-  size = 'icon-sm',
-  onCopySuccess,
-  onCopyError,
-  ...props
-}: CopyButtonProps) {
+const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton(
+  {
+    value,
+    label = 'Copy',
+    variant = 'ghost',
+    size = 'icon-sm',
+    onCopySuccess,
+    onCopyError,
+    ...props
+  },
+  ref,
+) {
   const [message, setMessage] = React.useState('');
   const [copied, setCopied] = React.useState(false);
   const timer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -55,6 +58,7 @@ function CopyButton({
   return (
     <>
       <IconButton
+        ref={ref}
         data-slot="copy-button"
         label={copied ? 'Copied' : label}
         variant={variant}
@@ -69,6 +73,6 @@ function CopyButton({
       </span>
     </>
   );
-}
+});
 
 export { CopyButton };

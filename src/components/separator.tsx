@@ -3,14 +3,13 @@ import * as React from 'react';
 import { cn } from '../lib/utils';
 import * as SeparatorPrimitive from '../primitives/vendor/radix/react-separator';
 
-function Separator({
-  className,
-  orientation = 'horizontal',
-  decorative = true,
-  ...props
-}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+const Separator = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof SeparatorPrimitive.Root>
+>(function Separator({ className, orientation = 'horizontal', decorative = true, ...props }, ref) {
   return (
     <SeparatorPrimitive.Root
+      ref={ref}
       data-slot="separator"
       decorative={decorative}
       orientation={orientation}
@@ -21,6 +20,6 @@ function Separator({
       {...props}
     />
   );
-}
+});
 
 export { Separator };

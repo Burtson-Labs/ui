@@ -21,5 +21,13 @@
       "@burtson-labs/ui/mui": ["./src/mui/index.ts"]
     }
   },
-  "include": ["src", "site/src", "site/vite.config.ts", "test", "vitest.config.ts"]
+  "include": [
+    "src",
+    "site/src",
+    "site/vite.config.ts",
+    "test",
+    "vitest.config.ts",
+    "e2e",
+    "playwright.config.ts"
+  ]
 }

@@ -57,8 +57,9 @@ const utils = {
   $schema: SCHEMA_ITEM,
   name: 'utils',
   type: 'registry:lib',
-  title: 'cn()',
-  description: 'Class-name helper: clsx plus tailwind-merge.',
+  title: 'cn() and shared classes',
+  description:
+    'Class-name helper (clsx plus tailwind-merge) and the shared focus and touch-target classes.',
   dependencies: [version('clsx'), version('tailwind-merge')],
   registryDependencies: [url('theme')],
   files: [
@@ -67,6 +68,24 @@ const utils = {
       type: 'registry:lib',
       target: 'lib/utils.ts',
       content: sourceNotice(ROOT) + readFileSync(join(ROOT, 'src/lib/utils.ts'), 'utf8'),
+    },
+  ],
+};
+
+const media = {
+  $schema: SCHEMA_ITEM,
+  name: 'media',
+  type: 'registry:lib',
+  title: 'useMediaQuery()',
+  description: 'Breakpoints and a media-query hook that is safe on the server.',
+  dependencies: [],
+  registryDependencies: [],
+  files: [
+    {
+      path: 'lib/media.ts',
+      type: 'registry:lib',
+      target: 'lib/media.ts',
+      content: sourceNotice(ROOT) + readFileSync(join(ROOT, 'src/lib/media.ts'), 'utf8'),
     },
   ],
 };
@@ -89,10 +108,11 @@ const components = names.map((name) => {
   if (source.includes('class-variance-authority'))
     dependencies.push(version('class-variance-authority'));
   if (source.includes('@burtson-labs/icons')) dependencies.push(version('@burtson-labs/icons'));
+  const libs = [...source.matchAll(/from '\.\.\/lib\/([a-z-]+)'/g)].map((m) => m[1]);
   const content =
     sourceNotice(ROOT) +
     source
-      .replaceAll("from '../lib/utils'", "from '@/lib/utils'")
+      .replace(/from '\.\.\/lib\/([a-z-]+)'/g, "from '@/lib/$1'")
       .replace(/from '\.\.\/primitives\/vendor\/([^']+)'/g, "from '@/lib/burtson-primitives/$1'")
       .replace(/from '\.\/([a-z-]+)'/g, "from '@/components/ui/$1'");
   return {
@@ -101,7 +121,12 @@ const components = names.map((name) => {
     type: 'registry:ui',
     title: name.replace(/(^|-)([a-z])/g, (_, s, c) => (s ? ' ' : '') + c.toUpperCase()),
     dependencies,
-    registryDependencies: [url('utils'), ...siblings.map(url), ...primitives],
+    registryDependencies: [
+      url('utils'),
+      ...libs.filter((l) => l !== 'utils').map(url),
+      ...siblings.map(url),
+      ...primitives,
+    ],
     files: [
       {
         path: `components/${name}.tsx`,
@@ -113,7 +138,7 @@ const components = names.map((name) => {
   };
 });
 
-const items = [theme, utils, ...primitiveRegistryItems(ROOT, BASE), ...components];
+const items = [theme, utils, media, ...primitiveRegistryItems(ROOT, BASE), ...components];
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const item of items)

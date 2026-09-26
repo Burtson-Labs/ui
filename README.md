@@ -58,9 +58,11 @@ npx shadcn@latest add https://ui.burtson.ai/r/button.json
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/panel-grid.svg"/><img src="https://icons.burtson.ai/svg-black/panel-grid.svg" align="center" alt=""/></picture> Components
 
-Accordion · Alert · Alert Dialog · App Shell · Attachment · Audio Player · Avatar · Badge · Breadcrumb · Button · Card · Chat History · Chat Layout · Checkbox · Checkbox Card · Collapsible · Combobox · Command · Composer · Connection Status · Context Menu · Conversation · Copy Button · Data Table · Dialog · Dropdown Menu · Editor Tabs · Empty State · Field · Icon Button · Input · Kbd · Label · Markdown · Menubar · Message · Message Actions · Mobile Nav · Navigation Menu · Onboarding Checklist · Page Header · Pagination · Popover · Progress · Radio Group · Reasoning · Resizable · Scroll Area · Secret Input · Select · Separator · Sheet · Skeleton · Slider · Source · Spinner · Stat Card · Status · Steps · Switch · Table · Tabs · Textarea · Toast · Toaster · Tool Call · Toolbar · Tooltip · Tour · Tree View · Voice Recorder
+Accordion · Alert · Alert Dialog · App Shell · Attachment · Audio Player · Avatar · Badge · Breadcrumb · Button · Card · Chat History · Chat Layout · Checkbox · Checkbox Card · Collapsible · Combobox · Command · Composer · Connection Status · Context Menu · Conversation · Copy Button · Data Table · Dialog · Dropdown Menu · Editor Tabs · Empty State · Error Summary · Field · Form Actions · Icon Button · Input · Kbd · Label · Markdown · Menubar · Message · Message Actions · Mobile Nav · Native Select · Navigation Menu · Number Input · Onboarding Checklist · Page Header · Pagination · Popover · Progress · Radio Group · Reasoning · Resizable · Scroll Area · Secret Input · Select · Separator · Sheet · Skeleton · Slider · Source · Spinner · Stat Card · Status · Steps · Switch · Table · Tabs · Textarea · Toast · Toaster · Tool Call · Toolbar · Tooltip · Tour · Tree View · Voice Recorder
 
-Live previews and code for each one are at [ui.burtson.ai](https://ui.burtson.ai/docs/components/button). Building a chat app? The [chat recipe](https://ui.burtson.ai/docs/recipes/chat) puts history, attachments, streaming, voice notes and full screen together, with the complete source.
+Live previews, when-to-use notes, accessibility notes and code for each one are at [ui.burtson.ai](https://ui.burtson.ai/docs/components/button). Building a chat app? The [chat recipe](https://ui.burtson.ai/docs/recipes/chat) puts history, attachments, streaming, voice notes and full screen together, with the complete source. Building a form? `Field` wires label, help and error onto any control, `FieldGrid` lines fields up and `FormActions` places the buttons, on phones too.
+
+Every control is at least 44px on touch screens, shows one focus style per kind of control (`focusRingClasses`, `fieldFocusClasses`) and meets 4.5:1 for text and 3:1 for boundaries in both palettes and any accent; a Playwright smoke in CI measures it.
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/palette.svg"/><img src="https://icons.burtson.ai/svg-black/palette.svg" align="center" alt=""/></picture> Theming
 
@@ -80,7 +82,7 @@ import { createBurtsonTheme } from '@burtson-labs/ui/mui';
 createBurtsonTheme({ mode: 'dark', accent: '#2563eb', density: 'compact' });
 ```
 
-`@burtson-labs/ui/tokens` also exports `accentTokens(accent, mode)` for the CSS side, and the motion timing (`duration`, `easing`) and `elevation` levels that `theme.css` exposes as `--duration-*` and `--ease-*`.
+`@burtson-labs/ui/tokens` also exports `accentTokens(accent, mode)` for the CSS side, the motion timing (`duration`, `easing`) that `theme.css` exposes as `--duration-*` and `--ease-*` and every `transition-*` utility runs on, the `elevation` levels (`shadow.lg` for floating surfaces, `shadow.xl` for modal ones) and the `layer` z-index scale (raised 10, chrome 40, overlay 50, toast 100).
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/terminal.svg"/><img src="https://icons.burtson.ai/svg-black/terminal.svg" align="center" alt=""/></picture> Develop
 
@@ -88,17 +90,19 @@ createBurtsonTheme({ mode: 'dark', accent: '#2563eb', density: 'compact' });
 npm install
 npm run dev        # docs site with live components, http://localhost:5173
 npm run check      # typecheck, lint, format, tests, package build, site build
+npm run smoke      # Playwright: touch targets, focus, overflow, keyboard (needs npm run site)
 ```
 
-| Path              | What                                                                             |
-| ----------------- | -------------------------------------------------------------------------------- |
-| `src/components/` | One file per component; also the registry source                                 |
-| `src/tokens.ts`   | Design tokens (edit here, then `npm run theme`)                                  |
-| `src/mui/`        | MUI theme adapter                                                                |
-| `site/`           | Docs site for [ui.burtson.ai](https://ui.burtson.ai); demos in `site/src/demos/` |
-| `scripts/`        | Package build, theme and registry generators, link-preview card                  |
+| Path              | What                                                                                                                                                             |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/` | One file per component; also the registry source                                                                                                                 |
+| `src/tokens.ts`   | Design tokens (edit here, then `npm run theme`)                                                                                                                  |
+| `src/mui/`        | MUI theme adapter                                                                                                                                                |
+| `site/`           | Docs site for [ui.burtson.ai](https://ui.burtson.ai); demos in `site/src/demos/`, notes in `site/src/usage.ts`; `/matrix` renders every component in every state |
+| `e2e/`            | Browser smoke (Playwright, Chromium at 1440 and 390 touch)                                                                                                       |
+| `scripts/`        | Package build, theme and registry generators, link-preview card                                                                                                  |
 
-Adding a component: write `src/components/<name>.tsx`, export it from `src/index.ts`, add a demo in `site/src/demos/<name>.tsx` and an entry in `site/src/docs.ts`. The registry picks it up on the next build.
+Adding a component: write `src/components/<name>.tsx` (forwardRef, `data-slot` on every part, `focusRingClasses` or `fieldFocusClasses` for focus, 44px on touch), export it from `src/index.ts`, add a demo in `site/src/demos/<name>.tsx`, an entry in `site/src/docs.ts`, its notes in `site/src/usage.ts` and a cell in `site/src/matrix.tsx`. The registry picks it up on the next build.
 
 Linting and formatting follow [Burtson Labs frontend standards](https://github.com/Burtson-Labs/frontend-standards). Every push is audited by [Sentinel](https://github.com/Burtson-Labs/sentinel-audit).
 

@@ -2,7 +2,7 @@ import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import Lightbulb from '@burtson-labs/icons/react/lightbulb';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses } from '../lib/utils';
 import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
 
 export interface ReasoningProps extends React.ComponentProps<'div'> {
@@ -13,14 +13,10 @@ export interface ReasoningProps extends React.ComponentProps<'div'> {
 }
 
 /** A model's reasoning, collapsed to one line ("Thought for 3s") unless opened. */
-function Reasoning({
-  streaming = false,
-  durationMs,
-  defaultOpen = false,
-  children,
-  className,
-  ...props
-}: ReasoningProps) {
+const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(function Reasoning(
+  { streaming = false, durationMs, defaultOpen = false, children, className, ...props },
+  ref,
+) {
   const label = streaming
     ? 'Thinking…'
     : durationMs !== undefined
@@ -28,8 +24,13 @@ function Reasoning({
       : 'Reasoning';
   return (
     <CollapsiblePrimitive.Root defaultOpen={defaultOpen}>
-      <div data-slot="reasoning" className={cn('grid gap-1.5', className)} {...props}>
-        <CollapsiblePrimitive.Trigger className="group/reasoning inline-flex w-fit items-center gap-1.5 rounded-sm text-xs text-muted-foreground outline-none hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/20">
+      <div ref={ref} data-slot="reasoning" className={cn('grid gap-1.5', className)} {...props}>
+        <CollapsiblePrimitive.Trigger
+          className={cn(
+            'group/reasoning inline-flex w-fit items-center gap-1.5 rounded-sm text-xs text-muted-foreground hover:text-foreground pointer-coarse:min-h-11',
+            focusRingClasses,
+          )}
+        >
           <Lightbulb className={cn('size-3.5', streaming && 'animate-pulse')} aria-hidden />
           {label}
           <ChevronRight
@@ -45,16 +46,16 @@ function Reasoning({
       </div>
     </CollapsiblePrimitive.Root>
   );
-}
+});
 
 /** Three pulsing dots while a reply is on its way. Still under reduced motion. */
-function StreamingIndicator({
-  className,
-  label = 'Assistant is typing',
-  ...props
-}: React.ComponentProps<'span'> & { label?: string }) {
+const StreamingIndicator = React.forwardRef<
+  HTMLSpanElement,
+  React.ComponentProps<'span'> & { label?: string }
+>(function StreamingIndicator({ className, label = 'Assistant is typing', ...props }, ref) {
   return (
     <span
+      ref={ref}
       data-slot="streaming-indicator"
       role="status"
       aria-label={label}
@@ -70,6 +71,6 @@ function StreamingIndicator({
       ))}
     </span>
   );
-}
+});
 
 export { Reasoning, StreamingIndicator };

@@ -12,6 +12,8 @@ export default [
       'test/**/*.{ts,tsx}',
       'site/vite.config.ts',
       'vitest.config.ts',
+      'e2e/**/*.ts',
+      'playwright.config.ts',
     ],
     ignores: ['dist/**', 'site/dist/**', 'site/public/**'],
     tsconfigRootDir: import.meta.dirname,
