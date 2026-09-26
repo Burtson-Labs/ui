@@ -254,7 +254,8 @@ export function usePagination<T>(
       ? paginate(rows, page, pageSize)
       : { ...pageWindow({ page, pageSize, total: serverTotal }), rows: [...rows] };
   const summary = paginationSummary(w, locale);
-  const hasPages = w.total > Math.min(...pageSizeOptions, w.pageSize);
+  // pageSize first: Math.min() of an empty options list is Infinity.
+  const hasPages = w.total > Math.min(w.pageSize, ...pageSizeOptions);
 
   return {
     ...w,
@@ -397,7 +398,7 @@ function Pagination({
           data-slot="pagination-position"
           className="px-2 text-sm font-medium tabular-nums sm:hidden"
         >
-          {position}
+          {pageCount > 0 ? position : ''}
         </li>
         <li>
           <Button

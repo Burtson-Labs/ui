@@ -20,6 +20,11 @@ import {
   paginate,
   Pagination,
   paginationSummary,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Sheet,
   SheetContent,
   SheetTitle,
@@ -438,5 +443,129 @@ describe('CheckboxCard', () => {
     // A browser sends no clicks to it; the card's has-[:disabled] styles match.
     expect(box.matches(':disabled')).toBe(true);
     expect(box.closest('[data-slot="checkbox-card"]')?.matches(':has(:disabled)')).toBe(true);
+  });
+});
+
+// 0.13.1
+describe('select trigger heights', () => {
+  const classes = (el: Element | null) => (el?.getAttribute('class') ?? '').split(/\s+/);
+
+  it('lets a caller override the height (h-11, max-sm:h-11, pointer-coarse:h-11)', () => {
+    render(
+      <>
+        <Select>
+          <SelectTrigger aria-label="Tall" className="h-11">
+            <SelectValue placeholder="x" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="a">a</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select>
+          <SelectTrigger aria-label="Small" size="sm">
+            <SelectValue placeholder="x" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="a">a</SelectItem>
+          </SelectContent>
+        </Select>
+      </>,
+    );
+    const tall = classes(screen.getByRole('combobox', { name: 'Tall' }));
+    // tailwind-merge keeps the caller's h-11 and drops the default h-9; an
+    // attribute-selector height (data-[size=default]:h-9) would have outranked it.
+    expect(tall).toContain('h-11');
+    expect(tall.filter((k) => /(^|:)h-9$|data-\[size/.test(k))).toEqual([]);
+    const small = classes(screen.getByRole('combobox', { name: 'Small' }));
+    expect(small).toContain('h-8');
+    expect(small.filter((k) => /data-\[size/.test(k))).toEqual([]);
+    expect(screen.getByRole('combobox', { name: 'Small' }).getAttribute('data-size')).toBe('sm');
+  });
+
+  it('gives the page-size menu and the card sort menu 44px on touch screens', () => {
+    mockViewport(true);
+    try {
+      render(
+        <>
+          <Pagination
+            page={1}
+            pageCount={3}
+            onPageChange={() => undefined}
+            pageSize={25}
+            onPageSizeChange={() => undefined}
+          />
+          <Members sort={null} onSortChange={() => undefined} />
+        </>,
+      );
+      for (const name of ['Rows per page', 'Sort by']) {
+        const c = classes(screen.getByRole('combobox', { name }));
+        expect(c).toContain('pointer-coarse:h-11');
+        expect(c.filter((k) => /data-\[size/.test(k))).toEqual([]);
+      }
+    } finally {
+      delete (window as { matchMedia?: unknown }).matchMedia;
+    }
+  });
+});
+
+describe('paging edge cases', () => {
+  it('shows pages with an empty page-size list and no "Page 0 of 0"', () => {
+    const rows = Array.from({ length: 60 }, (_, i) => i + 1);
+    const { result } = renderHook(() =>
+      usePagination(rows, { pageSizeOptions: [], defaultPageSize: 25 }),
+    );
+    expect(result.current.hasPages).toBe(true);
+    const { container } = render(
+      <Pagination page={1} pageCount={0} onPageChange={() => undefined} />,
+    );
+    expect(container.querySelector('[data-slot="pagination-position"]')?.textContent).toBe('');
+    expect(screen.getByRole('status').textContent).toBe('');
+  });
+});
+
+describe('controls inside cards', () => {
+  beforeEach(() => mockViewport(true));
+  afterEach(() => {
+    delete (window as { matchMedia?: unknown }).matchMedia;
+  });
+
+  it('lifts links and controls in fields and subtitles above the open-row overlay', async () => {
+    const onRowAction = vi.fn();
+    const onLink = vi.fn((e: React.MouseEvent) => e.preventDefault());
+    const withLink: DataTableColumn<Row>[] = [
+      columns[0]!,
+      {
+        id: 'email',
+        header: 'Email',
+        card: 'subtitle',
+        cell: (r) => (
+          <a href={`mailto:${r.email}`} onClick={onLink}>
+            {r.email}
+          </a>
+        ),
+      },
+      {
+        id: 'site',
+        header: 'Site',
+        cell: (r) => (
+          <a href={`https://example.com/${r.id}`} onClick={onLink}>
+            site
+          </a>
+        ),
+      },
+    ];
+    render(<Members columns={withLink} onRowAction={onRowAction} />);
+    const mail = screen.getByRole('link', { name: 'p1@example.com' });
+    const site = screen.getAllByRole('link', { name: 'site' })[0]!;
+    // The wrappers carry the lift (jsdom has no hit-testing to prove the
+    // stacking; the browser check did).
+    expect(mail.parentElement?.parentElement?.className).toContain('[&_a]:z-10');
+    expect(site.closest('dl')?.className).toContain('[&_a]:z-10');
+    await userEvent.click(mail);
+    await userEvent.click(site);
+    expect(onLink).toHaveBeenCalledTimes(2);
+    // The links are not inside the title button (no nested interactive content).
+    expect(mail.closest('button')).toBeNull();
+    expect(site.closest('button')).toBeNull();
   });
 });

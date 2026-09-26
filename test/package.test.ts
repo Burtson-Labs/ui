@@ -165,6 +165,9 @@ describe('standalone stylesheet', () => {
     expect(css).toMatch(/\.focus-visible\\:inset-ring-1:focus-visible\{/);
     // The one-sided brand bar on the active command row is gone.
     expect(css).not.toMatch(/data-\\\[selected\\=true\\\]\\:shadow-/);
+    // 0.13.1: no attribute-selector heights on the select trigger, which at
+    // (0,2,0) beat a caller's `h-11`, `max-sm:h-11` or `pointer-coarse:h-11`.
+    expect(css).not.toMatch(/data-\\\[size\\=(?:sm|default)\\\]\\:h-/);
   });
 });
 

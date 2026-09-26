@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.13.1
+
+- **SelectTrigger height**: the size was set through a `data-size` attribute
+  variant. An attribute selector outranks a class, so a caller's `h-11`,
+  `max-sm:h-11` or `pointer-coarse:h-11` never won: the Pagination page-size
+  menu and DataTable's "Sort by" menu stayed 32px and 36px on touch screens
+  (0.13.0 said 44px), and an app's own `h-11` triggers rendered 36px. The
+  sizes are plain classes now (`h-9`, `h-8` for `sm`); `data-size` is still
+  set. (The standalone stylesheet is compiled from every file in the repo,
+  which is why this note does not spell out the old class.)
+- **DataTable cards**: a link or control inside a `subtitle` or `field` cell
+  sat under the title's open-row overlay when `onRowAction` was set, so a
+  mailto link in a card could not be tapped (the table lets clicks on a
+  control belong to the control). Such controls now sit above the overlay;
+  the rest of the field still opens the row.
+- **Pagination**: `usePagination` with an empty `pageSizeOptions` never
+  reported `hasPages` (`Math.min()` of nothing is `Infinity`); a
+  `pageCount` of 0 no longer shows "Page 0 of 0" on phones.
+
 ## 0.13.0
 
 Phone layouts for records: DataTable cards, paging with a rows-per-page menu,

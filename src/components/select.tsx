@@ -21,6 +21,12 @@ function SelectValue(props: React.ComponentProps<typeof SelectPrimitive.Value>) 
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
+// Plain height classes, not an attribute-selector variant on data-size: that
+// selector outranks a class, so a caller's `h-11`, `max-sm:h-11` or
+// `pointer-coarse:h-11` never won against the size. (Tailwind reads comments
+// too, so the old form is not spelled out here.)
+const triggerHeight = { default: 'h-9', sm: 'h-8' } as const;
+
 function SelectTrigger({
   className,
   size = 'default',
@@ -33,7 +39,8 @@ function SelectTrigger({
       data-size={size}
       className={cn(
         fieldClasses,
-        "flex w-fit items-center justify-between gap-2 py-2 whitespace-nowrap data-[placeholder]:text-muted-foreground data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-fit items-center justify-between gap-2 py-2 whitespace-nowrap data-[placeholder]:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        triggerHeight[size],
         className,
       )}
       {...props}

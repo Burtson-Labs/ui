@@ -623,6 +623,14 @@ function ErrorMessage({ error, onRetry }: { error: React.ReactNode; onRetry?: ()
 const cardLabelClass =
   'text-[11px] font-semibold tracking-[0.06em] text-muted-foreground uppercase';
 
+// The title's open button covers the card with an ::after overlay. A link or
+// control inside a subtitle or field (a mailto link, a toggle) would sit under
+// it, unlike the table, where clicks on a control belong to the control
+// (INTERACTIVE). Lift them above the overlay; the rest of the area still opens
+// the row.
+const liftControls =
+  '[&_a]:relative [&_a]:z-10 [&_button]:relative [&_button]:z-10 [&_input]:relative [&_input]:z-10 [&_select]:relative [&_select]:z-10 [&_textarea]:relative [&_textarea]:z-10';
+
 /**
  * The phone layout: a list of articles, one per row, each named by its title.
  * The title is the row's open button (its hit area covers the card); the
@@ -779,7 +787,9 @@ function DataTableCards<T>({
                   </div>
                   {subtitle.length > 0 && (
                     // Under the header row, not beside the status, so it gets the card's width.
-                    <div className={cn('-mt-2 grid min-w-0 gap-0.5', onToggle && 'pl-7')}>
+                    <div
+                      className={cn('-mt-2 grid min-w-0 gap-0.5', liftControls, onToggle && 'pl-7')}
+                    >
                       {subtitle.map((c) => (
                         <div
                           key={c.id}
@@ -791,7 +801,7 @@ function DataTableCards<T>({
                     </div>
                   )}
                   {fields.length > 0 && (
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+                    <dl className={cn('grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm', liftControls)}>
                       {fields.map((c) => (
                         <div key={c.id} className="min-w-0">
                           <dt className={cardLabelClass}>{c.cardLabel ?? c.header}</dt>
