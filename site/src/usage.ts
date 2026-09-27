@@ -13,6 +13,20 @@ export interface Usage {
 }
 
 export const usage: Record<string, Usage> = {
+  'avatar-upload': {
+    use: ['Account settings and profile photos with crop, zoom and an explicit save.'],
+    avoid: ['General document uploads: use Attachment and your own upload flow.'],
+    a11y: [
+      'Choose with a keyboard or drop a file. Position with touch, mouse or arrow keys; zoom with a labelled slider. Errors and save status are announced.',
+    ],
+  },
+  'agent-run': {
+    use: ['Agent execution that people need to follow, pause, resume or cancel.'],
+    avoid: ['A single background request: use Progress or Spinner.'],
+    a11y: [
+      'An ordered step list, text status for every step and a live run status. Actions stay disabled while a transition is pending.',
+    ],
+  },
   accordion: {
     use: [
       'A list of headings where one section at a time matters: FAQs, settings groups, a long form split into parts.',

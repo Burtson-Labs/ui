@@ -13,6 +13,16 @@ const sources = import.meta.glob<string>('../../src/components/*.tsx', {
 });
 
 const guidance: Record<string, string[]> = {
+  'avatar-upload': [
+    'onUpload receives a square JPEG. Await your storage API and update src after the save succeeds. Throw an Error with a useful message to keep the crop available for retry.',
+    'Drag to position the photo, or open Position controls and use the native sliders with arrow keys. Zoom has its own labelled slider. The crop is exported at 512px by default; the original file is never uploaded by the component.',
+    'JPEG, PNG and WebP are supported. Invalid, empty, oversized and unreadable files show an inline error. Pending saves disable duplicate actions. Preview URLs are released on replacement and unmount.',
+  ],
+  'agent-run': [
+    'Controlled: pass actual run and step states from your agent runtime. Only show Completed after the backend confirms completion.',
+    'Use waiting for decisions, paused for suspended execution, and canceled for an interrupted run. Put ToolApproval or other decision controls in children.',
+    'Callbacks request a transition; keep busy true until the runtime acknowledges it. A retry should explain which work will run again.',
+  ],
   attachment: [
     'Show the state your app reports: queued, uploading, parsing (reading), ready or failed. The component never uploads anything.',
     'Say why a file failed and what to do about it, and offer Retry when a retry can work.',

@@ -22,6 +22,7 @@ import {
 import { AccentSwatches } from './accent';
 import { Code } from './code';
 import { ComponentDetails } from './component-details';
+import AgentRunDemo from './demos/agent-run';
 import { components, type ComponentDoc } from './docs';
 import { Playground } from './playground';
 import { Link } from './router';
@@ -104,11 +105,57 @@ function Preview({ name, className }: { name: string; className?: string }) {
 
 export function Home() {
   const [query, setQuery] = React.useState('');
-  const filtered = components.filter((component) =>
-    query
-      .toLowerCase()
-      .split(/\s+/)
-      .every((term) => `${component.title} ${component.description}`.toLowerCase().includes(term)),
+  const [collection, setCollection] = React.useState('All components');
+  const collections: Record<string, string[]> = {
+    'All components': [],
+    'Agents & chat': [
+      'agent-run',
+      'tool-call',
+      'reasoning',
+      'source',
+      'composer',
+      'message',
+      'conversation',
+      'attachment',
+      'chat-layout',
+      'chat-history',
+      'connection-status',
+    ],
+    Workspace: [
+      'app-shell',
+      'tree-view',
+      'editor-tabs',
+      'resizable',
+      'command',
+      'toolbar',
+      'data-table',
+      'mobile-nav',
+      'avatar-upload',
+      'avatar',
+    ],
+    'Forms & input': [
+      'field',
+      'input',
+      'textarea',
+      'select',
+      'combobox',
+      'checkbox',
+      'slider',
+      'switch',
+      'form-actions',
+      'avatar-upload',
+      'voice-recorder',
+    ],
+  };
+  const filtered = components.filter(
+    (component) =>
+      (collection === 'All components' || collections[collection]?.includes(component.name)) &&
+      query
+        .toLowerCase()
+        .split(/\s+/)
+        .every((term) =>
+          `${component.title} ${component.description}`.toLowerCase().includes(term),
+        ),
   );
   // Wide demos span two columns so they render at a realistic width.
   const showcase: [string, string][] = [
@@ -121,17 +168,20 @@ export function Home() {
   ];
   return (
     <div>
-      <section className="grid grid-cols-[minmax(0,1fr)] gap-10 border-b py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
+      <section className="grid grid-cols-[minmax(0,1fr)] gap-10 border-b py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_29rem] lg:items-center">
         <div>
           <p className="font-mono text-xs text-muted-foreground">
             @burtson-labs/ui · v{version} · {components.length} components · MIT
           </p>
-          <h1 className="home-title">Burtson UI</h1>
+          <h1 className="home-title">
+            Interfaces for
+            <br />
+            working with agents.
+          </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            The React components behind Bandit Stealth, Sentinel, our cluster tools and client apps.
-            Locally maintained Radix primitives handle focus and keyboard behaviour, Tailwind v4
-            handles styling, and the icons are Burtson Icons. Install the package, or copy a
-            component&apos;s source and change it.
+            Give people a clear view of what an agent is doing, what needs their attention, and what
+            happens next. React components for conversations, approvals and workspaces, with
+            keyboard and touch support built in.
           </p>
           <div className="mt-7 flex flex-wrap gap-2">
             <Button asChild>
@@ -144,15 +194,15 @@ export function Home() {
             </Button>
           </div>
         </div>
-        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3">
-          <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
-          <div className="flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5">
-            <span className="text-xs text-muted-foreground">Try an accent</span>
-            <AccentSwatches />
-          </div>
-        </div>
+        <AgentRunDemo />
       </section>
 
+      <div className="grid gap-3 border-b py-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+        <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
+        <div className="flex items-center gap-4 px-3 text-xs text-muted-foreground">
+          Try an accent <AccentSwatches />
+        </div>
+      </div>
       <Playground />
       <section
         aria-labelledby="recipe-chat"
@@ -200,6 +250,19 @@ export function Home() {
               placeholder="Search components…"
             />
           </label>
+        </div>
+        <div role="group" aria-label="Component collections" className="mb-4 flex flex-wrap gap-2">
+          {Object.keys(collections).map((name) => (
+            <Button
+              key={name}
+              size="sm"
+              variant={collection === name ? 'secondary' : 'ghost'}
+              aria-pressed={collection === name}
+              onClick={() => setCollection(name)}
+            >
+              {name}
+            </Button>
+          ))}
         </div>
         <p role="status" className="mb-4 text-sm text-muted-foreground">
           {filtered.length} components

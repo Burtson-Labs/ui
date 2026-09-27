@@ -8,19 +8,21 @@ import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsi
 import { Button } from './button';
 import { StatusDot } from './status';
 
-export type ToolCallStatus = 'pending' | 'running' | 'success' | 'error';
+export type ToolCallStatus = 'pending' | 'running' | 'success' | 'error' | 'canceled';
 
 const statusText: Record<ToolCallStatus, string> = {
   pending: 'Queued',
   running: 'Running',
   success: 'Done',
   error: 'Failed',
+  canceled: 'Canceled',
 };
 const statusDot = {
   pending: 'neutral',
   running: 'brand',
   success: 'success',
   error: 'destructive',
+  canceled: 'neutral',
 } as const;
 
 const json = (value: unknown) => {
@@ -176,15 +178,15 @@ const ToolApproval = React.forwardRef<HTMLDivElement, ToolApprovalProps>(functio
       aria-busy={busy || undefined}
       data-state={state}
       className={cn(
-        'grid animate-in gap-3 rounded-md border p-3 text-[13px]',
+        'grid min-w-0 animate-in gap-3 rounded-md border p-3 text-[13px]',
         state === 'pending' ? 'border-warning/40 bg-warning/5' : 'bg-surface',
         className,
       )}
       {...props}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Wrench className="size-3.5 text-muted-foreground" aria-hidden />
-        <span className="font-mono text-[12.5px]">{name}</span>
+        <span className="min-w-0 break-all font-mono text-[12.5px]">{name}</span>
         <span className="ml-auto text-xs text-muted-foreground">
           {state === 'pending'
             ? 'Needs your approval'

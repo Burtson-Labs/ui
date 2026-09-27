@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.15.0
+
+- AvatarUpload: a source-copy or npm component for choosing, cropping, zooming,
+  uploading and removing profile photos. Native position sliders, touch dragging,
+  inline validation, async retry and duplicate-save protection; no storage dependency.
+- AgentRun: a controlled execution timeline with queued, running, waiting, paused,
+  completed, failed and canceled states; runtime-owned pause, resume, cancel and retry.
+- ToolCall gains a canceled status. Approval headers wrap long tool names on phones.
+- The docs homepage includes an interactive approval flow and workflow collections.
+  Package navigation and typography match the icon catalogue, including mobile links.
+
 ## 0.14.1
 
 A consistency pass over every component, measured in a browser rather than

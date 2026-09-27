@@ -83,3 +83,6 @@ export * from './components/tooltip';
 export * from './components/tour';
 export * from './components/tree-view';
 export * from './components/voice-recorder';
+
+export * from './components/avatar-upload';
+export * from './components/agent-run';

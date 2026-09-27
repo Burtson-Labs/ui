@@ -63,7 +63,7 @@ function Nav({ path, onNavigate }: { path: string; onNavigate?: () => void }) {
       onClick={onNavigate}
       aria-current={path === href ? 'page' : undefined}
       className={cn(
-        'block rounded-md px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
+        'flex min-h-11 items-center rounded-md px-2 py-1.5 text-sm lg:min-h-0 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
         path === href && 'bg-accent font-medium text-accent-foreground',
       )}
     >
@@ -145,7 +145,7 @@ export function App() {
         Skip to content
       </a>
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
               <Button
@@ -164,6 +164,17 @@ export function App() {
               </SheetDescription>
               <ScrollArea className="h-[calc(100dvh-4rem)] px-2 pb-6">
                 <Nav path={path} onNavigate={() => setMenuOpen(false)} />
+                <nav
+                  aria-label="Burtson packages"
+                  className="mt-6 grid gap-2 border-t pt-4 text-sm"
+                >
+                  <a className="rounded-md px-2 py-3" href="https://icons.burtson.ai">
+                    Icons ↗
+                  </a>
+                  <a className="rounded-md px-2 py-3" href="https://burtson.ai">
+                    Burtson Labs ↗
+                  </a>
+                </nav>
               </ScrollArea>
             </SheetContent>
           </Sheet>
@@ -171,11 +182,18 @@ export function App() {
             <BurtsonLabsVial className="size-5" aria-hidden />
             Burtson UI
           </Link>
-          <nav className="ml-4 hidden items-center gap-5 text-sm text-muted-foreground md:flex">
+          <nav
+            aria-label="Burtson packages"
+            className="ml-4 hidden items-center gap-5 text-sm text-muted-foreground md:flex"
+          >
             <Link href="/docs/installation" className="hover:text-foreground">
               Docs
             </Link>
-            <Link href="/docs/components/button" className="hover:text-foreground">
+            <Link
+              href="/docs/components/button"
+              aria-current={isHome || path.includes('/components/') ? 'page' : undefined}
+              className="font-medium text-foreground hover:text-foreground"
+            >
               Components
             </Link>
             <a
@@ -183,6 +201,9 @@ export function App() {
               className="inline-flex items-center gap-1 hover:text-foreground"
             >
               Icons <ExternalLink className="size-3" aria-hidden />
+            </a>
+            <a href="https://burtson.ai" className="hover:text-foreground">
+              Burtson Labs
             </a>
           </nav>
           <div className="ml-auto flex items-center gap-1">
@@ -206,7 +227,7 @@ export function App() {
       </header>
       <div className="mx-auto flex max-w-7xl gap-10 px-4 sm:px-6">
         {!isHome && (
-          <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 lg:block">
+          <aside className="sticky top-16 hidden h-[calc(100dvh-4rem)] w-56 shrink-0 lg:block">
             <ScrollArea className="h-full py-8 pr-2">
               <Nav path={path} />
             </ScrollArea>
