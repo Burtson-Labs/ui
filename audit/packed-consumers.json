@@ -1,6 +1,6 @@
 {
-  "tarball": "burtson-labs-ui-0.14.1.tgz",
-  "integrity": "sha512-Lj63SkpKqphSyOzwHXQ6SplcDTeQWkhTQwrwh91lJtBJN0Zc738SPeOYjhcNw7GARdANY8inKwNKS6Uk56oRSA==",
+  "tarball": "burtson-labs-ui-0.16.0.tgz",
+  "integrity": "sha512-zetIVzLySOfd3Xh+m/OR+rl67ZFBpHWgnLeA8uSmooEDCjjGWJsHx0dUd3EnVoFgd8In7qWX87BiRAJLliav2Q==",
   "results": [
     {
       "react": "18.3.1",
