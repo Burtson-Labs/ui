@@ -8,6 +8,38 @@ export interface ComponentDoc {
 
 const all: ComponentDoc[] = [
   {
+    name: 'ask-user',
+    title: 'Ask User',
+    description:
+      'Questions for an agent: choices, multiple selections, free text and reliable submission.',
+  },
+  {
+    name: 'agent-plan',
+    title: 'Agent Plan',
+    description: 'Review and approve a proposed plan before an agent starts work.',
+  },
+  {
+    name: 'context-usage',
+    title: 'Context Usage',
+    description: 'Actual token capacity, warnings and a runtime-owned compaction action.',
+  },
+  {
+    name: 'circular-progress',
+    title: 'Circular Progress',
+    description: 'Determinate and indeterminate progress rings in any size.',
+  },
+  {
+    name: 'loading-dots',
+    title: 'Loading Dots',
+    description: 'A quiet thinking, typing or waiting indicator with a readable status.',
+  },
+  {
+    name: 'theme-provider',
+    title: 'Theme Provider',
+    description: 'System, light and dark themes with persistence, tab sync and a compact toggle.',
+  },
+
+  {
     name: 'avatar-upload',
     title: 'Avatar Upload',
     description: 'Choose, crop, zoom and save a profile photo, with touch and keyboard controls.',
@@ -127,7 +159,7 @@ const all: ComponentDoc[] = [
   {
     name: 'spinner',
     title: 'Spinner',
-    description: 'An indeterminate loading indicator, from Burtson Icons.',
+    description: 'A compact spinning indicator for work of unknown duration.',
   },
   {
     name: 'switch',

@@ -54,11 +54,11 @@ ${Object.keys(light)
   .map((k) => `  --color-${k}: var(--${k});`)
   .join('\n')}
   /* Controls 8-10px, panels 10-12px, pills only for tags and status. */
-  --radius-xs: ${radius.xs};
-  --radius-sm: ${radius.sm};
-  --radius-md: ${radius.md};
-  --radius-lg: ${radius.lg};
-  --radius-xl: ${radius.xl};
+  --radius-xs: calc(var(--radius) * 0.6);
+  --radius-sm: calc(var(--radius) * 0.8);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.2);
+  --radius-xl: calc(var(--radius) * 1.6);
   /* Borders carry hierarchy; shadows stay quiet except on floating surfaces:
      lg for popovers, menus and toasts, xl for dialogs and sheets. */
   --shadow-xs: ${shadow.xs};

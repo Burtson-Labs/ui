@@ -203,6 +203,8 @@ test.describe('pickers open and take the keyboard', () => {
     await expect(listbox).toBeVisible();
     await expect(page.getByRole('option', { name: 'gemma4:e4b' })).toBeFocused();
     await page.keyboard.press('ArrowDown');
+    // The select defers focus until after keydown; Enter must reach the next item.
+    await expect(page.getByRole('option', { name: 'qwen3:8b' })).toBeFocused();
     await page.keyboard.press('Enter');
     await expect(listbox).toBeHidden();
     await expect(trigger).toHaveText(/qwen3:8b/);

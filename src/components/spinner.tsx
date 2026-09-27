@@ -18,7 +18,7 @@ const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
       role="status"
       aria-label={label}
       data-slot="spinner"
-      className={cn('size-4 animate-spin', className)}
+      className={cn('size-4 animate-spin motion-reduce:animate-none', className)}
       {...props}
     />
   );

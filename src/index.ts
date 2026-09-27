@@ -86,3 +86,9 @@ export * from './components/voice-recorder';
 
 export * from './components/avatar-upload';
 export * from './components/agent-run';
+export * from './components/agent-plan';
+export * from './components/ask-user';
+export * from './components/circular-progress';
+export * from './components/context-usage';
+export * from './components/loading-dots';
+export * from './components/theme-provider';

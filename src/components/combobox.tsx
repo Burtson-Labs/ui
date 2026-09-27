@@ -123,7 +123,7 @@ const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(function Com
             data-slot="combobox-trigger"
             className={cn(
               fieldClasses,
-              'flex h-9 items-center justify-between gap-2 text-left',
+              'flex h-[var(--control-height,2.25rem)] items-center justify-between gap-2 text-left',
               !selected && 'text-muted-foreground',
               width && fieldWidthClasses[width],
               className,

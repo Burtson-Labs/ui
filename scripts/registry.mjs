@@ -42,6 +42,11 @@ const theme = {
           .filter(([k]) => k !== 'full')
           .map(([k, v]) => [`radius-${k}`, v]),
       ),
+      'radius-xs': 'calc(var(--radius) * 0.6)',
+      'radius-sm': 'calc(var(--radius) * 0.8)',
+      'radius-md': 'var(--radius)',
+      'radius-lg': 'calc(var(--radius) * 1.2)',
+      'radius-xl': 'calc(var(--radius) * 1.6)',
       ...Object.fromEntries(Object.entries(shadow).map(([k, v]) => [`shadow-${k}`, v])),
       ...Object.fromEntries(Object.entries(motion.animations).map(([k, v]) => [`animate-${k}`, v])),
     },

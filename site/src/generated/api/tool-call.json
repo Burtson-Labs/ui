@@ -75,7 +75,7 @@
         },
         {
           "name": "state",
-          "type": "\"pending\" | \"approved\" | \"denied\" | undefined",
+          "type": "\"approved\" | \"pending\" | \"denied\" | undefined",
           "required": false,
           "default": "'pending'",
           "description": "`pending` shows the buttons; the others record the decision.",
@@ -437,7 +437,7 @@
         },
         {
           "name": "state",
-          "type": "\"pending\" | \"approved\" | \"denied\" | undefined",
+          "type": "\"approved\" | \"pending\" | \"denied\" | undefined",
           "required": false,
           "default": null,
           "description": "`pending` shows the buttons; the others record the decision.",

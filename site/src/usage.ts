@@ -13,6 +13,44 @@ export interface Usage {
 }
 
 export const usage: Record<string, Usage> = {
+  'ask-user': {
+    use: [
+      'Clarifying questions that block an agent, with one or more choices or a written answer.',
+    ],
+    avoid: ['Approving a side effect: use ToolApproval or AgentPlan with an explicit action.'],
+    a11y: [
+      'Native radio and checkbox groups, labelled free-text fields, validation focus, and announced submission states.',
+    ],
+  },
+  'agent-plan': {
+    use: ['A proposed sequence of work that a person reviews before execution.'],
+    avoid: ['Reporting work already underway: use AgentRun.'],
+    a11y: [
+      'An ordered list of steps and a text decision status; controls disable during pending decisions.',
+    ],
+  },
+  'context-usage': {
+    use: ['Showing measured context capacity and requesting compaction.'],
+    avoid: ['Unknown counts presented as zero or fabricated percentages.'],
+    a11y: ['A labelled capacity meter with actual token counts; unknown usage omits the meter.'],
+  },
+  'circular-progress': {
+    use: ['Compact progress with a known percentage or unknown duration.'],
+    avoid: ['Showing estimated completion without a real measurement.'],
+    a11y: [
+      'A labelled progressbar, no aria-valuenow when indeterminate, and a static arc under reduced motion.',
+    ],
+  },
+  'loading-dots': {
+    use: ['Thinking, typing or waiting states within an agent conversation.'],
+    avoid: ['Known completion percentages: use Progress or CircularProgress.'],
+    a11y: ['One readable status announcement; decorative dots stop moving under reduced motion.'],
+  },
+  'theme-provider': {
+    use: ['Document-level system/light/dark preferences and theme controls.'],
+    avoid: ['Multiple independently themed subtrees: scope CSS variables instead.'],
+    a11y: ['Follows operating-system changes in system mode; the toggle names its destination.'],
+  },
   'avatar-upload': {
     use: ['Account settings and profile photos with crop, zoom and an explicit save.'],
     avoid: ['General document uploads: use Attachment and your own upload flow.'],

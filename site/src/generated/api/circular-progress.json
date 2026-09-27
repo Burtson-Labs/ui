@@ -1,20 +1,52 @@
 {
-  "component": "skeleton",
-  "source": "src/components/skeleton.tsx",
+  "component": "circular-progress",
+  "source": "src/components/circular-progress.tsx",
   "exports": [
     {
-      "name": "Skeleton",
+      "name": "CircularProgress",
       "kind": "component",
-      "description": "A placeholder block. Give it the size of what it stands in for; hidden from screen readers.",
+      "description": "Determinate or indeterminate progress; unknown work never reports a percentage.",
       "signatures": [],
       "type": null,
       "props": [
         {
-          "name": "animation",
-          "type": "\"none\" | \"pulse\" | \"shimmer\" | undefined",
+          "name": "label",
+          "type": "string | undefined",
           "required": false,
-          "default": "'pulse'",
+          "default": "'Loading'",
           "description": "",
+          "native": false
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "default": "100",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "showValue",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "size",
+          "type": "number | undefined",
+          "required": false,
+          "default": "40",
+          "description": "Diameter in pixels.",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "number | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "Omit or pass null when the amount of work is unknown.",
           "native": false
         }
       ],
@@ -302,18 +334,50 @@
       ]
     },
     {
-      "name": "SkeletonProps",
+      "name": "CircularProgressProps",
       "kind": "type",
       "description": "",
       "signatures": [],
-      "type": "SkeletonProps",
+      "type": "CircularProgressProps",
       "props": [
         {
-          "name": "animation",
-          "type": "\"none\" | \"pulse\" | \"shimmer\" | undefined",
+          "name": "label",
+          "type": "string | undefined",
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "showValue",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "size",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Diameter in pixels.",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "number | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "Omit or pass null when the amount of work is unknown.",
           "native": false
         }
       ],

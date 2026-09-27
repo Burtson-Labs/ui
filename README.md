@@ -113,3 +113,30 @@ The primitive implementations and cmdk live in this repository; no external Radi
 ## License
 
 [MIT](LICENSE) © Burtson Labs. Inspired by and partly adapted from [shadcn/ui](https://github.com/shadcn-ui/ui) (MIT); see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+### Agent decisions, loading and appearance
+
+```tsx
+import {
+  AskUser, AgentPlan, ContextUsage, CircularProgress, LoadingDots,
+  ThemeProvider, ThemeToggle,
+} from '@burtson-labs/ui';
+
+<ThemeProvider defaultTheme="system" storageKey="app-theme">
+  <ThemeToggle />
+  <AskUser
+    questions={[{ id: 'goal', prompt: 'What should I focus on?' }]}
+    onSubmit={async (answers) => { await sendAnswers(answers); }}
+  />
+</ThemeProvider>
+
+<CircularProgress label="Connecting" />; // unknown duration
+<CircularProgress value={64} label="Uploading" showValue />;
+<LoadingDots label="Thinking" showLabel />;
+<ContextUsage used={42000} limit={200000} />;
+```
+
+The [theme editor](https://ui.burtson.ai/docs/theming) previews presets, custom accents,
+corner radius and control density and exports both palettes. Agent callbacks belong to your
+runtime. See [the coverage audit](docs/agent-component-audit.md) for the existing components
+and remaining workflow gaps.

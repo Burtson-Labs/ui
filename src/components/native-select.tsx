@@ -36,7 +36,7 @@ const NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(func
         data-slot="native-select"
         className={cn(
           fieldClasses,
-          'h-9 w-full cursor-pointer appearance-none py-1.5 pr-9',
+          'h-[var(--control-height,2.25rem)] w-full cursor-pointer appearance-none py-1.5 pr-9',
           className,
         )}
         {...props}

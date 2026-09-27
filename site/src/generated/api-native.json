@@ -4479,6 +4479,14 @@
     "description": "",
     "native": true
   },
+  "754f9c92b78fd12f": {
+    "name": "onPause",
+    "type": "React.ReactEventHandler<HTMLElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
   "2db28f05cd79bb43": {
     "name": "onPauseCapture",
     "type": "React.ReactEventHandler<HTMLElement> | undefined",
@@ -7719,9 +7727,1401 @@
     "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
     "native": true
   },
-  "754f9c92b78fd12f": {
+  "09ef902abbaecb32": {
+    "name": "acceptCharset",
+    "type": "string | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "23aa83b1e81a14e7": {
+    "name": "action",
+    "type": "string | ((formData: FormData) => void | Promise<void>) | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "66177b9e6708e4fe": {
+    "name": "autoComplete",
+    "type": "string | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "eb268f896e313a8d": {
+    "name": "encType",
+    "type": "string | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4478303984951c90": {
+    "name": "method",
+    "type": "string | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4c78e8aa29c1e117": {
+    "name": "noValidate",
+    "type": "boolean | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b48f25711b9fc444": {
+    "name": "onAbort",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7ea89ed86e51a4a4": {
+    "name": "onAbortCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3366f67d6880ecce": {
+    "name": "onAnimationEnd",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9990d61b9ce2e9b5": {
+    "name": "onAnimationEndCapture",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "dc83e2d7c883fbb5": {
+    "name": "onAnimationIteration",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "db3a4f0afaa65818": {
+    "name": "onAnimationIterationCapture",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4aa341adf41f0e7e": {
+    "name": "onAnimationStart",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "76d730dd9b171480": {
+    "name": "onAnimationStartCapture",
+    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7be27d90e36e428b": {
+    "name": "onAuxClick",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a71fcfcdace12c82": {
+    "name": "onAuxClickCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "04e0e869ec8b1c1b": {
+    "name": "onBeforeInput",
+    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f61a058139bd590a": {
+    "name": "onBeforeInputCapture",
+    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "54131d18de72ef58": {
+    "name": "onBeforeToggle",
+    "type": "React.ToggleEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "66b2b46b1a5b10b8": {
+    "name": "onBlur",
+    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2705887315d44a0c": {
+    "name": "onBlurCapture",
+    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "02cdb56187dcc0ac": {
+    "name": "onCanPlay",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8754dab3ddd3d12d": {
+    "name": "onCanPlayCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7ea3a666b5514b5a": {
+    "name": "onCanPlayThrough",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e45efa7c0c78d07a": {
+    "name": "onCanPlayThroughCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0b0b5d973c84011e": {
+    "name": "onChange",
+    "type": "React.ChangeEventHandler<HTMLFormElement, Element> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "60a678ce1b31d057": {
+    "name": "onChangeCapture",
+    "type": "React.ChangeEventHandler<HTMLFormElement, Element> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fb9ade56f3a69fc7": {
+    "name": "onClick",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ba702b422b7b7e0e": {
+    "name": "onClickCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "499523bec22188d6": {
+    "name": "onCompositionEnd",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1a7d37366650ee3e": {
+    "name": "onCompositionEndCapture",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6a828de07630e0b8": {
+    "name": "onCompositionStart",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3dffe31b013d3e51": {
+    "name": "onCompositionStartCapture",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b2b8bbe1641a97f4": {
+    "name": "onCompositionUpdate",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a7e57016479efd02": {
+    "name": "onCompositionUpdateCapture",
+    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "51be95d54ef9defc": {
+    "name": "onContextMenu",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "af8ad2efb7ee24bb": {
+    "name": "onContextMenuCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c08ed91f9778e314": {
+    "name": "onCopy",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8bd42ea5edd2f43b": {
+    "name": "onCopyCapture",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ed14ff4cf3d25abc": {
+    "name": "onCut",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "55eb22ed368c651e": {
+    "name": "onCutCapture",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "40730112f89308cb": {
+    "name": "onDoubleClick",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1574bd9eab047e13": {
+    "name": "onDoubleClickCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ce65865d60e94494": {
+    "name": "onDrag",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ef9eaf4a6999cb3a": {
+    "name": "onDragCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3f10d550e1a8e179": {
+    "name": "onDragEnd",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0c6de9f82709d46e": {
+    "name": "onDragEndCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8124f9da81adb06d": {
+    "name": "onDragEnter",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "88da03927a95ace4": {
+    "name": "onDragEnterCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c2abb281a2f22ec9": {
+    "name": "onDragExit",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4229eb33e854f5a3": {
+    "name": "onDragExitCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "353acf0d4eae1178": {
+    "name": "onDragLeave",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e09c497fec308966": {
+    "name": "onDragLeaveCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "927bb11abb2f609d": {
+    "name": "onDragOver",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7b991693cd2e4ed0": {
+    "name": "onDragOverCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b799e91dc01f8c12": {
+    "name": "onDragStart",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1a05cb9baf88d8fe": {
+    "name": "onDragStartCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "69d510e898efa1ac": {
+    "name": "onDrop",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "cf52d1e85cdcc72d": {
+    "name": "onDropCapture",
+    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d317a7ab4b7e0c87": {
+    "name": "onDurationChange",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6ef7fcb5957c4ae7": {
+    "name": "onDurationChangeCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8bfd4b9981188dc4": {
+    "name": "onEmptied",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "48bb11dd3016cfbf": {
+    "name": "onEmptiedCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0c24125f1bd4030c": {
+    "name": "onEncrypted",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "83f520a80936bd7c": {
+    "name": "onEncryptedCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3b91aced5187a216": {
+    "name": "onEnded",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b3fe977777c2b732": {
+    "name": "onEndedCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "13dba87b735ddd73": {
+    "name": "onError",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2f558ccbacde875c": {
+    "name": "onErrorCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "252d52f585195c5c": {
+    "name": "onFocus",
+    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5b5e081aa313ec04": {
+    "name": "onFocusCapture",
+    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e7ab58b9a0bffa28": {
+    "name": "onGotPointerCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "63295a507db83166": {
+    "name": "onGotPointerCaptureCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "728655f69ec6d0cb": {
+    "name": "onInput",
+    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0e1b30154dacdb2d": {
+    "name": "onInputCapture",
+    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "db629947992ff2d8": {
+    "name": "onInvalid",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8906d3897e30dff5": {
+    "name": "onInvalidCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a941ab1f9854213b": {
+    "name": "onKeyDown",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "01ce24609190c3cf": {
+    "name": "onKeyDownCapture",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8fbf2f3c09c061c8": {
+    "name": "onKeyPress",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "01d4cef2c7e9c50b": {
+    "name": "onKeyPressCapture",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5414efc0da65b028": {
+    "name": "onKeyUp",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "073654c43de83e5d": {
+    "name": "onKeyUpCapture",
+    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "681e83e4806bec3a": {
+    "name": "onLoad",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "279513627d8b2ee1": {
+    "name": "onLoadCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "19b1f57f437cccc9": {
+    "name": "onLoadStart",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fd86d2d9fd60686b": {
+    "name": "onLoadStartCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "697513059624a195": {
+    "name": "onLoadedData",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3e42598bcbe46cb9": {
+    "name": "onLoadedDataCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "987837831d3f0439": {
+    "name": "onLoadedMetadata",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3a4daaa1aff87767": {
+    "name": "onLoadedMetadataCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "258a8a41e68b2a52": {
+    "name": "onLostPointerCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e4a393b7778bd491": {
+    "name": "onLostPointerCaptureCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "efd4ea410ebbef32": {
+    "name": "onMouseDown",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "689d36545091d3fe": {
+    "name": "onMouseDownCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "99705f93087ff342": {
+    "name": "onMouseEnter",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "aa47bf09c010a2d3": {
+    "name": "onMouseLeave",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4bf6cb2b8ce76f81": {
+    "name": "onMouseMove",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "bdb09f4134d3636c": {
+    "name": "onMouseMoveCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d38378ddd1bbbc1b": {
+    "name": "onMouseOut",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f89ba43b9800f704": {
+    "name": "onMouseOutCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a0c7b21ac2328774": {
+    "name": "onMouseOver",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f7fafada9920822e": {
+    "name": "onMouseOverCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ca18cd001e10a587": {
+    "name": "onMouseUp",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0f0caacf85a9a4ef": {
+    "name": "onMouseUpCapture",
+    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "9d1d29883b79e32e": {
+    "name": "onPaste",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "74712a220c4af85e": {
+    "name": "onPasteCapture",
+    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ee3a340fe3816841": {
     "name": "onPause",
-    "type": "React.ReactEventHandler<HTMLElement> | undefined",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d09b073e505743a0": {
+    "name": "onPauseCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a1256bea0c9086ba": {
+    "name": "onPlay",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "4defe29bb87c2ed9": {
+    "name": "onPlayCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "04a51be2db710259": {
+    "name": "onPlaying",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "dd9e00b9a650cf35": {
+    "name": "onPlayingCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3d60b40e150bc815": {
+    "name": "onPointerCancel",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c01c18e909fb3986": {
+    "name": "onPointerCancelCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "21ca2cebfc0453b0": {
+    "name": "onPointerDown",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e0dbf90b25d776b4": {
+    "name": "onPointerDownCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1bb042c62cf3ed3e": {
+    "name": "onPointerEnter",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3cb590f017f15229": {
+    "name": "onPointerLeave",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "19d344d82bcb7f51": {
+    "name": "onPointerMove",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6d933a4d3fca5d61": {
+    "name": "onPointerMoveCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b2da7601e4031ba5": {
+    "name": "onPointerOut",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8a9eb39ae8955d44": {
+    "name": "onPointerOutCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3bae1e5a28beb51f": {
+    "name": "onPointerOver",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "217eeb5d0f4c3dae": {
+    "name": "onPointerOverCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "65f4c588a38ef631": {
+    "name": "onPointerUp",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "95b55a9a72cee226": {
+    "name": "onPointerUpCapture",
+    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8d4933dfe3a8b9b4": {
+    "name": "onProgress",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "2c66146712ac8ef3": {
+    "name": "onProgressCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ec6b088cd1486554": {
+    "name": "onRateChange",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5f1f432bda51da0d": {
+    "name": "onRateChangeCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "fc167c35184cd429": {
+    "name": "onReset",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "45444602c0fa41c8": {
+    "name": "onResetCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8947a0d73b38bbac": {
+    "name": "onScroll",
+    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "d379b406d87cb7ed": {
+    "name": "onScrollCapture",
+    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "54864bbe559a501f": {
+    "name": "onScrollEnd",
+    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "1fb6ce1538aeb486": {
+    "name": "onScrollEndCapture",
+    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "5784e39ab12d5c30": {
+    "name": "onSeeked",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "970882ee9d6696e0": {
+    "name": "onSeekedCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "05da2e5883561625": {
+    "name": "onSeeking",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a2b8f6dbd18e0cba": {
+    "name": "onSeekingCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b7539e93e3bc9c38": {
+    "name": "onSelect",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8a246badca4adb35": {
+    "name": "onSelectCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "19c073964d0d9bc1": {
+    "name": "onStalled",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "b9276f8b60b75aab": {
+    "name": "onStalledCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "54c38185c4a3547d": {
+    "name": "onSubmitCapture",
+    "type": "React.SubmitEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "8e9dcfc603b82464": {
+    "name": "onSuspend",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "302cd75324257f86": {
+    "name": "onSuspendCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "3e871a559750263d": {
+    "name": "onTimeUpdate",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "bb3296bdd63b0613": {
+    "name": "onTimeUpdateCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6212925d6fe11ab9": {
+    "name": "onToggle",
+    "type": "React.ToggleEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "eab90cb8136bb3b9": {
+    "name": "onTouchCancel",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "be3ea2146e4572d1": {
+    "name": "onTouchCancelCapture",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "f220e8542186235c": {
+    "name": "onTouchEnd",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "091a55d08f243cdc": {
+    "name": "onTouchEndCapture",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "c9bbe733bdd45491": {
+    "name": "onTouchMove",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "31fdddf388d9f5a2": {
+    "name": "onTouchMoveCapture",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "ee5691aa5668d7ac": {
+    "name": "onTouchStart",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "08664203e7a19e26": {
+    "name": "onTouchStartCapture",
+    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "6b1f8e529b61b4ce": {
+    "name": "onTransitionCancel",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "0ec2a21de6f99302": {
+    "name": "onTransitionCancelCapture",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "42cb8bda3491d614": {
+    "name": "onTransitionEnd",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7dfed875470c0a42": {
+    "name": "onTransitionEndCapture",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "562648dce3608ffa": {
+    "name": "onTransitionRun",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "892c8e7400d853cc": {
+    "name": "onTransitionRunCapture",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e9621faba47bb28e": {
+    "name": "onTransitionStart",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "cbccbda0f17bc94e": {
+    "name": "onTransitionStartCapture",
+    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "60b229132efb8a0d": {
+    "name": "onVolumeChange",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "90316cd048f28a26": {
+    "name": "onVolumeChangeCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "a2f171a15acbd38e": {
+    "name": "onWaiting",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e70e3623a5d9631f": {
+    "name": "onWaitingCapture",
+    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "7928d8354306d855": {
+    "name": "onWheel",
+    "type": "React.WheelEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "97a5f8da693d70ac": {
+    "name": "onWheelCapture",
+    "type": "React.WheelEventHandler<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "",
+    "native": true
+  },
+  "e04e5e5966a261a1": {
+    "name": "ref",
+    "type": "React.Ref<HTMLFormElement> | undefined",
+    "required": false,
+    "default": null,
+    "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
+    "native": true
+  },
+  "560038c91cb9d6e6": {
+    "name": "target",
+    "type": "string | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -17487,1398 +18887,6 @@
     "description": "",
     "native": true
   },
-  "09ef902abbaecb32": {
-    "name": "acceptCharset",
-    "type": "string | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "23aa83b1e81a14e7": {
-    "name": "action",
-    "type": "string | ((formData: FormData) => void | Promise<void>) | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "66177b9e6708e4fe": {
-    "name": "autoComplete",
-    "type": "string | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "eb268f896e313a8d": {
-    "name": "encType",
-    "type": "string | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4478303984951c90": {
-    "name": "method",
-    "type": "string | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4c78e8aa29c1e117": {
-    "name": "noValidate",
-    "type": "boolean | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b48f25711b9fc444": {
-    "name": "onAbort",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7ea89ed86e51a4a4": {
-    "name": "onAbortCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3366f67d6880ecce": {
-    "name": "onAnimationEnd",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "9990d61b9ce2e9b5": {
-    "name": "onAnimationEndCapture",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "dc83e2d7c883fbb5": {
-    "name": "onAnimationIteration",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "db3a4f0afaa65818": {
-    "name": "onAnimationIterationCapture",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4aa341adf41f0e7e": {
-    "name": "onAnimationStart",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "76d730dd9b171480": {
-    "name": "onAnimationStartCapture",
-    "type": "React.AnimationEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7be27d90e36e428b": {
-    "name": "onAuxClick",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a71fcfcdace12c82": {
-    "name": "onAuxClickCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "04e0e869ec8b1c1b": {
-    "name": "onBeforeInput",
-    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "f61a058139bd590a": {
-    "name": "onBeforeInputCapture",
-    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "54131d18de72ef58": {
-    "name": "onBeforeToggle",
-    "type": "React.ToggleEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "66b2b46b1a5b10b8": {
-    "name": "onBlur",
-    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "2705887315d44a0c": {
-    "name": "onBlurCapture",
-    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "02cdb56187dcc0ac": {
-    "name": "onCanPlay",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8754dab3ddd3d12d": {
-    "name": "onCanPlayCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7ea3a666b5514b5a": {
-    "name": "onCanPlayThrough",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e45efa7c0c78d07a": {
-    "name": "onCanPlayThroughCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "60a678ce1b31d057": {
-    "name": "onChangeCapture",
-    "type": "React.ChangeEventHandler<HTMLFormElement, Element> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "fb9ade56f3a69fc7": {
-    "name": "onClick",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ba702b422b7b7e0e": {
-    "name": "onClickCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "499523bec22188d6": {
-    "name": "onCompositionEnd",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "1a7d37366650ee3e": {
-    "name": "onCompositionEndCapture",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "6a828de07630e0b8": {
-    "name": "onCompositionStart",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3dffe31b013d3e51": {
-    "name": "onCompositionStartCapture",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b2b8bbe1641a97f4": {
-    "name": "onCompositionUpdate",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a7e57016479efd02": {
-    "name": "onCompositionUpdateCapture",
-    "type": "React.CompositionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "51be95d54ef9defc": {
-    "name": "onContextMenu",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "af8ad2efb7ee24bb": {
-    "name": "onContextMenuCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "c08ed91f9778e314": {
-    "name": "onCopy",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8bd42ea5edd2f43b": {
-    "name": "onCopyCapture",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ed14ff4cf3d25abc": {
-    "name": "onCut",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "55eb22ed368c651e": {
-    "name": "onCutCapture",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "40730112f89308cb": {
-    "name": "onDoubleClick",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "1574bd9eab047e13": {
-    "name": "onDoubleClickCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ce65865d60e94494": {
-    "name": "onDrag",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ef9eaf4a6999cb3a": {
-    "name": "onDragCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3f10d550e1a8e179": {
-    "name": "onDragEnd",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0c6de9f82709d46e": {
-    "name": "onDragEndCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8124f9da81adb06d": {
-    "name": "onDragEnter",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "88da03927a95ace4": {
-    "name": "onDragEnterCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "c2abb281a2f22ec9": {
-    "name": "onDragExit",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4229eb33e854f5a3": {
-    "name": "onDragExitCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "353acf0d4eae1178": {
-    "name": "onDragLeave",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e09c497fec308966": {
-    "name": "onDragLeaveCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "927bb11abb2f609d": {
-    "name": "onDragOver",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7b991693cd2e4ed0": {
-    "name": "onDragOverCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b799e91dc01f8c12": {
-    "name": "onDragStart",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "1a05cb9baf88d8fe": {
-    "name": "onDragStartCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "69d510e898efa1ac": {
-    "name": "onDrop",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "cf52d1e85cdcc72d": {
-    "name": "onDropCapture",
-    "type": "React.DragEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "d317a7ab4b7e0c87": {
-    "name": "onDurationChange",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "6ef7fcb5957c4ae7": {
-    "name": "onDurationChangeCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8bfd4b9981188dc4": {
-    "name": "onEmptied",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "48bb11dd3016cfbf": {
-    "name": "onEmptiedCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0c24125f1bd4030c": {
-    "name": "onEncrypted",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "83f520a80936bd7c": {
-    "name": "onEncryptedCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3b91aced5187a216": {
-    "name": "onEnded",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b3fe977777c2b732": {
-    "name": "onEndedCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "13dba87b735ddd73": {
-    "name": "onError",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "2f558ccbacde875c": {
-    "name": "onErrorCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "252d52f585195c5c": {
-    "name": "onFocus",
-    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "5b5e081aa313ec04": {
-    "name": "onFocusCapture",
-    "type": "React.FocusEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e7ab58b9a0bffa28": {
-    "name": "onGotPointerCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "63295a507db83166": {
-    "name": "onGotPointerCaptureCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "728655f69ec6d0cb": {
-    "name": "onInput",
-    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0e1b30154dacdb2d": {
-    "name": "onInputCapture",
-    "type": "React.InputEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "db629947992ff2d8": {
-    "name": "onInvalid",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8906d3897e30dff5": {
-    "name": "onInvalidCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a941ab1f9854213b": {
-    "name": "onKeyDown",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "01ce24609190c3cf": {
-    "name": "onKeyDownCapture",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8fbf2f3c09c061c8": {
-    "name": "onKeyPress",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "01d4cef2c7e9c50b": {
-    "name": "onKeyPressCapture",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "5414efc0da65b028": {
-    "name": "onKeyUp",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "073654c43de83e5d": {
-    "name": "onKeyUpCapture",
-    "type": "React.KeyboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "681e83e4806bec3a": {
-    "name": "onLoad",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "279513627d8b2ee1": {
-    "name": "onLoadCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "19b1f57f437cccc9": {
-    "name": "onLoadStart",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "fd86d2d9fd60686b": {
-    "name": "onLoadStartCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "697513059624a195": {
-    "name": "onLoadedData",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3e42598bcbe46cb9": {
-    "name": "onLoadedDataCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "987837831d3f0439": {
-    "name": "onLoadedMetadata",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3a4daaa1aff87767": {
-    "name": "onLoadedMetadataCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "258a8a41e68b2a52": {
-    "name": "onLostPointerCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e4a393b7778bd491": {
-    "name": "onLostPointerCaptureCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "efd4ea410ebbef32": {
-    "name": "onMouseDown",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "689d36545091d3fe": {
-    "name": "onMouseDownCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "99705f93087ff342": {
-    "name": "onMouseEnter",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "aa47bf09c010a2d3": {
-    "name": "onMouseLeave",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4bf6cb2b8ce76f81": {
-    "name": "onMouseMove",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "bdb09f4134d3636c": {
-    "name": "onMouseMoveCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "d38378ddd1bbbc1b": {
-    "name": "onMouseOut",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "f89ba43b9800f704": {
-    "name": "onMouseOutCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a0c7b21ac2328774": {
-    "name": "onMouseOver",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "f7fafada9920822e": {
-    "name": "onMouseOverCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ca18cd001e10a587": {
-    "name": "onMouseUp",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0f0caacf85a9a4ef": {
-    "name": "onMouseUpCapture",
-    "type": "React.MouseEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "9d1d29883b79e32e": {
-    "name": "onPaste",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "74712a220c4af85e": {
-    "name": "onPasteCapture",
-    "type": "React.ClipboardEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ee3a340fe3816841": {
-    "name": "onPause",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "d09b073e505743a0": {
-    "name": "onPauseCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a1256bea0c9086ba": {
-    "name": "onPlay",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "4defe29bb87c2ed9": {
-    "name": "onPlayCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "04a51be2db710259": {
-    "name": "onPlaying",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "dd9e00b9a650cf35": {
-    "name": "onPlayingCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3d60b40e150bc815": {
-    "name": "onPointerCancel",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "c01c18e909fb3986": {
-    "name": "onPointerCancelCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "21ca2cebfc0453b0": {
-    "name": "onPointerDown",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e0dbf90b25d776b4": {
-    "name": "onPointerDownCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "1bb042c62cf3ed3e": {
-    "name": "onPointerEnter",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3cb590f017f15229": {
-    "name": "onPointerLeave",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "19d344d82bcb7f51": {
-    "name": "onPointerMove",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "6d933a4d3fca5d61": {
-    "name": "onPointerMoveCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b2da7601e4031ba5": {
-    "name": "onPointerOut",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8a9eb39ae8955d44": {
-    "name": "onPointerOutCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3bae1e5a28beb51f": {
-    "name": "onPointerOver",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "217eeb5d0f4c3dae": {
-    "name": "onPointerOverCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "65f4c588a38ef631": {
-    "name": "onPointerUp",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "95b55a9a72cee226": {
-    "name": "onPointerUpCapture",
-    "type": "React.PointerEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8d4933dfe3a8b9b4": {
-    "name": "onProgress",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "2c66146712ac8ef3": {
-    "name": "onProgressCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ec6b088cd1486554": {
-    "name": "onRateChange",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "5f1f432bda51da0d": {
-    "name": "onRateChangeCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "fc167c35184cd429": {
-    "name": "onReset",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "45444602c0fa41c8": {
-    "name": "onResetCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8947a0d73b38bbac": {
-    "name": "onScroll",
-    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "d379b406d87cb7ed": {
-    "name": "onScrollCapture",
-    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "54864bbe559a501f": {
-    "name": "onScrollEnd",
-    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "1fb6ce1538aeb486": {
-    "name": "onScrollEndCapture",
-    "type": "React.UIEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "5784e39ab12d5c30": {
-    "name": "onSeeked",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "970882ee9d6696e0": {
-    "name": "onSeekedCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "05da2e5883561625": {
-    "name": "onSeeking",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a2b8f6dbd18e0cba": {
-    "name": "onSeekingCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b7539e93e3bc9c38": {
-    "name": "onSelect",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8a246badca4adb35": {
-    "name": "onSelectCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "19c073964d0d9bc1": {
-    "name": "onStalled",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "b9276f8b60b75aab": {
-    "name": "onStalledCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "54c38185c4a3547d": {
-    "name": "onSubmitCapture",
-    "type": "React.SubmitEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "8e9dcfc603b82464": {
-    "name": "onSuspend",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "302cd75324257f86": {
-    "name": "onSuspendCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "3e871a559750263d": {
-    "name": "onTimeUpdate",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "bb3296bdd63b0613": {
-    "name": "onTimeUpdateCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "6212925d6fe11ab9": {
-    "name": "onToggle",
-    "type": "React.ToggleEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "eab90cb8136bb3b9": {
-    "name": "onTouchCancel",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "be3ea2146e4572d1": {
-    "name": "onTouchCancelCapture",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "f220e8542186235c": {
-    "name": "onTouchEnd",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "091a55d08f243cdc": {
-    "name": "onTouchEndCapture",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "c9bbe733bdd45491": {
-    "name": "onTouchMove",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "31fdddf388d9f5a2": {
-    "name": "onTouchMoveCapture",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "ee5691aa5668d7ac": {
-    "name": "onTouchStart",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "08664203e7a19e26": {
-    "name": "onTouchStartCapture",
-    "type": "React.TouchEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "6b1f8e529b61b4ce": {
-    "name": "onTransitionCancel",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0ec2a21de6f99302": {
-    "name": "onTransitionCancelCapture",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "42cb8bda3491d614": {
-    "name": "onTransitionEnd",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7dfed875470c0a42": {
-    "name": "onTransitionEndCapture",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "562648dce3608ffa": {
-    "name": "onTransitionRun",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "892c8e7400d853cc": {
-    "name": "onTransitionRunCapture",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e9621faba47bb28e": {
-    "name": "onTransitionStart",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "cbccbda0f17bc94e": {
-    "name": "onTransitionStartCapture",
-    "type": "React.TransitionEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "60b229132efb8a0d": {
-    "name": "onVolumeChange",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "90316cd048f28a26": {
-    "name": "onVolumeChangeCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "a2f171a15acbd38e": {
-    "name": "onWaiting",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e70e3623a5d9631f": {
-    "name": "onWaitingCapture",
-    "type": "React.ReactEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "7928d8354306d855": {
-    "name": "onWheel",
-    "type": "React.WheelEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "97a5f8da693d70ac": {
-    "name": "onWheelCapture",
-    "type": "React.WheelEventHandler<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "e04e5e5966a261a1": {
-    "name": "ref",
-    "type": "React.Ref<HTMLFormElement> | undefined",
-    "required": false,
-    "default": null,
-    "description": "Allows getting a ref to the component instance.\nOnce the component unmounts, React will set `ref.current` to `null`\n(or call the ref with `null` if you passed a callback ref).",
-    "native": true
-  },
-  "560038c91cb9d6e6": {
-    "name": "target",
-    "type": "string | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
   "f20496e57373867b": {
     "name": "htmlFor",
     "type": "string | undefined",
@@ -20250,14 +20258,6 @@
   "34274379a9fc5c29": {
     "name": "type",
     "type": "React.HTMLInputTypeAttribute | undefined",
-    "required": false,
-    "default": null,
-    "description": "",
-    "native": true
-  },
-  "0b0b5d973c84011e": {
-    "name": "onChange",
-    "type": "React.ChangeEventHandler<HTMLFormElement, Element> | undefined",
     "required": false,
     "default": null,
     "description": "",

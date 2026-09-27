@@ -25,7 +25,9 @@ const Progress = React.forwardRef<
         data-slot="progress-indicator"
         className={cn(
           'h-full bg-brand transition-transform duration-(--duration-standard)',
-          progress === null ? 'w-1/3 animate-pulse' : 'w-full',
+          progress === null
+            ? 'w-1/3 animate-progress-indeterminate motion-reduce:animate-none motion-reduce:translate-x-full'
+            : 'w-full motion-reduce:transition-none',
         )}
         style={
           progress === null
