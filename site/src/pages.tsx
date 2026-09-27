@@ -19,7 +19,7 @@ import {
   TabsTrigger,
 } from '@burtson-labs/ui';
 
-import { AccentSwatches } from './accent';
+import { AccentSwatches, ThemeEditor } from './accent';
 import { Code } from './code';
 import { ComponentDetails } from './component-details';
 import AgentRunDemo from './demos/agent-run';
@@ -110,6 +110,10 @@ export function Home() {
     'All components': [],
     'Agents & chat': [
       'agent-run',
+      'ask-user',
+      'agent-plan',
+      'context-usage',
+      'loading-dots',
       'tool-call',
       'reasoning',
       'source',
@@ -121,7 +125,18 @@ export function Home() {
       'chat-history',
       'connection-status',
     ],
+    'Loading & feedback': [
+      'progress',
+      'circular-progress',
+      'spinner',
+      'loading-dots',
+      'skeleton',
+      'alert',
+      'empty-state',
+      'status',
+    ],
     Workspace: [
+      'theme-provider',
       'app-shell',
       'tree-view',
       'editor-tabs',
@@ -199,7 +214,7 @@ export function Home() {
 
       <div className="grid gap-3 border-b py-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
         <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
-        <div className="flex items-center gap-4 px-3 text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-4 px-3 text-xs text-muted-foreground">
           Try an accent <AccentSwatches />
         </div>
       </div>
@@ -384,6 +399,22 @@ export function Theming() {
   return (
     <article>
       <H1 lead="One set of tokens drives Tailwind, the registry and MUI.">Theming</H1>
+      <ThemeEditor />
+      <H2>Follow the system or choose a mode</H2>
+      <Code
+        code={`import { ThemeProvider, ThemeToggle } from '@burtson-labs/ui';
+
+<ThemeProvider defaultTheme="system" storageKey="app-theme">
+  <ThemeToggle />
+  <App />
+</ThemeProvider>`}
+      />
+      <P>
+        Use <code>useTheme().setTheme(&apos;system&apos;)</code> to follow device settings again.
+        The provider responds to system changes and preferences saved in another tab. For
+        server-rendered apps, apply the saved mode before first paint using your framework&apos;s
+        theme bootstrap.
+      </P>
       <P>
         Colours are CSS variables with the shadcn names (<code>background</code>,{' '}
         <code>primary</code>, <code>muted</code>, …), plus Burtson extras: <code>brand</code>,{' '}

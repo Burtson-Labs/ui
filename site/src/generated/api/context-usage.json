@@ -1,20 +1,52 @@
 {
-  "component": "skeleton",
-  "source": "src/components/skeleton.tsx",
+  "component": "context-usage",
+  "source": "src/components/context-usage.tsx",
   "exports": [
     {
-      "name": "Skeleton",
+      "name": "ContextUsage",
       "kind": "component",
-      "description": "A placeholder block. Give it the size of what it stands in for; hidden from screen readers.",
+      "description": "A capacity meter, not task progress. Never invents a token count or compacts on its own.",
       "signatures": [],
       "type": null,
       "props": [
         {
-          "name": "animation",
-          "type": "\"none\" | \"pulse\" | \"shimmer\" | undefined",
+          "name": "busy",
+          "type": "boolean | undefined",
           "required": false,
-          "default": "'pulse'",
+          "default": "false",
           "description": "",
+          "native": false
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Context window'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "limit",
+          "type": "number | null",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onCompact",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "used",
+          "type": "number | null",
+          "required": true,
+          "default": null,
+          "description": "Actual token count from the runtime. Null means unmeasured.",
           "native": false
         }
       ],
@@ -302,18 +334,50 @@
       ]
     },
     {
-      "name": "SkeletonProps",
+      "name": "ContextUsageProps",
       "kind": "type",
       "description": "",
       "signatures": [],
-      "type": "SkeletonProps",
+      "type": "ContextUsageProps",
       "props": [
         {
-          "name": "animation",
-          "type": "\"none\" | \"pulse\" | \"shimmer\" | undefined",
+          "name": "busy",
+          "type": "boolean | undefined",
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "limit",
+          "type": "number | null",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onCompact",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "used",
+          "type": "number | null",
+          "required": true,
+          "default": null,
+          "description": "Actual token count from the runtime. Null means unmeasured.",
           "native": false
         }
       ],

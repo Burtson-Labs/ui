@@ -1,13 +1,12 @@
 import BurtsonLabsVial from '@burtson-labs/icons/react/burtson-labs-vial';
 import ExternalLink from '@burtson-labs/icons/react/external-link';
 import Menu from '@burtson-labs/icons/react/menu';
-import Moon from '@burtson-labs/icons/react/moon';
-import Sun from '@burtson-labs/icons/react/sun';
 import * as React from 'react';
 
 import {
   Button,
   cn,
+  ThemeToggle,
   ScrollArea,
   Sheet,
   SheetContent,
@@ -35,25 +34,6 @@ const guides = [
 ];
 
 const recipes = [{ href: '/docs/recipes/chat', title: 'Build a chat app' }];
-
-function useTheme() {
-  const [isDark, setDark] = React.useState(() =>
-    document.documentElement.classList.contains('dark'),
-  );
-  const toggle = () => {
-    const next = !isDark;
-    document.documentElement.classList.toggle('dark', next);
-    try {
-      localStorage.setItem('bl-ui-theme', next ? 'dark' : 'light');
-    } catch (err) {
-      // Storage can be blocked (private windows); the toggle still works for
-      // this visit, it just is not remembered. Nothing to report.
-      void err;
-    }
-    setDark(next);
-  };
-  return { isDark, toggle };
-}
 
 function Nav({ path, onNavigate }: { path: string; onNavigate?: () => void }) {
   const item = (href: string, title: string) => (
@@ -108,7 +88,6 @@ function route(path: string) {
 
 export function App() {
   const path = usePath();
-  const { isDark, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const previousPath = React.useRef(path);
   const isHome = path === '/';
@@ -214,14 +193,7 @@ export function App() {
               </a>
             </Button>
             <AccentPicker />
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={toggle}
-              aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-            >
-              {isDark ? <Sun /> : <Moon />}
-            </Button>
+            <ThemeToggle />
           </div>
         </div>
       </header>

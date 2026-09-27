@@ -55,6 +55,19 @@ export type Palette = Record<ColorToken, string>;
 /** Burtson Labs purple. Use as signal, not wallpaper. */
 export const brand = '#a60ee5';
 
+/** Starting colors for accentTokens(), which derives legible light and dark palettes. */
+export const accentPresets = {
+  ink: '#18181b',
+  violet: '#a60ee5',
+  blue: '#2563eb',
+  teal: '#0d9488',
+  orange: '#ea580c',
+  emerald: '#059669',
+  rose: '#e11d48',
+  amber: '#d97706',
+  cyan: '#0891b2',
+} as const;
+
 export const light: Palette = {
   background: '#fbfafc',
   foreground: '#17131c',
@@ -193,6 +206,9 @@ export const easing = {
  */
 export const motion = {
   animations: {
+    'progress-indeterminate': 'bl-progress-indeterminate 1.6s ease-in-out infinite',
+    'loading-dot': 'bl-loading-dot 1.2s ease-in-out infinite',
+    'skeleton-shimmer': 'bl-skeleton-shimmer 1.8s linear infinite',
     in: `bl-in ${duration.standard}ms ${easing.emphasized}`,
     out: `bl-out ${duration.exit}ms ${easing.exit} forwards`,
     'fade-in': `bl-fade-in ${duration.standard}ms ${easing.standard}`,
@@ -205,6 +221,18 @@ export const motion = {
     'collapsible-up': `bl-collapsible-up ${duration.exit}ms ${easing.exit}`,
   },
   keyframes: {
+    'bl-progress-indeterminate': {
+      '0%': { transform: 'translateX(-100%)' },
+      '100%': { transform: 'translateX(400%)' },
+    },
+    'bl-loading-dot': {
+      '0%, 60%, 100%': { opacity: '0.35', transform: 'translateY(0)' },
+      '30%': { opacity: '1', transform: 'translateY(-3px)' },
+    },
+    'bl-skeleton-shimmer': {
+      from: { 'background-position': '200% 0' },
+      to: { 'background-position': '-200% 0' },
+    },
     'bl-in': {
       from: {
         opacity: '0',

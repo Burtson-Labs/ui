@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.16.0
+
+- Add AskUser for agent clarification with choices, multiple selections, written answers,
+  validation, async submission, duplicate prevention and retry without losing answers.
+- Add AgentPlan for plan review and ContextUsage for measured token capacity and compaction requests.
+- Add CircularProgress and LoadingDots. Progress now sweeps when indeterminate; Skeleton
+  supports pulse, shimmer and static placeholders. Loading indicators respect reduced motion.
+- Add ThemeProvider, useTheme and ThemeToggle with system/light/dark modes, persistence and
+  cross-tab updates. The docs expose nine presets and a custom accent/radius/density editor
+  with light/dark CSS export. Standard controls accept --control-height; --radius now controls
+  the full radius scale. Touch targets remain at least 44px.
+- Match the Icons site's compact sun/moon button and accessible hover labels.
+- Add interactive demos, API and registry entries, and an agent component coverage audit.
+
 ## 0.15.0
 
 - AvatarUpload: a source-copy or npm component for choosing, cropping, zooming,

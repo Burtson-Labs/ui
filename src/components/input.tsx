@@ -59,7 +59,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
       data-slot="input"
       className={cn(
         fieldClasses,
-        'h-9 py-1.5 file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-semibold file:text-foreground',
+        'h-[var(--control-height,2.25rem)] py-1.5 file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-semibold file:text-foreground',
         width && fieldWidthClasses[width],
         className,
       )}

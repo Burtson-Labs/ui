@@ -13,6 +13,28 @@ const sources = import.meta.glob<string>('../../src/components/*.tsx', {
 });
 
 const guidance: Record<string, string[]> = {
+  'ask-user': [
+    'Pass stable question IDs and option values. Choices start empty; optional questions can be skipped. allowCustom adds an alternative written answer, and multiple allows several choices.',
+    'Return a promise from onSubmit. Pending submissions cannot be sent twice; rejection keeps answers for retry. A successful submission locks the response. Remount with a new key for a new request.',
+    'Connect onSkip only when your runtime supports continuing without an answer. The card never sends messages or resumes an agent itself.',
+  ],
+  'agent-plan': [
+    'Keep state controlled by your runtime. Approval records a decision; your callback owns starting the work. Use AgentRun once execution begins.',
+  ],
+  'context-usage': [
+    'Pass used and limit from your runtime. Null or invalid measurements show Usage unavailable instead of a fabricated percentage.',
+    'The meter warns at 80% and becomes critical at 95%. onCompact requests compaction; keep busy true until your runtime reports new counts.',
+  ],
+  'circular-progress': [
+    'Omit value or pass null for an unknown duration. Finite values are clamped to max. Give the indicator a label that names the operation.',
+  ],
+  'loading-dots': [
+    'Use showLabel when the waiting state needs explanation. Keep status text stable; do not announce every generated token.',
+  ],
+  'theme-provider': [
+    'Mount one provider at the document root. useTheme exposes theme, resolvedTheme and setTheme. Set storageKey to null for an in-memory preference.',
+    'System mode responds to device changes. Saved preferences sync across tabs and remain usable when storage is blocked. For SSR, use a theme bootstrap before first paint; server output uses defaultTheme.',
+  ],
   'avatar-upload': [
     'onUpload receives a square JPEG. Await your storage API and update src after the save succeeds. Throw an Error with a useful message to keep the crop available for retry.',
     'Drag to position the photo, or open Position controls and use the native sliders with arrow keys. Zoom has its own labelled slider. The crop is exported at 512px by default; the original file is never uploaded by the component.',

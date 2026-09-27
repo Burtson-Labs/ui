@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 import type { ComponentType } from 'react';
 import { describe, expect, it } from 'vitest';
 
+import { ThemeProvider } from '@burtson-labs/ui';
+
 import { components } from '../site/src/docs';
 
 const demos = import.meta.glob<{ default: ComponentType }>('../site/src/demos/*.tsx', {
@@ -22,7 +24,12 @@ describe('docs demos', () => {
 
   for (const [path, mod] of Object.entries(demos)) {
     it(`renders ${path.split('/').pop()}`, () => {
-      const { container } = render(<mod.default />);
+      // Match the docs app's document-level provider without persisting test choices.
+      const { container } = render(
+        <ThemeProvider storageKey={null}>
+          <mod.default />
+        </ThemeProvider>,
+      );
       expect(container.querySelector('[data-slot]')).not.toBeNull();
       for (const button of screen.queryAllByRole('button')) {
         expect(button.textContent?.trim() || button.getAttribute('aria-label')).toBeTruthy();

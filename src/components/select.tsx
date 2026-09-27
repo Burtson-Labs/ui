@@ -25,7 +25,7 @@ function SelectValue(props: React.ComponentProps<typeof SelectPrimitive.Value>) 
 // selector outranks a class, so a caller's `h-11`, `max-sm:h-11` or
 // `pointer-coarse:h-11` never won against the size. (Tailwind reads comments
 // too, so the old form is not spelled out here.)
-const triggerHeight = { default: 'h-9', sm: 'h-8' } as const;
+const triggerHeight = { default: 'h-[var(--control-height,2.25rem)]', sm: 'h-8' } as const;
 
 export interface SelectTriggerProps extends React.ComponentProps<typeof SelectPrimitive.Trigger> {
   size?: 'sm' | 'default';

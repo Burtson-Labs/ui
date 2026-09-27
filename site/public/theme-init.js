@@ -19,6 +19,19 @@
   } catch (err) {
     void err;
   }
-  if (['ink', 'violet', 'blue', 'teal', 'orange'].includes(accent))
+  if (
+    [
+      'ink',
+      'violet',
+      'blue',
+      'teal',
+      'orange',
+      'emerald',
+      'rose',
+      'amber',
+      'cyan',
+      'custom',
+    ].includes(accent)
+  )
     document.documentElement.dataset.accent = accent;
 })();
