@@ -8,6 +8,16 @@ export interface ComponentDoc {
 
 const all: ComponentDoc[] = [
   {
+    name: 'avatar-upload',
+    title: 'Avatar Upload',
+    description: 'Choose, crop, zoom and save a profile photo, with touch and keyboard controls.',
+  },
+  {
+    name: 'agent-run',
+    title: 'Agent Run',
+    description: 'A run timeline with progress, approvals, pause, resume, cancellation and retry.',
+  },
+  {
     name: 'accordion',
     title: 'Accordion',
     description: 'Stacked headings that each reveal a section.',
