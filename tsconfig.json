@@ -28,6 +28,6 @@
     "test",
     "vitest.config.ts",
     "e2e",
-    "playwright.config.ts"
+    "playwright*.config.ts"
   ]
 }
