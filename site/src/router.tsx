@@ -12,10 +12,16 @@ export function usePath(): string {
 }
 
 export function navigate(to: string) {
-  if (to === window.location.pathname) return;
-  window.history.pushState(null, '', to);
-  window.dispatchEvent(new PopStateEvent('popstate'));
-  window.scrollTo(0, 0);
+  if (to === window.location.pathname) {
+    // Selecting the current component should also leave an API-reference anchor.
+    window.history.replaceState(null, '', to);
+  } else {
+    window.history.pushState(null, '', to);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  }
+  // Override the site's smooth anchor scrolling. WebKit can interrupt that
+  // animation as a route changes or a menu closes, leaving the preview offscreen.
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 }
 
 export function Link({

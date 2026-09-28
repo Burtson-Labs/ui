@@ -91,6 +91,7 @@ npm install
 npm run dev        # docs site with live components, http://localhost:5173
 npm run check      # typecheck, lint, format, tests, package build, site build
 npm run smoke      # Playwright: touch targets, focus, overflow, keyboard (needs npm run site)
+npx playwright test --config playwright.navigation.config.ts # navigation, including mobile Safari
 ```
 
 | Path              | What                                                                                                                                                             |
