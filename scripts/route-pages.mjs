@@ -21,6 +21,12 @@ const esc = (t) =>
 
 const routes = [
   {
+    path: '/docs/design-language',
+    title: 'Design language · Burtson UI',
+    description:
+      'The visual language and trust principles behind Burtson Labs, Bandit, Stealth, and TrueMarks: shared components, distinct identities, and visible decisions.',
+  },
+  {
     path: '/docs/installation',
     title: 'Installation · Burtson UI',
     description:

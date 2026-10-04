@@ -24,6 +24,7 @@ import { Code } from './code';
 import { ComponentDetails } from './component-details';
 import AgentRunDemo from './demos/agent-run';
 import { components, type ComponentDoc } from './docs';
+import { InterfaceScene, InterfacePaths } from './interface-scene';
 import { Playground } from './playground';
 import { Link } from './router';
 
@@ -209,19 +210,28 @@ export function Home() {
             </Button>
           </div>
         </div>
-        <AgentRunDemo />
+        <InterfaceScene>
+          <AgentRunDemo />
+        </InterfaceScene>
       </section>
 
-      <div className="grid gap-3 border-b py-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-3 border-b py-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
         <Code lang="sh" code="npm install @burtson-labs/ui @burtson-labs/icons" />
         <div className="flex flex-wrap items-center gap-4 px-3 text-xs text-muted-foreground">
           Try an accent <AccentSwatches />
         </div>
       </div>
+      <InterfacePaths />
+      <Link
+        href="/docs/design-language"
+        className="inline-flex min-h-11 items-center gap-2 text-sm text-brand underline underline-offset-4"
+      >
+        One foundation for Labs, Bandit, Stealth, and TrueMarks <ArrowRight className="size-4" />
+      </Link>
       <Playground />
       <section
         aria-labelledby="recipe-chat"
-        className="grid gap-6 border-t py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-center"
+        className="grid grid-cols-[minmax(0,1fr)] gap-6 border-t py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-center"
       >
         <div>
           <p className="overline">Recipe</p>

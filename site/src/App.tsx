@@ -17,6 +17,7 @@ import {
 } from '@burtson-labs/ui';
 
 import { AccentPicker } from './accent';
+import { DesignLanguage } from './design-language';
 import { components } from './docs';
 import { ComponentPage, Home, Installation, Mui, NotFound, Theming } from './pages';
 import { ChatRecipe } from './recipes/chat';
@@ -30,6 +31,7 @@ const Matrix = React.lazy(() => import('./matrix').then((m) => ({ default: m.Mat
 const guides = [
   { href: '/docs/installation', title: 'Installation' },
   { href: '/docs/theming', title: 'Theming' },
+  { href: '/docs/design-language', title: 'Design language' },
   { href: '/docs/mui', title: 'Using with MUI' },
 ];
 
@@ -78,6 +80,7 @@ function route(path: string) {
   const clean = path.replace(/\/+$/, '') || '/';
   if (clean === '/') return <Home />;
   if (clean === '/docs' || clean === '/docs/installation') return <Installation />;
+  if (clean === '/docs/design-language') return <DesignLanguage />;
   if (clean === '/docs/theming') return <Theming />;
   if (clean === '/docs/mui') return <Mui />;
   if (clean === '/docs/recipes/chat') return <ChatRecipe />;
@@ -97,9 +100,11 @@ export function App() {
     const doc = components.find((c) => path.endsWith(`/components/${c.name}`));
     document.title = doc
       ? `${doc.title} · Burtson UI`
-      : path.startsWith('/docs/recipes/chat')
-        ? 'Build a chat app · Burtson UI'
-        : 'Burtson UI';
+      : path.startsWith('/docs/design-language')
+        ? 'Design language · Burtson UI'
+        : path.startsWith('/docs/recipes/chat')
+          ? 'Build a chat app · Burtson UI'
+          : 'Burtson UI';
     if (previousPath.current !== path) {
       document.getElementById('main')?.focus({ preventScroll: true });
       previousPath.current = path;

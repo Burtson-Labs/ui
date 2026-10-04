@@ -59,10 +59,16 @@ export function DocsSearch() {
         <CommandList>
           <CommandEmpty>No matches. Try “button”, “chat”, or “theme”.</CommandEmpty>
           <CommandGroup heading="Guides">
-            {['Installation', 'Theming', 'Using with MUI'].map((title, i) => (
+            {['Installation', 'Theming', 'Using with MUI', 'Design language'].map((title, i) => (
               <CommandItem
                 key={title}
-                onSelect={() => go(['/docs/installation', '/docs/theming', '/docs/mui'][i]!)}
+                onSelect={() =>
+                  go(
+                    ['/docs/installation', '/docs/theming', '/docs/mui', '/docs/design-language'][
+                      i
+                    ]!,
+                  )
+                }
               >
                 {title}
               </CommandItem>
