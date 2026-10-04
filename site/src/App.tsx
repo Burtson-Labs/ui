@@ -227,6 +227,7 @@ export function App() {
         <a href="https://ui.shadcn.com" className="text-foreground hover:underline">
           shadcn/ui
         </a>
+        <p className="mt-2 text-xs">A Mark Burtson production.</p>
       </footer>
     </TooltipProvider>
   );
