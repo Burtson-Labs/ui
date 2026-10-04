@@ -1,0 +1,151 @@
+.interface-scene {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(140deg, var(--brand-soft), var(--surface) 65%);
+  overflow: hidden;
+}
+.is-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 22px 0;
+  font: 9px/1.5 var(--font-mono, monospace);
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+}
+.is-drawing {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.is-guide {
+  stroke: var(--brand);
+  stroke-width: 0.65;
+  opacity: 0.1;
+}
+.is-surface {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+}
+.is-tint {
+  fill: var(--brand-soft);
+  stroke: color-mix(in srgb, var(--brand) 40%, transparent);
+}
+.is-stroke,
+.is-trace {
+  stroke: var(--brand);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.is-ink {
+  stroke: var(--muted-foreground);
+  opacity: 0.65;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.is-trace {
+  stroke-dasharray: 1;
+  animation: interface-trace 1.8s ease-out both;
+}
+.is-demo {
+  position: relative;
+  margin: 0 20px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--background);
+}
+.is-foot {
+  padding: 17px 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+}
+.is-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+.interface-paths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding-block: 32px;
+}
+.interface-paths > a {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 20px 22px;
+  background: var(--surface);
+  color: var(--foreground);
+  transition:
+    border-color 0.18s,
+    background 0.18s;
+  text-decoration: none;
+}
+.interface-paths > a:hover {
+  border-color: var(--brand);
+  background: var(--surface-muted);
+}
+.interface-paths > a:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+.interface-paths svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+.ip-index {
+  font: 10px/1.5 var(--font-mono, monospace);
+  color: var(--brand);
+}
+.interface-paths strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+.interface-paths p {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+@keyframes interface-trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (max-width: 640px) {
+  .interface-paths {
+    grid-template-columns: 1fr;
+  }
+  .interface-paths svg {
+    max-width: 260px;
+    margin-inline: auto;
+  }
+  .is-demo {
+    margin-inline: 12px;
+    padding: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-trace {
+    animation: none;
+  }
+  .interface-paths > a {
+    transition: none;
+  }
+}
