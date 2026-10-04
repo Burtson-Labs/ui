@@ -23,6 +23,8 @@
   margin-top: 36px;
 }
 .dl-family {
+  --dl-accent: var(--dl-dark-accent);
+  --dl-support: var(--dl-dark-support);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   border: 1px solid var(--border);
@@ -197,4 +199,23 @@
   .dl-rules {
     grid-template-columns: 1fr;
   }
+}
+
+:root:not(.dark) .dl-family {
+  --dl-accent: var(--dl-light-accent);
+  --dl-support: var(--dl-light-support);
+}
+:root:not(.dark) .dl-specimen {
+  background-color: #f0f6f8;
+  background-image: radial-gradient(#53788e30 0.7px, transparent 0.7px);
+}
+:root:not(.dark) .dl-sample {
+  background: #fff;
+  box-shadow: 6px 8px 0 #496a8014;
+}
+:root:not(.dark) .dl-sample-rail {
+  border-color: #c6d9e4;
+}
+:root:not(.dark) .dl-swatches > span {
+  color: #506676;
 }

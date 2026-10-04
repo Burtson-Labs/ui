@@ -8,6 +8,8 @@ const families = [
   {
     name: 'Burtson Labs',
     tone: '#87c6ef',
+    lightTone: '#226489',
+    lightSupport: '#526b7d',
     support: '#dce8f1',
     purpose: 'The craft behind the tools.',
     context: 'Shared foundations, components, infrastructure, and the people building them.',
@@ -17,6 +19,8 @@ const families = [
   {
     name: 'Bandit & Stealth',
     tone: '#65d3bd',
+    lightTone: '#087c68',
+    lightSupport: '#906018',
     support: '#e8ba78',
     purpose: 'Private work. Visible decisions.',
     context: 'Model choice, useful context, explicit permissions, and work people can inspect.',
@@ -26,6 +30,8 @@ const families = [
   {
     name: 'TrueMarks',
     tone: '#4fc3f7',
+    lightTone: '#007bac',
+    lightSupport: '#42688e',
     support: '#9cbce0',
     purpose: 'Keep the evidence in context.',
     context:
@@ -52,49 +58,61 @@ export function DesignLanguage() {
         </p>
       </header>
       <div className="dl-families">
-        {families.map(({ name, tone, support, purpose, context, href, action }, index) => (
-          <section
-            key={name}
-            className="dl-family"
-            style={{ '--dl-accent': tone, '--dl-support': support } as CSSProperties}
-          >
-            <div className="dl-specimen" aria-hidden="true">
-              <span>
-                0{index + 1} / {name}
-              </span>
-              <div className="dl-sample">
-                <div className="dl-sample-rail">
-                  <i />
-                  <i />
-                  <i />
-                </div>
-                <div className="dl-sample-body">
-                  <Shield size={24} />
-                  <b />
-                  <b />
-                  <div>
+        {families.map(
+          (
+            { name, tone, support, lightTone, lightSupport, purpose, context, href, action },
+            index,
+          ) => (
+            <section
+              key={name}
+              className="dl-family"
+              style={
+                {
+                  '--dl-dark-accent': tone,
+                  '--dl-dark-support': support,
+                  '--dl-light-accent': lightTone,
+                  '--dl-light-support': lightSupport,
+                } as CSSProperties
+              }
+            >
+              <div className="dl-specimen" aria-hidden="true">
+                <span>
+                  0{index + 1} / {name}
+                </span>
+                <div className="dl-sample">
+                  <div className="dl-sample-rail">
                     <i />
                     <i />
                     <i />
                   </div>
+                  <div className="dl-sample-body">
+                    <Shield size={24} />
+                    <b />
+                    <b />
+                    <div>
+                      <i />
+                      <i />
+                      <i />
+                    </div>
+                  </div>
+                </div>
+                <div className="dl-swatches">
+                  <i />
+                  <i />
+                  <span>ILLUSTRATION PALETTE</span>
                 </div>
               </div>
-              <div className="dl-swatches">
-                <i />
-                <i />
-                <span>ILLUSTRATION PALETTE</span>
+              <div className="dl-family-copy">
+                <h2>{name}</h2>
+                <strong>{purpose}</strong>
+                <p>{context}</p>
+                <a href={href}>
+                  {action} <ArrowRight size={14} />
+                </a>
               </div>
-            </div>
-            <div className="dl-family-copy">
-              <h2>{name}</h2>
-              <strong>{purpose}</strong>
-              <p>{context}</p>
-              <a href={href}>
-                {action} <ArrowRight size={14} />
-              </a>
-            </div>
-          </section>
-        ))}
+            </section>
+          ),
+        )}
       </div>
       <section className="dl-section">
         <p className="overline">Trust is an interaction</p>
