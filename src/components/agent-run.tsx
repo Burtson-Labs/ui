@@ -4,7 +4,7 @@ import Circle from '@burtson-labs/icons/react/circle';
 import Pause from '@burtson-labs/icons/react/pause';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, headingTag, type HeadingLevel } from '../lib/utils';
 
 import { Button } from './button';
 import { Spinner } from './spinner';
@@ -19,6 +19,8 @@ export interface AgentRunStep {
 }
 export interface AgentRunProps extends Omit<React.ComponentProps<'section'>, 'title'> {
   title: string;
+  /** The title's heading rank, 2 to 6, to fit the page outline. Default 3. */
+  headingLevel?: HeadingLevel;
   state: AgentRunState;
   steps: AgentRunStep[];
   /** Explain the current state, especially what a person needs to do next. */
@@ -69,6 +71,7 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
     title,
     state,
     steps,
+    headingLevel,
     summary,
     busy = false,
     onPause,
@@ -97,9 +100,11 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
     >
       <header className="grid gap-2 border-b border-border p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 id={id} className="min-w-0 text-sm font-semibold break-words">
-            {title}
-          </h3>
+          {React.createElement(
+            headingTag(headingLevel),
+            { id, className: 'min-w-0 text-sm font-semibold break-words' },
+            title,
+          )}
           <span
             role="status"
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground"

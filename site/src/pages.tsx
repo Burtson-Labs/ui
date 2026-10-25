@@ -421,10 +421,49 @@ export function Theming() {
       />
       <P>
         Use <code>useTheme().setTheme(&apos;system&apos;)</code> to follow device settings again.
-        The provider responds to system changes and preferences saved in another tab. For
-        server-rendered apps, apply the saved mode before first paint using your framework&apos;s
-        theme bootstrap.
+        The provider responds to system changes and preferences saved in another tab.
       </P>
+      <H2>Apply the theme before first paint</H2>
+      <P>
+        The provider runs after React mounts, so on its own a dark-mode reader sees a light flash.
+        Load the init script in <code>&lt;head&gt;</code>, before your styles. It reads the same
+        storage key as the provider (<code>bl-theme</code> by default) and sets the{' '}
+        <code>dark</code> class, <code>data-theme</code> and <code>color-scheme</code> on{' '}
+        <code>&lt;html&gt;</code>. Blocked storage falls back to the default theme.
+      </P>
+      <P>
+        With a strict Content Security Policy, serve it as a file so{' '}
+        <code>script-src &apos;self&apos;</code> is enough. Copy{' '}
+        <code>@burtson-labs/ui/theme-init.js</code> into your public folder (or let your bundler
+        emit it) and configure it with data attributes:
+      </P>
+      <Code
+        lang="tsx"
+        code={`<script
+  src="/theme-init.js"
+  data-storage-key="app-theme"
+  data-default-theme="system"
+></script>`}
+      />
+      <P>
+        To inline it instead, build the text with <code>themeInitScript()</code> on the server and
+        allow it by hash. Pass the provider&apos;s <code>storageKey</code>,{' '}
+        <code>legacyStorageKeys</code> and <code>defaultTheme</code> so both agree. Keys must be
+        plain names (letters, digits, <code>. _ : -</code>); anything else throws instead of
+        reaching the script.
+      </P>
+      <Code
+        code={`import { themeInitScript, themeInitScriptHash } from '@burtson-labs/ui';
+
+const options = { storageKey: 'app-theme' };
+const script = themeInitScript(options);
+// Add to script-src, e.g. script-src 'self' 'sha256-…'
+const hash = await themeInitScriptHash(options);
+
+<head>
+  <script dangerouslySetInnerHTML={{ __html: script }} />
+</head>`}
+      />
       <P>
         Colours are CSS variables with the shadcn names (<code>background</code>,{' '}
         <code>primary</code>, <code>muted</code>, …), plus Burtson extras: <code>brand</code>,{' '}

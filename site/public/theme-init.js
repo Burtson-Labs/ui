@@ -1,9 +1,13 @@
 // Applies ?theme= or the saved theme before first paint so the page never
 // flashes. A file rather than an inline script, so the CSP can stay 'self'.
+// Same logic as the package's themeInitScript() / @burtson-labs/ui/theme-init.js,
+// plus the docs-only accent.
 (function () {
   var theme = new URLSearchParams(location.search).get('theme');
   try {
-    theme = theme || localStorage.getItem('bl-ui-theme');
+    // bl-theme is ThemeProvider's default key; bl-ui-theme is what this site
+    // used earlier (ThemeProvider moves it over on first load).
+    theme = theme || localStorage.getItem('bl-theme') || localStorage.getItem('bl-ui-theme');
   } catch (err) {
     // Storage can be blocked (private windows, strict cookie settings); the
     // system preference still applies for this visit.

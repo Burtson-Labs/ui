@@ -5,6 +5,8 @@ import * as React from 'react';
 import { cn, focusRingClasses } from '../lib/utils';
 import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
 
+import { LoadingDots, type LoadingDotsProps } from './loading-dots';
+
 export interface ReasoningProps extends React.ComponentProps<'div'> {
   /** True while the model is still thinking. */
   streaming?: boolean;
@@ -49,28 +51,16 @@ const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(function Reas
 });
 
 /** Three pulsing dots while a reply is on its way. Still under reduced motion. */
-const StreamingIndicator = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentProps<'span'> & { label?: string }
->(function StreamingIndicator({ className, label = 'Assistant is typing', ...props }, ref) {
-  return (
-    <span
-      ref={ref}
-      data-slot="streaming-indicator"
-      role="status"
-      aria-label={label}
-      className={cn('inline-flex h-5 items-center gap-1', className)}
-      {...props}
-    >
-      {[0, 150, 300].map((delay) => (
-        <span
-          key={delay}
-          className="size-1.5 animate-bounce rounded-full bg-muted-foreground motion-reduce:animate-none"
-          style={{ animationDelay: `${delay}ms` }}
-        />
-      ))}
-    </span>
-  );
-});
+export type StreamingIndicatorProps = LoadingDotsProps;
+
+/**
+ * LoadingDots labelled "Assistant is typing", kept for compatibility. Show it
+ * in an assistant message until the first token arrives.
+ */
+const StreamingIndicator = React.forwardRef<HTMLSpanElement, StreamingIndicatorProps>(
+  function StreamingIndicator({ label = 'Assistant is typing', ...props }, ref) {
+    return <LoadingDots ref={ref} data-slot="streaming-indicator" label={label} {...props} />;
+  },
+);
 
 export { Reasoning, StreamingIndicator };

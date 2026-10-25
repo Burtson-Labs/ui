@@ -16,7 +16,8 @@ createRoot(root).render(
   <StrictMode>
     <ThemeProvider
       defaultTheme={queryTheme ?? 'system'}
-      storageKey={queryTheme ? null : 'bl-ui-theme'}
+      storageKey={queryTheme ? null : 'bl-theme'}
+      legacyStorageKeys={['bl-ui-theme']}
     >
       <AppearanceSync />
       <App />

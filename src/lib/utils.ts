@@ -45,3 +45,14 @@ export const touchTargetClasses =
  */
 export const touchTargetRowClasses =
   "relative pointer-coarse:before:absolute pointer-coarse:before:inset-x-0 pointer-coarse:before:top-1/2 pointer-coarse:before:h-11 pointer-coarse:before:-translate-y-1/2 pointer-coarse:before:content-['']";
+
+/** A heading rank for a component title: h2 to h6. Pick the one that fits the page outline. */
+export type HeadingLevel = 2 | 3 | 4 | 5 | 6;
+
+type HeadingTag = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+/** The tag for a heading level; anything outside 2 to 6 falls back to `fallback` (h3). */
+export const headingTag = (level: number | undefined, fallback: HeadingLevel = 3): HeadingTag => {
+  const valid = level !== undefined && Number.isInteger(level) && level >= 2 && level <= 6;
+  return `h${valid ? level : fallback}` as HeadingTag;
+};

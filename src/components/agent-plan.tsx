@@ -1,7 +1,7 @@
 import ListChecks from '@burtson-labs/icons/react/list-checks';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, headingTag, type HeadingLevel } from '../lib/utils';
 
 import { Button } from './button';
 
@@ -12,6 +12,8 @@ export interface AgentPlanStep {
 }
 export interface AgentPlanProps extends Omit<React.ComponentProps<'section'>, 'title'> {
   title?: string;
+  /** The title's heading rank, 2 to 6, to fit the page outline. Default 3. */
+  headingLevel?: HeadingLevel;
   summary?: React.ReactNode;
   steps: AgentPlanStep[];
   state?: 'proposed' | 'approved' | 'rejected';
@@ -24,6 +26,7 @@ export interface AgentPlanProps extends Omit<React.ComponentProps<'section'>, 't
 export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function AgentPlan(
   {
     title = 'Proposed plan',
+    headingLevel,
     summary,
     steps,
     state = 'proposed',
@@ -49,9 +52,11 @@ export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function 
     >
       <div className="flex flex-wrap items-center gap-2">
         <ListChecks aria-hidden className="size-4 shrink-0 text-brand" />
-        <h3 id={id} className="min-w-0 flex-1 text-sm font-semibold break-words">
-          {title}
-        </h3>
+        {React.createElement(
+          headingTag(headingLevel),
+          { id, className: 'min-w-0 flex-1 text-sm font-semibold break-words' },
+          title,
+        )}
         <span role="status" className="text-xs text-muted-foreground">
           {state === 'proposed'
             ? 'For your review'

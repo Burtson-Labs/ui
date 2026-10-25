@@ -48,7 +48,7 @@
     {
       "name": "ThemeProvider",
       "kind": "component",
-      "description": "One provider per document. Follows system changes and syncs preferences across tabs.",
+      "description": "One provider per document. Follows system changes and syncs preferences\nacross tabs. Pair it with themeInitScript() or the\n`@burtson-labs/ui/theme-init.js` file in <head> so the saved theme is\napplied before first paint.",
       "signatures": [],
       "type": null,
       "props": [
@@ -69,11 +69,19 @@
           "native": false
         },
         {
+          "name": "legacyStorageKeys",
+          "type": "readonly string[] | undefined",
+          "required": false,
+          "default": null,
+          "description": "Older keys to read when `storageKey` holds nothing. A value found there\nis moved to `storageKey`. Pass the same list to themeInitScript().",
+          "native": false
+        },
+        {
           "name": "storageKey",
           "type": "string | null | undefined",
           "required": false,
           "default": "'bl-theme'",
-          "description": "Set null to keep the preference in memory only.",
+          "description": "Set null to keep the preference in memory only. Default `bl-theme`.",
           "native": false
         }
       ],
@@ -103,11 +111,19 @@
           "native": false
         },
         {
+          "name": "legacyStorageKeys",
+          "type": "readonly string[] | undefined",
+          "required": false,
+          "default": null,
+          "description": "Older keys to read when `storageKey` holds nothing. A value found there\nis moved to `storageKey`. Pass the same list to themeInitScript().",
+          "native": false
+        },
+        {
           "name": "storageKey",
           "type": "string | null | undefined",
           "required": false,
           "default": null,
-          "description": "Set null to keep the preference in memory only.",
+          "description": "Set null to keep the preference in memory only. Default `bl-theme`.",
           "native": false
         }
       ],

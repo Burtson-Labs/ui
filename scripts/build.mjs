@@ -3,9 +3,9 @@
 // the components they import), .d.ts files, theme.css and the precompiled
 // styles.css.
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, readFileSync, rmSync } from 'node:fs';
+import { copyFileSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { say } from './log.mjs';
 
@@ -40,7 +40,13 @@ await build({
     sourcemap: true,
     target: 'es2022',
     lib: {
-      entry: { index: 'src/index.ts', tokens: 'src/tokens.ts', 'mui/index': 'src/mui/index.ts' },
+      entry: {
+        index: 'src/index.ts',
+        tokens: 'src/tokens.ts',
+        'mui/index': 'src/mui/index.ts',
+        // An entry so themeInitFile (used below, not public) survives tree-shaking.
+        'lib/theme-init': 'src/lib/theme-init.ts',
+      },
       formats: ['es'],
     },
     rolldownOptions: {
@@ -65,6 +71,13 @@ await build({
 });
 
 run(join(ROOT, 'node_modules/.bin/tsc'), ['-p', 'tsconfig.build.json']);
+// The pre-paint theme script as a static file, for a CSP that allows only
+// 'self' scripts. Built from the same source as themeInitScript().
+const { themeInitFile } = await import(pathToFileURL(join(ROOT, 'dist/lib/theme-init.js')).href);
+writeFileSync(
+  join(ROOT, 'dist/theme-init.js'),
+  `/*! @burtson-labs/ui ${pkg.version} theme-init. Load in <head>, before CSS: <script src=".../theme-init.js" data-storage-key="bl-theme"></script> */\n${themeInitFile()}\n`,
+);
 copyFileSync(join(ROOT, 'src/styles/theme.css'), join(ROOT, 'dist/theme.css'));
 run(join(ROOT, 'node_modules/.bin/tailwindcss'), [
   '-i',

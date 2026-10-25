@@ -15,19 +15,31 @@ export interface ThemeContextValue {
 export interface ThemeProviderProps {
   children: React.ReactNode;
   defaultTheme?: ThemePreference;
-  /** Set null to keep the preference in memory only. */
+  /** Set null to keep the preference in memory only. Default `bl-theme`. */
   storageKey?: string | null;
+  /**
+   * Older keys to read when `storageKey` holds nothing. A value found there
+   * is moved to `storageKey`. Pass the same list to themeInitScript().
+   */
+  legacyStorageKeys?: readonly string[];
 }
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 const validTheme = (value: unknown): value is ThemePreference =>
   value === 'light' || value === 'dark' || value === 'system';
 
-/** One provider per document. Follows system changes and syncs preferences across tabs. */
+/**
+ * One provider per document. Follows system changes and syncs preferences
+ * across tabs. Pair it with themeInitScript() or the
+ * `@burtson-labs/ui/theme-init.js` file in <head> so the saved theme is
+ * applied before first paint.
+ */
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
   storageKey = 'bl-theme',
+  legacyStorageKeys,
 }: ThemeProviderProps) {
+  const legacy = (legacyStorageKeys ?? []).join('\n');
   const [theme, setState] = React.useState<ThemePreference>(defaultTheme);
   const [ready, setReady] = React.useState(false);
   const systemDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -38,6 +50,16 @@ export function ThemeProvider({
       try {
         const saved = storageKey ? localStorage.getItem(storageKey) : null;
         if (validTheme(saved)) next = saved;
+        else if (storageKey && legacy) {
+          for (const key of legacy.split('\n')) {
+            const old = localStorage.getItem(key);
+            if (!validTheme(old)) continue;
+            next = old;
+            localStorage.setItem(storageKey, old);
+            localStorage.removeItem(key);
+            break;
+          }
+        }
       } catch {
         /* The theme still works when storage is unavailable. */
       }
@@ -50,7 +72,7 @@ export function ThemeProvider({
     };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
-  }, [defaultTheme, storageKey]);
+  }, [defaultTheme, storageKey, legacy]);
   React.useEffect(() => {
     if (!ready) return;
     const root = document.documentElement;

@@ -1,7 +1,7 @@
 import HelpCircle from '@burtson-labs/icons/react/help-circle';
 import * as React from 'react';
 
-import { cn } from '../lib/utils';
+import { cn, focusRingClasses, headingTag, type HeadingLevel } from '../lib/utils';
 
 import { Button } from './button';
 import { Textarea } from './textarea';
@@ -39,9 +39,35 @@ export interface AskUserProps extends Omit<
   onSubmit: (answers: AskUserAnswers) => void | Promise<void>;
   onSkip?: () => void;
   busy?: boolean;
+  /** Same as `labels.submit`; kept for compatibility. */
   submitLabel?: string;
+  /** Same as `labels.skip`; kept for compatibility. */
   skipLabel?: string;
+  /** The title's heading rank, 2 to 6, to fit the page outline. Default 3. */
+  headingLevel?: HeadingLevel;
+  /** Visible and announced text, for translation. */
+  labels?: Partial<typeof askUserLabels>;
 }
+
+const askUserLabels = {
+  submit: 'Send answers',
+  skip: 'Skip for now',
+  /** Read after each required question's prompt. */
+  required: '(required)',
+  optional: 'Optional',
+  /** Above the text box of a choice question that allows a custom answer. */
+  customAnswer: 'Or write your own answer',
+  /** Above the text box of a free-text question. */
+  answer: 'Your answer',
+  /** Under a required question left blank. */
+  answerRequired: 'An answer is required.',
+  /** The form-level alert when required questions are blank. */
+  missingAnswers: 'Answer the required questions to continue.',
+  /** The alert when onSubmit throws something that is not an Error. */
+  sendFailed: 'Answers could not be sent. Try again.',
+  sending: 'Sending answers…',
+  sent: 'Answers sent',
+};
 
 /** An agent's request for clarification. Answers remain editable when submission fails. */
 export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function AskUser(
@@ -53,14 +79,17 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
     onSubmit,
     onSkip,
     busy = false,
-    submitLabel = 'Send answers',
-    skipLabel = 'Skip for now',
+    submitLabel,
+    skipLabel,
+    headingLevel,
+    labels,
     className,
     ...props
   },
   ref,
 ) {
   const id = React.useId();
+  const l = { ...askUserLabels, ...labels };
   const [answers, setAnswers] = React.useState<AskUserAnswers>(defaultValue);
   const [pending, setPending] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
@@ -106,7 +135,7 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
           .map((q) => q.id);
         setInvalid(missing);
         if (missing.length) {
-          setError('Answer the required questions to continue.');
+          setError(l.missingAnswers);
           event.currentTarget
             .querySelector<HTMLElement>(
               `[data-question-index="${questions.findIndex((q) => q.id === missing[0])}"] input, [data-question-index="${questions.findIndex((q) => q.id === missing[0])}"] textarea`,
@@ -123,9 +152,7 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
             if (mounted.current) setSubmitted(true);
           } catch (cause) {
             if (mounted.current)
-              setError(
-                cause instanceof Error ? cause.message : 'Answers could not be sent. Try again.',
-              );
+              setError(cause instanceof Error && cause.message ? cause.message : l.sendFailed);
           } finally {
             submitting.current = false;
             if (mounted.current) setPending(false);
@@ -136,9 +163,11 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
       <div className="flex items-start gap-3">
         <HelpCircle aria-hidden className="mt-0.5 size-5 shrink-0 text-brand" />
         <div className="grid min-w-0 gap-1">
-          <h3 id={`${id}-title`} className="text-sm font-semibold break-words">
-            {title}
-          </h3>
+          {React.createElement(
+            headingTag(headingLevel),
+            { id: `${id}-title`, className: 'text-sm font-semibold break-words' },
+            title,
+          )}
           {description && (
             <div className="text-sm leading-relaxed text-muted-foreground">{description}</div>
           )}
@@ -156,18 +185,19 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
             data-question-index={index}
             className="grid min-w-0 gap-2"
             aria-describedby={
-              invalidQuestion
-                ? `${questionId}-error`
-                : question.description
-                  ? `${questionId}-description`
-                  : undefined
+              [
+                question.description && `${questionId}-description`,
+                invalidQuestion && `${questionId}-error`,
+              ]
+                .filter(Boolean)
+                .join(' ') || undefined
             }
           >
             <legend className="mb-2 text-sm font-medium break-words">
               {question.prompt}
-              {question.required !== false && <span className="sr-only"> (required)</span>}
+              {question.required !== false && <span className="sr-only"> {l.required}</span>}
               {question.required === false && (
-                <span className="ml-2 text-xs font-normal text-muted-foreground">Optional</span>
+                <span className="ml-2 text-xs font-normal text-muted-foreground">{l.optional}</span>
               )}
             </legend>
             {question.description && (
@@ -179,7 +209,7 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
               <label
                 key={option.value}
                 className={cn(
-                  'flex min-h-11 cursor-pointer items-start gap-3 rounded-md border p-3 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring',
+                  'flex min-h-11 cursor-pointer items-start gap-3 rounded-md border p-3',
                   value.selected.includes(option.value) && !custom
                     ? 'border-brand bg-brand-soft'
                     : 'border-border hover:bg-muted',
@@ -191,7 +221,10 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
                   name={questionId}
                   value={option.value}
                   checked={!custom && value.selected.includes(option.value)}
-                  className={'mt-0.5 size-4 shrink-0 accent-brand outline-none'}
+                  className={cn(
+                    'mt-0.5 size-4 shrink-0 cursor-[inherit] accent-brand',
+                    focusRingClasses,
+                  )}
                   onChange={() =>
                     update(question.id, {
                       text: '',
@@ -215,7 +248,7 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
             ))}
             {(!question.options?.length || question.allowCustom) && (
               <label className="grid gap-2 text-xs font-medium text-muted-foreground">
-                {question.options?.length ? 'Or write your own answer' : 'Your answer'}
+                {question.options?.length ? l.customAnswer : l.answer}
                 <Textarea
                   value={value.text}
                   rows={2}
@@ -229,7 +262,7 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
             )}
             {invalidQuestion && (
               <p id={`${questionId}-error`} className="text-xs text-destructive">
-                An answer is required.
+                {l.answerRequired}
               </p>
             )}
           </fieldset>
@@ -242,16 +275,16 @@ export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function 
       )}
       <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-4">
         <p role="status" className="mr-auto text-sm text-muted-foreground">
-          {submitted ? 'Answers sent' : pending ? 'Sending answers…' : ''}
+          {submitted ? l.sent : pending ? l.sending : ''}
         </p>
         {!submitted && onSkip && (
           <Button variant="ghost" disabled={disabled} onClick={onSkip}>
-            {skipLabel}
+            {skipLabel ?? l.skip}
           </Button>
         )}
         {!submitted && (
           <Button type="submit" loading={pending} disabled={disabled || questions.length === 0}>
-            {submitLabel}
+            {submitLabel ?? l.submit}
           </Button>
         )}
       </div>

@@ -34,6 +34,22 @@
           "native": false
         },
         {
+          "name": "headingLevel",
+          "type": "HeadingLevel | undefined",
+          "required": false,
+          "default": null,
+          "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ submit: string; skip: string; required: string; optional: string; customAnswer: string; answer: string; answerRequired: string; missingAnswers: string; sendFailed: string; sending: string; sent: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and announced text, for translation.",
+          "native": false
+        },
+        {
           "name": "onSkip",
           "type": "(() => void) | undefined",
           "required": false,
@@ -61,16 +77,16 @@
           "name": "skipLabel",
           "type": "string | undefined",
           "required": false,
-          "default": "'Skip for now'",
-          "description": "",
+          "default": null,
+          "description": "Same as `labels.skip`; kept for compatibility.",
           "native": false
         },
         {
           "name": "submitLabel",
           "type": "string | undefined",
           "required": false,
-          "default": "'Send answers'",
-          "description": "",
+          "default": null,
+          "description": "Same as `labels.submit`; kept for compatibility.",
           "native": false
         },
         {
@@ -471,6 +487,22 @@
           "native": false
         },
         {
+          "name": "headingLevel",
+          "type": "HeadingLevel | undefined",
+          "required": false,
+          "default": null,
+          "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ submit: string; skip: string; required: string; optional: string; customAnswer: string; answer: string; answerRequired: string; missingAnswers: string; sendFailed: string; sending: string; sent: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and announced text, for translation.",
+          "native": false
+        },
+        {
           "name": "onSkip",
           "type": "(() => void) | undefined",
           "required": false,
@@ -499,7 +531,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Same as `labels.skip`; kept for compatibility.",
           "native": false
         },
         {
@@ -507,7 +539,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Same as `labels.submit`; kept for compatibility.",
           "native": false
         },
         {

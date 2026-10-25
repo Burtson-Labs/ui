@@ -17,23 +17,27 @@ const guidance: Record<string, string[]> = {
     'Pass stable question IDs and option values. Choices start empty; optional questions can be skipped. allowCustom adds an alternative written answer, and multiple allows several choices.',
     'Return a promise from onSubmit. Pending submissions cannot be sent twice; rejection keeps answers for retry. A successful submission locks the response. Remount with a new key for a new request.',
     'Connect onSkip only when your runtime supports continuing without an answer. The card never sends messages or resumes an agent itself.',
+    'Its title is an h3; set headingLevel (2 to 6) to fit your page outline. labels translates every built-in string. A question with a description and an error is described by both.',
   ],
   'agent-plan': [
     'Keep state controlled by your runtime. Approval records a decision; your callback owns starting the work. Use AgentRun once execution begins.',
+    'The title is an h3 by default; set headingLevel (2 to 6) to fit your page outline.',
   ],
   'context-usage': [
     'Pass used and limit from your runtime. Null or invalid measurements show Usage unavailable instead of a fabricated percentage.',
     'The meter warns at 80% and becomes critical at 95%. onCompact requests compaction; keep busy true until your runtime reports new counts.',
+    "The warning and Compacting text sit in a polite status region that changes only when a threshold is crossed, not on every count. Counts use the reader's locale unless you pass locale; labels translates the text.",
   ],
   'circular-progress': [
     'Omit value or pass null for an unknown duration. Finite values are clamped to max. Give the indicator a label that names the operation.',
   ],
   'loading-dots': [
-    'Use showLabel when the waiting state needs explanation. Keep status text stable; do not announce every generated token.',
+    'Use showLabel when the waiting state needs explanation. Keep status text stable; do not announce every generated token. It is one role="status" named by label; StreamingIndicator is the same component labelled Assistant is typing.',
   ],
   'theme-provider': [
     'Mount one provider at the document root. useTheme exposes theme, resolvedTheme and setTheme. Set storageKey to null for an in-memory preference.',
-    'System mode responds to device changes. Saved preferences sync across tabs and remain usable when storage is blocked. For SSR, use a theme bootstrap before first paint; server output uses defaultTheme.',
+    'System mode responds to device changes. Saved preferences sync across tabs and remain usable when storage is blocked. Server output uses defaultTheme.',
+    'Load @burtson-labs/ui/theme-init.js (or inline themeInitScript() allowed by its themeInitScriptHash()) in <head> so the saved theme applies before first paint. Give it the same storage key. legacyStorageKeys moves a preference saved under an older key.',
   ],
   'avatar-upload': [
     'onUpload receives a square JPEG. Await your storage API and update src after the save succeeds. Throw an Error with a useful message to keep the crop available for retry.',
@@ -44,6 +48,7 @@ const guidance: Record<string, string[]> = {
     'Controlled: pass actual run and step states from your agent runtime. Only show Completed after the backend confirms completion.',
     'Use waiting for decisions, paused for suspended execution, and canceled for an interrupted run. Put ToolApproval or other decision controls in children.',
     'Callbacks request a transition; keep busy true until the runtime acknowledges it. A retry should explain which work will run again.',
+    'The title is an h3 by default; set headingLevel (2 to 6) to fit your page outline.',
   ],
   attachment: [
     'Show the state your app reports: queued, uploading, parsing (reading), ready or failed. The component never uploads anything.',

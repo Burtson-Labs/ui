@@ -11,15 +11,40 @@ export interface ContextUsageProps extends React.ComponentProps<'div'> {
   label?: string;
   onCompact?: () => void;
   busy?: boolean;
+  /** BCP 47 locale for the token counts. Undefined uses the reader's locale. */
+  locale?: Intl.LocalesArgument;
+  /** Visible and announced text, for translation. */
+  labels?: Partial<typeof contextUsageLabels>;
 }
+
+const contextUsageLabels = {
+  /** Builds the count text from the formatted numbers. */
+  summary: (used: string, limit: string) => `${used} of ${limit} tokens`,
+  unavailable: 'Usage unavailable',
+  compacting: 'Compacting context…',
+  critical: 'Almost full. Compact context or start a new conversation.',
+  warning: 'Context is filling up.',
+  compact: 'Compact context',
+};
 
 /** A capacity meter, not task progress. Never invents a token count or compacts on its own. */
 export const ContextUsage = React.forwardRef<HTMLDivElement, ContextUsageProps>(
   function ContextUsage(
-    { used, limit, label = 'Context window', onCompact, busy = false, className, ...props },
+    {
+      used,
+      limit,
+      label = 'Context window',
+      onCompact,
+      busy = false,
+      locale,
+      labels,
+      className,
+      ...props
+    },
     ref,
   ) {
     const id = React.useId();
+    const l = { ...contextUsageLabels, ...labels };
     const known =
       used !== null &&
       limit !== null &&
@@ -29,8 +54,8 @@ export const ContextUsage = React.forwardRef<HTMLDivElement, ContextUsageProps>(
       limit > 0;
     const ratio = known ? used / limit : 0;
     const summary = known
-      ? `${used.toLocaleString('en-US')} of ${limit.toLocaleString('en-US')} tokens`
-      : 'Usage unavailable';
+      ? l.summary(used.toLocaleString(locale), limit.toLocaleString(locale))
+      : l.unavailable;
     const status = !known
       ? 'unknown'
       : ratio >= 0.95
@@ -77,13 +102,16 @@ export const ContextUsage = React.forwardRef<HTMLDivElement, ContextUsageProps>(
           </div>
         )}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-xs text-muted-foreground">
+          {/* Always mounted so a screen reader hears the threshold message when it
+              appears. Its text depends only on the threshold and busy, never on the
+              count, so it speaks once per crossing, not on every token. */}
+          <p role="status" className="text-xs text-muted-foreground">
             {busy
-              ? 'Compacting context…'
+              ? l.compacting
               : status === 'critical'
-                ? 'Almost full. Compact context or start a new conversation.'
+                ? l.critical
                 : status === 'warning'
-                  ? 'Context is filling up.'
+                  ? l.warning
                   : ''}
           </p>
           {onCompact && (
@@ -93,7 +121,7 @@ export const ContextUsage = React.forwardRef<HTMLDivElement, ContextUsageProps>(
               disabled={busy || !known || used === 0}
               onClick={onCompact}
             >
-              Compact context
+              {l.compact}
             </Button>
           )}
         </div>

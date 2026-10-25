@@ -1,11 +1,19 @@
 export {
   cn,
   focusRingClasses,
+  type HeadingLevel,
   noOutlineClasses,
   touchTargetClasses,
   touchTargetRowClasses,
 } from './lib/utils';
 export { breakpoints, type Breakpoint, useMediaQuery, useNarrowerThan } from './lib/media';
+export {
+  DEFAULT_THEME_STORAGE_KEY,
+  THEME_KEY_PATTERN,
+  themeInitScript,
+  themeInitScriptHash,
+  type ThemeInitScriptOptions,
+} from './lib/theme-init';
 export { isApplePlatform, modKeyLabel, shortcutLabel } from './lib/platform';
 export * from './tokens';
 export * from './components/accordion';

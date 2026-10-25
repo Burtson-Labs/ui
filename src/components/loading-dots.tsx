@@ -8,7 +8,11 @@ export interface LoadingDotsProps extends React.ComponentProps<'span'> {
   showLabel?: boolean;
 }
 
-/** A quiet status for thinking, typing and waiting without a known percentage. */
+/**
+ * A quiet status for thinking, typing and waiting without a known percentage.
+ * One polite `role="status"` named by `label`; the dots are decoration.
+ * StreamingIndicator is this component with a typing label.
+ */
 export const LoadingDots = React.forwardRef<HTMLSpanElement, LoadingDotsProps>(function LoadingDots(
   { label = 'Thinking', showLabel = false, className, ...props },
   ref,
@@ -18,6 +22,7 @@ export const LoadingDots = React.forwardRef<HTMLSpanElement, LoadingDotsProps>(f
       ref={ref}
       data-slot="loading-dots"
       role="status"
+      aria-label={label}
       className={cn('inline-flex items-center gap-2 text-sm text-muted-foreground', className)}
       {...props}
     >

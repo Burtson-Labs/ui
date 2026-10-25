@@ -18,6 +18,14 @@
           "native": false
         },
         {
+          "name": "headingLevel",
+          "type": "HeadingLevel | undefined",
+          "required": false,
+          "default": null,
+          "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
+          "native": false
+        },
+        {
           "name": "onApprove",
           "type": "(() => void) | undefined",
           "required": false,
@@ -361,6 +369,14 @@
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "headingLevel",
+          "type": "HeadingLevel | undefined",
+          "required": false,
+          "default": null,
+          "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
           "native": false
         },
         {

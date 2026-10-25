@@ -137,6 +137,16 @@ import {
 <ContextUsage used={42000} limit={200000} />;
 ```
 
+Load the theme init script in `<head>` so a saved dark theme applies before first paint (no
+light flash). Under a strict CSP serve the file, configured with data attributes:
+
+```html
+<script src="/theme-init.js" data-storage-key="app-theme"></script>
+```
+
+Copy it from `@burtson-labs/ui/theme-init.js`, or render `themeInitScript({ storageKey: 'app-theme' })`
+inline and add `await themeInitScriptHash({ storageKey: 'app-theme' })` to `script-src`.
+
 The [theme editor](https://ui.burtson.ai/docs/theming) previews presets, custom accents,
 corner radius and control density and exports both palettes. Agent callbacks belong to your
 runtime. See [the coverage audit](docs/agent-component-audit.md) for the existing components

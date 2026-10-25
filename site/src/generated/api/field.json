@@ -988,7 +988,7 @@
       "props": [
         {
           "name": "columns",
-          "type": "1 | 2 | 4 | 3 | undefined",
+          "type": "1 | 2 | 3 | 4 | undefined",
           "required": false,
           "default": "2",
           "description": "Columns from 640px up; one column on phones.",
@@ -1287,7 +1287,7 @@
       "props": [
         {
           "name": "columns",
-          "type": "1 | 2 | 4 | 3 | undefined",
+          "type": "1 | 2 | 3 | 4 | undefined",
           "required": false,
           "default": null,
           "description": "Columns from 640px up; one column on phones.",

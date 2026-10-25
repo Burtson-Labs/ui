@@ -26,11 +26,27 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "Partial<{ summary: (used: string, limit: string) => string; unavailable: string; compacting: string; critical: string; warning: string; compact: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and announced text, for translation.",
+          "native": false
+        },
+        {
           "name": "limit",
           "type": "number | null",
           "required": true,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "locale",
+          "type": "Intl.LocalesArgument",
+          "required": false,
+          "default": null,
+          "description": "BCP 47 locale for the token counts. Undefined uses the reader's locale.",
           "native": false
         },
         {
@@ -357,11 +373,27 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "Partial<{ summary: (used: string, limit: string) => string; unavailable: string; compacting: string; critical: string; warning: string; compact: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and announced text, for translation.",
+          "native": false
+        },
+        {
           "name": "limit",
           "type": "number | null",
           "required": true,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "locale",
+          "type": "Intl.LocalesArgument",
+          "required": false,
+          "default": null,
+          "description": "BCP 47 locale for the token counts. Undefined uses the reader's locale.",
           "native": false
         },
         {

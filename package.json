@@ -46,6 +46,7 @@
       "import": "./dist/tokens.js"
     },
     "./theme.css": "./dist/theme.css",
+    "./theme-init.js": "./dist/theme-init.js",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },

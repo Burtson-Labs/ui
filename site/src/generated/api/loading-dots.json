@@ -5,7 +5,7 @@
     {
       "name": "LoadingDots",
       "kind": "component",
-      "description": "A quiet status for thinking, typing and waiting without a known percentage.",
+      "description": "A quiet status for thinking, typing and waiting without a known percentage.\nOne polite `role=\"status\"` named by `label`; the dots are decoration.\nStreamingIndicator is this component with a typing label.",
       "signatures": [],
       "type": null,
       "props": [
