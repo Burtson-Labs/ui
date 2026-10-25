@@ -44,19 +44,22 @@ export interface AskUserProps extends Omit<
 }
 
 /** An agent's request for clarification. Answers remain editable when submission fails. */
-export function AskUser({
-  title = 'A question before I continue',
-  description,
-  questions,
-  defaultValue = {},
-  onSubmit,
-  onSkip,
-  busy = false,
-  submitLabel = 'Send answers',
-  skipLabel = 'Skip for now',
-  className,
-  ...props
-}: AskUserProps) {
+export const AskUser = React.forwardRef<HTMLFormElement, AskUserProps>(function AskUser(
+  {
+    title = 'A question before I continue',
+    description,
+    questions,
+    defaultValue = {},
+    onSubmit,
+    onSkip,
+    busy = false,
+    submitLabel = 'Send answers',
+    skipLabel = 'Skip for now',
+    className,
+    ...props
+  },
+  ref,
+) {
   const id = React.useId();
   const [answers, setAnswers] = React.useState<AskUserAnswers>(defaultValue);
   const [pending, setPending] = React.useState(false);
@@ -87,6 +90,7 @@ export function AskUser({
   };
   return (
     <form
+      ref={ref}
       data-slot="ask-user"
       aria-labelledby={`${id}-title`}
       aria-busy={pending || busy || undefined}
@@ -253,4 +257,4 @@ export function AskUser({
       </div>
     </form>
   );
-}
+});

@@ -141,6 +141,22 @@
           "native": false
         },
         {
+          "name": "sendLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Send'",
+          "description": "Accessible name of the send button.",
+          "native": false
+        },
+        {
+          "name": "stopLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Stop'",
+          "description": "Accessible name of the stop button.",
+          "native": false
+        },
+        {
           "name": "streaming",
           "type": "boolean | undefined",
           "required": false,
@@ -579,6 +595,22 @@
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "sendLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Accessible name of the send button.",
+          "native": false
+        },
+        {
+          "name": "stopLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Accessible name of the stop button.",
           "native": false
         },
         {

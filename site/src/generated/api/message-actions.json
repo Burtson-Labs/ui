@@ -26,6 +26,14 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "Partial<{ group: string; copy: string; edit: string; regenerate: string; good: string; bad: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Accessible names, for translation.",
+          "native": false
+        },
+        {
           "name": "onEdit",
           "type": "(() => void) | undefined",
           "required": false,
@@ -354,6 +362,14 @@
           "required": false,
           "default": null,
           "description": "The current rating; controlled.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ group: string; copy: string; edit: string; regenerate: string; good: string; bad: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Accessible names, for translation.",
           "native": false
         },
         {

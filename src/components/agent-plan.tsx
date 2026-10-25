@@ -21,21 +21,25 @@ export interface AgentPlanProps extends Omit<React.ComponentProps<'section'>, 't
 }
 
 /** Review a proposed plan before execution. The app records approval and starts work. */
-export function AgentPlan({
-  title = 'Proposed plan',
-  summary,
-  steps,
-  state = 'proposed',
-  busy = false,
-  onApprove,
-  onRevise,
-  className,
-  children,
-  ...props
-}: AgentPlanProps) {
+export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function AgentPlan(
+  {
+    title = 'Proposed plan',
+    summary,
+    steps,
+    state = 'proposed',
+    busy = false,
+    onApprove,
+    onRevise,
+    className,
+    children,
+    ...props
+  },
+  ref,
+) {
   const id = React.useId();
   return (
     <section
+      ref={ref}
       data-slot="agent-plan"
       data-state={state}
       aria-labelledby={id}
@@ -94,4 +98,4 @@ export function AgentPlan({
       )}
     </section>
   );
-}
+});

@@ -43,7 +43,7 @@ export default function ConversationDemo() {
 
   return (
     <div className="grid h-[28rem] w-full max-w-2xl grid-rows-[1fr_auto] overflow-hidden rounded-lg border bg-background">
-      <Conversation>
+      <Conversation streaming={streaming}>
         {turns.map((t, i) =>
           t.role === 'user' ? (
             <Message key={i} from="user">

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.16.1
+
+- Composer keeps focus while a message sends: the text box is read-only instead of
+  disabled, and focus returns to it when the send or stop button disables or swaps
+  under it. New `sendLabel` and `stopLabel` props.
+- Conversation takes `streaming`, which sets `aria-busy` on the log so screen readers
+  read the finished reply instead of every token.
+- AgentRun announces a running state once; the spinner beside it is now decorative.
+- MessageActions is a labelled group rather than a toolbar (it has no arrow-key
+  navigation) and takes `labels` for translation.
+- VoiceRecorder moves focus to the stop button when recording starts and back to the
+  microphone when it ends.
+- AgentRun, AgentPlan, AskUser, AvatarUpload and ContextUsage forward refs.
+- Docs use @burtson-labs/icons 0.8.1, whose paperclip stays legible at 16px. Apps
+  pick up the redraw by updating their own icons dependency.
+- Clear high-severity audit findings in dev dependencies.
+
 ## 0.16.0
 
 - Add AskUser for agent clarification with choices, multiple selections, written answers,

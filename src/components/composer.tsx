@@ -48,6 +48,10 @@ export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSub
   multiple?: boolean;
   /** Accessible name of the attach button. */
   attachLabel?: string;
+  /** Accessible name of the send button. */
+  sendLabel?: string;
+  /** Accessible name of the stop button. */
+  stopLabel?: string;
 }
 
 /** Does `file` match an `accept` list ("image/*,.pdf,text/plain")? Empty accepts all. */
@@ -92,12 +96,18 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
     accept,
     multiple = true,
     attachLabel = 'Attach files',
+    sendLabel = 'Send',
+    stopLabel = 'Stop',
     className,
     ...props
   },
   ref,
 ) {
   const fileInput = React.useRef<HTMLInputElement>(null);
+  const textarea = React.useRef<HTMLTextAreaElement>(null);
+  // Focus was inside the composer when the send or stop button disabled under
+  // it; put it back in the text box instead of leaving it on <body>.
+  const focusInside = React.useRef(false);
   const [dragging, setDragging] = React.useState(false);
   const dragDepth = React.useRef(0);
   const attach = (list: FileList | File[] | null | undefined) => {
@@ -129,6 +139,16 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
     if (controlled === undefined) setOwn(v);
     onValueChange?.(v);
   };
+  React.useEffect(() => {
+    if (
+      focusInside.current &&
+      (!document.activeElement ||
+        document.activeElement === document.body ||
+        // Browsers move focus off a disabled button only on a later frame.
+        (document.activeElement as HTMLButtonElement).disabled === true)
+    )
+      textarea.current?.focus();
+  }, [pending, streaming]);
   const canSend =
     canSubmit &&
     !disabled &&
@@ -193,6 +213,16 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
         className,
       )}
       {...props}
+      onFocusCapture={(e) => {
+        focusInside.current = true;
+        props.onFocusCapture?.(e);
+      }}
+      onBlurCapture={(e) => {
+        // A blur with no new target is the button disabling, not the person leaving.
+        const next = e.relatedTarget as Node | null;
+        if (next && !e.currentTarget.contains(next)) focusInside.current = false;
+        props.onBlurCapture?.(e);
+      }}
     >
       {dragging && (
         <div
@@ -203,10 +233,13 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
         </div>
       )}
       <textarea
+        ref={textarea}
         aria-label={label}
         rows={1}
         value={value}
-        disabled={disabled || pending}
+        disabled={disabled}
+        readOnly={pending}
+        aria-busy={pending || undefined}
         aria-describedby={failed ? errorId : undefined}
         aria-invalid={failed || undefined}
         placeholder={placeholder}
@@ -280,7 +313,7 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
               type="button"
               size="icon-sm"
               variant="secondary"
-              aria-label="Stop"
+              aria-label={stopLabel}
               className="pointer-coarse:size-11"
               onClick={onStop}
               disabled={!onStop || disabled}
@@ -291,7 +324,7 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
             <Button
               type="submit"
               size="icon-sm"
-              aria-label="Send"
+              aria-label={sendLabel}
               className="pointer-coarse:size-11"
               loading={pending}
               disabled={!canSend}

@@ -24,6 +24,14 @@
           "default": "'Conversation'",
           "description": "Accessible name for the message log.",
           "native": false
+        },
+        {
+          "name": "streaming",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "A reply is streaming. Screen readers hold the log's announcements until\nit ends, then read the finished reply instead of every token.",
+          "native": false
         }
       ],
       "inherited": [
@@ -330,6 +338,14 @@
           "required": false,
           "default": null,
           "description": "Accessible name for the message log.",
+          "native": false
+        },
+        {
+          "name": "streaming",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "A reply is streaming. Screen readers hold the log's announcements until\nit ends, then read the finished reply instead of every token.",
           "native": false
         }
       ],

@@ -8,6 +8,11 @@ export interface ConversationProps extends React.ComponentProps<'div'> {
   empty?: React.ReactNode;
   /** Accessible name for the message log. */
   label?: string;
+  /**
+   * A reply is streaming. Screen readers hold the log's announcements until
+   * it ends, then read the finished reply instead of every token.
+   */
+  streaming?: boolean;
 }
 
 /**
@@ -16,7 +21,7 @@ export interface ConversationProps extends React.ComponentProps<'div'> {
  * appears instead of yanking them back down.
  */
 const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(function Conversation(
-  { children, empty, label = 'Conversation', className, ...props },
+  { children, empty, label = 'Conversation', streaming = false, className, ...props },
   ref,
 ) {
   const scroller = React.useRef<HTMLDivElement>(null);
@@ -68,6 +73,7 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(functio
         aria-label={label}
         aria-live="polite"
         aria-relevant="additions text"
+        aria-busy={streaming || undefined}
         // A scrollable region must be reachable by keyboard (WCAG 2.1.1).
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}

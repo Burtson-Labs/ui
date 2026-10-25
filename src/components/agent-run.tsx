@@ -39,7 +39,9 @@ const labels: Record<AgentRunState, string> = {
   canceled: 'Canceled',
 };
 function RunIcon({ state }: { state: AgentRunState }) {
-  if (state === 'running') return <Spinner className="size-4" label="Running" />;
+  // The state is announced once, as text, by the caller; the spinner is decoration.
+  if (state === 'running')
+    return <Spinner className="size-4" role={undefined} aria-label={undefined} aria-hidden />;
   const Icon =
     state === 'completed'
       ? Check
@@ -62,24 +64,28 @@ function RunIcon({ state }: { state: AgentRunState }) {
 }
 
 /** A controlled run timeline. The application owns execution, cancellation and retry. */
-export function AgentRun({
-  title,
-  state,
-  steps,
-  summary,
-  busy = false,
-  onPause,
-  onResume,
-  onCancel,
-  onRetry,
-  children,
-  className,
-  ...props
-}: AgentRunProps) {
+export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function AgentRun(
+  {
+    title,
+    state,
+    steps,
+    summary,
+    busy = false,
+    onPause,
+    onResume,
+    onCancel,
+    onRetry,
+    children,
+    className,
+    ...props
+  },
+  ref,
+) {
   const id = React.useId();
   const active = ['queued', 'running', 'waiting', 'paused'].includes(state);
   return (
     <section
+      ref={ref}
       data-slot="agent-run"
       data-state={state}
       aria-labelledby={id}
@@ -161,4 +167,4 @@ export function AgentRun({
       )}
     </section>
   );
-}
+});

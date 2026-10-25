@@ -218,6 +218,22 @@ const VoiceRecorder = React.forwardRef<HTMLDivElement, VoiceRecorderProps>(funct
 
   const live = state === 'recording' || state === 'paused';
 
+  // Starting or ending a recording swaps the controls, which would drop focus
+  // on <body>; move it to the matching control in the new view instead.
+  const micButton = React.useRef<HTMLButtonElement>(null);
+  const stopButton = React.useRef<HTMLButtonElement>(null);
+  const followFocus = React.useRef(false);
+  React.useEffect(() => {
+    if (!followFocus.current) return;
+    followFocus.current = false;
+    if (document.activeElement && document.activeElement !== document.body) return;
+    (live ? stopButton : micButton).current?.focus();
+  }, [live]);
+  const act = (fn: () => void) => () => {
+    followFocus.current = true;
+    fn();
+  };
+
   if (!live) {
     const note =
       state === 'denied'
@@ -242,7 +258,8 @@ const VoiceRecorder = React.forwardRef<HTMLDivElement, VoiceRecorderProps>(funct
           aria-label={label}
           title={label}
           disabled={state === 'requesting' || state === 'unsupported'}
-          onClick={() => void start()}
+          ref={micButton}
+          onClick={act(() => void start())}
           className="pointer-coarse:size-11"
         >
           <Mic />
@@ -311,7 +328,7 @@ const VoiceRecorder = React.forwardRef<HTMLDivElement, VoiceRecorderProps>(funct
         size="icon-sm"
         variant="ghost"
         aria-label="Discard recording"
-        onClick={() => stop(false)}
+        onClick={act(() => stop(false))}
         className="rounded-full pointer-coarse:size-11"
       >
         <Trash />
@@ -320,7 +337,8 @@ const VoiceRecorder = React.forwardRef<HTMLDivElement, VoiceRecorderProps>(funct
         type="button"
         size="icon-sm"
         aria-label="Stop and attach recording"
-        onClick={() => stop(true)}
+        ref={stopButton}
+        onClick={act(() => stop(true))}
         className="rounded-full bg-recording text-recording-foreground hover:bg-recording/90 pointer-coarse:size-11"
       >
         <Square className="fill-current" />

@@ -25,7 +25,18 @@ export interface MessageActionsProps extends React.ComponentProps<'div'> {
   feedback?: MessageFeedback;
   /** Adds thumbs up and down. Clicking the chosen one again clears it (null). */
   onFeedback?: (value: MessageFeedback) => void;
+  /** Accessible names, for translation. */
+  labels?: Partial<typeof messageActionLabels>;
 }
+
+const messageActionLabels = {
+  group: 'Message actions',
+  copy: 'Copy message',
+  edit: 'Edit message',
+  regenerate: 'Regenerate response',
+  good: 'Good response',
+  bad: 'Bad response',
+};
 
 /**
  * The row under a message: copy, regenerate, edit and a thumbs rating, as
@@ -34,27 +45,26 @@ export interface MessageActionsProps extends React.ComponentProps<'div'> {
  */
 const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
   function MessageActions(
-    { copyText, onRegenerate, onEdit, feedback = null, onFeedback, className, ...props },
+    { copyText, onRegenerate, onEdit, feedback = null, onFeedback, labels, className, ...props },
     ref,
   ) {
+    const l = { ...messageActionLabels, ...labels };
     const small = 'size-7 text-muted-foreground hover:text-foreground pointer-coarse:size-11';
     return (
       <div
         ref={ref}
         data-slot="message-actions"
-        role="toolbar"
-        aria-label="Message actions"
+        role="group"
+        aria-label={l.group}
         className={cn('flex items-center gap-0.5', className)}
         {...props}
       >
-        {copyText !== undefined && (
-          <CopyButton value={copyText} label="Copy message" className={small} />
-        )}
+        {copyText !== undefined && <CopyButton value={copyText} label={l.copy} className={small} />}
         {onEdit && (
           <IconButton
             variant="ghost"
             size="icon-sm"
-            label="Edit message"
+            label={l.edit}
             onClick={onEdit}
             className={small}
           >
@@ -65,7 +75,7 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
           <IconButton
             variant="ghost"
             size="icon-sm"
-            label="Regenerate response"
+            label={l.regenerate}
             onClick={onRegenerate}
             className={small}
           >
@@ -77,7 +87,7 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
             <IconButton
               variant="ghost"
               size="icon-sm"
-              label="Good response"
+              label={l.good}
               aria-pressed={feedback === 'up'}
               onClick={() => onFeedback(feedback === 'up' ? null : 'up')}
               className={cn(small, feedback === 'up' && 'text-brand hover:text-brand')}
@@ -87,7 +97,7 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
             <IconButton
               variant="ghost"
               size="icon-sm"
-              label="Bad response"
+              label={l.bad}
               aria-pressed={feedback === 'down'}
               onClick={() => onFeedback(feedback === 'down' ? null : 'down')}
               className={cn(small, feedback === 'down' && 'text-foreground')}
