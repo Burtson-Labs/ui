@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.17.0
+
+### New components
+
+- **Toggle** and **ToggleGroup**: `type="single"` is a radio group whose arrows move and
+  choose; `type="multiple"` is pressed buttons. One Tab stop, arrows, Home and End, RTL,
+  `orientation` and `loop`. 44px on touch screens.
+- **HoverCard** for link and citation previews: opens after a delay on hover or keyboard
+  focus (not touch), stays open while the pointer or focus is inside, closes on Escape.
+- **InputOTP**: one real input with `autocomplete="one-time-code"`, paste that strips
+  separators, `pattern` tested one character at a time, `groupSize` and `onComplete`.
+- **Calendar**, **DatePicker** and **DateRangePicker** with no date library: Intl month and
+  weekday names, locale week start, `min`/`max`/disabled days, the full WAI-ARIA date grid
+  keyboard. DatePicker can submit `YYYY-MM-DD` through `name`.
+- **ModelPicker**: searchable model selector grouped by provider, with context size,
+  capability badges and disabled models that say why. Fits Composer `actions`.
+- **ResponseVersions** ("2 / 3" between regenerated responses, announced politely) and a
+  `versions` prop on MessageActions.
+- **MessageUsage**: input/output tokens, currency cost and duration for a message footer.
+- **ImageLightbox** and **ImageGallery**: dialog viewer with required alt text,
+  previous/next and focus returned to the opener. MessageAttachments takes `lightbox`.
+- **ArtifactPanel**: a generated artifact in a resizable panel beside the conversation,
+  a sheet below `lg`.
+- CodeBlock and Markdown highlight code through a pluggable `highlight` prop (bring shiki
+  or Prism), with a small built-in tokenizer for js/ts/json/bash/python that renders only
+  escaped text. CodeBlock takes `copyLabel`.
+
+### Accessibility and translation
+
+- `themeInitScript()`, `themeInitScriptHash()` and a static
+  `@burtson-labs/ui/theme-init.js` apply the saved theme before first paint, so dark mode
+  no longer flashes light; they work under a strict CSP. ThemeProvider takes
+  `legacyStorageKeys` and moves an old preference to the current key.
+- AskUser: shared focus ring, questions described by both description and error,
+  `labels` for every string, `headingLevel`.
+- ContextUsage announces threshold and compacting changes once per crossing, uses the
+  reader's locale (or `locale`), and takes `labels`.
+- StreamingIndicator is now LoadingDots with a typing label: one labelled status.
+- AgentRun, AgentPlan and AskUser take `headingLevel` (2-6). AgentRun and AgentPlan take
+  `labels` for every built-in string.
+- Composer takes `maxFileBytes`, `maxFiles` and `onReject`, which reports refused files and
+  why (type, size or count).
+- ChatLayout's mobile sidebar sheet returns focus to its menu button when it closes.
+
+### Security
+
+- Attachment links, images and voice notes, AttachmentItem previews and AudioPlayer only
+  use http(s), blob: and relative URLs (plus `data:image` for images). Anything else
+  renders without a link or source, which closes `javascript:` URLs under React 18.
+  Attachment links use `rel="noopener noreferrer"`. New `safeLinkHref` and
+  `safeImageSrc` exports.
+- Releases publish only after CI passes for the same commit, with npm provenance. CI
+  installs without lifecycle scripts; Dependabot proposes grouped weekly updates.
+- Docs use @burtson-labs/icons 0.9.0.
+
 ## 0.16.1
 
 - Composer keeps focus while a message sends: the text box is read-only instead of

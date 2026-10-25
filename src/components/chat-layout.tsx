@@ -148,6 +148,8 @@ const ChatLayout = React.forwardRef<HTMLDivElement, ChatLayoutProps>(function Ch
   const desktop = useDesktop();
   const [ownOpen, setOwnOpen] = React.useState(defaultSidebarOpen);
   const [sheetOpen, setSheetOpen] = React.useState(false);
+  // The sheet opens without a SheetTrigger, so send focus back to the menu button.
+  const menuButton = React.useRef<HTMLButtonElement>(null);
   const open = controlledOpen ?? ownOpen;
   const setOpen = (v: boolean) => {
     if (controlledOpen === undefined) setOwnOpen(v);
@@ -172,6 +174,7 @@ const ChatLayout = React.forwardRef<HTMLDivElement, ChatLayoutProps>(function Ch
         size="icon-sm"
         className="pointer-coarse:size-11"
         label={`Open ${sidebarLabel.toLowerCase()}`}
+        ref={menuButton}
         aria-expanded={sheetOpen}
         onClick={() => setSheetOpen(true)}
       >
@@ -258,7 +261,15 @@ const ChatLayout = React.forwardRef<HTMLDivElement, ChatLayoutProps>(function Ch
       </div>
       {sidebar && !desktop && (
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetContent side="left" className="w-[min(20rem,88vw)] gap-0 p-0">
+          <SheetContent
+            side="left"
+            className="w-[min(20rem,88vw)] gap-0 p-0"
+            onCloseAutoFocus={(e) => {
+              if (!menuButton.current?.isConnected) return;
+              e.preventDefault();
+              menuButton.current.focus();
+            }}
+          >
             <SheetTitle className="border-b px-4 py-3.5 text-sm">{sidebarLabel}</SheetTitle>
             <SheetDescription className="sr-only">Pick a conversation.</SheetDescription>
             <div

@@ -59,7 +59,7 @@
         },
         {
           "name": "versions",
-          "type": "Pick<ResponseVersionsProps, \"labels\" | \"index\" | \"count\" | \"onIndexChange\"> | undefined",
+          "type": "Pick<ResponseVersionsProps, \"labels\" | \"count\" | \"index\" | \"onIndexChange\"> | undefined",
           "required": false,
           "default": null,
           "description": "A \"2 / 3\" switcher between regenerated responses, first in the row.\nHidden while there is only one version.",
@@ -406,7 +406,7 @@
         },
         {
           "name": "versions",
-          "type": "Pick<ResponseVersionsProps, \"labels\" | \"index\" | \"count\" | \"onIndexChange\"> | undefined",
+          "type": "Pick<ResponseVersionsProps, \"labels\" | \"count\" | \"index\" | \"onIndexChange\"> | undefined",
           "required": false,
           "default": null,
           "description": "A \"2 / 3\" switcher between regenerated responses, first in the row.\nHidden while there is only one version.",
