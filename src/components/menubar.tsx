@@ -20,7 +20,11 @@ const Menubar = React.forwardRef<
     <MenubarPrimitive.Root
       ref={ref}
       data-slot="menubar"
-      className={cn('flex h-8 items-center gap-0.5 rounded-md border bg-surface p-0.5', className)}
+      className={cn(
+        // Sized by its triggers (28px) plus inset and border; a fixed height clipped them.
+        'flex max-w-full items-center gap-0.5 overflow-x-auto overflow-y-hidden rounded-md border bg-surface p-0.5 [scrollbar-width:none]',
+        className,
+      )}
       {...props}
     />
   );

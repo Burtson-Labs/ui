@@ -11,7 +11,7 @@ import {
 
 export default function MenubarDemo() {
   return (
-    <Menubar className="max-w-full overflow-x-auto">
+    <Menubar>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent className="w-56">
