@@ -85,6 +85,22 @@
           "native": false
         },
         {
+          "name": "maxFileBytes",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Largest file accepted, in bytes. Bigger files go to `onReject`.",
+          "native": false
+        },
+        {
+          "name": "maxFiles",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Most files accepted from one pick, drop or paste. Extra files go to `onReject`.",
+          "native": false
+        },
+        {
           "name": "multiple",
           "type": "boolean | undefined",
           "required": false,
@@ -98,6 +114,14 @@
           "required": false,
           "default": null,
           "description": "Files the person picked, dropped on the composer or pasted. Setting it\nshows a paperclip button. The composer only hands the files over: the\napp uploads them and renders their state in `attachments` (an\nAttachmentTray), with `attachmentCount` and `canSubmit` for sending.",
+          "native": false
+        },
+        {
+          "name": "onReject",
+          "type": "((rejected: ComposerRejectedFile[]) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Files that were not handed to `onAttach`, and why. Use it to tell the person.",
           "native": false
         },
         {
@@ -542,6 +566,22 @@
           "native": false
         },
         {
+          "name": "maxFileBytes",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Largest file accepted, in bytes. Bigger files go to `onReject`.",
+          "native": false
+        },
+        {
+          "name": "maxFiles",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Most files accepted from one pick, drop or paste. Extra files go to `onReject`.",
+          "native": false
+        },
+        {
           "name": "multiple",
           "type": "boolean | undefined",
           "required": false,
@@ -555,6 +595,14 @@
           "required": false,
           "default": null,
           "description": "Files the person picked, dropped on the composer or pasted. Setting it\nshows a paperclip button. The composer only hands the files over: the\napp uploads them and renders their state in `attachments` (an\nAttachmentTray), with `attachmentCount` and `canSubmit` for sending.",
+          "native": false
+        },
+        {
+          "name": "onReject",
+          "type": "((rejected: ComposerRejectedFile[]) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Files that were not handed to `onAttach`, and why. Use it to tell the person.",
           "native": false
         },
         {
@@ -926,6 +974,32 @@
         "e451e5d7885a6cce",
         "80653af567c6dc54"
       ]
+    },
+    {
+      "name": "ComposerRejectedFile",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ComposerRejectedFile",
+      "props": [
+        {
+          "name": "file",
+          "type": "File",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "reason",
+          "type": "\"type\" | \"size\" | \"count\"",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        }
+      ],
+      "inherited": []
     },
     {
       "name": "Suggestions",

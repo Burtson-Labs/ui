@@ -26,6 +26,14 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "(Partial<{ steps: string; cancel: string; pause: string; resume: string; retry: string; }> & { states?: Partial<Record<AgentRunState, string>>; }) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Built-in text, for translation. State names go in `labels.states`.",
+          "native": false
+        },
+        {
           "name": "onCancel",
           "type": "(() => void) | undefined",
           "required": false,
@@ -392,6 +400,14 @@
           "required": false,
           "default": null,
           "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "(Partial<{ steps: string; cancel: string; pause: string; resume: string; retry: string; }> & { states?: Partial<Record<AgentRunState, string>>; }) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Built-in text, for translation. State names go in `labels.states`.",
           "native": false
         },
         {

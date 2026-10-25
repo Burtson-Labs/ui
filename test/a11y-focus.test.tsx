@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import { describe, expect, it, vi } from 'vitest';
@@ -105,5 +105,61 @@ describe('forwardRef on agent components', () => {
       </>,
     );
     for (const r of refs) expect(r.current).toBeInstanceOf(HTMLElement);
+  });
+});
+
+describe('translatable agent text', () => {
+  it('AgentRun and AgentPlan take labels', () => {
+    render(
+      <>
+        <AgentRun
+          title="t"
+          state="failed"
+          steps={[]}
+          onRetry={() => {}}
+          labels={{ steps: 'Etapas', retry: 'Reintentar', states: { failed: 'Falló' } }}
+        />
+        <AgentPlan
+          steps={[{ id: 'a', title: 'x' }]}
+          onApprove={() => {}}
+          labels={{ title: 'Plan', proposed: 'Revisar', approve: 'Aprobar' }}
+        />
+      </>,
+    );
+    expect(screen.getByRole('list', { name: 'Etapas' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Reintentar' })).toBeTruthy();
+    expect(screen.getAllByRole('status')[0]!.textContent).toBe('Falló');
+    expect(screen.getByRole('heading', { name: 'Plan' })).toBeTruthy();
+    expect(screen.getByText('Revisar')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Aprobar' })).toBeTruthy();
+  });
+});
+
+describe('Composer file limits', () => {
+  it('passes accepted files on and reports the rest with a reason', () => {
+    const onAttach = vi.fn();
+    const onReject = vi.fn();
+    const { container } = render(
+      <Composer
+        onSubmit={() => {}}
+        onAttach={onAttach}
+        onReject={onReject}
+        accept="image/*"
+        maxFileBytes={10}
+        maxFiles={1}
+      />,
+    );
+    const input = container.querySelector('[data-slot="composer-file-input"]') as HTMLInputElement;
+    const ok = new File(['12345'], 'a.png', { type: 'image/png' });
+    const big = new File(['x'.repeat(20)], 'b.png', { type: 'image/png' });
+    const wrong = new File(['1'], 'c.txt', { type: 'text/plain' });
+    const extra = new File(['1'], 'd.png', { type: 'image/png' });
+    fireEvent.change(input, { target: { files: [ok, big, wrong, extra] } });
+    expect(onAttach).toHaveBeenCalledWith([ok]);
+    expect(onReject.mock.calls[0]![0].map((r: { reason: string }) => r.reason)).toEqual([
+      'size',
+      'type',
+      'count',
+    ]);
   });
 });

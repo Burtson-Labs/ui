@@ -46,12 +46,23 @@ export interface ComposerProps extends Omit<React.ComponentProps<'form'>, 'onSub
   accept?: string;
   /** Allow several files at once. Default true. */
   multiple?: boolean;
+  /** Largest file accepted, in bytes. Bigger files go to `onReject`. */
+  maxFileBytes?: number;
+  /** Most files accepted from one pick, drop or paste. Extra files go to `onReject`. */
+  maxFiles?: number;
+  /** Files that were not handed to `onAttach`, and why. Use it to tell the person. */
+  onReject?: (rejected: ComposerRejectedFile[]) => void;
   /** Accessible name of the attach button. */
   attachLabel?: string;
   /** Accessible name of the send button. */
   sendLabel?: string;
   /** Accessible name of the stop button. */
   stopLabel?: string;
+}
+
+export interface ComposerRejectedFile {
+  file: File;
+  reason: 'type' | 'size' | 'count';
 }
 
 /** Does `file` match an `accept` list ("image/*,.pdf,text/plain")? Empty accepts all. */
@@ -95,6 +106,9 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
     onAttach,
     accept,
     multiple = true,
+    maxFileBytes,
+    maxFiles,
+    onReject,
     attachLabel = 'Attach files',
     sendLabel = 'Send',
     stopLabel = 'Stop',
@@ -112,9 +126,18 @@ const Composer = React.forwardRef<HTMLFormElement, ComposerProps>(function Compo
   const dragDepth = React.useRef(0);
   const attach = (list: FileList | File[] | null | undefined) => {
     if (!onAttach || !list) return;
-    let files = Array.from(list).filter((f) => acceptsFile(f, accept));
-    if (!multiple) files = files.slice(0, 1);
+    const rejected: ComposerRejectedFile[] = [];
+    const files: File[] = [];
+    const limit = multiple ? (maxFiles ?? Infinity) : 1;
+    for (const file of Array.from(list)) {
+      if (!acceptsFile(file, accept)) rejected.push({ file, reason: 'type' });
+      else if (maxFileBytes !== undefined && file.size > maxFileBytes)
+        rejected.push({ file, reason: 'size' });
+      else if (files.length >= limit) rejected.push({ file, reason: 'count' });
+      else files.push(file);
+    }
     if (files.length) onAttach(files);
+    if (rejected.length) onReject?.(rejected);
   };
   const hasFiles = (e: React.DragEvent) =>
     Array.from(e.dataTransfer?.types ?? []).includes('Files');

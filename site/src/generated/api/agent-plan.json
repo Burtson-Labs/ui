@@ -26,6 +26,14 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "Partial<{ title: string; proposed: string; approved: string; rejected: string; steps: string; revise: string; approve: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Built-in text, for translation.",
+          "native": false
+        },
+        {
           "name": "onApprove",
           "type": "(() => void) | undefined",
           "required": false,
@@ -69,7 +77,7 @@
           "name": "title",
           "type": "string | undefined",
           "required": false,
-          "default": "'Proposed plan'",
+          "default": null,
           "description": "",
           "native": false
         }
@@ -377,6 +385,14 @@
           "required": false,
           "default": null,
           "description": "The title's heading rank, 2 to 6, to fit the page outline. Default 3.",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ title: string; proposed: string; approved: string; rejected: string; steps: string; revise: string; approve: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Built-in text, for translation.",
           "native": false
         },
         {

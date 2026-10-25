@@ -20,12 +20,24 @@ export interface AgentPlanProps extends Omit<React.ComponentProps<'section'>, 't
   busy?: boolean;
   onApprove?: () => void;
   onRevise?: () => void;
+  /** Built-in text, for translation. */
+  labels?: Partial<typeof agentPlanLabels>;
 }
+
+const agentPlanLabels = {
+  title: 'Proposed plan',
+  proposed: 'For your review',
+  approved: 'Plan approved',
+  rejected: 'Changes requested',
+  steps: 'Planned steps',
+  revise: 'Request changes',
+  approve: 'Approve plan',
+};
 
 /** Review a proposed plan before execution. The app records approval and starts work. */
 export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function AgentPlan(
   {
-    title = 'Proposed plan',
+    title,
     headingLevel,
     summary,
     steps,
@@ -33,6 +45,7 @@ export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function 
     busy = false,
     onApprove,
     onRevise,
+    labels,
     className,
     children,
     ...props
@@ -40,6 +53,7 @@ export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function 
   ref,
 ) {
   const id = React.useId();
+  const l = { ...agentPlanLabels, ...labels };
   return (
     <section
       ref={ref}
@@ -55,18 +69,14 @@ export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function 
         {React.createElement(
           headingTag(headingLevel),
           { id, className: 'min-w-0 flex-1 text-sm font-semibold break-words' },
-          title,
+          title ?? l.title,
         )}
         <span role="status" className="text-xs text-muted-foreground">
-          {state === 'proposed'
-            ? 'For your review'
-            : state === 'approved'
-              ? 'Plan approved'
-              : 'Changes requested'}
+          {l[state]}
         </span>
       </div>
       {summary && <div className="text-sm leading-relaxed text-muted-foreground">{summary}</div>}
-      <ol className="grid gap-4" aria-label="Planned steps">
+      <ol className="grid gap-4" aria-label={l.steps}>
         {steps.map((step, index) => (
           <li key={step.id} className="flex min-w-0 gap-3">
             <span
@@ -91,12 +101,12 @@ export const AgentPlan = React.forwardRef<HTMLElement, AgentPlanProps>(function 
         <div className="flex flex-wrap justify-end gap-2 border-t border-border pt-4">
           {onRevise && (
             <Button variant="outline" onClick={onRevise} disabled={busy}>
-              Request changes
+              {l.revise}
             </Button>
           )}
           {onApprove && (
             <Button onClick={onApprove} loading={busy} disabled={busy || steps.length === 0}>
-              Approve plan
+              {l.approve}
             </Button>
           )}
         </div>

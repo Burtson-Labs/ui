@@ -30,8 +30,19 @@ export interface AgentRunProps extends Omit<React.ComponentProps<'section'>, 'ti
   onResume?: () => void;
   onCancel?: () => void;
   onRetry?: () => void;
+  /** Built-in text, for translation. State names go in `labels.states`. */
+  labels?: Partial<typeof agentRunLabels> & {
+    states?: Partial<Record<AgentRunState, string>>;
+  };
 }
-const labels: Record<AgentRunState, string> = {
+const agentRunLabels = {
+  steps: 'Run steps',
+  cancel: 'Cancel run',
+  pause: 'Pause run',
+  resume: 'Resume run',
+  retry: 'Retry run',
+};
+const stateLabels: Record<AgentRunState, string> = {
   queued: 'Queued',
   running: 'Running',
   waiting: 'Needs your input',
@@ -78,6 +89,7 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
     onResume,
     onCancel,
     onRetry,
+    labels,
     children,
     className,
     ...props
@@ -85,6 +97,8 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
   ref,
 ) {
   const id = React.useId();
+  const l = { ...agentRunLabels, ...labels };
+  const states = { ...stateLabels, ...labels?.states };
   const active = ['queued', 'running', 'waiting', 'paused'].includes(state);
   return (
     <section
@@ -110,12 +124,12 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground"
           >
             <RunIcon state={state} />
-            {labels[state]}
+            {states[state]}
           </span>
         </div>
         {summary && <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>}
       </header>
-      <ol className="grid gap-4 p-4" aria-label="Run steps">
+      <ol className="grid gap-4 p-4" aria-label={l.steps}>
         {steps.map((step) => (
           <li
             key={step.id}
@@ -128,7 +142,7 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
             <div className="grid min-w-0 flex-1 gap-1">
               <span className="text-sm font-medium break-words">
                 {step.label}
-                <span className="sr-only"> — {labels[step.state]}</span>
+                <span className="sr-only"> — {states[step.state]}</span>
               </span>
               {step.detail && (
                 <div className="text-xs leading-relaxed break-words text-muted-foreground">
@@ -150,22 +164,22 @@ export const AgentRun = React.forwardRef<HTMLElement, AgentRunProps>(function Ag
         >
           {active && onCancel && (
             <Button variant="ghost" size="sm" disabled={busy} onClick={onCancel}>
-              Cancel run
+              {l.cancel}
             </Button>
           )}
           {state === 'running' && onPause && (
             <Button variant="outline" size="sm" disabled={busy} onClick={onPause}>
-              Pause run
+              {l.pause}
             </Button>
           )}
           {state === 'paused' && onResume && (
             <Button size="sm" disabled={busy} onClick={onResume}>
-              Resume run
+              {l.resume}
             </Button>
           )}
           {state === 'failed' && onRetry && (
             <Button size="sm" disabled={busy} onClick={onRetry}>
-              Retry run
+              {l.retry}
             </Button>
           )}
         </footer>
