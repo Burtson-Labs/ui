@@ -13,6 +13,66 @@ export interface Usage {
 }
 
 export const usage: Record<string, Usage> = {
+  toggle: {
+    use: [
+      'One setting that is on or off and acts at once, shown as a button: bold, mute, pin, "show archived".',
+    ],
+    avoid: [
+      'A setting saved with a form, or with a label beside it; use Switch or Checkbox. An action; use Button.',
+    ],
+    a11y: [
+      'A native button with aria-pressed, so screen readers say "pressed" or "not pressed". Name it after what it turns on ("Bold"), never after its state. 44px on touch screens.',
+    ],
+  },
+  'toggle-group': {
+    use: [
+      'A small set of related toggles: text styles (multiple), a view mode or alignment (single).',
+    ],
+    avoid: [
+      'Navigation between panels; use Tabs. A choice inside a form with a submit; use RadioGroup or Select.',
+    ],
+    a11y: [
+      'One Tab stop; arrow keys move between items (disabled ones are skipped) and Home and End jump to the ends. Single is a radiogroup of radios that choose as focus moves; multiple is a group of aria-pressed buttons that Space toggles. Name the group with aria-label.',
+    ],
+  },
+  'hover-card': {
+    use: [
+      'A preview behind a link: a citation, a person, a commit, an issue. Extra context for people who want it.',
+    ],
+    avoid: [
+      'Anything the person needs to finish a task, or anything only reachable here: touch screens never hover. Short labels; use Tooltip. Interactive forms; use Popover.',
+    ],
+    a11y: [
+      'Opens after a short delay on mouse hover or keyboard focus, and stays open while the pointer or focus is inside. It does not take focus: Tab from the trigger enters it, Tab past its last link continues after the trigger, and Escape closes it. While open it describes the trigger (aria-describedby).',
+    ],
+  },
+  'input-otp': {
+    use: ['A one-time code from a text message, email or authenticator: 4 to 8 characters.'],
+    avoid: ['Passwords or long secrets; use SecretInput. Anything the person types from memory.'],
+    a11y: [
+      'One real input under the slots, so it is announced as one field and the platform can autofill it (autocomplete="one-time-code", numeric keyboard on phones). Pasting a code fills every slot and drops spaces and dashes. Label it with Field.',
+    ],
+  },
+  calendar: {
+    use: [
+      'Choosing a day or a span where seeing the month helps: bookings, availability, a schedule.',
+    ],
+    avoid: [
+      'A date of birth or any date far from today; a plain Input with a format hint is faster. Inside a form field; use DatePicker.',
+    ],
+    a11y: [
+      'A grid named by its month, one Tab stop. Arrows move by day and week, Home and End to the ends of the week, Page Up and Page Down by month (with Shift, by year); Enter or Space chooses. Each day is named in full ("Sunday, October 25, 2026"); today is aria-current, blocked days say they are unavailable.',
+    ],
+  },
+  'date-picker': {
+    use: ['A date (or a from–to range) in a form, near today: pickup dates, a leave request.'],
+    avoid: [
+      'Dates people know by heart (birthdays); use an Input. Times; pair it with an Input for the time.',
+    ],
+    a11y: [
+      'The trigger is a button named by its Field label, with the chosen date read after it. Opening moves focus to the chosen day (or today); choosing closes the popover and returns focus; Escape closes without a change. With name, the day is submitted as YYYY-MM-DD.',
+    ],
+  },
   'ask-user': {
     use: [
       'Clarifying questions that block an agent, with one or more choices or a written answer.',

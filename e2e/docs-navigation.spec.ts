@@ -58,6 +58,7 @@ test('next-component links show the preview instead of retaining a deep scroll',
   page,
 }) => {
   await openReference(page);
-  await page.getByRole('link', { name: 'Card →', exact: true }).click();
-  await expectPreview(page, 'Card');
+  // Components are alphabetical: Calendar follows Button.
+  await page.getByRole('link', { name: 'Calendar →', exact: true }).click();
+  await expectPreview(page, 'Calendar');
 });

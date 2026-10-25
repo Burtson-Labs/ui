@@ -14,7 +14,7 @@ const CONTROLS =
 // Inline text links and desktop-only strips are not touch targets (WCAG 2.5.8
 // exempts inline links; the editor tab strip is an IDE component).
 const TOUCH_EXEMPT =
-  '[data-variant=link], [data-slot=breadcrumb], [data-slot=markdown], [data-slot=error-summary] a, [data-slot=source-citation], [data-slot=source-list] a, [data-slot=editor-tabs], [data-slot=table-container], [data-slot=conversation] [role=log], [data-slot=scroll-area-viewport], [data-slot=tabs-content], [data-slot=resize-handle], [data-slot=data-table] tbody tr';
+  '[data-variant=link], [data-slot=breadcrumb], [data-slot=markdown], [data-slot=error-summary] a, [data-slot=source-citation], [data-slot=hover-card-trigger], [data-slot=source-list] a, [data-slot=editor-tabs], [data-slot=table-container], [data-slot=conversation] [role=log], [data-slot=scroll-area-viewport], [data-slot=tabs-content], [data-slot=resize-handle], [data-slot=data-table] tbody tr';
 // Composite containers whose items are the targets (Radix gives the group a
 // tabindex that hands focus straight to an item).
 const NOT_A_TARGET = '[role=tablist], [role=menubar], [role=toolbar], [role=radiogroup]';
@@ -112,7 +112,10 @@ test.describe('focus is visible', () => {
           const r = el.getBoundingClientRect();
           if (!r.width || !r.height || el.closest('[aria-hidden="true"]')) continue;
           if (el.matches('input[type=range]')) continue; // the thumb draws it; not measurable here
-          const host = el.closest<HTMLElement>(HOSTS);
+          // A one-time code input is transparent; the active slot shows its focus.
+          const host = el.matches('[data-slot=input-otp-input]')
+            ? el.closest('[data-slot=input-otp]')?.querySelector<HTMLElement>('[data-active]')
+            : el.closest<HTMLElement>(HOSTS);
           const before = signature(el);
           const hostBefore = host ? signature(host) : '';
           el.focus({ preventScroll: true });

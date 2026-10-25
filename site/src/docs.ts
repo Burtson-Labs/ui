@@ -443,6 +443,40 @@ const all: ComponentDoc[] = [
     description:
       "A form's buttons: right-aligned on desktop, one shared row on phones, optionally pinned.",
   },
+  {
+    name: 'toggle',
+    title: 'Toggle',
+    description: 'A button that stays on or off: bold, mute, pinned. Announced as pressed.',
+  },
+  {
+    name: 'toggle-group',
+    title: 'Toggle Group',
+    description:
+      'A row of toggles with one Tab stop: one choice as a radio group, or several pressed buttons.',
+  },
+  {
+    name: 'hover-card',
+    title: 'Hover Card',
+    description:
+      'A preview of what a link points at, on hover or keyboard focus; the link still works alone.',
+  },
+  {
+    name: 'input-otp',
+    title: 'Input OTP',
+    description:
+      'A one-time code in slots: one real input, platform autofill, paste, numeric keyboard.',
+  },
+  {
+    name: 'calendar',
+    title: 'Calendar',
+    description:
+      'A month grid for a day or a range: locale names, min, max and blocked days, full keyboard.',
+  },
+  {
+    name: 'date-picker',
+    title: 'Date Picker',
+    description: 'A field-like button that opens a Calendar in a popover, for one date or a range.',
+  },
 ];
 
 export const components = [...all].sort((a, b) => a.title.localeCompare(b.title));

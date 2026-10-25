@@ -52,6 +52,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   Button,
+  Calendar,
   Card,
   CardAction,
   CardContent,
@@ -92,6 +93,8 @@ import {
   Conversation,
   CopyButton,
   DataTable,
+  DatePicker,
+  DateRangePicker,
   type DataTableColumn,
   type DataTableSort,
   Dialog,
@@ -133,7 +136,11 @@ import {
   FormActions,
   IconButton,
   InlineSwitch,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
   Input,
+  InputOTP,
   Kbd,
   KbdGroup,
   Label,
@@ -237,6 +244,9 @@ import {
   ToastTitle,
   ToastViewport,
   toast,
+  Toggle,
+  ToggleGroup,
+  ToggleGroupItem,
   Toolbar,
   ToolbarGroup,
   ToolbarSeparator,
@@ -290,6 +300,8 @@ export const OVERLAYS = [
   'sheet-bottom',
   'popover',
   'tooltip',
+  'hover-card',
+  'date-picker',
   'dropdown-menu',
   'select',
   'menubar',
@@ -767,6 +779,25 @@ function Fields() {
           <NumberInput suffix="gal" defaultValue="abc" aria-invalid aria-label="Invalid" />
         </div>
       </Cell>
+      <Cell name="InputOTP">
+        <div className="grid gap-2">
+          <InputOTP aria-label="Code" length={6} groupSize={3} defaultValue="12" />
+          <InputOTP aria-label="Invalid code" length={4} defaultValue="9" aria-invalid />
+          <InputOTP aria-label="Disabled code" length={4} disabled />
+        </div>
+      </Cell>
+      <Cell name="DatePicker">
+        <div className="grid w-64 gap-2">
+          <DatePicker aria-label="Pickup" width="full" defaultValue={new Date(2026, 9, 25)} />
+          <DatePicker aria-label="Empty" width="full" />
+          <DateRangePicker
+            aria-label="Range"
+            width="full"
+            defaultValue={{ from: new Date(2026, 9, 3), to: new Date(2026, 9, 9) }}
+          />
+          <DatePicker aria-label="Disabled date" width="full" disabled />
+        </div>
+      </Cell>
       <Cell name="NativeSelect">
         <div className="grid w-56 gap-2">
           <NativeSelect defaultValue="b" aria-label="Plan">
@@ -999,6 +1030,49 @@ function Navigation({ open, density }: { open: string | null; density?: 'compact
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
+      </Cell>
+      <Cell name="Toggle">
+        <div className="flex flex-wrap items-center gap-2">
+          <Toggle aria-label="Bold">B</Toggle>
+          <Toggle defaultPressed aria-label="Italic">
+            I
+          </Toggle>
+          <Toggle variant="outline" defaultPressed>
+            Pinned
+          </Toggle>
+          <Toggle variant="outline" size="sm">
+            Small
+          </Toggle>
+          <Toggle disabled>Disabled</Toggle>
+        </div>
+      </Cell>
+      <Cell name="ToggleGroup">
+        <div className="grid gap-2">
+          <ToggleGroup type="single" aria-label="Alignment" defaultValue="center" variant="outline">
+            <ToggleGroupItem value="left">Left</ToggleGroupItem>
+            <ToggleGroupItem value="center">Center</ToggleGroupItem>
+            <ToggleGroupItem value="right" disabled>
+              Right
+            </ToggleGroupItem>
+          </ToggleGroup>
+          <ToggleGroup type="multiple" aria-label="Text style" defaultValue={['b']} size="sm">
+            <ToggleGroupItem value="b">Bold</ToggleGroupItem>
+            <ToggleGroupItem value="i">Italic</ToggleGroupItem>
+            <ToggleGroupItem value="u">Underline</ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      </Cell>
+      <Cell name="HoverCard/trigger">
+        <p className="text-sm">
+          Per the{' '}
+          <HoverCard>
+            <HoverCardTrigger href="#policy" className="text-brand underline underline-offset-4">
+              expense policy
+            </HoverCardTrigger>
+            <HoverCardContent>Receipts within 30 days.</HoverCardContent>
+          </HoverCard>
+          .
+        </p>
       </Cell>
       <Cell name="Toolbar" wide>
         <Toolbar aria-label="List tools" className="w-full max-w-2xl">
@@ -1357,6 +1431,24 @@ function Data({ density }: { density?: 'compact' }) {
   const tableDensity = density === 'compact' ? 'compact' : 'default';
   return (
     <Section id="data" title="Data">
+      <Cell name="Calendar">
+        <Calendar
+          today={new Date(2026, 9, 25)}
+          defaultSelected={new Date(2026, 9, 21)}
+          disabled={(d) => d.getDay() === 0 || d.getDay() === 6}
+          className="rounded-lg border bg-surface"
+        />
+      </Cell>
+      <Cell name="Calendar/range">
+        <Calendar
+          mode="range"
+          today={new Date(2026, 9, 25)}
+          weekStartsOn={1}
+          defaultSelected={{ from: new Date(2026, 9, 12), to: new Date(2026, 9, 16) }}
+          min={new Date(2026, 9, 5)}
+          className="rounded-lg border bg-surface"
+        />
+      </Cell>
       <Cell name="Table" wide>
         <Table className="max-w-xl" scrollLabel="Recent agent runs" density={tableDensity}>
           <TableCaption>Recent agent runs</TableCaption>
@@ -1876,6 +1968,32 @@ function Overlays({ open }: { open: string | null }) {
           </TooltipTrigger>
           <TooltipContent>Copy to clipboard</TooltipContent>
         </Tooltip>
+      </Cell>
+      <Cell name="HoverCard">
+        <HoverCard defaultOpen={open === 'hover-card'}>
+          <HoverCardTrigger
+            href="#source"
+            className="text-sm text-brand underline underline-offset-4"
+          >
+            Employee handbook
+          </HoverCardTrigger>
+          <HoverCardContent className="grid gap-1.5">
+            <p className="text-sm font-semibold">Employee handbook 2026</p>
+            <p className="text-sm text-muted-foreground">
+              Remote staff may claim up to $500 a year for home office equipment.
+            </p>
+            <a href="#source" className="text-sm text-brand underline underline-offset-4">
+              Open page 14
+            </a>
+          </HoverCardContent>
+        </HoverCard>
+      </Cell>
+      <Cell name="DatePicker/open">
+        <DatePicker
+          aria-label="Delivery"
+          defaultOpen={open === 'date-picker'}
+          defaultValue={new Date(2026, 9, 25)}
+        />
       </Cell>
       <Cell name="DropdownMenu">
         <DropdownMenu defaultOpen={open === 'dropdown-menu'} modal={false}>

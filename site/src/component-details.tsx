@@ -13,6 +13,23 @@ const sources = import.meta.glob<string>('../../src/components/*.tsx', {
 });
 
 const guidance: Record<string, string[]> = {
+  'toggle-group': [
+    'Single mode cannot be cleared by clicking the chosen item, as with radios; give it a value or let the first press choose. Multiple mode reports the whole list on every change.',
+  ],
+  'hover-card': [
+    'Keep the trigger a real link to the full thing, so a tap on a phone and a click anywhere still get there. openDelay (500ms) and closeDelay (300ms) keep it from flickering as the pointer crosses the page.',
+  ],
+  'input-otp': [
+    'pattern takes numeric (default), alphanumeric, alpha or a RegExp. A RegExp is tested against one character at a time with its g and y flags dropped, so it cannot backtrack over the whole code; an oversized source falls back to digits.',
+    'onComplete fires once the last slot fills, by typing, autofill or paste. Verify on your server; the component only collects characters.',
+  ],
+  calendar: [
+    "Dates are local calendar days at midnight. Month and weekday names come from Intl.DateTimeFormat for locale; weekStartsOn defaults to the locale's first day where the runtime knows it, else Sunday. No date library is used.",
+    'Pass today in tests and when server rendering, so the highlighted day does not depend on the clock.',
+  ],
+  'date-picker': [
+    'disabled disables the trigger; disabledDates blocks days. formatOptions are Intl.DateTimeFormat options ({ dateStyle: "medium" } by default); the range picker uses formatRange.',
+  ],
   'ask-user': [
     'Pass stable question IDs and option values. Choices start empty; optional questions can be skipped. allowCustom adds an alternative written answer, and multiple allows several choices.',
     'Return a promise from onSubmit. Pending submissions cannot be sent twice; rejection keeps answers for retry. A successful submission locks the response. Remount with a new key for a new request.',
@@ -221,6 +238,60 @@ const guidance: Record<string, string[]> = {
 };
 
 const api: Record<string, [string, string, string][]> = {
+  toggle: [
+    ['pressed / defaultPressed', 'boolean', 'false'],
+    ['onPressedChange', '(pressed: boolean) => void', '—'],
+    ['variant', 'default | outline', 'default'],
+    ['size', 'sm | default | lg', 'default'],
+  ],
+  'toggle-group': [
+    ['type', 'single (radio group) | multiple (pressed buttons)', '—'],
+    ['value / defaultValue', 'string (single) | string[] (multiple)', '—'],
+    ['onValueChange', '(value) => void, same shape as value', '—'],
+    [
+      'orientation',
+      'horizontal | vertical; which arrows move (single takes all four)',
+      'horizontal',
+    ],
+    ['loop', 'boolean; arrows wrap at the ends', 'true'],
+    ['variant / size', 'as Toggle; an item can override', 'default'],
+  ],
+  'hover-card': [
+    ['openDelay / closeDelay', 'number (ms)', '500 / 300'],
+    ['open / defaultOpen / onOpenChange', 'controlled or uncontrolled', 'false'],
+    ['HoverCardTrigger: asChild', 'boolean; render your own link', 'false'],
+    [
+      'HoverCardContent: side / align / sideOffset',
+      'placement next to the trigger',
+      'bottom / center / 6',
+    ],
+  ],
+  'input-otp': [
+    ['length', 'number of slots', '6'],
+    ['value / defaultValue / onValueChange', 'string', '""'],
+    ['onComplete', '(code: string) => void, when every slot is filled', '—'],
+    ['pattern', 'numeric | alphanumeric | alpha | RegExp (one character)', 'numeric'],
+    ['groupSize', 'number; a separator after every N slots', '—'],
+    ['containerClassName', 'string; classes for the slots box (className goes to the input)', '—'],
+  ],
+  calendar: [
+    ['mode', 'single | range', 'single'],
+    ['selected / defaultSelected / onSelect', 'Date (single) | { from, to } (range)', '—'],
+    ['month / defaultMonth / onMonthChange', 'Date; the month shown', 'selection or today'],
+    ['locale', 'BCP 47 tag for names', 'browser'],
+    ['weekStartsOn', '0 (Sunday) … 6 (Saturday)', 'locale, else 0'],
+    ['min / max', 'Date', '—'],
+    ['disabled', '(date) => boolean | Date[]', '—'],
+    ['showOutsideDays / autoFocus / today', 'boolean / boolean / Date', 'true / false / now'],
+  ],
+  'date-picker': [
+    ['value / defaultValue / onValueChange', 'Date | null (DateRangePicker: { from, to })', 'null'],
+    ['placeholder', 'string', 'Pick a date / Pick dates'],
+    ['locale / formatOptions', 'Intl.DateTimeFormat locale and options', '{ dateStyle: medium }'],
+    ['min / max / disabledDates / weekStartsOn', 'as Calendar', '—'],
+    ['name', 'DatePicker only: submits YYYY-MM-DD in a hidden input', '—'],
+    ['width', 'xs | sm | md | lg | full', 'md (range: lg)'],
+  ],
   attachment: [
     ['AttachmentItem: name / size', 'string / number (bytes)', 'required / —'],
     ['state', 'queued | uploading | parsing | ready | failed', 'ready'],
