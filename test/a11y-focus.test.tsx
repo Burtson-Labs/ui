@@ -12,6 +12,7 @@ import {
   ContextUsage,
   Conversation,
   MessageActions,
+  type ComposerRejectedFile,
 } from '@burtson-labs/ui';
 
 describe('Composer focus', () => {
@@ -156,10 +157,7 @@ describe('Composer file limits', () => {
     const extra = new File(['1'], 'd.png', { type: 'image/png' });
     fireEvent.change(input, { target: { files: [ok, big, wrong, extra] } });
     expect(onAttach).toHaveBeenCalledWith([ok]);
-    expect(onReject.mock.calls[0]![0].map((r: { reason: string }) => r.reason)).toEqual([
-      'size',
-      'type',
-      'count',
-    ]);
+    const rejected = onReject.mock.calls[0]![0] as ComposerRejectedFile[];
+    expect(rejected.map((r) => r.reason)).toEqual(['size', 'type', 'count']);
   });
 });
