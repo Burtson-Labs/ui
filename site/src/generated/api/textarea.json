@@ -11,7 +11,7 @@
       "props": [
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": null,
           "description": "How wide the field is from 640px up; full width on phones.",
@@ -324,7 +324,7 @@
       "props": [
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": null,
           "description": "How wide the field is from 640px up; full width on phones.",

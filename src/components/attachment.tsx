@@ -4,6 +4,7 @@ import RotateCw from '@burtson-labs/icons/react/rotate-cw';
 import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
+import { safeImageSrc } from '../lib/safe-url';
 import { cn } from '../lib/utils';
 
 import { Button } from './button';
@@ -49,7 +50,7 @@ export interface AttachmentItemProps extends Omit<React.ComponentProps<'div'>, '
   progress?: number;
   /** Why it failed, in words the person can act on. */
   error?: string;
-  /** A thumbnail URL for images. */
+  /** A thumbnail URL for images: http(s), blob: or a data:image URL. */
   preview?: string;
   /** Replaces the file icon. */
   icon?: React.ReactNode;
@@ -84,6 +85,8 @@ const AttachmentItem = React.forwardRef<HTMLDivElement, AttachmentItemProps>(
     const inTray = React.useContext(InTray);
     const busy = state === 'uploading' || state === 'parsing';
     const failed = state === 'failed';
+    // Only http(s), blob: and data:image previews load.
+    const previewSrc = safeImageSrc(preview);
     const meta = [size !== undefined ? formatBytes(size) : null, stateText[state]]
       .filter(Boolean)
       .join(' · ');
@@ -109,8 +112,8 @@ const AttachmentItem = React.forwardRef<HTMLDivElement, AttachmentItemProps>(
             layout === 'chip' ? 'size-9' : 'size-10',
           )}
         >
-          {preview ? (
-            <img src={preview} alt="" className="size-full object-cover" />
+          {previewSrc ? (
+            <img src={previewSrc} alt="" className="size-full object-cover" />
           ) : failed ? (
             <AlertCircle className="text-destructive" aria-hidden />
           ) : busy ? (

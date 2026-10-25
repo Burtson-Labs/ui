@@ -94,6 +94,49 @@ export const usage: Record<string, Usage> = {
     avoid: ['Unknown counts presented as zero or fabricated percentages.'],
     a11y: ['A labelled capacity meter with actual token counts; unknown usage omits the meter.'],
   },
+  'model-picker': {
+    use: ['Choosing the model for the next message, in a Composer’s actions or a chat header.'],
+    avoid: [
+      'Settings with a handful of fixed options: use Select. Models the account cannot use hidden without a reason: list them disabled with disabledReason.',
+    ],
+    a11y: [
+      'The trigger names the current model ("Model: Claude Sonnet") and opens a searchable list with Enter, Space or an arrow key. Disabled models are skipped by the arrow keys but still read with their reason. Escape closes and returns focus.',
+    ],
+  },
+  'response-versions': {
+    use: ['Moving between regenerated answers to the same message.'],
+    avoid: ['Branching conversations or edit history: that needs its own navigation.'],
+    a11y: [
+      'A named group with "Previous response" and "Next response" buttons. Changes are announced politely ("Response 2 of 3"). The buttons stay focusable at either end, and Left and Right arrows also move.',
+    ],
+  },
+  'message-usage': {
+    use: ['A message footer that reports what the runtime measured: tokens, cost, time.'],
+    avoid: [
+      'Estimates presented as measurements. Context capacity for the whole conversation: use ContextUsage.',
+    ],
+    a11y: [
+      'Each value is read with its full name ("Input tokens: 1,204"); the short visible suffixes are hidden from screen readers.',
+    ],
+  },
+  'image-lightbox': {
+    use: ['Images sent with or generated in a message, opened full size without leaving the chat.'],
+    avoid: ['Galleries that need zoom, pan or editing; build on Dialog with a dedicated viewer.'],
+    a11y: [
+      'Thumbnails are buttons named by their alt text. The viewer is a dialog: focus stays inside, Escape closes and focus returns. Left and Right move between images and the position is announced. Unsafe URLs never load.',
+    ],
+  },
+  'artifact-panel': {
+    use: [
+      'A document, code or preview the assistant generated, open beside the conversation that produced it.',
+    ],
+    avoid: [
+      'Permanent columns such as history or details: use ChatLayout. Short snippets: keep them in the message.',
+    ],
+    a11y: [
+      'The panel is a region named by its title, with a labelled resize handle (arrow keys resize) and a Close button that returns focus to the opener. On smaller screens it is a modal sheet.',
+    ],
+  },
   'circular-progress': {
     use: ['Compact progress with a known percentage or unknown duration.'],
     avoid: ['Showing estimated completion without a real measurement.'],
@@ -482,7 +525,7 @@ export const usage: Record<string, Usage> = {
       'Documents with tables, images or embedded HTML; use a full renderer. Content you wrote yourself; write JSX.',
     ],
     a11y: [
-      'Everything is React elements, never HTML strings; only http(s) and mailto links become links. Code blocks scroll sideways and have a named copy button.',
+      'Everything is React elements, never HTML strings; only http(s) and mailto links become links. Code blocks scroll sideways, colour common languages with escaped text spans, and have a named copy button.',
     ],
   },
   menubar: {

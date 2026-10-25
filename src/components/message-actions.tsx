@@ -5,6 +5,7 @@ import ThumbsDown from '@burtson-labs/icons/react/thumbs-down';
 import ThumbsUp from '@burtson-labs/icons/react/thumbs-up';
 import * as React from 'react';
 
+import { safeImageSrc, safeLinkHref } from '../lib/safe-url';
 import { cn, focusRingClasses, noOutlineClasses } from '../lib/utils';
 
 import { formatBytes } from './attachment';
@@ -12,6 +13,8 @@ import { VoiceMessage } from './audio-player';
 import { Button } from './button';
 import { CopyButton } from './copy-button';
 import { IconButton } from './icon-button';
+import { ImageGallery } from './image-lightbox';
+import { ResponseVersions, type ResponseVersionsProps } from './response-versions';
 
 export type MessageFeedback = 'up' | 'down' | null;
 
@@ -27,6 +30,11 @@ export interface MessageActionsProps extends React.ComponentProps<'div'> {
   onFeedback?: (value: MessageFeedback) => void;
   /** Accessible names, for translation. */
   labels?: Partial<typeof messageActionLabels>;
+  /**
+   * A "2 / 3" switcher between regenerated responses, first in the row.
+   * Hidden while there is only one version.
+   */
+  versions?: Pick<ResponseVersionsProps, 'index' | 'count' | 'onIndexChange' | 'labels'>;
 }
 
 const messageActionLabels = {
@@ -45,7 +53,17 @@ const messageActionLabels = {
  */
 const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
   function MessageActions(
-    { copyText, onRegenerate, onEdit, feedback = null, onFeedback, labels, className, ...props },
+    {
+      copyText,
+      onRegenerate,
+      onEdit,
+      feedback = null,
+      onFeedback,
+      labels,
+      versions,
+      className,
+      ...props
+    },
     ref,
   ) {
     const l = { ...messageActionLabels, ...labels };
@@ -59,6 +77,7 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
         className={cn('flex items-center gap-0.5', className)}
         {...props}
       >
+        {versions && <ResponseVersions {...versions} className="mr-0.5" />}
         {copyText !== undefined && <CopyButton value={copyText} label={l.copy} className={small} />}
         {onEdit && (
           <IconButton
@@ -190,10 +209,17 @@ export interface MessageFile {
   duration?: number;
   /** Transcript for audio. */
   transcript?: React.ReactNode;
+  /** What an image shows. Defaults to the file name; write a real description when you have one. */
+  alt?: string;
 }
 
 export interface MessageAttachmentsProps extends React.ComponentProps<'div'> {
   files: MessageFile[];
+  /**
+   * Open images in an ImageLightbox in the page instead of a new tab. With
+   * several images the viewer moves between them.
+   */
+  lightbox?: boolean;
 }
 
 /**
@@ -201,8 +227,11 @@ export interface MessageAttachmentsProps extends React.ComponentProps<'div'> {
  * thumbnail, anything else is a named chip that opens the file.
  */
 const MessageAttachments = React.forwardRef<HTMLDivElement, MessageAttachmentsProps>(
-  function MessageAttachments({ files, className, ...props }, ref) {
+  function MessageAttachments({ files, lightbox = false, className, ...props }, ref) {
     if (!files.length) return null;
+    const isImage = (f: MessageFile) =>
+      (f.type ?? '').startsWith('image/') && !!safeImageSrc(f.href);
+    const images = lightbox ? files.filter(isImage) : [];
     return (
       <div
         ref={ref}
@@ -210,13 +239,25 @@ const MessageAttachments = React.forwardRef<HTMLDivElement, MessageAttachmentsPr
         className={cn('flex flex-wrap gap-2', className)}
         {...props}
       >
+        {images.length > 0 && (
+          <ImageGallery
+            className="contents"
+            images={images.map((f) => ({
+              src: f.href ?? '',
+              alt: f.alt || f.name,
+              caption: f.name,
+            }))}
+          />
+        )}
         {files.map((f, i) => {
           const type = f.type ?? '';
-          if (type.startsWith('audio/') && f.href) {
+          if (lightbox && isImage(f)) return null;
+          const href = safeLinkHref(f.href, { blob: true });
+          if (type.startsWith('audio/') && href) {
             return (
               <VoiceMessage
                 key={`${f.name}-${i}`}
-                src={f.href}
+                src={href}
                 peaks={f.peaks}
                 duration={f.duration}
                 transcript={f.transcript}
@@ -224,17 +265,26 @@ const MessageAttachments = React.forwardRef<HTMLDivElement, MessageAttachmentsPr
               />
             );
           }
-          if (type.startsWith('image/') && f.href) {
-            return (
+          const src = safeImageSrc(f.href);
+          if (type.startsWith('image/') && src) {
+            const img = (
+              <img src={src} alt={f.alt || f.name} className="h-28 w-auto max-w-56 object-cover" />
+            );
+            // A data: image can be shown but is not a link target.
+            return href ? (
               <a
                 key={`${f.name}-${i}`}
-                href={f.href}
+                href={href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className={cn('block overflow-hidden rounded-lg border', focusRingClasses)}
               >
-                <img src={f.href} alt={f.name} className="h-28 w-auto max-w-56 object-cover" />
+                {img}
               </a>
+            ) : (
+              <span key={`${f.name}-${i}`} className="block overflow-hidden rounded-lg border">
+                {img}
+              </span>
             );
           }
           const chip = (
@@ -250,12 +300,12 @@ const MessageAttachments = React.forwardRef<HTMLDivElement, MessageAttachmentsPr
           );
           const chipClass =
             'inline-flex max-w-64 items-center gap-2 rounded-md border bg-surface px-2.5 py-1.5 text-sm pointer-coarse:min-h-11';
-          return f.href ? (
+          return href ? (
             <a
               key={`${f.name}-${i}`}
-              href={f.href}
+              href={href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className={cn(chipClass, 'hover:bg-muted', focusRingClasses)}
             >
               {chip}

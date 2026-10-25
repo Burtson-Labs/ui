@@ -77,23 +77,40 @@ const utils = {
   ],
 };
 
-const media = {
+/** A dependency-free helper in src/lib, published at lib/<name>.ts. */
+const lib = (name, title, description) => ({
   $schema: SCHEMA_ITEM,
-  name: 'media',
+  name,
   type: 'registry:lib',
-  title: 'useMediaQuery()',
-  description: 'Breakpoints and a media-query hook that is safe on the server.',
+  title,
+  description,
   dependencies: [],
   registryDependencies: [],
   files: [
     {
-      path: 'lib/media.ts',
+      path: `lib/${name}.ts`,
       type: 'registry:lib',
-      target: 'lib/media.ts',
-      content: sourceNotice(ROOT) + readFileSync(join(ROOT, 'src/lib/media.ts'), 'utf8'),
+      target: `lib/${name}.ts`,
+      content: sourceNotice(ROOT) + readFileSync(join(ROOT, `src/lib/${name}.ts`), 'utf8'),
     },
   ],
-};
+});
+
+const media = lib(
+  'media',
+  'useMediaQuery()',
+  'Breakpoints and a media-query hook that is safe on the server.',
+);
+const highlight = lib(
+  'highlight',
+  'tokenizeCode()',
+  'A tiny syntax tokenizer (JavaScript, TypeScript, JSON, shell, Python) that returns plain-text runs.',
+);
+const safeUrl = lib(
+  'safe-url',
+  'safeLinkHref() and safeImageSrc()',
+  'Protocol allow lists for links and image sources from model or user content.',
+);
 
 const componentsDir = join(ROOT, 'src/components');
 const names = readdirSync(componentsDir)
@@ -143,7 +160,15 @@ const components = names.map((name) => {
   };
 });
 
-const items = [theme, utils, media, ...primitiveRegistryItems(ROOT, BASE), ...components];
+const items = [
+  theme,
+  utils,
+  media,
+  highlight,
+  safeUrl,
+  ...primitiveRegistryItems(ROOT, BASE),
+  ...components,
+];
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const item of items)

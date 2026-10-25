@@ -15,11 +15,19 @@ export {
   type ThemeInitScriptOptions,
 } from './lib/theme-init';
 export { isApplePlatform, modKeyLabel, shortcutLabel } from './lib/platform';
+export {
+  type CodeToken,
+  type CodeTokenType,
+  highlightLanguages,
+  tokenizeCode,
+} from './lib/highlight';
+export { safeImageSrc, safeLinkHref } from './lib/safe-url';
 export * from './tokens';
 export * from './components/accordion';
 export * from './components/alert';
 export * from './components/alert-dialog';
 export * from './components/app-shell';
+export * from './components/artifact-panel';
 export * from './components/attachment';
 export * from './components/audio-player';
 export * from './components/avatar';
@@ -48,6 +56,7 @@ export * from './components/error-summary';
 export * from './components/field';
 export * from './components/form-actions';
 export * from './components/icon-button';
+export * from './components/image-lightbox';
 export * from './components/input';
 export * from './components/kbd';
 export * from './components/label';
@@ -55,7 +64,9 @@ export * from './components/markdown';
 export * from './components/menubar';
 export * from './components/message';
 export * from './components/message-actions';
+export * from './components/message-usage';
 export * from './components/mobile-nav';
+export * from './components/model-picker';
 export * from './components/native-select';
 export * from './components/navigation-menu';
 export * from './components/number-input';
@@ -66,6 +77,7 @@ export * from './components/popover';
 export * from './components/progress';
 export * from './components/radio-group';
 export * from './components/reasoning';
+export * from './components/response-versions';
 export * from './components/resizable';
 export * from './components/scroll-area';
 export * from './components/secret-input';

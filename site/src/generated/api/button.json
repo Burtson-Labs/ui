@@ -27,7 +27,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"sm\" | \"lg\" | \"icon\" | \"xs\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -360,7 +360,7 @@
         },
         {
           "name": "size",
-          "type": "\"default\" | \"icon\" | \"xs\" | \"sm\" | \"lg\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
+          "type": "\"default\" | \"sm\" | \"lg\" | \"icon\" | \"xs\" | \"icon-sm\" | \"icon-lg\" | null | undefined",
           "required": false,
           "default": null,
           "description": "",

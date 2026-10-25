@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { type CodeTokenType, tokenizeCode } from '../lib/highlight';
 import { cn } from '../lib/utils';
 
 import { CopyButton } from './copy-button';
@@ -59,17 +60,73 @@ function inline(text: string, key: string): React.ReactNode[] {
   return out;
 }
 
-/** A fenced code block with a language label and a copy button. */
+/**
+ * Your own highlighter (shiki, Prism, highlight.js), as React nodes. Return
+ * null or undefined to fall back to the built-in tokenizer's output. Build
+ * the nodes from tokens, as elements and text: never pass a highlighter's
+ * HTML string through dangerouslySetInnerHTML, since the code is model output.
+ */
+export type CodeHighlighter = (code: string, lang: string) => React.ReactNode | null | undefined;
+
+const tokenClasses: Record<CodeTokenType, string | undefined> = {
+  plain: undefined,
+  // Token colours mixed toward the code foreground so they read at 5.7:1 or
+  // better on the code background in both themes.
+  keyword: 'text-[color-mix(in_srgb,var(--brand)_60%,var(--code-foreground))]',
+  string: 'text-[color-mix(in_srgb,var(--success)_60%,var(--code-foreground))]',
+  number: 'text-[color-mix(in_srgb,var(--warning)_60%,var(--code-foreground))]',
+  literal: 'text-[color-mix(in_srgb,var(--warning)_60%,var(--code-foreground))]',
+  variable: 'text-[color-mix(in_srgb,var(--warning)_60%,var(--code-foreground))]',
+  function: 'text-[color-mix(in_srgb,var(--info)_60%,var(--code-foreground))]',
+  property: 'text-[color-mix(in_srgb,var(--destructive)_60%,var(--code-foreground))]',
+  operator: 'text-code-foreground/80',
+  punctuation: 'text-code-foreground/80',
+  comment: 'text-code-foreground/65 italic',
+};
+
+/**
+ * The built-in highlighter: JavaScript, TypeScript, JSON, shell and Python
+ * as coloured text spans. Unknown languages come back as the plain string.
+ */
+export function highlightCode(code: string, lang: string | undefined): React.ReactNode {
+  const tokens = tokenizeCode(code, lang);
+  if (!tokens) return code;
+  return tokens.map((t, i) => {
+    const className = tokenClasses[t.type];
+    return className ? (
+      <span key={i} data-token={t.type} className={className}>
+        {t.text}
+      </span>
+    ) : (
+      t.text
+    );
+  });
+}
+
+/** A fenced code block with a language label, syntax colours and a copy button. */
 export interface CodeBlockProps {
   code: string;
   lang?: string;
   className?: string;
+  /**
+   * Syntax colouring. Leave out for the built-in tokenizer (js, ts, json,
+   * bash, python), pass your own function to use a full highlighter, or
+   * false for plain text.
+   */
+  highlight?: CodeHighlighter | false;
+  /** Accessible name of the copy button, for translation. */
+  copyLabel?: string;
 }
 
 const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(function CodeBlock(
-  { code, lang, className },
+  { code, lang, className, highlight, copyLabel = 'Copy code' },
   ref,
 ) {
+  const content = React.useMemo(() => {
+    if (highlight === false) return code;
+    const custom = highlight?.(code, lang ?? '');
+    return custom ?? highlightCode(code, lang);
+  }, [code, lang, highlight]);
   return (
     <div
       ref={ref}
@@ -80,12 +137,12 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(function Code
         <span className="font-mono">{lang || 'text'}</span>
         <CopyButton
           value={code}
-          label="Copy code"
+          label={copyLabel}
           className="size-7 text-code-foreground hover:bg-white/10 hover:text-code-foreground"
         />
       </div>
       <pre className="overflow-x-auto p-3 font-mono text-[12.5px] leading-5">
-        <code>{code}</code>
+        <code>{content}</code>
       </pre>
     </div>
   );
@@ -152,11 +209,13 @@ export function parseMarkdown(source: string): Block[] {
 
 export interface MarkdownProps extends Omit<React.ComponentProps<'div'>, 'children'> {
   children: string;
+  /** Passed to every CodeBlock: your highlighter, or false for plain code. */
+  highlight?: CodeHighlighter | false;
 }
 
 /** Renders a Markdown string safely, for assistant messages. */
 const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(function Markdown(
-  { children, className, ...props },
+  { children, highlight, className, ...props },
   ref,
 ) {
   const blocks = React.useMemo(() => parseMarkdown(children), [children]);
@@ -202,7 +261,7 @@ const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(function Markdo
               </blockquote>
             );
           case 'code':
-            return <CodeBlock key={k} code={b.code} lang={b.lang} />;
+            return <CodeBlock key={k} code={b.code} lang={b.lang} highlight={highlight} />;
           default:
             return <p key={k}>{inline(b.text, k)}</p>;
         }

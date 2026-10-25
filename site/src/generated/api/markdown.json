@@ -26,6 +26,22 @@
           "native": false
         },
         {
+          "name": "copyLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": "'Copy code'",
+          "description": "Accessible name of the copy button, for translation.",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "false | CodeHighlighter | undefined",
+          "required": false,
+          "default": null,
+          "description": "Syntax colouring. Leave out for the built-in tokenizer (js, ts, json,\nbash, python), pass your own function to use a full highlighter, or\nfalse for plain text.",
+          "native": false
+        },
+        {
           "name": "lang",
           "type": "string | undefined",
           "required": false,
@@ -42,7 +58,7 @@
     {
       "name": "CodeBlockProps",
       "kind": "type",
-      "description": "A fenced code block with a language label and a copy button.",
+      "description": "A fenced code block with a language label, syntax colours and a copy button.",
       "signatures": [],
       "type": "CodeBlockProps",
       "props": [
@@ -63,6 +79,22 @@
           "native": false
         },
         {
+          "name": "copyLabel",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Accessible name of the copy button, for translation.",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "false | CodeHighlighter | undefined",
+          "required": false,
+          "default": null,
+          "description": "Syntax colouring. Leave out for the built-in tokenizer (js, ts, json,\nbash, python), pass your own function to use a full highlighter, or\nfalse for plain text.",
+          "native": false
+        },
+        {
           "name": "lang",
           "type": "string | undefined",
           "required": false,
@@ -71,6 +103,28 @@
           "native": false
         }
       ],
+      "inherited": []
+    },
+    {
+      "name": "CodeHighlighter",
+      "kind": "type",
+      "description": "Your own highlighter (shiki, Prism, highlight.js), as React nodes. Return\nnull or undefined to fall back to the built-in tokenizer's output. Build\nthe nodes from tokens, as elements and text: never pass a highlighter's\nHTML string through dangerouslySetInnerHTML, since the code is model output.",
+      "signatures": [
+        "(code: string, lang: string): React.ReactNode | null | undefined"
+      ],
+      "type": "CodeHighlighter",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "highlightCode",
+      "kind": "function",
+      "description": "The built-in highlighter: JavaScript, TypeScript, JSON, shell and Python\nas coloured text spans. Unknown languages come back as the plain string.",
+      "signatures": [
+        "(code: string, lang: string | undefined): React.ReactNode"
+      ],
+      "type": "(code: string, lang: string | undefined) => React.ReactNode",
+      "props": [],
       "inherited": []
     },
     {
@@ -86,6 +140,14 @@
           "required": true,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "false | CodeHighlighter | undefined",
+          "required": false,
+          "default": null,
+          "description": "Passed to every CodeBlock: your highlighter, or false for plain code.",
           "native": false
         }
       ],
@@ -384,6 +446,14 @@
           "required": true,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "highlight",
+          "type": "false | CodeHighlighter | undefined",
+          "required": false,
+          "default": null,
+          "description": "Passed to every CodeBlock: your highlighter, or false for plain code.",
           "native": false
         }
       ],

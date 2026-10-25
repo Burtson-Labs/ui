@@ -43,7 +43,7 @@
         },
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": "'sm'",
           "description": "How wide the field is from 640px up; `sm` (money, a count) by default.",
@@ -401,7 +401,7 @@
         },
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": null,
           "description": "How wide the field is from 640px up; `sm` (money, a count) by default.",

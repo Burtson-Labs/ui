@@ -56,6 +56,14 @@
           "default": null,
           "description": "",
           "native": false
+        },
+        {
+          "name": "versions",
+          "type": "Pick<ResponseVersionsProps, \"labels\" | \"index\" | \"count\" | \"onIndexChange\"> | undefined",
+          "required": false,
+          "default": null,
+          "description": "A \"2 / 3\" switcher between regenerated responses, first in the row.\nHidden while there is only one version.",
+          "native": false
         }
       ],
       "inherited": [
@@ -395,6 +403,14 @@
           "default": null,
           "description": "",
           "native": false
+        },
+        {
+          "name": "versions",
+          "type": "Pick<ResponseVersionsProps, \"labels\" | \"index\" | \"count\" | \"onIndexChange\"> | undefined",
+          "required": false,
+          "default": null,
+          "description": "A \"2 / 3\" switcher between regenerated responses, first in the row.\nHidden while there is only one version.",
+          "native": false
         }
       ],
       "inherited": [
@@ -694,6 +710,14 @@
           "default": null,
           "description": "",
           "native": false
+        },
+        {
+          "name": "lightbox",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "Open images in an ImageLightbox in the page instead of a new tab. With\nseveral images the viewer moves between them.",
+          "native": false
         }
       ],
       "inherited": [
@@ -992,6 +1016,14 @@
           "required": true,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "lightbox",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Open images in an ImageLightbox in the page instead of a new tab. With\nseveral images the viewer moves between them.",
           "native": false
         }
       ],
@@ -1952,6 +1984,14 @@
       "signatures": [],
       "type": "MessageFile",
       "props": [
+        {
+          "name": "alt",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "What an image shows. Defaults to the file name; write a real description when you have one.",
+          "native": false
+        },
         {
           "name": "duration",
           "type": "number | undefined",

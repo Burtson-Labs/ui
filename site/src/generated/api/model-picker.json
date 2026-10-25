@@ -1,0 +1,330 @@
+{
+  "component": "model-picker",
+  "source": "src/components/model-picker.tsx",
+  "exports": [
+    {
+      "name": "formatContextWindow",
+      "kind": "function",
+      "description": "200000 → \"200K\", 1048576 → \"1M\".",
+      "signatures": [
+        "(tokens: number, locale?: string): string"
+      ],
+      "type": "(tokens: number, locale?: string) => string",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "ModelOption",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ModelOption",
+      "props": [
+        {
+          "name": "capabilities",
+          "type": "string[] | undefined",
+          "required": false,
+          "default": null,
+          "description": "Short capability tags, e.g. [\"Vision\", \"Tools\"]. Also searched.",
+          "native": false
+        },
+        {
+          "name": "contextWindow",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Context window in tokens; shown compactly (\"200K\").",
+          "native": false
+        },
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "A short line under the name. Also searched.",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "disabledReason",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Why it cannot be picked (\"Needs an API key\"). Shown in place of the description.",
+          "native": false
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "An icon or provider logo before the name.",
+          "native": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "Display name.",
+          "native": false
+        },
+        {
+          "name": "provider",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Groups the list, e.g. \"Anthropic\" or \"Local\". Models without one come first.",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "Stable id your runtime understands, e.g. \"claude-sonnet-4\".",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
+      "name": "ModelPicker",
+      "kind": "component",
+      "description": "A searchable model selector for a Composer's `actions` slot or a chat\nheader: models grouped by provider, with optional context size and\ncapability badges. Models that cannot be used stay listed, disabled, with\nthe reason. The ref reaches the trigger button.",
+      "signatures": [],
+      "type": null,
+      "props": [
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "required": false,
+          "default": "'start'",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": "null",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ trigger: string; placeholder: string; search: string; empty: string; context: string; unavailable: string; current: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and accessible strings, for translation.",
+          "native": false
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Locale for the context size; defaults to the browser's.",
+          "native": false
+        },
+        {
+          "name": "models",
+          "type": "ModelOption[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "showDetails",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "true",
+          "description": "Show the context window and capability badges in the list. Default true.",
+          "native": false
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"bottom\" | undefined",
+          "required": false,
+          "default": "'bottom'",
+          "description": "Which side of the trigger the list opens on. It flips when there is no room.",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "Controlled: the chosen model's value, or null. Leave out for an uncontrolled picker.",
+          "native": false
+        }
+      ],
+      "inherited": [
+        "62313f065a13fa53",
+        "ec21f15f624921d5"
+      ]
+    },
+    {
+      "name": "ModelPickerProps",
+      "kind": "type",
+      "description": "",
+      "signatures": [],
+      "type": "ModelPickerProps",
+      "props": [
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<{ trigger: string; placeholder: string; search: string; empty: string; context: string; unavailable: string; current: string; }> | undefined",
+          "required": false,
+          "default": null,
+          "description": "Visible and accessible strings, for translation.",
+          "native": false
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Locale for the context size; defaults to the browser's.",
+          "native": false
+        },
+        {
+          "name": "models",
+          "type": "ModelOption[]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "showDetails",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show the context window and capability badges in the list. Default true.",
+          "native": false
+        },
+        {
+          "name": "side",
+          "type": "\"top\" | \"bottom\" | undefined",
+          "required": false,
+          "default": null,
+          "description": "Which side of the trigger the list opens on. It flips when there is no room.",
+          "native": false
+        },
+        {
+          "name": "value",
+          "type": "string | null | undefined",
+          "required": false,
+          "default": null,
+          "description": "Controlled: the chosen model's value, or null. Leave out for an uncontrolled picker.",
+          "native": false
+        }
+      ],
+      "inherited": []
+    }
+  ]
+}

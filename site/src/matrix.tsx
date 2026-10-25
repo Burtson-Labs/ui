@@ -38,6 +38,7 @@ import {
   AppShellHeader,
   AppShellMain,
   AppShellSidebar,
+  ArtifactPanel,
   AttachmentItem,
   AttachmentTray,
   Avatar,
@@ -155,7 +156,10 @@ import {
   Message,
   MessageActions,
   MessageAttachments,
+  MessageUsage,
+  ModelPicker,
   MessageEditor,
+  ImageGallery,
   MobileNav,
   NativeSelect,
   NavigationMenu,
@@ -182,6 +186,7 @@ import {
   RadioGroup,
   RadioGroupItem,
   Reasoning,
+  ResponseVersions,
   ResizablePanel,
   ResizablePanelGroup,
   ResizeHandle,
@@ -260,6 +265,7 @@ import {
   TourAnchor,
   TreeView,
   UploadQueue,
+  useNarrowerThan,
 } from '@burtson-labs/ui';
 
 import AudioPlayerDemo from './demos/audio-player';
@@ -1607,6 +1613,8 @@ const sources = [
 
 function Chat() {
   const [editing, setEditing] = React.useState(true);
+  // The artifact panel is a modal sheet below lg; keep it closed there so it does not cover the matrix.
+  const narrowChat = useNarrowerThan('lg');
   return (
     <Section id="chat" title="Chat kit">
       <Cell name="Composer" wide>
@@ -1697,6 +1705,71 @@ function Chat() {
               },
             ]}
           />
+          <MessageAttachments
+            lightbox
+            files={[{ name: 'chart.png', type: 'image/png', href: '/demo/bar-chart.png' }]}
+          />
+        </div>
+      </Cell>
+      <Cell name="ModelPicker" wide>
+        <div className="grid w-full max-w-xl gap-3">
+          <Composer
+            onSubmit={() => undefined}
+            actions={
+              <ModelPicker
+                models={[
+                  {
+                    value: 'a',
+                    label: 'Claude Sonnet',
+                    provider: 'Anthropic',
+                    contextWindow: 200_000,
+                  },
+                  {
+                    value: 'b',
+                    label: 'Qwen 27B',
+                    provider: 'Local',
+                    disabled: true,
+                    disabledReason: 'Offline',
+                  },
+                ]}
+                defaultValue="a"
+              />
+            }
+          />
+          <ModelPicker models={[]} disabled />
+        </div>
+      </Cell>
+      <Cell name="ResponseVersions+MessageUsage" wide>
+        <div className="grid gap-2">
+          <MessageActions
+            copyText="x"
+            versions={{ index: 1, count: 3, onIndexChange: () => undefined }}
+          />
+          <ResponseVersions index={0} count={2} onIndexChange={() => undefined} />
+          <MessageUsage inputTokens={1204} outputTokens={356} cost={0.0042} durationMs={3240} />
+        </div>
+      </Cell>
+      <Cell name="ImageGallery">
+        <ImageGallery
+          size="sm"
+          images={[
+            { src: '/demo/bar-chart.png', alt: 'Bar chart' },
+            { src: '/demo/line-chart.png', alt: 'Line chart' },
+            { src: 'javascript:void(0)', alt: 'Blocked image' },
+          ]}
+        />
+      </Cell>
+      <Cell name="ArtifactPanel" wide>
+        <div className="h-72 w-full overflow-hidden rounded-lg border">
+          <ArtifactPanel
+            defaultOpen={!narrowChat}
+            title="surcharge.ts"
+            description="TypeScript"
+            actions={<CopyButton value="x" label="Copy surcharge.ts" />}
+            artifact={<CodeBlock code={'const rate = 0.41; // $/mi'} lang="ts" className="m-3" />}
+          >
+            <p className="p-4 text-sm">The conversation sits here.</p>
+          </ArtifactPanel>
         </div>
       </Cell>
       <Cell name="ToolCall" wide>

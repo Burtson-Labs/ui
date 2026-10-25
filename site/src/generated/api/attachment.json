@@ -62,7 +62,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "A thumbnail URL for images.",
+          "description": "A thumbnail URL for images: http(s), blob: or a data:image URL.",
           "native": false
         },
         {
@@ -432,7 +432,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "A thumbnail URL for images.",
+          "description": "A thumbnail URL for images: http(s), blob: or a data:image URL.",
           "native": false
         },
         {

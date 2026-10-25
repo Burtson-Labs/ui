@@ -1788,7 +1788,7 @@
         },
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": null,
           "description": "How wide the trigger is from 640px up; full width on phones. Fits its content by default.",
@@ -2113,7 +2113,7 @@
         },
         {
           "name": "width",
-          "type": "\"xs\" | \"sm\" | \"lg\" | \"md\" | \"full\" | undefined",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xs\" | \"full\" | undefined",
           "required": false,
           "default": null,
           "description": "How wide the trigger is from 640px up; full width on phones. Fits its content by default.",

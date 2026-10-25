@@ -24,6 +24,33 @@ const all: ComponentDoc[] = [
     description: 'Actual token capacity, warnings and a runtime-owned compaction action.',
   },
   {
+    name: 'model-picker',
+    title: 'Model Picker',
+    description:
+      'Search and pick a model, grouped by provider, with context size, capabilities and unavailable reasons.',
+  },
+  {
+    name: 'response-versions',
+    title: 'Response Versions',
+    description: 'A "2 / 3" switcher between regenerated responses, announced to screen readers.',
+  },
+  {
+    name: 'message-usage',
+    title: 'Message Usage',
+    description: 'Measured input and output tokens, cost and time for one response.',
+  },
+  {
+    name: 'image-lightbox',
+    title: 'Image Lightbox',
+    description: 'Image thumbnails that open a focus-trapped viewer with previous and next.',
+  },
+  {
+    name: 'artifact-panel',
+    title: 'Artifact Panel',
+    description:
+      'A generated artifact in a resizable panel beside the conversation; a sheet on smaller screens.',
+  },
+  {
     name: 'circular-progress',
     title: 'Circular Progress',
     description: 'Determinate and indeterminate progress rings in any size.',
@@ -297,7 +324,7 @@ const all: ComponentDoc[] = [
     name: 'markdown',
     title: 'Markdown',
     description:
-      'Safe Markdown for model output: lists, code blocks with copy, links. No HTML injection.',
+      'Safe Markdown for model output: lists, highlighted code blocks with copy, links. No HTML injection.',
   },
   {
     name: 'message',

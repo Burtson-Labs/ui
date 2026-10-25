@@ -4,6 +4,7 @@ import Pause from '@burtson-labs/icons/react/pause';
 import Play from '@burtson-labs/icons/react/play';
 import * as React from 'react';
 
+import { safeLinkHref } from '../lib/safe-url';
 import { cn, focusRingClasses } from '../lib/utils';
 
 import { Button } from './button';
@@ -155,6 +156,8 @@ const AudioPlayer = React.forwardRef<HTMLDivElement, AudioPlayerProps>(function 
 
   const bars = peaks && peaks.length ? peaks : null;
 
+  // Only http(s), blob: and relative URLs reach the DOM: React 18 renders a javascript: URL.
+  const safeSrc = safeLinkHref(src, { blob: true });
   return (
     <div
       ref={ref}
@@ -170,7 +173,7 @@ const AudioPlayer = React.forwardRef<HTMLDivElement, AudioPlayerProps>(function 
       {/* eslint-disable-next-line jsx-a11y/media-has-caption -- the transcript prop is the text alternative */}
       <audio
         ref={audio}
-        src={src}
+        src={safeSrc}
         preload="metadata"
         onLoadedMetadata={(e) => {
           const d = e.currentTarget.duration;
@@ -272,9 +275,9 @@ const AudioPlayer = React.forwardRef<HTMLDivElement, AudioPlayerProps>(function 
               <FileText /> Transcript
             </Button>
           )}
-          {downloadName && (
+          {downloadName && safeSrc && (
             <Button variant="ghost" size="xs" asChild>
-              <a href={src} download={downloadName}>
+              <a href={safeSrc} download={downloadName}>
                 <Download /> Download
               </a>
             </Button>

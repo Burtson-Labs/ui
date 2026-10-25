@@ -45,6 +45,28 @@ const guidance: Record<string, string[]> = {
     'The meter warns at 80% and becomes critical at 95%. onCompact requests compaction; keep busy true until your runtime reports new counts.',
     "The warning and Compacting text sit in a polite status region that changes only when a threshold is crossed, not on every count. Counts use the reader's locale unless you pass locale; labels translates the text.",
   ],
+  'model-picker': [
+    'Pass value and onValueChange from your chat state; the picker never stores the choice elsewhere. Put it in a Composer’s actions or a ChatLayout header.',
+    'Group models with provider. contextWindow and capabilities are optional and searched along with the name and description.',
+    'Keep unusable models in the list with disabled and a disabledReason ("Needs an API key"), so people know why rather than wondering where a model went.',
+  ],
+  'response-versions': [
+    'Keep every version in your store and pass index, count and onIndexChange. Regenerate appends a version and moves index to it.',
+    'Inside MessageActions, pass versions={{ index, count, onIndexChange }} to put the switcher first in the row.',
+  ],
+  'message-usage': [
+    'Pass the counts your provider reports for this response. Leave a value out (or null) when it was not measured; the component never estimates.',
+    'cost is in currency units (0.0042 is $0.0042) and is formatted with Intl.NumberFormat; set currency and locale for other markets.',
+  ],
+  'image-lightbox': [
+    'Every image needs alt text: it names the thumbnail button and the viewer. Write what the picture shows, not the file name, when you know it.',
+    'Only http(s), blob: and data:image URLs load; anything else shows "Image unavailable". MessageAttachments takes lightbox to open its images here.',
+    'Use ImageGallery for thumbnails that open the viewer, or ImageLightbox on its own with open, index and their change handlers.',
+  ],
+  'artifact-panel': [
+    'Put the conversation (Conversation and Composer) in children and the artifact in artifact. Control open from the message that produced it, e.g. an Open button on a card.',
+    'Below breakpoint (lg by default) the panel is a sheet from the right, full width on phones. Its header keeps the title, your actions and Close.',
+  ],
   'circular-progress': [
     'Omit value or pass null for an unknown duration. Finite values are clamped to max. Give the indicator a label that names the operation.',
   ],
@@ -183,6 +205,12 @@ const guidance: Record<string, string[]> = {
     'Pass MessageActions to Message actions; it appears on hover and focus, and always on touch screens.',
     'Feedback is controlled: store the rating and pass it back. Clicking the chosen thumb again clears it.',
     'MessageEditor edits a sent message in place: Enter sends (never mid-IME composition), Escape cancels.',
+    'Pass versions to show a ResponseVersions switcher first in the row once a response has been regenerated.',
+  ],
+  markdown: [
+    'Code blocks are coloured by a small built-in tokenizer for js, ts, json, bash and python. Other languages show plain text.',
+    'For every language, pass highlight: a function that returns React nodes, e.g. built from shiki’s codeToTokens. Never turn a highlighter’s HTML string into markup with dangerouslySetInnerHTML; the code is model output.',
+    'highlight={false} turns colouring off. Markdown passes highlight on to each CodeBlock.',
   ],
   combobox: [
     'Label the trigger with aria-label or a connected FieldLabel. Pass aria-describedby for help and errors.',
@@ -530,6 +558,50 @@ const api: Record<string, [string, string, string][]> = {
     ['copyText', 'string; shows Copy', '—'],
     ['onRegenerate / onEdit', '() => void', '—'],
     ['feedback / onFeedback', "'up' | 'down' | null / (value) => void", '—'],
+    ['versions', '{ index, count, onIndexChange, labels? }; a ResponseVersions switcher', '—'],
+    ['MessageAttachments: lightbox', 'boolean; open images in an ImageLightbox', 'false'],
+  ],
+  'model-picker': [
+    [
+      'models',
+      'ModelOption[] { value, label, provider?, description?, contextWindow?, capabilities?, icon?, disabled?, disabledReason? }',
+      'required',
+    ],
+    ['value / onValueChange', 'string | null / (value) => void', 'uncontrolled'],
+    ['side / align', "'top' | 'bottom' / 'start' | 'center' | 'end'", "'bottom' / 'start'"],
+    ['showDetails', 'boolean; context size and capability badges', 'true'],
+    ['labels', 'trigger, placeholder, search, empty, context, unavailable, current', 'English'],
+  ],
+  'response-versions': [
+    ['index / count', 'number (from 0) / number; hidden below 2', 'required'],
+    ['onIndexChange', '(index) => void', 'required'],
+    ['labels', 'group, previous, next, status(current, total)', 'English'],
+  ],
+  'message-usage': [
+    ['inputTokens / outputTokens', 'number | null', '—'],
+    ['cost / currency', 'number | null / ISO 4217 code', "— / 'USD'"],
+    ['durationMs', 'number | null', '—'],
+    ['locale / labels', 'string / suffixes and screen-reader names', 'browser / English'],
+  ],
+  'image-lightbox': [
+    ['images', 'LightboxImage[] { src, alt, caption? }', 'required'],
+    ['open / onOpenChange', 'ImageLightbox: boolean / (open) => void', 'required'],
+    ['index / onIndexChange', 'ImageLightbox: number / (index) => void', 'uncontrolled, 0'],
+    ['size', "ImageGallery: 'sm' | 'md'", "'md'"],
+    ['labels', 'dialog, previous, next, position(current, total), unavailable', 'English'],
+  ],
+  'artifact-panel': [
+    ['artifact / title', 'ReactNode / ReactNode', 'required'],
+    ['description / actions', 'ReactNode', '—'],
+    ['open / onOpenChange', 'controlled panel', 'uncontrolled, closed'],
+    ['defaultSize / minSize / maxSize', "ResizablePanel sizes ('50%', 320)", "'50%' / 320 / '75%'"],
+    ['breakpoint', "'sm' | 'md' | 'lg' | 'xl'; a sheet below it", "'lg'"],
+    ['labels', 'close, resize', 'English'],
+  ],
+  markdown: [
+    ['children', 'string', 'required'],
+    ['highlight', '(code, lang) => ReactNode | false; also on CodeBlock', 'built-in tokenizer'],
+    ['CodeBlock: code / lang / copyLabel', 'string', "— / 'text' / 'Copy code'"],
   ],
   progress: [
     ['value', 'number | null', 'indeterminate'],
