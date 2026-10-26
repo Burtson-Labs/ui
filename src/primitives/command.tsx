@@ -353,6 +353,11 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
   });
   const score = useCallbackRef(filter ?? defaultFilter);
   const dirtyRef = React.useRef(false);
+  // A search changed and the rows it brings have not all registered yet: the
+  // caller's own filtering (shouldFilter={false}) renders them in the same
+  // commit, after the input's effect ran. Until the next row flush, the best
+  // row is chosen again; a deliberate move of the highlight ends the wait.
+  const searchPending = React.useRef(false);
   const filtering = useCallbackRef(() => shouldFilter && Boolean(store.search));
 
   // The store's value follows the (possibly controlled) prop, before anything
@@ -386,9 +391,22 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
     if (!active) store.reindexFromDom();
     if (active) store.reorder(list, true);
     const current = [...store.items.values()].find((item) => item.value === value);
-    if (reason === 'search' || !current || current.disabled || !store.isShown(current))
+    if (
+      reason === 'search' ||
+      searchPending.current ||
+      !current ||
+      current.disabled ||
+      !store.isShown(current)
+    )
       selectBest();
+    if (reason === 'rows') searchPending.current = false;
     store.notify();
+  });
+
+  /** A highlight the person chose; it is not revisited by a pending search. */
+  const choose = useCallbackRef((next: string) => {
+    searchPending.current = false;
+    setValue(next);
   });
 
   /**
@@ -433,9 +451,10 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
         if (search === store.search) return;
         store.setSearch(search);
         dirtyRef.current = true;
+        searchPending.current = true;
         flush('search');
       },
-      select: (next) => setValue(next),
+      select: (next) => choose(next),
       isVisible: (id) => {
         const item = store.items.get(id);
         if (!item) return true;
@@ -485,7 +504,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
       if (index >= items.length) index = loop ? 0 : items.length - 1;
     }
     const target = items[index];
-    if (target) setValue(target.value);
+    if (target) choose(target.value);
   };
 
   /** Alt+Arrow: the first row of the next or previous group. */
@@ -501,7 +520,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
       return;
     }
     const first = items.find((item) => item.groupId === neighbour.groupId) ?? neighbour;
-    setValue(first.value);
+    choose(first.value);
   };
 
   const Comp = asChild ? Slot : 'div';

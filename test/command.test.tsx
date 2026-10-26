@@ -336,3 +336,43 @@ describe('Command', () => {
     expect(selectedItem()).toBe('Two');
   });
 });
+
+describe('a search whose rows the caller filters', () => {
+  function CallerFiltered() {
+    const [search, setSearch] = React.useState('');
+    // Only a search shows the full list; empty shows two favourites.
+    const rows = search ? ['Alpha', 'Beta', 'Gamma'] : ['Beta', 'Gamma'];
+    return (
+      <Command shouldFilter={false}>
+        <CommandInput aria-label="Search" value={search} onValueChange={setSearch} />
+        <CommandList>
+          {rows
+            .filter((r) => r.toLowerCase().includes(search.toLowerCase()))
+            .map((r) => (
+              <CommandItem key={r} value={r}>
+                {r}
+              </CommandItem>
+            ))}
+        </CommandList>
+      </Command>
+    );
+  }
+
+  it('highlights the top result after a one-step (pasted) query, not a surviving old row', async () => {
+    render(<CallerFiltered />);
+    const input = screen.getByRole('combobox', { name: 'Search' });
+    await waitFor(() => expect(selectedItem()).toBe('Beta'));
+    fireEvent.change(input, { target: { value: 'a' } });
+    await waitFor(() => expect(visibleItems()).toEqual(['Alpha', 'Beta', 'Gamma']));
+    await waitFor(() => expect(selectedItem()).toBe('Alpha'));
+  });
+
+  it('keeps a highlight the person moved while rows keep arriving', async () => {
+    render(<CallerFiltered />);
+    const input = screen.getByRole('combobox', { name: 'Search' });
+    fireEvent.change(input, { target: { value: 'a' } });
+    await waitFor(() => expect(selectedItem()).toBe('Alpha'));
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(selectedItem()).toBe('Beta');
+  });
+});

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1
+
+- Fix: Command with `shouldFilter={false}` (the caller filters the rows) could leave the
+  highlight on a row that survived a one-step query change (a paste or autofill) instead of
+  moving it to the new top result, so Enter opened the wrong row. A search change now
+  re-chooses the best row once the caller's rows have registered; a highlight the person moved
+  with the keyboard or pointer is left alone.
+
 ## 0.19.0
 
 ### The kit is its own
