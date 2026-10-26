@@ -3,6 +3,17 @@ import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@burtson-labs/ui';
+
 import { createCollection } from '../src/primitives/collection';
 import { composeRefs } from '../src/primitives/compose-refs';
 import { FocusScope } from '../src/primitives/focus-trap';
@@ -650,5 +661,59 @@ describe('typeahead', () => {
     expect(findTypeaheadMatch(labels, 'ch', 4)).toBe(4);
     expect(findTypeaheadMatch(labels, 'z', 0)).toBe(-1);
     expect(findTypeaheadMatch([], 'a', 0)).toBe(-1);
+  });
+});
+
+describe('overlay stacks in transition', () => {
+  it('a modal layer never restores a pointer-events value another stack set', () => {
+    document.body.style.pointerEvents = 'none';
+    const { unmount } = render(
+      <Layer disableOutsidePointerEvents onDismiss={() => {}}>
+        <div>modal</div>
+      </Layer>,
+    );
+    expect(document.body.style.pointerEvents).toBe('none');
+    unmount();
+    expect(document.body.style.pointerEvents).toBe('');
+  });
+});
+
+describe('a dialog opened from a menu item', () => {
+  function MenuThenDialog() {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <>
+        <DropdownMenu>
+          <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onSelect={() => setOpen(true)}>Rename…</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogTitle>Rename</DialogTitle>
+            <DialogDescription>Pick a new name.</DialogDescription>
+            <input aria-label="Name" />
+          </DialogContent>
+        </Dialog>
+      </>
+    );
+  }
+
+  it('stays open while the closing menu hands focus back, and the page stays clickable after', async () => {
+    const user = userEvent.setup();
+    render(<MenuThenDialog />);
+    await user.click(screen.getByRole('button', { name: 'Actions' }));
+    await user.click(await screen.findByRole('menuitem', { name: 'Rename…' }));
+    const dialog = await screen.findByRole('dialog');
+    // The menu's focus return must not read as "focus moved outside".
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 20));
+    });
+    expect(screen.queryByRole('dialog')).toBe(dialog);
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+    expect(document.body.style.pointerEvents).toBe('');
   });
 });

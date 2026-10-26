@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.18.1
+
+- Fix: a modal Dialog opened from a DropdownMenu, ContextMenu or Menubar item closed the
+  instant it opened, because the closing menu handing focus back to its trigger read as
+  focus leaving the dialog. A modal dialog now ignores focus moving outside (its focus scope
+  pulls it back), as before 0.18.0.
+- Fix: after such a dialog closed, the page could ignore every click. While menus still run on
+  the vendored layer, the two overlay stacks each restored `body { pointer-events }`; ours no
+  longer puts back a `none` the other stack set.
+
 ## 0.18.0
 
 ### Our own primitives (phase 1)

@@ -143,7 +143,10 @@ function syncPointerEvents() {
   const topModal = topModalIndex();
   if (topModal === -1) {
     if (bodyPointerEvents !== null) {
-      document.body.style.pointerEvents = bodyPointerEvents;
+      // Another overlay stack (a vendored menu, until every component is on this
+      // layer) may have set 'none' before this stack saved the value; putting
+      // that back would leave the page ignoring every click.
+      document.body.style.pointerEvents = bodyPointerEvents === 'none' ? '' : bodyPointerEvents;
       bodyPointerEvents = null;
     }
     for (const layer of layers) layer.node.style.removeProperty('pointer-events');

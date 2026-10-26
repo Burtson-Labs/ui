@@ -207,7 +207,13 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(funct
       disableOutsidePointerEvents={context.modal}
       onEscapeKeyDown={onEscapeKeyDown}
       onPointerDownOutside={onPointerDownOutside}
-      onFocusOutside={onFocusOutside}
+      onFocusOutside={(event) => {
+        onFocusOutside?.(event);
+        // A modal dialog traps focus. Focus that lands outside (a closing menu
+        // handing focus back to its trigger as the dialog opens) is pulled back
+        // by the scope; it is never a dismissal.
+        if (context.modal) event.preventDefault();
+      }}
       onInteractOutside={(event) => {
         onInteractOutside?.(event);
         if (event.defaultPrevented) return;
