@@ -65,7 +65,8 @@ export function primitiveRegistryItems(root, base) {
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
   const vendor = join(root, 'src/primitives/vendor');
   const keys = manifest.packages.map((p) => `radix/${p.package.split('/')[1]}`);
-  if (manifest.files.some((f) => f.path.startsWith('src/primitives/vendor/cmdk/'))) keys.push('cmdk');
+  if (manifest.files.some((f) => f.path.startsWith('src/primitives/vendor/cmdk/')))
+    keys.push('cmdk');
   return keys.map((key) => {
     const name = `primitive-${key.replace('radix/', '')}`;
     const dependencies = new Set();

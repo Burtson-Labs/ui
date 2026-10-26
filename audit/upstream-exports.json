@@ -1,7 +1,5 @@
 {
-  "@radix-ui/number": [
-    "clamp"
-  ],
+  "@radix-ui/number": ["clamp"],
   "@radix-ui/primitive": [
     "canUseDOM",
     "composeEventHandlers",
@@ -75,23 +73,10 @@
     "Trigger",
     "createCollapsibleScope"
   ],
-  "@radix-ui/react-collection": [
-    "createCollection",
-    "unstable_createCollection"
-  ],
-  "@radix-ui/react-compose-refs": [
-    "composeRefs",
-    "useComposedRefs"
-  ],
-  "@radix-ui/react-context": [
-    "createContext",
-    "createContextScope"
-  ],
-  "@radix-ui/react-direction": [
-    "DirectionProvider",
-    "Provider",
-    "useDirection"
-  ],
+  "@radix-ui/react-collection": ["createCollection", "unstable_createCollection"],
+  "@radix-ui/react-compose-refs": ["composeRefs", "useComposedRefs"],
+  "@radix-ui/react-context": ["createContext", "createContextScope"],
+  "@radix-ui/react-direction": ["DirectionProvider", "Provider", "useDirection"],
   "@radix-ui/react-dismissable-layer": [
     "Branch",
     "DismissableLayer",
@@ -99,13 +84,8 @@
     "Root",
     "useDismissableLayerSurface"
   ],
-  "@radix-ui/react-id": [
-    "useId"
-  ],
-  "@radix-ui/react-label": [
-    "Label",
-    "Root"
-  ],
+  "@radix-ui/react-id": ["useId"],
+  "@radix-ui/react-label": ["Label", "Root"],
   "@radix-ui/react-popover": [
     "Anchor",
     "Arrow",
@@ -123,19 +103,9 @@
     "Trigger",
     "createPopoverScope"
   ],
-  "@radix-ui/react-portal": [
-    "Portal",
-    "Root"
-  ],
-  "@radix-ui/react-presence": [
-    "Presence",
-    "Root"
-  ],
-  "@radix-ui/react-primitive": [
-    "Primitive",
-    "Root",
-    "dispatchDiscreteCustomEvent"
-  ],
+  "@radix-ui/react-portal": ["Portal", "Root"],
+  "@radix-ui/react-presence": ["Presence", "Root"],
+  "@radix-ui/react-primitive": ["Primitive", "Root", "dispatchDiscreteCustomEvent"],
   "@radix-ui/react-progress": [
     "Indicator",
     "Progress",
@@ -178,17 +148,8 @@
     "Viewport",
     "createScrollAreaScope"
   ],
-  "@radix-ui/react-separator": [
-    "Root",
-    "Separator"
-  ],
-  "@radix-ui/react-slot": [
-    "Root",
-    "Slot",
-    "Slottable",
-    "createSlot",
-    "createSlottable"
-  ],
+  "@radix-ui/react-separator": ["Root", "Separator"],
+  "@radix-ui/react-slot": ["Root", "Slot", "Slottable", "createSlot", "createSlottable"],
   "@radix-ui/react-switch": [
     "Root",
     "Switch",
@@ -245,31 +206,12 @@
     "Trigger",
     "createTooltipScope"
   ],
-  "@radix-ui/react-use-callback-ref": [
-    "useCallbackRef"
-  ],
-  "@radix-ui/react-use-controllable-state": [
-    "useControllableState",
-    "useControllableStateReducer"
-  ],
-  "@radix-ui/react-use-effect-event": [
-    "useEffectEvent"
-  ],
-  "@radix-ui/react-use-is-hydrated": [
-    "useIsHydrated"
-  ],
-  "@radix-ui/react-use-layout-effect": [
-    "useLayoutEffect"
-  ],
-  "@radix-ui/react-use-rect": [
-    "useRect"
-  ],
-  "@radix-ui/react-use-size": [
-    "useSize"
-  ],
-  "@radix-ui/react-visually-hidden": [
-    "Root",
-    "VISUALLY_HIDDEN_STYLES",
-    "VisuallyHidden"
-  ]
+  "@radix-ui/react-use-callback-ref": ["useCallbackRef"],
+  "@radix-ui/react-use-controllable-state": ["useControllableState", "useControllableStateReducer"],
+  "@radix-ui/react-use-effect-event": ["useEffectEvent"],
+  "@radix-ui/react-use-is-hydrated": ["useIsHydrated"],
+  "@radix-ui/react-use-layout-effect": ["useLayoutEffect"],
+  "@radix-ui/react-use-rect": ["useRect"],
+  "@radix-ui/react-use-size": ["useSize"],
+  "@radix-ui/react-visually-hidden": ["Root", "VISUALLY_HIDDEN_STYLES", "VisuallyHidden"]
 }
