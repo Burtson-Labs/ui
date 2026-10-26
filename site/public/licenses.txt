@@ -66,18 +66,18 @@ own behaviour layer, written from the WAI-ARIA Authoring Practices and the
 web platform specifications, and released under this package's MIT license.
 It is not derived from Radix, cmdk or any other library.
 
-The remaining Radix Primitives and cmdk modules are maintained as TypeScript
-source under `src/primitives/vendor` until their replacements land. They are
-not installed as runtime packages. Their original MIT licenses are included
-in `LICENSES/Radix-MIT.txt` and `LICENSES/cmdk-MIT.txt`. `vendor-manifest.json`
-records exact versions, source origins, hashes, local modifications, and which
-modules have been replaced. See `VENDORING.md`.
+The remaining Radix Primitives modules are maintained as TypeScript source
+under `src/primitives/vendor` until their replacements land. They are not
+installed as runtime packages. Their original MIT license is included in
+`LICENSES/Radix-MIT.txt`. `vendor-manifest.json` records exact versions,
+source origins, hashes, local modifications, and which modules have been
+replaced. See `VENDORING.md`. The cmdk port, and the Floating UI, aria-hidden
+and react-remove-scroll dependencies the vendored menu, select and dialog
+ports imported, are gone: the command palette, the menus, Select and
+NavigationMenu are Burtson primitives.
 
-Floating UI, aria-hidden and react-remove-scroll are still declared because
-the vendored menu, select and dialog ports import them; the Burtson
-primitives do not. They and the other declared dependencies remain external
-dependencies with their own licenses.
-`LICENSES/DEPENDENCIES.txt` preserves the installed runtime dependency and
+The declared dependencies remain external dependencies with their own
+licenses. `LICENSES/DEPENDENCIES.txt` preserves the installed runtime dependency and
 peer dependency notices, including class-variance-authority (Apache-2.0).
 The documentation site's `/licenses.txt` includes these notices too.
 Registry source files carry the applicable full MIT notices.

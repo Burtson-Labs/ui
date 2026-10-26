@@ -690,7 +690,7 @@ const MenuLabel = React.forwardRef<HTMLDivElement, MenuLabelProps>(function Menu
  * (for typeahead), takes the highlight when the pointer rests on it, and
  * reports focus so sibling submenus close.
  */
-interface ItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MenuItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
   disabled?: boolean;
   /** The text typeahead matches, when the row's text content is not it. */
@@ -698,7 +698,14 @@ interface ItemBaseProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function useMenuItemBase(
-  { disabled = false, textValue, onPointerMove, onPointerLeave, onFocus, onBlur }: ItemBaseProps,
+  {
+    disabled = false,
+    textValue,
+    onPointerMove,
+    onPointerLeave,
+    onFocus,
+    onBlur,
+  }: MenuItemBaseProps,
   nodeRef: React.RefObject<HTMLDivElement | null>,
 ) {
   const content = useMenuContent('MenuItem');
@@ -755,7 +762,7 @@ function useMenuItemBase(
   };
 }
 
-export interface MenuItemProps extends Omit<ItemBaseProps, 'onSelect'> {
+export interface MenuItemProps extends Omit<MenuItemBaseProps, 'onSelect'> {
   /** Fired when the row is activated. `preventDefault()` keeps the menu open. */
   onSelect?: (event: Event) => void;
 }
@@ -1033,7 +1040,7 @@ function MenuSub({ children, open = false, onOpenChange }: MenuSubProps) {
   );
 }
 
-export type MenuSubTriggerProps = ItemBaseProps;
+export type MenuSubTriggerProps = MenuItemBaseProps;
 
 /** Milliseconds the pointer rests on a submenu's row before it opens. */
 const SUB_OPEN_DELAY = 100;
