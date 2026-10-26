@@ -678,6 +678,31 @@ describe('overlay stacks in transition', () => {
   });
 });
 
+describe('hideOthers beside the other overlay stack', () => {
+  it('does not restore an aria-hidden the other stack set, whichever releases first', () => {
+    withDom(
+      `<div id="dialog" aria-hidden="true" data-aria-hidden="true"></div>
+      <div id="portal"><div id="alert"></div></div>`,
+      () => {
+        const byId = (id: string) => document.getElementById(id)!;
+        // The vendored Select has hidden the dialog; our AlertDialog opens on top.
+        const release = hideOthers(byId('alert'));
+        expect(byId('dialog').getAttribute('aria-hidden')).toBe('true');
+        // The Select closes first and clears its own marks.
+        byId('dialog').removeAttribute('aria-hidden');
+        byId('dialog').removeAttribute('data-aria-hidden');
+        release();
+        expect(byId('dialog').hasAttribute('aria-hidden')).toBe(false);
+        // The other order: we release while the other stack still holds it.
+        byId('dialog').setAttribute('aria-hidden', 'true');
+        byId('dialog').setAttribute('data-aria-hidden', 'true');
+        hideOthers(byId('alert'))();
+        expect(byId('dialog').getAttribute('aria-hidden')).toBe('true');
+      },
+    );
+  });
+});
+
 describe('a dialog opened from a menu item', () => {
   function MenuThenDialog() {
     const [open, setOpen] = React.useState(false);

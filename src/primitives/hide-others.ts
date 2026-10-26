@@ -14,10 +14,15 @@ interface Hidden {
   count: number;
   ariaHidden: string | null;
   inert: boolean;
+  /** Hidden by the other overlay stack when we arrived; its attribute is not ours to restore. */
+  foreign: boolean;
 }
 
 const hidden = new WeakMap<Element, Hidden>();
 const LIVE = '[aria-live], [role="alert"], [role="status"], [role="log"], [data-bl-live]';
+// The marker the aria-hidden package (still behind the vendored Select and menus
+// until every component is on this layer) leaves on the nodes it hides.
+const FOREIGN = 'data-aria-hidden';
 const supportsInert = () => typeof HTMLElement !== 'undefined' && 'inert' in HTMLElement.prototype;
 
 function hide(element: Element) {
@@ -26,10 +31,12 @@ function hide(element: Element) {
     record.count += 1;
     return;
   }
+  const foreign = element.hasAttribute(FOREIGN);
   hidden.set(element, {
     count: 1,
-    ariaHidden: element.getAttribute('aria-hidden'),
+    ariaHidden: foreign ? null : element.getAttribute('aria-hidden'),
     inert: element.hasAttribute('inert'),
+    foreign,
   });
   element.setAttribute('aria-hidden', 'true');
   if (supportsInert()) element.setAttribute('inert', '');
@@ -40,7 +47,9 @@ function release(element: Element) {
   if (!record) return;
   if (--record.count > 0) return;
   hidden.delete(element);
-  if (record.ariaHidden === null) element.removeAttribute('aria-hidden');
+  if (record.foreign && element.hasAttribute(FOREIGN)) {
+    // The other stack still holds it hidden and will clear it itself.
+  } else if (record.ariaHidden === null) element.removeAttribute('aria-hidden');
   else element.setAttribute('aria-hidden', record.ariaHidden);
   if (!record.inert) element.removeAttribute('inert');
 }

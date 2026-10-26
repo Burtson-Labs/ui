@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.18.2
+
+- Fix: a Dialog that had a vendored Select or menu open inside it, and then an AlertDialog
+  on top, stayed hidden from assistive technology after the alert closed (`aria-hidden`
+  left on the dialog). The kit's hide-others no longer treats an `aria-hidden` the other
+  overlay stack set as the value to restore.
+
 ## 0.18.1
 
 - Fix: a modal Dialog opened from a DropdownMenu, ContextMenu or Menubar item closed the
