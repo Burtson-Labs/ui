@@ -693,9 +693,12 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
     const viewportHeight = document.documentElement.clientHeight;
     const rtl = (dir ?? getComputedStyle(content).direction) === 'rtl';
 
-    // Width: at least the trigger's, inside the window.
+    // Width: at least the trigger's, inside the window. The height limits
+    // from the previous pass (the inline one and the variable the kit's
+    // max-h class reads) are lifted before measuring.
     wrapper.style.minWidth = `${triggerRect.width}px`;
     content.style.maxHeight = '';
+    wrapper.style.removeProperty('--bl-available-height');
     const width = wrapper.offsetWidth;
     let left = rtl ? triggerRect.right - width : triggerRect.left;
     left = Math.max(padding, Math.min(left, viewportWidth - width - padding));
@@ -710,8 +713,15 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
     const viewportRect = viewport.getBoundingClientRect();
     const itemRect = selected.getBoundingClientRect();
     const topInset = viewportRect.top - wrapperRect.top;
+    const bottomInset = wrapperRect.bottom - viewportRect.bottom;
     const itemOffset = itemRect.top - viewportRect.top + viewport.scrollTop;
-    const itemTopWanted = triggerRect.top + (triggerRect.height - itemRect.height) / 2;
+    // The row's centre on the trigger's centre, unless the row and what sits
+    // under it (the scroll button, padding, border) would not fit above the
+    // window's bottom edge; then the row moves up by the least that fits.
+    const itemTopWanted = Math.min(
+      triggerRect.top + (triggerRect.height - itemRect.height) / 2,
+      viewportHeight - padding - bottomInset - itemRect.height,
+    );
     // Scroll so the part above the row fits above the trigger.
     const roomAbove = itemTopWanted - padding - topInset;
     let scrollTop = Math.max(0, itemOffset - roomAbove);
