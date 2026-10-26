@@ -424,8 +424,8 @@ describe('TimePicker', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Show times' }));
     const options = screen.getAllByRole('option');
     expect(options.map((o) => o.textContent)).toEqual([
-      '9:00 AM',
-      '9:30 AM',
+      '09:00 AM',
+      '09:30 AM',
       '10:00 AM',
       '10:30 AM',
       '11:00 AM',
