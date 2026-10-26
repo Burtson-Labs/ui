@@ -41,6 +41,18 @@ under `lib/burtson-primitives/`), with their full MIT notice.
 | `dialog`                 | Dialog: Root, Trigger, Portal, Overlay, Content, Title, Description, Close.                                       |
 | `alert-dialog`           | AlertDialog on Dialog: Action and Cancel, `role="alertdialog"`, no outside dismissal, focus on Cancel.            |
 | `collapsible`            | Collapsible: Root, Trigger, Content, with measured height and width for animations.                               |
+| `tabs`                   | Tabs: Root, List, Trigger, Content; automatic or manual activation.                                               |
+| `accordion`              | Accordion on Collapsible: Root (single or multiple), Item, Header, Trigger, Content.                              |
+| `form-proxy`             | `FormProxy`, `useInForm`: a native input that lets a button-based control submit, validate and reset.             |
+| `checkbox`               | Checkbox: Root, Indicator; checked, unchecked or indeterminate.                                                   |
+| `radio-group`            | RadioGroup: Root, Item, Indicator; arrows move and choose.                                                        |
+| `switch`                 | Switch: Root, Thumb.                                                                                              |
+| `toast`                  | Toast: Provider, Viewport, Root, Title, Description, Action, Close; timing, swipe, announcements.                 |
+| `scroll-area`            | ScrollArea: Root, Viewport, Scrollbar, Thumb, Corner; drawn scrollbars over a native scroller.                    |
+| `avatar`                 | Avatar: Root, Image, Fallback, `useImageLoadingStatus`.                                                           |
+| `progress`               | Progress: Root, Indicator.                                                                                        |
+| `separator`              | Separator: decorative (`role="none"`) or semantic.                                                                |
+| `label`                  | Label: a native label that does not select its text on a double press.                                            |
 
 Each headless module exports its parts under both long names (`PopoverContent`)
 and short ones (`Content`), so a component can `import * as PopoverPrimitive`
@@ -238,11 +250,161 @@ and read as it always has.
   the height keyframes. The measurement runs before the presence check so the
   animation that restarts after it is the one presence waits for.
 
+### Composite widgets and form controls (phase 2, part B)
+
+- **Tabs** follow the Authoring Practices tabs pattern on `roving-focus`. In
+  automatic mode a tab is selected when it receives focus; in manual mode
+  arrows only move focus and Enter or Space selects. A press selects on
+  `mousedown` (primary button, no Ctrl, which is the macOS context-menu
+  press). The list's tab stop is the selected tab whenever focus is outside
+  the list, so focus coming back in always lands on the selection, even
+  after arrowing ahead of it in manual mode. Ids are derived from the root's
+  id and the value, with characters that ids cannot carry (spaces) escaped,
+  so `aria-controls` is always a single token. The panel is in the Tab
+  sequence. The list itself is not a Tab stop (the roving item is).
+- **Accordion** is a set of Collapsibles. In single mode without
+  `collapsible`, the open section's button reports `aria-disabled="true"` and
+  a press on it is ignored (the pattern's "cannot be collapsed" case); the
+  button stays focusable. Every header button is a Tab stop (the pattern does
+  not use roving tabindex here); arrows for the orientation, Home and End move
+  between enabled buttons and wrap. The content is a `region` labelled by
+  its button. `--bl-accordion-content-height/width` (and the deprecated
+  `--radix-accordion-content-*` the kit's keyframes read) are set as
+  `var(--bl-collapsible-content-*)`, so there is one measurement.
+- **Form participation** (`form-proxy`). Checkbox, Switch and RadioGroup are
+  buttons, which a form neither submits nor validates. When the control is
+  in a form (an ancestor, or the `form` attribute) a native input is rendered
+  after it, 1px, transparent, `aria-hidden`, `tabindex="-1"`, no pointer
+  events, carrying `name`, `value`, the checked state, `required` and
+  `disabled`. The browser then submits it, blocks submission with its own
+  message, and resets it. Focus the browser sends to an invalid proxy is
+  passed to the visible control. The proxy's default state is the
+  control's initial state, and a form `reset` sets the control back to it.
+  A change dispatches bubbling `input` and `change` events on the proxy (a
+  radio only when it becomes checked, as natively). No proxy is rendered
+  outside a form. An indeterminate checkbox submits nothing (as a native
+  unchecked one).
+- **Checkbox**: Space toggles (the button's activation), Enter does nothing
+  (the pattern; Enter in a form must not toggle). Indeterminate goes to
+  checked on a press. The Indicator renders while checked or indeterminate
+  and ignores pointer events, so a press on the mark is a press on the box.
+- **RadioGroup** is a roving-focus group where moving is choosing: the
+  radio's own roving handler moves focus on an arrow key, and the group,
+  seeing the key it prevented bubble up, chooses the radio that now has
+  focus. Home and End move focus without choosing. Tab into the group lands
+  on the chosen radio (else the first). Enter does nothing. A required group
+  without a `name` gets a generated one, so its native radios validate as one
+  group. The item's `checked` prop is accepted and ignored; the group's value
+  decides.
+- **Switch** is a button with `role="switch"`; Space and Enter toggle (the
+  pattern allows both).
+- **Label** is the native element; the browser's label activation toggles a
+  checkbox, switch or radio button and focuses a field. A double press on the
+  caption is prevented from selecting text; presses on a control inside the
+  label are not touched.
+- **Separator**: `decorative` renders `role="none"`; otherwise
+  `role="separator"` with `aria-orientation` only when vertical (horizontal
+  is the role's default). An unknown orientation is horizontal.
+- **Progress**: a value outside `0..max` or not finite is indeterminate (no
+  `aria-valuenow`); a `max` that is not a positive number is 100.
+  `aria-valuetext` is a whole percentage unless `getValueLabel` says
+  otherwise. `data-state` is indeterminate, loading or complete.
+- **Avatar** loads `src` in a detached `Image` (with `referrerPolicy` and
+  `crossOrigin` copied) and renders the `<img>` only once it has loaded. A
+  missing `src` is an error. The fallback shows whenever the image is not
+  loaded, after `delayMs` when given. `onLoadingStatusChange` hears
+  "loading", then "loaded" or "error".
+
+### Toasts
+
+- **The region.** The viewport is an `<ol>` inside a `role="region"` landmark
+  named by `label` ("Notifications ({hotkey})"). The region is a
+  `LayerBranch` and carries `data-bl-live`, so a modal's `hideOthers` leaves
+  it reachable, a press in it dismisses nothing, and a trapping FocusScope
+  lets focus go there. The region has `pointer-events: none`; each toast
+  sets `pointer-events: auto`, so the empty corner of the screen never blocks
+  the page, and toasts stay pressable under a modal (which turns pointer
+  events off on the body).
+- **Toasts portal into the viewport**, wherever they are rendered under the
+  provider. React's events from a toast therefore do not reach the
+  viewport's React handlers; hover and focus are watched with native
+  listeners on the list.
+- **The hotkey** (`['F8']`; `event.code` values and modifier names such as
+  `altKey`) focuses the list from anywhere. Tab then walks the toasts (each
+  is focusable).
+- **Timing.** A toast closes after `duration` (its own, else the
+  provider's; `Infinity` never). Every timer pauses while the pointer (not a
+  touch) is over the list, while focus is inside it, and while the window is
+  blurred, and resumes with what was left. A change of `duration` restarts
+  the full time. `onPause` and `onResume` report the transitions.
+- **Announcing once.** The toast is not a live region. When it opens, a
+  visually hidden region (`role="alert"`, `aria-live="assertive"` for
+  `type="foreground"`; `role="status"`, polite, for `"background"`) is
+  rendered empty into `announcerContainer` (the body), filled 50ms later (a
+  region inserted with its text is not reliably announced) and removed after
+  a second. The text is the provider `label`, then the toast's text with each
+  Action's `altText` instead of its label and the Close button left out.
+- **Swipe.** A primary-button press that travels 10px, mostly along the
+  swipe axis and toward the dismissal side, starts a swipe (pointer capture,
+  no text selection, timer paused). The toast moves only toward that side.
+  Releasing at `swipeThreshold` or further dismisses (`data-swipe="end"`,
+  end variables set); otherwise it springs back (`data-swipe="cancel"`). A
+  cancelled pointer cancels. The click that ends a swipe is swallowed.
+  `onSwipeStart/Move/Cancel/End` receive a cancelable `CustomEvent` with
+  `detail.originalEvent` and `detail.delta`; preventing a move skips the
+  variables, preventing an end keeps the toast. The toast sets
+  `touch-action` to allow scrolling across the swipe axis only.
+- **Escape** in a focused toast closes it (preventable through
+  `onEscapeKeyDown`) and is consumed, so a dialog behind stays open; focus
+  inside a closing toast moves to the list. Escape on the list itself is the
+  dialog's.
+- **Layer and focus-trap changes.** `isInLayerBranch` is exported from
+  `layer`; a trapping FocusScope ignores focus that lands in a branch, and
+  the layer stack ignores an Escape that a branch already handled
+  (`defaultPrevented`).
+
+### Scroll areas
+
+- **A native scroller underneath.** The viewport keeps wheel, touch,
+  keyboard scrolling (Chrome makes a scroller with no focusable children a
+  Tab stop), find-in-page and scroll anchoring. Its own scrollbars are hidden
+  with `scrollbar-width: none` and the `::-webkit-scrollbar` rule in a small
+  `<style>` (with `nonce`). An axis without a Scrollbar is
+  `overflow: hidden`.
+- **Content wrapper.** Children sit in `min-width: 100%; display: table`, so
+  content wider than the viewport widens the wrapper and is measured
+  (`scrollWidth`) rather than spilling; this is the layout the kit has
+  always had.
+- **Measurement.** Thumb length is the visible fraction of the track
+  (`clientSize / scrollSize`, 18px minimum); offset is the scroll ratio of
+  the free track. Both are written to the DOM on every `scroll` event and
+  after a `ResizeObserver` frame (viewport, content, scrollbar), without a
+  React render. The thumb is moved from where the layout put it
+  (`offsetLeft`/`offsetTop`), so a stylesheet that aligns it differently
+  (a flex column in RTL puts it at the right end) still lines up.
+- **RTL** horizontal scrolling uses the browser's negative `scrollLeft`
+  (0 at the right edge, `-max` at the left); `thumbOffset` and
+  `positionForThumb` map between the two with an explicit range, tested as
+  arithmetic. The vertical scrollbar and the corner move to the left.
+- **Interaction.** Dragging the thumb scrolls proportionally (pointer
+  capture on the scrollbar, `scrollTo` with `behavior: 'instant'` so a page's
+  `scroll-behavior: smooth` does not lag the thumb; text selection off while
+  dragging). A press on the track pages by one viewport toward the press. A
+  wheel over a scrollbar that is outside the viewport scrolls the viewport
+  and cancels the page scroll only when the viewport moved.
+- **Visibility.** `hover` (default): while the pointer is over the root or
+  the axis is scrolling, then `scrollHideDelay` (600ms) more; `scroll`:
+  only while scrolling; `auto`: whenever the axis overflows; `always`:
+  always. All but `always` need overflow. `data-state` is visible or hidden
+  and presence keeps a scrollbar mounted through an exit animation. The
+  corner renders where two visible scrollbars meet (not for `scroll`), and
+  the root publishes the corner size so the scrollbars stop short of it.
+
 ## For phase 2
 
 The vendored modules that remain under `vendor/` (menus, select, navigation
-menu, tabs, accordion, checkbox, radio group, switch, toast, scroll area,
-avatar, progress, separator, label, and cmdk) map onto this layer as follows:
+menu and cmdk, with the support modules they import) map onto this layer as
+follows:
 
 | Vendored                                                    | Build on                                                                                             |
 | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -260,7 +422,6 @@ avatar, progress, separator, label, and cmdk) map onto this layer as follows:
 | react-use-size                                              | a `ResizeObserver` in the component                                                                  |
 | react-visually-hidden                                       | the kit's `sr-only` class                                                                            |
 | react-dialog (cmdk)                                         | `dialog`                                                                                             |
-| react-collapsible (accordion)                               | `collapsible`                                                                                        |
 | aria-hidden, react-remove-scroll, @floating-ui/react-dom    | `hide-others`, `scroll-lock`, `anchor`; drop the dependencies when their last vendored importer goes |
 
 Known while both stacks coexist: a vendored (Radix) modal menu opened inside

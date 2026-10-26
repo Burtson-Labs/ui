@@ -69,7 +69,7 @@
           "type": "number | undefined",
           "required": false,
           "default": null,
-          "description": "Milliseconds before it closes (Radix pauses on hover and focus).",
+          "description": "Milliseconds before it closes (paused while hovered or focused, or the window is in the background).",
           "native": false
         },
         {

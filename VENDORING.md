@@ -33,18 +33,33 @@ Vendored modules deleted because nothing imports them any more:
 Vendored modules that have a Burtson equivalent but stay on disk because other
 vendored modules import them (listed in `vendor-manifest.json` under
 `replacedByOwnPrimitives.retainedForVendoredImporters`): `react-dialog` (cmdk),
-`react-collapsible` (accordion), `react-slot`, `react-compose-refs`,
+`react-slot`, `react-compose-refs`,
 `react-presence`, `react-portal`, `react-dismissable-layer`, `react-focus-scope`,
 `react-focus-guards`, `react-popper`, `react-arrow`, `react-collection`,
 `react-roving-focus`, `react-id`, `react-use-controllable-state`,
 `react-use-callback-ref`, `react-use-layout-effect`. `npm run vendor:check`
 fails if anything outside `src/primitives/vendor` imports one of them.
 
+### Phase 2, part B (done): tabs, accordion, form controls, toast, scroll area
+
+New modules: `tabs`, `accordion` (on `collapsible`), `checkbox`, `radio-group`,
+`switch`, `form-proxy` (native form participation for the three button-based
+controls), `toast`, `scroll-area`, `avatar`, `progress`, `separator`, `label`.
+
+Components now on them: Tabs, Accordion, Checkbox (CheckboxRow, CheckboxCard),
+RadioGroup (RadioCard), Switch (SwitchRow, InlineSwitch), Toast and Toaster,
+ScrollArea, Avatar, Progress, Separator, Label.
+
+Vendored modules deleted because nothing imports them any more:
+`radix/react-tabs`, `radix/react-accordion`, `radix/react-collapsible`,
+`radix/react-checkbox`, `radix/react-radio-group`, `radix/react-switch`,
+`radix/react-toast`, `radix/react-scroll-area`, `radix/react-avatar`,
+`radix/react-progress`, `radix/react-separator`, `radix/react-label`.
+
 ### Phase 2 (next): everything else
 
-Menus (dropdown, context, menubar), Select, Command (cmdk), NavigationMenu,
-Tabs, Accordion, Checkbox, RadioGroup, Switch, Toast, ScrollArea, Avatar,
-Progress, Separator, Label. Each is rewritten on the foundation; the mapping
+Menus (dropdown, context, menubar), Select, Command (cmdk), NavigationMenu.
+Each is rewritten on the foundation; the mapping
 from each vendored module to the foundation piece it should use is in
 [src/primitives/README.md](src/primitives/README.md#for-phase-2). When the
 last vendored importer of `@floating-ui/react-dom`, `aria-hidden` and
@@ -59,8 +74,10 @@ last vendored importer of `@floating-ui/react-dom`, `aria-hidden` and
   `data-align` / `data-disabled` / `data-highlighted`, ref targets.
 - CSS variables: the canonical names are `--bl-anchor-width`,
   `--bl-anchor-height`, `--bl-available-width`, `--bl-available-height`,
-  `--bl-transform-origin`, `--bl-collapsible-content-height/width` and
-  `--bl-scrollbar-gutter`. The older `--radix-*` names are still set as
+  `--bl-transform-origin`, `--bl-collapsible-content-height/width`,
+  `--bl-accordion-content-height/width`, `--bl-toast-swipe-move-x/y`,
+  `--bl-toast-swipe-end-x/y`, `--bl-scroll-area-thumb-width/height`,
+  `--bl-scroll-area-corner-width/height` and `--bl-scrollbar-gutter`. The older `--radix-*` names are still set as
   aliases, deprecated, to be removed in a later major.
 - Clean room: nothing under `src/primitives/vendor` is read while writing a
   replacement, beyond listing exported names.

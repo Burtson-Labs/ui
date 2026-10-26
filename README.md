@@ -9,7 +9,7 @@
 
 **React components for Burtson Labs products.**
 
-Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Burtson Labs' own primitive layer (`src/primitives`: focus, dismissal, positioning, presence) handles behaviour for the overlay family, with the remaining locally maintained MIT-licensed Radix ports being replaced component by component; Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
+Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Burtson Labs' own primitive layer (`src/primitives`: focus, dismissal, positioning, presence) handles behaviour for the overlay family, tabs, accordions, form controls, toasts and scroll areas, with the remaining locally maintained MIT-licensed Radix ports being replaced component by component; Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
 
 [![Docs](https://img.shields.io/badge/docs-ui.burtson.ai-a60ee5)](https://ui.burtson.ai)
 [![npm](https://img.shields.io/npm/v/@burtson-labs/ui?logo=npm)](https://www.npmjs.com/package/@burtson-labs/ui)

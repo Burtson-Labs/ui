@@ -4,7 +4,7 @@ import { composeHandlers } from './compose-handlers';
 import { useComposedRefs } from './compose-refs';
 import { FormProxy, useInForm } from './form-proxy';
 import { usePresence } from './presence';
-import { type Orientation, RovingFocusGroup, RovingFocusItem } from './roving-focus';
+import { RovingFocusGroup, RovingFocusItem } from './roving-focus';
 import { Slot } from './slot';
 import { useControllableState } from './use-controllable-state';
 import { useStableId } from './use-id';
@@ -44,17 +44,28 @@ export interface RadioGroupProps extends Omit<
   'defaultValue' | 'dir'
 > {
   asChild?: boolean;
+  /** The field name the chosen value is submitted under. */
   name?: string;
+  /** The id of a form the radios belong to, when they are not inside it. */
   form?: string;
+  /** A form cannot be submitted until one is chosen. */
   required?: boolean;
+  /** Every radio is disabled. */
   disabled?: boolean;
+  /** Reading direction for Left/Right; the computed direction when unset. */
   dir?: 'ltr' | 'rtl';
-  orientation?: Orientation;
-  /** Arrow keys wrap from the last radio to the first. On by default. */
+  /** Limits the arrow keys to Left/Right or Up/Down; both when unset. */
+  orientation?: 'horizontal' | 'vertical';
+  /**
+   * Arrow keys wrap from the last radio to the first.
+   * @default true
+   */
   loop?: boolean;
+  /** The value chosen at first, when uncontrolled. */
   defaultValue?: string;
   /** The chosen value; `null` controls the group with nothing chosen. */
   value?: string | null;
+  /** Called with the value the person chooses. */
   onValueChange?: (value: string) => void;
 }
 

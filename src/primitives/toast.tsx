@@ -69,14 +69,30 @@ function useProvider(component: string): ProviderContextValue {
 
 export interface ToastProviderProps {
   children?: React.ReactNode;
-  /** Read before each toast's text, and names the toast for assistive technology. */
+  /**
+   * Read before each toast's text, so a screen reader user knows what interrupted them. Localize it.
+   * @default 'Notification'
+   */
   label?: string;
-  /** Default time on screen, in ms. */
+  /**
+   * Time on screen for each toast, in ms.
+   * @default 5000
+   */
   duration?: number;
+  /**
+   * The direction a swipe dismisses in.
+   * @default 'right'
+   */
   swipeDirection?: SwipeDirection;
-  /** Distance in px a swipe must travel to dismiss. */
+  /**
+   * Distance in px a swipe must travel to dismiss.
+   * @default 50
+   */
   swipeThreshold?: number;
-  /** Where the announcement regions are rendered; the body by default. */
+  /**
+   * Where the short-lived announcement regions are rendered.
+   * @default document.body
+   */
   announcerContainer?: Element | DocumentFragment;
 }
 
@@ -142,9 +158,15 @@ const hotkeyLabel = (hotkey: string[]) =>
 
 export interface ToastViewportProps extends React.HTMLAttributes<HTMLOListElement> {
   asChild?: boolean;
-  /** Keys that focus the viewport from anywhere: `event.code` values and modifier names. */
+  /**
+   * Keys that move focus to the toasts from anywhere: `event.code` values and modifier names (`altKey`).
+   * @default ['F8']
+   */
   hotkey?: string[];
-  /** The region's name; `{hotkey}` is replaced with the hotkey. */
+  /**
+   * The landmark's name; `{hotkey}` is replaced with the hotkey. Localize it.
+   * @default 'Notifications ({hotkey})'
+   */
   label?: string;
 }
 

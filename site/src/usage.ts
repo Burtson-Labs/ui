@@ -833,7 +833,7 @@ export const usage: Record<string, Usage> = {
       'Errors the person must act on; use Alert or a dialog. Anything with more than one action.',
     ],
     a11y: [
-      'A polite live region; Radix pauses the timer on hover and focus, and swipe dismisses on touch. Give ToastAction an altText that says how to do it without the toast. Toasts sit above dialogs (z 100).',
+      'Each toast is announced once when it opens (assertively; type="background" politely). The timer pauses on hover, on focus and while the window is in the background; swipe dismisses. F8 moves focus to the toasts, even from an open dialog. Give ToastAction an altText that says how to do it without the toast. Toasts sit above dialogs (z 100).',
     ],
   },
   toaster: {

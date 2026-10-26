@@ -54,11 +54,23 @@ const contentId = (baseId: string, value: string) => `${baseId}-content-${idPart
 
 export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'dir'> {
   asChild?: boolean;
+  /** The selected tab's value, when controlled. */
   value?: string;
+  /** The tab selected at first, when uncontrolled. */
   defaultValue?: string;
+  /** Called with the value of the tab the person selects. */
   onValueChange?: (value: string) => void;
-  orientation?: Orientation;
+  /**
+   * Which arrow keys move between tabs: Left/Right or Up/Down.
+   * @default 'horizontal'
+   */
+  orientation?: 'horizontal' | 'vertical';
+  /** Reading direction for Left/Right; the computed direction when unset. */
   dir?: 'ltr' | 'rtl';
+  /**
+   * `automatic` selects a tab when it receives focus; `manual` waits for Enter, Space or a press.
+   * @default 'automatic'
+   */
   activationMode?: 'automatic' | 'manual';
 }
 
@@ -97,7 +109,10 @@ const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(
 
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
-  /** Arrow keys wrap from the last tab to the first. On by default. */
+  /**
+   * Arrow keys wrap from the last tab to the first.
+   * @default true
+   */
   loop?: boolean;
 }
 

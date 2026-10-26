@@ -31,9 +31,9 @@
     "description": "Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute.",
     "native": true
   },
-  "cc01e2ad1f962b32": {
+  "c2b99c7c3430d596": {
     "name": "aria-autocomplete",
-    "type": "\"list\" | \"none\" | \"inline\" | \"both\" | undefined",
+    "type": "\"none\" | \"inline\" | \"list\" | \"both\" | undefined",
     "required": false,
     "default": null,
     "description": "Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be\npresented if they are made.",
@@ -111,9 +111,9 @@
     "description": "Identifies the element (or elements) whose contents or presence are controlled by the current element.",
     "native": true
   },
-  "ef9f70387b167ee8": {
+  "1244095114824186": {
     "name": "aria-current",
-    "type": "boolean | \"time\" | \"step\" | \"true\" | \"false\" | \"page\" | \"location\" | \"date\" | undefined",
+    "type": "boolean | \"true\" | \"false\" | \"page\" | \"step\" | \"location\" | \"date\" | \"time\" | undefined",
     "required": false,
     "default": null,
     "description": "Indicates the element that represents the current item within a container or set of related elements.",
@@ -151,9 +151,9 @@
     "description": "Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.",
     "native": true
   },
-  "9563cc5e4798789d": {
+  "0738c99b291e0095": {
     "name": "aria-dropeffect",
-    "type": "\"link\" | \"none\" | \"copy\" | \"execute\" | \"move\" | \"popup\" | undefined",
+    "type": "\"none\" | \"copy\" | \"execute\" | \"link\" | \"move\" | \"popup\" | undefined",
     "required": false,
     "default": null,
     "description": "Indicates what functions can be performed when a dragged object is released on the drop target.",
@@ -191,9 +191,9 @@
     "description": "Indicates an element's \"grabbed\" state in a drag-and-drop operation.",
     "native": true
   },
-  "bbe3f9041df01028": {
+  "c4698231b14ea335": {
     "name": "aria-haspopup",
-    "type": "boolean | \"dialog\" | \"menu\" | \"true\" | \"false\" | \"grid\" | \"listbox\" | \"tree\" | undefined",
+    "type": "boolean | \"true\" | \"false\" | \"menu\" | \"listbox\" | \"tree\" | \"grid\" | \"dialog\" | undefined",
     "required": false,
     "default": null,
     "description": "Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element.",
@@ -327,9 +327,9 @@
     "description": "Indicates that the element is not editable, but is otherwise operable.",
     "native": true
   },
-  "b2904411104cf4ff": {
+  "e180eb65cc5214ff": {
     "name": "aria-relevant",
-    "type": "\"text\" | \"additions\" | \"additions removals\" | \"additions text\" | \"all\" | \"removals\" | \"removals additions\" | \"removals text\" | \"text additions\" | \"text removals\" | undefined",
+    "type": "\"additions\" | \"additions removals\" | \"additions text\" | \"all\" | \"removals\" | \"removals additions\" | \"removals text\" | \"text\" | \"text additions\" | \"text removals\" | undefined",
     "required": false,
     "default": null,
     "description": "Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.",
@@ -439,9 +439,9 @@
     "description": "Defines the human readable text alternative of aria-valuenow for a range widget.",
     "native": true
   },
-  "d3d9f115c9731c46": {
+  "04940f199ef2bcd1": {
     "name": "autoCapitalize",
-    "type": "(string & {}) | \"off\" | \"none\" | \"on\" | \"sentences\" | \"words\" | \"characters\" | undefined",
+    "type": "\"none\" | \"off\" | \"on\" | \"sentences\" | \"words\" | \"characters\" | (string & {}) | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -551,9 +551,9 @@
     "description": "",
     "native": true
   },
-  "4d61fd245ab30929": {
+  "3fdb6c54b29faadf": {
     "name": "enterKeyHint",
-    "type": "\"search\" | \"enter\" | \"done\" | \"go\" | \"next\" | \"previous\" | \"send\" | undefined",
+    "type": "\"enter\" | \"done\" | \"go\" | \"next\" | \"previous\" | \"search\" | \"send\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -599,9 +599,9 @@
     "description": "",
     "native": true
   },
-  "1cb31d3704c92fa0": {
+  "526e14791aff8d35": {
     "name": "inputMode",
-    "type": "\"search\" | \"text\" | \"none\" | \"tel\" | \"url\" | \"email\" | \"numeric\" | \"decimal\" | undefined",
+    "type": "\"none\" | \"text\" | \"search\" | \"tel\" | \"url\" | \"email\" | \"numeric\" | \"decimal\" | undefined",
     "required": false,
     "default": null,
     "description": "Hints at the type of data that might be entered by the user while editing the element or its contents",
@@ -22991,9 +22991,9 @@
     "description": "",
     "native": true
   },
-  "08077a5bdfbab26b": {
+  "6a7cfbe874c070b6": {
     "name": "alignmentBaseline",
-    "type": "\"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"inherit\" | \"auto\" | \"baseline\" | \"before-edge\" | \"text-before-edge\" | \"middle\" | \"central\" | \"after-edge\" | \"text-after-edge\" | undefined",
+    "type": "\"inherit\" | \"auto\" | \"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"baseline\" | \"before-edge\" | \"text-before-edge\" | \"middle\" | \"central\" | \"after-edge\" | \"text-after-edge\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -23023,9 +23023,9 @@
     "description": "",
     "native": true
   },
-  "5f9dcd40fb450d9c": {
+  "554ee091a529d2ef": {
     "name": "arabicForm",
-    "type": "\"initial\" | \"medial\" | \"terminal\" | \"isolated\" | undefined",
+    "type": "\"terminal\" | \"initial\" | \"medial\" | \"isolated\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -23303,9 +23303,9 @@
     "description": "",
     "native": true
   },
-  "171471e51a221d4d": {
+  "3ce7e51492a7031d": {
     "name": "dominantBaseline",
-    "type": "\"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"inherit\" | \"auto\" | \"text-before-edge\" | \"middle\" | \"central\" | \"text-after-edge\" | \"use-script\" | \"no-change\" | \"reset-size\" | undefined",
+    "type": "\"inherit\" | \"auto\" | \"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"text-before-edge\" | \"middle\" | \"central\" | \"text-after-edge\" | \"use-script\" | \"no-change\" | \"reset-size\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -25815,9 +25815,9 @@
     "description": "",
     "native": true
   },
-  "ff0de4c38735c1c5": {
+  "541325c50a3d68b6": {
     "name": "textAnchor",
-    "type": "\"start\" | \"end\" | \"inherit\" | \"middle\" | undefined",
+    "type": "\"inherit\" | \"start\" | \"end\" | \"middle\" | undefined",
     "required": false,
     "default": null,
     "description": "",

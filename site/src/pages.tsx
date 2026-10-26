@@ -599,6 +599,18 @@ const primitiveModules: [string, string][] = [
   ['dialog', 'Dialog: Root, Trigger, Portal, Overlay, Content, Title, Description, Close.'],
   ['alert-dialog', 'AlertDialog: a Dialog that needs an answer.'],
   ['collapsible', 'Collapsible: Root, Trigger, Content, with the measured height for animations.'],
+  ['tabs', 'Tabs: Root, List, Trigger, Content; automatic or manual activation.'],
+  ['accordion', 'Accordion on Collapsible: single or multiple, arrows between headers.'],
+  ['form-proxy', 'A native input that lets a button-based control submit, validate and reset.'],
+  ['checkbox', 'Checkbox: Root, Indicator; checked, unchecked or indeterminate.'],
+  ['radio-group', 'RadioGroup: Root, Item, Indicator; arrows move and choose.'],
+  ['switch', 'Switch: Root, Thumb.'],
+  ['toast', 'Toasts: timing that pauses, swipe to dismiss, one announcement, F8 to reach them.'],
+  ['scroll-area', 'Drawn scrollbars over a native scroller: thumb drag, track paging, RTL.'],
+  ['avatar', 'Avatar: an image that shows only once loaded, with a fallback.'],
+  ['progress', 'Progress: the progressbar role, determinate or indeterminate.'],
+  ['separator', 'Separator: decorative or semantic.'],
+  ['label', 'Label: a native label that does not select its text on a double press.'],
 ];
 
 export function Primitives() {
@@ -609,12 +621,14 @@ export function Primitives() {
       </H1>
       <P>
         Every overlay in the kit (Popover, Tooltip, Dialog, AlertDialog, Sheet, HoverCard, Tour,
-        Collapsible, and the components built on them) runs on a set of small modules in{' '}
-        <code>src/primitives</code>. They carry no classes and no theme. A component imports one,
-        adds its classes and <code>data-slot</code> attributes, and re-exports the result under the
-        kit&apos;s names, so the component API you use is unchanged. The menus, Select, Command,
-        Tabs, Accordion and the form controls still run on the locally maintained Radix ports until
-        their rewrite lands; the plan is in the repository&apos;s <code>VENDORING.md</code>.
+        Collapsible, and the components built on them), Tabs, Accordion, the form controls
+        (Checkbox, RadioGroup, Switch, Label), Toast, ScrollArea, Avatar, Progress and Separator run
+        on a set of small modules in <code>src/primitives</code>. They carry no classes and no
+        theme. A component imports one, adds its classes and <code>data-slot</code> attributes, and
+        re-exports the result under the kit&apos;s names, so the component API you use is unchanged.
+        The menus, Select, Command and NavigationMenu still run on the locally maintained Radix
+        ports until their rewrite lands; the plan is in the repository&apos;s{' '}
+        <code>VENDORING.md</code>.
       </P>
       <H2>Copying source</H2>
       <P>
@@ -662,8 +676,12 @@ export function Primitives() {
         <code>--bl-anchor-width</code>, <code>--bl-anchor-height</code>,{' '}
         <code>--bl-available-width</code>, <code>--bl-available-height</code> and{' '}
         <code>--bl-transform-origin</code>. A Collapsible sets{' '}
-        <code>--bl-collapsible-content-height</code> and <code>-width</code> on its content; the
-        page lock sets <code>--bl-scrollbar-gutter</code> on <code>html</code>.
+        <code>--bl-collapsible-content-height</code> and <code>-width</code> on its content (an
+        Accordion also as <code>--bl-accordion-content-*</code>); a swiped toast sets{' '}
+        <code>--bl-toast-swipe-move-x/y</code> and <code>--bl-toast-swipe-end-x/y</code>; a scroll
+        area sets <code>--bl-scroll-area-thumb-width/height</code> and{' '}
+        <code>--bl-scroll-area-corner-width/height</code>; the page lock sets{' '}
+        <code>--bl-scrollbar-gutter</code> on <code>html</code>.
       </P>
       <Code
         code={`<PopoverContent className="max-h-(--bl-available-height) origin-(--bl-transform-origin)" />
@@ -672,10 +690,11 @@ export function Primitives() {
       <P>
         <br />
         The older <code>--radix-popover-content-*</code>, <code>--radix-popover-trigger-*</code>,{' '}
-        <code>--radix-tooltip-*</code>, <code>--radix-popper-*</code> and{' '}
-        <code>--radix-collapsible-content-*</code> names are still set as aliases. They are
-        deprecated and will be removed in a later major; move class lists to the <code>--bl-</code>{' '}
-        names when you touch them.
+        <code>--radix-tooltip-*</code>, <code>--radix-popper-*</code>,{' '}
+        <code>--radix-collapsible-content-*</code>, <code>--radix-accordion-content-*</code>,{' '}
+        <code>--radix-toast-swipe-*</code> and <code>--radix-scroll-area-*</code> names are still
+        set as aliases. They are deprecated and will be removed in a later major; move class lists
+        to the <code>--bl-</code> names when you touch them.
       </P>
       <H2>Design notes</H2>
       <P>

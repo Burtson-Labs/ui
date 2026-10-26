@@ -10,7 +10,7 @@ import {
 import { createCollection } from './collection';
 import { composeHandlers } from './compose-handlers';
 import { useComposedRefs } from './compose-refs';
-import { type Orientation, movementFor, nextIndex } from './roving-focus';
+import { movementFor, nextIndex, type Orientation } from './roving-focus';
 import { Slot } from './slot';
 import { useControllableState } from './use-controllable-state';
 import { useStableId } from './use-id';
@@ -59,24 +59,42 @@ interface AccordionSharedProps extends Omit<
   'defaultValue' | 'dir'
 > {
   asChild?: boolean;
+  /**
+   * Every section is disabled.
+   * @default false
+   */
   disabled?: boolean;
-  orientation?: Orientation;
+  /**
+   * Which arrow keys move between the headers: Up/Down or Left/Right.
+   * @default 'vertical'
+   */
+  orientation?: 'horizontal' | 'vertical';
+  /** Reading direction for Left/Right; the computed direction when unset. */
   dir?: 'ltr' | 'rtl';
 }
 
 export interface AccordionSingleProps extends AccordionSharedProps {
   type: 'single';
+  /** The open section's value (`''` for none), when controlled. */
   value?: string;
+  /** The section open at first, when uncontrolled. */
   defaultValue?: string;
+  /** Called with the newly open section's value, or `''` when it closes. */
   onValueChange?: (value: string) => void;
-  /** The open section can be closed again, leaving none open. */
+  /**
+   * The open section can be closed again, leaving none open.
+   * @default false
+   */
   collapsible?: boolean;
 }
 
 export interface AccordionMultipleProps extends AccordionSharedProps {
   type: 'multiple';
+  /** The open sections' values, when controlled. */
   value?: string[];
+  /** The sections open at first, when uncontrolled. */
   defaultValue?: string[];
+  /** Called with the open sections' values after each change. */
   onValueChange?: (value: string[]) => void;
 }
 
@@ -207,7 +225,12 @@ function useItem(component: string): ItemContextValue {
 
 export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;
+  /** Identifies the section; unique within the accordion. */
   value: string;
+  /**
+   * The section cannot be opened or closed.
+   * @default false
+   */
   disabled?: boolean;
 }
 
