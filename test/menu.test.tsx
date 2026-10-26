@@ -467,7 +467,7 @@ describe('submenus', () => {
     await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
   });
 
-  it('open on hover after a short rest, and the grace triangle keeps them open while the pointer crosses other rows', async () => {
+  it('open on hover after a short rest, and the grace triangle keeps them open while the pointer crosses other rows', () => {
     vi.useFakeTimers();
     render(<Basic />);
     act(() => {
