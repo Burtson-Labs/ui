@@ -707,20 +707,26 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
       wrapper.style.transform = `translate3d(${Math.round(left)}px, ${Math.round(triggerRect.bottom)}px, 0)`;
       return;
     }
-    // Vertical: the chosen row's centre on the trigger's centre.
-    const contentRect = content.getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-    const itemRect = selected.getBoundingClientRect();
-    const topInset = viewportRect.top - wrapperRect.top;
-    const bottomInset = wrapperRect.bottom - viewportRect.bottom;
-    const itemOffset = itemRect.top - viewportRect.top + viewport.scrollTop;
-    // The row's centre on the trigger's centre, unless the row and what sits
-    // under it (the scroll button, padding, border) would not fit above the
-    // window's bottom edge; then the row moves up by the least that fits.
+    // Vertical: the chosen row's centre on the trigger's centre. Offsets,
+    // not client rects: the surface may be mid-way through its enter
+    // animation (scaled), and offsets ignore transforms.
+    const naturalHeight = content.offsetHeight;
+    const topInset = content.clientTop + viewport.offsetTop;
+    const bottomInset = naturalHeight - topInset - viewport.offsetHeight;
+    let itemOffset = 0;
+    for (
+      let node: HTMLElement | null = selected;
+      node && node !== viewport;
+      node = node.offsetParent instanceof HTMLElement ? node.offsetParent : null
+    )
+      itemOffset += node.offsetTop;
+    const itemHeight = selected.offsetHeight;
+    // Unless the row and what sits under it (the scroll button, padding,
+    // border) would not fit above the window's bottom edge; then the row
+    // moves up by the least that fits.
     const itemTopWanted = Math.min(
-      triggerRect.top + (triggerRect.height - itemRect.height) / 2,
-      viewportHeight - padding - bottomInset - itemRect.height,
+      triggerRect.top + (triggerRect.height - itemHeight) / 2,
+      viewportHeight - padding - bottomInset - itemHeight,
     );
     // Scroll so the part above the row fits above the trigger.
     const roomAbove = itemTopWanted - padding - topInset;
@@ -728,7 +734,7 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
     const top = itemTopWanted - topInset - (itemOffset - scrollTop);
     // Height: everything below the row that fits, the rest scrolls.
     const maxHeight = viewportHeight - padding - top;
-    const height = Math.min(contentRect.height, maxHeight);
+    const height = Math.min(naturalHeight, maxHeight);
     content.style.maxHeight = `${Math.max(0, Math.floor(height))}px`;
     const maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
     scrollTop = Math.min(scrollTop, maxScroll);
@@ -740,7 +746,7 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
     wrapper.style.setProperty('--bl-available-height', `${Math.floor(maxHeight)}px`);
     wrapper.style.setProperty(
       '--bl-transform-origin',
-      `${rtl ? 'right' : 'left'} ${Math.round(itemTopWanted - top + itemRect.height / 2)}px`,
+      `${rtl ? 'right' : 'left'} ${Math.round(itemTopWanted - top + itemHeight / 2)}px`,
     );
   });
 
@@ -872,6 +878,8 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
               flexDirection: 'column',
               boxSizing: 'border-box',
               outline: 'none',
+              // The offset parent for item-aligned measurements.
+              position: aligned ? 'relative' : undefined,
               ...style,
             }}
             onKeyDown={handleKeyDown}
