@@ -146,6 +146,11 @@ const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTrig
         onPointerDown={(event: React.PointerEvent<HTMLButtonElement>) => {
           onPointerDown?.(event);
           if (event.defaultPrevented || disabled || event.button !== 0 || event.ctrlKey) return;
+          // The browser's own focus change on mousedown runs after the menu
+          // is up and the page is inert; it would land on the nearest
+          // focusable ancestor outside the menu and dismiss it. The menu
+          // takes focus itself, and gives it back to the button on close.
+          event.preventDefault();
           toggledByPressRef.current = true;
           context.focusOnOpen.set('none');
           context.setOpen(!context.open);

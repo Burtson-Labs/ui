@@ -802,7 +802,10 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
         }}
         onPointerLeave={(event: React.PointerEvent<HTMLDivElement>) => {
           onPointerLeave?.(event);
-          if (event.pointerType !== 'mouse') return;
+          if (event.defaultPrevented || event.pointerType !== 'mouse') return;
+          // In a viewport the viewport's edge is the panel's edge, and the
+          // viewport's own leave (which the app may prevent) decides.
+          if (menu.viewport) return;
           menu.onContentLeave();
         }}
         onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -913,7 +916,7 @@ const NavigationMenuViewport = React.forwardRef<HTMLDivElement, NavigationMenuVi
         }}
         onPointerLeave={(event: React.PointerEvent<HTMLDivElement>) => {
           onPointerLeave?.(event);
-          if (event.pointerType !== 'mouse') return;
+          if (event.defaultPrevented || event.pointerType !== 'mouse') return;
           menu.onContentLeave();
         }}
       />

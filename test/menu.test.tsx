@@ -119,6 +119,15 @@ describe('DropdownMenu', () => {
     expect(activeName()).toBe('Profile');
   });
 
+  it('cancels the browser focus change of the press, so the inert page cannot take focus and close the menu', () => {
+    render(<Basic />);
+    const trigger = screen.getByRole('button', { name: 'Actions' });
+    // fireEvent returns false once a handler has called preventDefault().
+    expect(fireEvent.pointerDown(trigger, { button: 0, pointerType: 'mouse' })).toBe(false);
+    expect(screen.getByRole('menu')).toBeTruthy();
+    expect(fireEvent.pointerDown(trigger, { button: 2, pointerType: 'mouse' })).toBe(true);
+  });
+
   it('moves with the arrows (skipping disabled rows), Home and End, and wraps with loop', async () => {
     const user = userEvent.setup();
     render(<Basic loop />);

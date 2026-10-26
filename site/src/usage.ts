@@ -598,6 +598,7 @@ export const usage: Record<string, Usage> = {
   'navigation-menu': {
     use: [
       'Site navigation with dropdown panels: a products menu, docs sections, with links laid out in a panel.',
+      "For click-only panels (no hover), call preventDefault() in the trigger's onPointerMove and onPointerLeave and in the viewport's onPointerLeave; the panel then closes on an outside press, Escape, a link or the trigger.",
     ],
     avoid: ['An app sidebar or tab bar. Actions; use DropdownMenu.'],
     a11y: [

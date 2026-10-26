@@ -11,6 +11,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from '../src/index';
 
 afterEach(() => {
@@ -229,9 +230,62 @@ describe('NavigationMenu', () => {
       vi.advanceTimersByTime(500);
     });
     expect(screen.getByRole('link', { name: 'Stealth' })).toBeTruthy();
+    // Leaving the panel for its viewport's padding is not leaving the menu.
     act(() => {
       fireEvent.pointerLeave(panel, { pointerType: 'mouse' });
+      vi.advanceTimersByTime(500);
+    });
+    expect(screen.getByRole('link', { name: 'Stealth' })).toBeTruthy();
+    const viewport = panel.closest('[data-slot="navigation-menu-viewport"]')!;
+    act(() => {
+      fireEvent.pointerLeave(viewport, { pointerType: 'mouse' });
       vi.advanceTimersByTime(200);
+    });
+    expect(screen.queryByRole('link', { name: 'Stealth' })).toBeNull();
+  });
+
+  it('leaves hover to the app: prevented pointer events on the button and the viewport make it click-only', () => {
+    vi.useFakeTimers();
+    const prevent = (event: React.SyntheticEvent) => event.preventDefault();
+    render(
+      <NavigationMenu viewport={false}>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger onPointerMove={prevent} onPointerLeave={prevent}>
+              Products
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink href="/stealth">Stealth</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+        <NavigationMenuViewport onPointerLeave={prevent} />
+      </NavigationMenu>,
+    );
+    const products = screen.getByRole('button', { name: 'Products' });
+    act(() => {
+      fireEvent.pointerEnter(products, { pointerType: 'mouse' });
+      fireEvent.pointerMove(products, { pointerType: 'mouse' });
+      vi.advanceTimersByTime(500);
+    });
+    expect(screen.queryByRole('link', { name: 'Stealth' })).toBeNull();
+    act(() => {
+      fireEvent.click(products);
+    });
+    const panel = screen
+      .getByRole('link', { name: 'Stealth' })
+      .closest('[data-slot="navigation-menu-content"]')!;
+    const viewport = panel.closest('[data-slot="navigation-menu-viewport"]')!;
+    act(() => {
+      fireEvent.pointerLeave(products, { pointerType: 'mouse' });
+      fireEvent.pointerEnter(panel, { pointerType: 'mouse' });
+      fireEvent.pointerLeave(panel, { pointerType: 'mouse' });
+      fireEvent.pointerLeave(viewport, { pointerType: 'mouse' });
+      vi.advanceTimersByTime(1000);
+    });
+    expect(screen.getByRole('link', { name: 'Stealth' })).toBeTruthy();
+    act(() => {
+      fireEvent.pointerDown(document.body, { button: 0 });
     });
     expect(screen.queryByRole('link', { name: 'Stealth' })).toBeNull();
   });

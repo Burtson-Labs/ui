@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.19.2
+
+- Fix: a DropdownMenu opened with a mouse press closed again at once on pages where an
+  ancestor of the button stayed focusable under the modal menu (a `<main tabindex="-1">` that
+  holds a live region, as on the burtson.ai console): the browser's own focus change on
+  mousedown ran after the page was made inert, landed on that ancestor, and counted as focus
+  outside the menu. The press now cancels that default, as the Select trigger already did; the
+  menu takes focus itself and returns it to the button on close.
+- Fix: a NavigationMenu panel rendered in a viewport closed when the pointer left it even
+  though the app had prevented the viewport's `onPointerLeave` (the click-only pattern:
+  `preventDefault()` on the trigger's `onPointerMove` and `onPointerLeave` and on the
+  viewport's `onPointerLeave`). In a viewport the viewport's edge is now the panel's edge, and
+  both leave handlers honour `preventDefault()`.
+
 ## 0.19.1
 
 - Fix: Command with `shouldFilter={false}` (the caller filters the rows) could leave the
