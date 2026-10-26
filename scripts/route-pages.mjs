@@ -33,6 +33,13 @@ const routes = [
       'Install @burtson-labs/ui with Tailwind v4 or the precompiled stylesheet, or copy a component’s source with the shadcn CLI.',
   },
   {
+    path: '/docs/ai-agents',
+    title: 'Use with AI agents · Burtson UI',
+    description:
+      'Set up Claude Code, Cursor, Codex or Copilot for Burtson UI: rules for CLAUDE.md and AGENTS.md, the shadcn registry and MCP server, an Agent Skill and llms.txt.',
+    markdown: '/docs/ai-agents.md',
+  },
+  {
     path: '/docs/theming',
     title: 'Theming · Burtson UI',
     description:
@@ -54,6 +61,7 @@ const routes = [
     path: `/docs/components/${c.name}`,
     title: `${c.title} · Burtson UI`,
     description: `${c.description} React component with live examples, props and copyable source.`,
+    markdown: `/docs/components/${c.name}.md`,
   })),
 ];
 
@@ -75,6 +83,12 @@ for (const r of routes) {
   html = setMeta(html, 'property', 'og:url', url);
   html = setMeta(html, 'name', 'twitter:title', r.title);
   html = setMeta(html, 'name', 'twitter:description', r.description);
+  // The same page as Markdown, for agents and LLM tools (written by scripts/llms.mjs).
+  if (r.markdown)
+    html = html.replace(
+      '</head>',
+      `  <link rel="alternate" type="text/markdown" href="${r.markdown}" />\n  </head>`,
+    );
   const dir = join(DIST, r.path);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'index.html'), html);

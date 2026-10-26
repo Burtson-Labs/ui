@@ -21,6 +21,10 @@ const SCHEMA_ITEM = 'https://ui.shadcn.com/schema/registry-item.json';
 const { light, dark, radius, shadow, motion, fontSans, fontMono } =
   await import('../src/tokens.ts');
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
+// Each component's one-line description, so `shadcn search` and the shadcn MCP
+// server can tell agents what an item is for.
+const { components: docs } = await import('../site/src/docs.ts');
+const describe = Object.fromEntries(docs.map((d) => [d.name, d.description]));
 
 const version = (dep) =>
   `${dep}@${(pkg.dependencies[dep] ?? pkg.devDependencies[dep]).replace(/^[\^~]/, '^')}`;
@@ -142,6 +146,8 @@ const components = names.map((name) => {
     name,
     type: 'registry:ui',
     title: name.replace(/(^|-)([a-z])/g, (_, s, c) => (s ? ' ' : '') + c.toUpperCase()),
+    ...(describe[name] ? { description: describe[name] } : {}),
+    docs: `Docs: https://ui.burtson.ai/docs/components/${name}.md`,
     dependencies,
     registryDependencies: [
       url('utils'),

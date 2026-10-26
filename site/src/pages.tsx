@@ -22,6 +22,7 @@ import {
 import { AccentSwatches, ThemeEditor } from './accent';
 import { Code } from './code';
 import { ComponentDetails } from './component-details';
+import { CopyMarkdown } from './copy-markdown';
 import AgentRunDemo from './demos/agent-run';
 import { components, type ComponentDoc } from './docs';
 import { InterfaceScene, InterfacePaths } from './interface-scene';
@@ -379,6 +380,14 @@ export function Save() {
         the Burtson theme to your CSS. From then on the code is yours to change.
       </P>
       <Code lang="sh" code="npx shadcn@latest add https://ui.burtson.ai/r/button.json" />
+      <H2>3. With an AI agent</H2>
+      <P>
+        Using Claude Code, Cursor, Codex or Copilot? Give it the rules, the registry and the docs:{' '}
+        <Link href="/docs/ai-agents" className="text-foreground underline underline-offset-4">
+          Use with AI agents
+        </Link>
+        .
+      </P>
       <H2>Dark mode</H2>
       <P>
         Light is the default. Add <code>class=&quot;dark&quot;</code> or{' '}
@@ -592,12 +601,15 @@ export function ComponentPage({ doc }: { doc: ComponentDoc }) {
           </Badge>
         </div>
       )}
-      <a
-        href="#api-reference"
-        className="mb-5 inline-flex text-sm font-medium text-brand underline underline-offset-4"
-      >
-        API reference
-      </a>
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <a
+          href="#api-reference"
+          className="inline-flex text-sm font-medium text-brand underline underline-offset-4"
+        >
+          API reference
+        </a>
+        <CopyMarkdown name={doc.name} />
+      </div>
       <Tabs defaultValue="preview">
         <TabsList>
           <TabsTrigger value="preview">Preview</TabsTrigger>

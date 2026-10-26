@@ -16,6 +16,8 @@ Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Locally mai
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![CI](https://github.com/Burtson-Labs/ui/actions/workflows/ci.yml/badge.svg)](https://github.com/Burtson-Labs/ui/actions/workflows/ci.yml)
 
+Docs for AI agents: [llms.txt](https://ui.burtson.ai/llms.txt) · [llms-full.txt](https://ui.burtson.ai/llms-full.txt) · [Use with AI agents](https://ui.burtson.ai/docs/ai-agents)
+
 </div>
 
 ---
@@ -55,6 +57,26 @@ Every component is also a registry item in the [shadcn](https://ui.shadcn.com) r
 ```bash
 npx shadcn@latest add https://ui.burtson.ai/r/button.json
 ```
+
+Or add the `@burtson` namespace to `components.json` and install by name:
+
+```json
+{ "registries": { "@burtson": "https://ui.burtson.ai/r/{name}.json" } }
+```
+
+```bash
+npx shadcn@latest add @burtson/button
+```
+
+### Use with AI agents
+
+Claude Code, Cursor, Codex, Copilot and other coding agents can read the docs as plain text and install components through the registry:
+
+- [`llms.txt`](https://ui.burtson.ai/llms.txt) lists every component; [`llms-full.txt`](https://ui.burtson.ai/llms-full.txt) has them all in one file; each page is also Markdown at `https://ui.burtson.ai/docs/components/<name>.md`.
+- `npx shadcn@latest mcp init --client claude` (or `cursor`, `vscode`, `codex`) sets up the shadcn MCP server, which can search and install `@burtson/*` items once the namespace is in `components.json`.
+- `npx skills add burtson-labs/ui` installs the [`burtson-ui` Agent Skill](skills/burtson-ui/SKILL.md).
+
+The [Use with AI agents](https://ui.burtson.ai/docs/ai-agents) page has a block of rules to paste into `CLAUDE.md` or `AGENTS.md` and example prompts. Contributors' agents: see [AGENTS.md](AGENTS.md).
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/panel-grid.svg"/><img src="https://icons.burtson.ai/svg-black/panel-grid.svg" align="center" alt=""/></picture> Components
 

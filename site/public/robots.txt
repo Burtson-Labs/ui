@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
 Sitemap: https://ui.burtson.ai/sitemap.xml
+
+# Docs for AI agents and LLM tools (https://llmstxt.org):
+# https://ui.burtson.ai/llms.txt
+# https://ui.burtson.ai/llms-full.txt
+# https://ui.burtson.ai/docs/components/<name>.md
