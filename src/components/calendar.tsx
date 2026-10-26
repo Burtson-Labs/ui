@@ -417,7 +417,7 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(function Calend
                         key={key(d)}
                         role="gridcell"
                         data-outside=""
-                        className="h-9 w-9 p-0 text-center text-muted-foreground/60 pointer-coarse:h-11"
+                        className="h-9 w-9 p-0 text-center text-muted-foreground pointer-coarse:h-11"
                       >
                         {outsideShown ? <span aria-hidden="true">{fmt.day.format(d)}</span> : null}
                       </td>
