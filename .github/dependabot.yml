@@ -13,6 +13,15 @@ updates:
     cooldown:
       default-days: 7
     open-pull-requests-limit: 5
+    # 2026-10-26: TypeScript 7.0 is held back. typescript-eslint 8.72.1 (latest and
+    # canary, peer typescript ">=4.8.4 <6.1.0") throws "typescript-eslint does not
+    # support TS 7.0" when loaded, and the typescript@7 package no longer exports
+    # the compiler API (ts.sys, createProgram, readConfigFile) that
+    # scripts/api-reference.mjs and scripts/verify-registry.mjs use. Remove this
+    # ignore once typescript-eslint supports TypeScript 7.
+    ignore:
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
     groups:
       dev-dependencies:
         dependency-type: development

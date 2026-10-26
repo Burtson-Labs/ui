@@ -37,6 +37,10 @@ Vitest keeps a module cache in `node_modules/.vitest-cache`. After files are add
 
 `npm run check` must pass before a change is done. If you edit a component's props or doc comments, run `npm run api` and commit the regenerated `site/src/generated/api/` files (`api:check` fails otherwise). Generated output (`dist/`, `site/dist/`, `site/public/r/`, the llms files) is not committed.
 
+## Toolchain
+
+TypeScript stays on 6.x until typescript-eslint supports TypeScript 7 and `scripts/api-reference.mjs` and `scripts/verify-registry.mjs` are moved off the TypeScript 6 compiler API (the `typescript@7` package no longer exports it); remove the `typescript` ignore in `.github/dependabot.yml` then.
+
 ## Rules
 
 - Icons come only from `@burtson-labs/icons`, one import per icon (`import Settings from '@burtson-labs/icons/react/settings'`). Never add another icon library.
