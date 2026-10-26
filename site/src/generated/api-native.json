@@ -22983,9 +22983,9 @@
     "description": "",
     "native": true
   },
-  "348b7a244a805c06": {
+  "5de43680f6a55485": {
     "name": "additive",
-    "type": "\"replace\" | \"sum\" | undefined",
+    "type": "\"sum\" | \"replace\" | undefined",
     "required": false,
     "default": null,
     "description": "",
@@ -30415,9 +30415,9 @@
     "description": "",
     "native": true
   },
-  "d420daf3dffcc585": {
+  "067a8226db0647dc": {
     "name": "valign",
-    "type": "\"baseline\" | \"middle\" | \"top\" | \"bottom\" | undefined",
+    "type": "\"top\" | \"bottom\" | \"baseline\" | \"middle\" | undefined",
     "required": false,
     "default": null,
     "description": "",

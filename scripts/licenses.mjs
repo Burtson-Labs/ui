@@ -58,7 +58,6 @@ writeFileSync(join(root, 'LICENSES/DEPENDENCIES.txt'), text + '\n');
 const bundled = [
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
-  'LICENSES/Radix-MIT.txt',
   'LICENSES/shadcn-MIT.txt',
   'LICENSES/DEPENDENCIES.txt',
 ]

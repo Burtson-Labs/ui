@@ -1,6 +1,6 @@
 # Third-party notices
 
-Burtson UI includes Burtson Labs components and vendored third-party primitives, released under the MIT license
+Burtson UI is Burtson Labs' own work, released under the MIT license
 (see [LICENSE](LICENSE)). Its component API, the `data-slot` convention, the
 colour-token names and the registry format follow
 [shadcn/ui](https://github.com/shadcn-ui/ui), and several components adapt
@@ -30,22 +30,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## Burtson primitives and locally maintained ports
+## Burtson primitives
 
-`src/primitives` (everything outside `src/primitives/vendor`) is Burtson Labs'
-own behaviour layer, written from the WAI-ARIA Authoring Practices and the
-web platform specifications, and released under this package's MIT license.
-It is not derived from Radix, cmdk or any other library.
-
-The remaining Radix Primitives modules are maintained as TypeScript source
-under `src/primitives/vendor` until their replacements land. They are not
-installed as runtime packages. Their original MIT license is included in
-`LICENSES/Radix-MIT.txt`. `vendor-manifest.json` records exact versions,
-source origins, hashes, local modifications, and which modules have been
-replaced. See `VENDORING.md`. The cmdk port, and the Floating UI, aria-hidden
-and react-remove-scroll dependencies the vendored menu, select and dialog
-ports imported, are gone: the command palette, the menus, Select and
-NavigationMenu are Burtson primitives.
+`src/primitives` is Burtson Labs' own behaviour layer, written from the
+WAI-ARIA Authoring Practices and the web platform specifications, and released
+under this package's MIT license. It is not derived from Radix, cmdk, Floating
+UI or any other library. Earlier releases (0.14 to 0.18) shipped locally
+maintained MIT-licensed ports of Radix Primitives and cmdk; 0.19 removed the
+last of them (see `VENDORING.md` for the history).
 
 The declared dependencies remain external dependencies with their own
 licenses. `LICENSES/DEPENDENCIES.txt` preserves the installed runtime dependency and

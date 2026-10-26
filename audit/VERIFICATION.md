@@ -1,5 +1,7 @@
 # Verification record
 
+> Historical: this records the 0.14.0 vendoring of Radix and cmdk. The vendored tree was removed in 0.19.0; see VENDORING.md.
+
 Source baseline: Burtson UI `0.13.0`, commit
 `3931fe6e4982e656c890e1a2afa949c41ff91003`.
 Executed on 2026-09-25 with Node `24.19.0` and TypeScript `6.0.3`.

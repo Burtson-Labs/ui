@@ -33,7 +33,7 @@ jobs:
       # their own step), and they are the usual vector for a compromised package.
       - run: npm ci --ignore-scripts
       - name: Local primitive integrity and API references
-        run: npm run vendor:check && npm run api:check
+        run: npm run primitives:check && npm run api:check
       - name: Typecheck
         run: npm run typecheck
       - name: Lint (Burtson Labs frontend standards)
@@ -53,7 +53,7 @@ jobs:
       - name: Build site and registry
         run: npm run site
       - name: Verify copied source and built primitive imports
-        run: npm run registry:check && npm run vendor:check
+        run: npm run registry:check && npm run primitives:check
       - name: Browser smoke (Chromium, 1440 mouse and 390 touch)
         run: npx playwright install --with-deps chromium && npm run smoke
       - name: Upload smoke traces

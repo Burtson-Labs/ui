@@ -9,7 +9,7 @@
 
 **React components for Burtson Labs products.**
 
-Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Burtson Labs' own primitive layer (`src/primitives`: focus, dismissal, positioning, presence) handles behaviour for the overlay family, tabs, accordions, form controls, toasts and scroll areas, with the remaining locally maintained MIT-licensed Radix ports being replaced component by component; Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
+Used in Bandit Stealth, Sentinel, our cluster tools and client apps. Burtson Labs' own primitive layer (`src/primitives`: focus, dismissal, positioning, presence, menus, selects, form controls) handles behaviour; Tailwind v4 handles styling, and the icons are [Burtson Icons](https://icons.burtson.ai). No runtime provider. Install the package, or copy a component's source and change it.
 
 [![Docs](https://img.shields.io/badge/docs-ui.burtson.ai-a60ee5)](https://ui.burtson.ai)
 [![npm](https://img.shields.io/npm/v/@burtson-labs/ui?logo=npm)](https://www.npmjs.com/package/@burtson-labs/ui)
@@ -166,9 +166,9 @@ Adding a component: write `src/components/<name>.tsx` (forwardRef, `data-slot` o
 
 Linting and formatting follow [Burtson Labs frontend standards](https://github.com/Burtson-Labs/frontend-standards). Every push is audited by [Sentinel](https://github.com/Burtson-Labs/sentinel-audit).
 
-## Local primitives and API references
+## Primitives and API references
 
-The behaviour primitives live in this repository: Burtson's own layer under `src/primitives` (see its [README](src/primitives/README.md) for the design and the [Primitives](https://ui.burtson.ai/docs/primitives) page for copy-source use) and, until phase 2 of the replacement lands, the remaining Radix and cmdk ports under `src/primitives/vendor`. No external Radix or cmdk package is required. See [VENDORING.md](VENDORING.md) for what is ours, what is still vendored, provenance and maintenance, and [API_REFERENCE.md](API_REFERENCE.md) for the generated component references. Original licenses are retained in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and `LICENSES/`.
+The behaviour primitives are Burtson Labs' own layer under `src/primitives`, written from the WAI-ARIA Authoring Practices and the web specifications (design notes in its [README](src/primitives/README.md); copy-source use on the [Primitives](https://ui.burtson.ai/docs/primitives) page). The kit has no Radix, cmdk or other component-library code in it and no runtime dependency on them. [API_REFERENCE.md](API_REFERENCE.md) lists the generated component references, and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) the licenses of what remains adapted (shadcn/ui's class lists and conventions).
 
 ## License
 

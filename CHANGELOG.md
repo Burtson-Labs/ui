@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.19.0
+
+### The kit is its own
+
+- Every remaining component now runs on Burtson Labs' own primitive layer: DropdownMenu,
+  ContextMenu, Menubar, Select, Command (and Combobox, ModelPicker, Pagination, DataTable's
+  sort menu and ChatHistory through it), NavigationMenu, Tabs, Accordion, Checkbox, CheckboxRow,
+  CheckboxCard, RadioGroup, RadioCard, Switch, SwitchRow, InlineSwitch, Toast and Toaster,
+  ScrollArea, Avatar, Progress, Separator and Label. The modules (`menu`, `select`, `command`
+  - `command-score`, `navigation-menu`, `pointer-intent`, `tabs`, `accordion`, `form-proxy`,
+    `checkbox`, `radio-group`, `switch`, `toast`, `scroll-area`, `avatar`, `progress`,
+    `separator`, `label`) are written from the ARIA Authoring Practices and the web specs.
+    Public names, props, data attributes, refs and the `--radix-*` CSS variable aliases are
+    unchanged.
+- The vendored Radix Primitives and cmdk ports are deleted, along with `vendor-manifest.json`,
+  the Radix and cmdk license files and the `@floating-ui/react-dom`, `aria-hidden` and
+  `react-remove-scroll` dependencies. `npm run primitives:check` (replacing `vendor:check`)
+  fails on any of them coming back. A consumer of the menu, Select and Command family ships
+  about a quarter less JavaScript (183 kB → 139 kB minified); the whole kit 560 kB → 539 kB.
+- Menus: rows activate on the pointer's release inside the row, so a submenu that moves under
+  a finger still selects; a positioned surface holds still while a pointer is down on it;
+  submenus open on hover with a pointer-intent triangle that keeps them open on a diagonal
+  path; a caller's own `id` on a trigger or content is what `aria-labelledby`/`aria-controls`
+  name.
+- Select: item-aligned placement keeps the chosen row over the trigger and above the scroll
+  button near the window's edge; a hidden native select carries the value for forms and
+  autofill; press-drag-release chooses a row.
+- Command: a documented matcher (exact, prefix, word start, substring, fuzzy) with ranked rows
+  and groups, `aria-activedescendant`, Alt/Meta/Ctrl bindings and `useCommandState`.
+- Checkbox, Switch and RadioGroup submit, validate `required` and reset with their form
+  through a native proxy input. Tab lands on the chosen tab or radio item, not the list.
+- Toasts stay reachable behind a modal dialog: pressable, focusable with F8, and Escape on a
+  focused toast does not close the dialog behind it. The toast list item is a plain list item
+  with a separate `role="alert"`/`role="status"` announcer.
+- New canonical CSS variables: `--bl-accordion-content-height/width`,
+  `--bl-toast-swipe-move-x/y`, `--bl-toast-swipe-end-x/y`,
+  `--bl-scroll-area-thumb-width/height`, `--bl-scroll-area-corner-width/height`,
+  `--bl-navigation-menu-viewport-width/height`, `--bl-command-list-height`. The `--radix-*`
+  names are still set, deprecated, and go in a later major.
+- Behaviour that changed on purpose: ScrollArea's viewport is marked
+  `data-bl-scroll-area-viewport` (the `data-radix-` name is gone) and a track click pages by
+  one viewport; `aria-required` is omitted when false; a RadioGroupItem `checked` prop is
+  ignored in favour of the group's value; an Avatar with no `src` reports `error` at once;
+  cmdk's `Command.Dialog` and the internal `SelectBubbleInput`/`SelectProvider` exports are
+  gone.
+
 ## 0.18.2
 
 - Fix: a Dialog that had a vendored Select or menu open inside it, and then an AlertDialog

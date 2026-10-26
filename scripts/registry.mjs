@@ -9,11 +9,7 @@
 // `@/lib/utils` and `@/components/ui/*` aliases a shadcn project uses.
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import {
-  ownPrimitiveRegistryItems,
-  primitiveRegistryItems,
-  sourceNotice,
-} from './vendor-registry.mjs';
+import { ownPrimitiveRegistryItems, sourceNotice } from './primitives-registry.mjs';
 import { fileURLToPath } from 'node:url';
 
 import { say } from './log.mjs';
@@ -185,7 +181,6 @@ const items = [
   highlight,
   safeUrl,
   ...ownPrimitiveRegistryItems(ROOT, BASE),
-  ...primitiveRegistryItems(ROOT, BASE),
   ...components,
 ];
 rmSync(OUT, { recursive: true, force: true });

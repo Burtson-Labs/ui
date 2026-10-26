@@ -1,9 +1,7 @@
 import ArrowRight from '@burtson-labs/icons/react/arrow-right';
-import ExternalLink from '@burtson-labs/icons/react/external-link';
 import * as React from 'react';
 
 import {
-  Badge,
   Button,
   Card,
   CardContent,
@@ -745,19 +743,6 @@ export function ComponentPage({ doc }: { doc: ComponentDoc }) {
   return (
     <article>
       <H1 lead={doc.description}>{doc.title}</H1>
-      {doc.radix && (
-        <div className="-mt-4 mb-8 flex gap-2">
-          <Badge variant="outline" asChild>
-            <a
-              href={`https://www.radix-ui.com/primitives/docs/components/${doc.radix}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Upstream attribution <ExternalLink />
-            </a>
-          </Badge>
-        </div>
-      )}
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <a
           href="#api-reference"

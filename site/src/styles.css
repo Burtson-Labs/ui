@@ -2,7 +2,6 @@
 @import '../../src/styles/theme.css';
 
 @source '../../src';
-@source not '../../src/primitives/vendor';
 
 /*
  * Inter, the first face in the kit's --font-sans, served from this origin so

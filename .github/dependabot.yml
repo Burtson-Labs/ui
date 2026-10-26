@@ -14,10 +14,6 @@ updates:
       default-days: 7
     open-pull-requests-limit: 5
     groups:
-      # Pinned on purpose next to the vendored Radix primitives (VENDORING.md);
-      # review these on their own and refresh vendor-manifest.json with them.
-      vendored-runtime:
-        patterns: ['@floating-ui/react-dom', 'aria-hidden', 'react-remove-scroll']
       dev-dependencies:
         dependency-type: development
         update-types: [minor, patch]

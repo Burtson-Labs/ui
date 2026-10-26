@@ -1,7 +1,7 @@
 {
   "name": "@burtson-labs/ui",
-  "version": "0.18.2",
-  "description": "React components for Burtson Labs products on Burtson's own behaviour primitives (with the remaining MIT-licensed vendored ports being replaced), Tailwind v4 styling, and Burtson Icons.",
+  "version": "0.19.0",
+  "description": "React components for Burtson Labs products on Burtson Labs' own behaviour primitives, Tailwind v4 styling, and Burtson Icons.",
   "license": "MIT",
   "author": {
     "name": "Burtson Labs",
@@ -21,7 +21,6 @@
     "react",
     "components",
     "design-system",
-    "radix-ui",
     "tailwindcss",
     "shadcn",
     "shadcn-registry",
@@ -64,7 +63,6 @@
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "LICENSES",
-    "vendor-manifest.json",
     "skills"
   ],
   "scripts": {
@@ -78,7 +76,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "smoke": "playwright test",
-    "check": "npm run vendor:check && npm run api:check && npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npm run site && npm run registry:check && npm run vendor:check",
+    "check": "npm run primitives:check && npm run api:check && npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npm run site && npm run registry:check && npm run primitives:check",
     "prepublishOnly": "npm run check",
     "theme": "node --experimental-strip-types --no-warnings scripts/theme.mjs",
     "registry": "node --experimental-strip-types --no-warnings scripts/registry.mjs",
@@ -87,10 +85,9 @@
     "api": "node scripts/api-reference.mjs",
     "api:check": "node scripts/api-reference.mjs --check",
     "licenses": "node scripts/licenses.mjs",
-    "vendor:check": "node scripts/verify-vendor.mjs",
-    "vendor:record": "node scripts/verify-vendor.mjs --record",
     "registry:check": "npm run registry && node scripts/verify-registry.mjs",
-    "package:check": "npm run build && node scripts/verify-package.mjs"
+    "package:check": "npm run build && node scripts/verify-package.mjs",
+    "primitives:check": "node scripts/verify-primitives.mjs"
   },
   "peerDependencies": {
     "@burtson-labs/icons": ">=0.5.0",

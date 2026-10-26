@@ -2,8 +2,6 @@ export interface ComponentDoc {
   name: string;
   title: string;
   description: string;
-  /** The Radix primitive underneath, linked from the page. */
-  radix?: string;
 }
 
 const all: ComponentDoc[] = [
@@ -80,7 +78,6 @@ const all: ComponentDoc[] = [
     name: 'accordion',
     title: 'Accordion',
     description: 'Stacked headings that each reveal a section.',
-    radix: 'accordion',
   },
   {
     name: 'alert',
@@ -91,7 +88,6 @@ const all: ComponentDoc[] = [
     name: 'avatar',
     title: 'Avatar',
     description: 'A user or org image with an initials fallback.',
-    radix: 'avatar',
   },
   { name: 'badge', title: 'Badge', description: 'A small label for status, counts and tags.' },
   {
@@ -108,25 +104,21 @@ const all: ComponentDoc[] = [
     name: 'checkbox',
     title: 'Checkbox',
     description: 'A two-state (or indeterminate) toggle for forms, alone or as a labelled row.',
-    radix: 'checkbox',
   },
   {
     name: 'checkbox-card',
     title: 'Checkbox Card',
     description: 'A checkbox with a title and a sentence; the whole card is the target.',
-    radix: 'checkbox',
   },
   {
     name: 'dialog',
     title: 'Dialog',
     description: 'A modal window that traps focus until dismissed; a bottom sheet on phones.',
-    radix: 'dialog',
   },
   {
     name: 'dropdown-menu',
     title: 'Dropdown Menu',
     description: 'A menu of actions opened from a trigger, with keyboard navigation.',
-    radix: 'dropdown-menu',
   },
   {
     name: 'input',
@@ -138,49 +130,41 @@ const all: ComponentDoc[] = [
     name: 'label',
     title: 'Label',
     description: 'An accessible caption for a form control.',
-    radix: 'label',
   },
   {
     name: 'popover',
     title: 'Popover',
     description: 'Rich content floating beside a trigger.',
-    radix: 'popover',
   },
   {
     name: 'progress',
     title: 'Progress',
     description: 'How far along a task is.',
-    radix: 'progress',
   },
   {
     name: 'radio-group',
     title: 'Radio Group',
     description: 'One choice from a small set, as dots or as cards.',
-    radix: 'radio-group',
   },
   {
     name: 'scroll-area',
     title: 'Scroll Area',
     description: 'A scroll container with a slim, themed scrollbar.',
-    radix: 'scroll-area',
   },
   {
     name: 'select',
     title: 'Select',
     description: 'One choice from a list, in a popover.',
-    radix: 'select',
   },
   {
     name: 'separator',
     title: 'Separator',
     description: 'A horizontal or vertical divider.',
-    radix: 'separator',
   },
   {
     name: 'sheet',
     title: 'Sheet',
     description: 'A dialog that slides in from the side.',
-    radix: 'dialog',
   },
   { name: 'skeleton', title: 'Skeleton', description: 'A placeholder while content loads.' },
   {
@@ -192,7 +176,6 @@ const all: ComponentDoc[] = [
     name: 'switch',
     title: 'Switch',
     description: 'An on/off toggle for settings, alone or as a labelled row in a list.',
-    radix: 'switch',
   },
   {
     name: 'table',
@@ -204,7 +187,6 @@ const all: ComponentDoc[] = [
     name: 'tabs',
     title: 'Tabs',
     description: 'Layered panels, one visible at a time.',
-    radix: 'tabs',
   },
   {
     name: 'textarea',
@@ -215,7 +197,6 @@ const all: ComponentDoc[] = [
     name: 'tooltip',
     title: 'Tooltip',
     description: 'A short label shown on hover or focus.',
-    radix: 'tooltip',
   },
   {
     name: 'app-shell',
@@ -267,7 +248,6 @@ const all: ComponentDoc[] = [
     name: 'collapsible',
     title: 'Collapsible',
     description: 'A section that expands and collapses, such as a nav group.',
-    radix: 'collapsible',
   },
   {
     name: 'command',
@@ -278,19 +258,16 @@ const all: ComponentDoc[] = [
     name: 'navigation-menu',
     title: 'Navigation Menu',
     description: 'Site navigation with dropdown panels, like a products menu.',
-    radix: 'navigation-menu',
   },
   {
     name: 'toast',
     title: 'Toast',
     description: 'A brief notice in the corner: sent, saved, update available.',
-    radix: 'toast',
   },
   {
     name: 'alert-dialog',
     title: 'Alert Dialog',
     description: 'A confirmation for destructive or irreversible actions.',
-    radix: 'alert-dialog',
   },
   {
     name: 'combobox',
@@ -345,7 +322,6 @@ const all: ComponentDoc[] = [
     name: 'toaster',
     title: 'Toaster',
     description: 'Raise toasts from anywhere with toast(); one Toaster renders them.',
-    radix: 'toast',
   },
   { name: 'slider', title: 'Slider', description: 'Pick one number in a range.' },
   {
@@ -378,13 +354,11 @@ const all: ComponentDoc[] = [
     name: 'context-menu',
     title: 'Context Menu',
     description: 'A right-click menu with the same rows as Dropdown Menu.',
-    radix: 'context-menu',
   },
   {
     name: 'menubar',
     title: 'Menubar',
     description: 'An application menu bar: File, Edit, View.',
-    radix: 'menubar',
   },
   {
     name: 'tour',
