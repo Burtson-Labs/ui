@@ -57,5 +57,7 @@ export function useTypeahead({ timeout = 1000 }: TypeaheadOptions = {}) {
     },
     [reset, timeout],
   );
-  return { handleKey, reset };
+  /** Whether a search string is in progress (so Space continues it instead of activating). */
+  const isSearching = React.useCallback(() => search.current.length > 0, []);
+  return { handleKey, reset, isSearching };
 }

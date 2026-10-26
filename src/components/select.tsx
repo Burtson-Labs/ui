@@ -4,7 +4,7 @@ import ChevronUp from '@burtson-labs/icons/react/chevron-up';
 import * as React from 'react';
 
 import { cn, noOutlineClasses } from '../lib/utils';
-import * as SelectPrimitive from '../primitives/vendor/radix/react-select';
+import * as SelectPrimitive from '../primitives/select';
 
 import { fieldClasses, type FieldWidth, fieldWidthClasses } from './input';
 import { menuLabelClasses, surfaceClasses } from './popover';
@@ -69,7 +69,7 @@ const SelectContent = React.forwardRef<
         data-slot="select-content"
         className={cn(
           surfaceClasses,
-          'relative max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto',
+          'relative max-h-(--bl-available-height) min-w-[8rem] origin-(--bl-transform-origin) overflow-x-hidden overflow-y-auto',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
@@ -84,7 +84,7 @@ const SelectContent = React.forwardRef<
           className={cn(
             'p-1',
             position === 'popper' &&
-              'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1',
+              'h-(--bl-anchor-height) w-full min-w-(--bl-anchor-width) scroll-my-1',
           )}
         >
           {children}

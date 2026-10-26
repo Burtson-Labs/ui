@@ -2,12 +2,13 @@ import ChevronDown from '@burtson-labs/icons/react/chevron-down';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as NavigationMenuPrimitive from '../primitives/vendor/radix/react-navigation-menu';
+import * as NavigationMenuPrimitive from '../primitives/navigation-menu';
 
 /**
  * Site navigation with dropdown panels (a products menu, docs sections).
- * Keyboard and screen-reader behaviour come from Radix; the panel renders in
- * a shared viewport under the bar, sized to its content.
+ * Keyboard and screen-reader behaviour come from the navigation-menu
+ * primitive; the panel renders in a shared viewport under the bar, sized to
+ * its content.
  */
 const NavigationMenu = React.forwardRef<
   HTMLElement,
@@ -112,7 +113,7 @@ const NavigationMenuViewport = React.forwardRef<
         ref={ref}
         data-slot="navigation-menu-viewport"
         className={cn(
-          'relative mt-2 h-(--radix-navigation-menu-viewport-height) w-full origin-top overflow-hidden rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-lg transition-[width,height] duration-(--duration-standard) [--bl-ty:-6px] data-[state=closed]:animate-out data-[state=open]:animate-in md:w-(--radix-navigation-menu-viewport-width)',
+          'relative mt-2 h-(--bl-navigation-menu-viewport-height) w-full origin-top overflow-hidden rounded-lg border border-border-strong bg-surface-raised text-popover-foreground shadow-lg transition-[width,height] duration-(--duration-standard) [--bl-ty:-6px] data-[state=closed]:animate-out data-[state=open]:animate-in md:w-(--bl-navigation-menu-viewport-width)',
           className,
         )}
         {...props}

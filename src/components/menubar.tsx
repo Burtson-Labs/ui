@@ -3,7 +3,7 @@ import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetRowClasses } from '../lib/utils';
-import * as MenubarPrimitive from '../primitives/vendor/radix/react-menubar';
+import * as MenubarPrimitive from '../primitives/menubar';
 
 import { menuItemClasses as itemClasses, menuLabelClasses, surfaceClasses } from './popover';
 
@@ -72,7 +72,7 @@ const MenubarContent = React.forwardRef<
         sideOffset={sideOffset}
         className={cn(
           surfaceClasses,
-          'max-h-(--radix-menubar-content-available-height) min-w-[8rem] origin-(--radix-menubar-content-transform-origin) overflow-x-hidden overflow-y-auto p-1',
+          'max-h-(--bl-available-height) min-w-[8rem] origin-(--bl-transform-origin) overflow-x-hidden overflow-y-auto p-1',
           className,
         )}
         {...props}
@@ -228,7 +228,7 @@ const MenubarSubContent = React.forwardRef<
         data-slot="menubar-sub-content"
         className={cn(
           surfaceClasses,
-          'min-w-[8rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden p-1',
+          'min-w-[8rem] origin-(--bl-transform-origin) overflow-hidden p-1',
           className,
         )}
         {...props}

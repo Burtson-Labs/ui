@@ -3,7 +3,7 @@ import ChevronRight from '@burtson-labs/icons/react/chevron-right';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import * as DropdownMenuPrimitive from '../primitives/vendor/radix/react-dropdown-menu';
+import * as DropdownMenuPrimitive from '../primitives/dropdown-menu';
 
 import { menuItemClasses as itemClasses, menuLabelClasses, surfaceClasses } from './popover';
 
@@ -34,7 +34,7 @@ const DropdownMenuContent = React.forwardRef<
         sideOffset={sideOffset}
         className={cn(
           surfaceClasses,
-          'max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto p-1',
+          'max-h-(--bl-available-height) min-w-[8rem] origin-(--bl-transform-origin) overflow-x-hidden overflow-y-auto p-1',
           className,
         )}
         {...props}
@@ -193,7 +193,7 @@ const DropdownMenuSubContent = React.forwardRef<
         data-slot="dropdown-menu-sub-content"
         className={cn(
           surfaceClasses,
-          'min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden p-1',
+          'min-w-[8rem] origin-(--bl-transform-origin) overflow-hidden p-1',
           className,
         )}
         {...props}

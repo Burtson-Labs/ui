@@ -2,28 +2,29 @@ import Search from '@burtson-labs/icons/react/search';
 import * as React from 'react';
 
 import { cn, noOutlineClasses } from '../lib/utils';
-import { Command as CommandPrimitive } from '../primitives/vendor/cmdk';
+import * as CommandPrimitive from '../primitives/command';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './dialog';
 
-const Command = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof CommandPrimitive>>(
-  function Command({ className, ...props }, ref) {
-    return (
-      <CommandPrimitive
-        ref={ref}
-        data-slot="command"
-        className={cn(
-          // Standalone with a border, the box is the field: its border takes the
-          // ring colour while the search input has keyboard focus. In a popover or
-          // dialog there is no border of its own, so the rule draws nothing.
-          'flex h-full w-full flex-col overflow-hidden rounded-lg bg-surface-raised text-popover-foreground has-[[cmdk-input]:focus-visible]:border-ring',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const Command = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof CommandPrimitive.Root>
+>(function Command({ className, ...props }, ref) {
+  return (
+    <CommandPrimitive.Root
+      ref={ref}
+      data-slot="command"
+      className={cn(
+        // Standalone with a border, the box is the field: its border takes the
+        // ring colour while the search input has keyboard focus. In a popover or
+        // dialog there is no border of its own, so the rule draws nothing.
+        'flex h-full w-full flex-col overflow-hidden rounded-lg bg-surface-raised text-popover-foreground has-[[cmdk-input]:focus-visible]:border-ring',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 
 export interface CommandDialogProps extends React.ComponentProps<typeof Dialog> {
   title?: string;
