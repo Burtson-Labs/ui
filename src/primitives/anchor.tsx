@@ -260,6 +260,9 @@ const Positioned = React.forwardRef<HTMLDivElement, PositionedProps>(function Po
   const update = React.useCallback(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper || !anchor) return;
+    // Held (a pointer is down on the surface): the box stays where the
+    // press found it, so the release lands on the same row.
+    if (wrapper.hasAttribute(HOLD_ATTRIBUTE)) return;
     const anchorRect = anchor.getBoundingClientRect();
     const viewport = viewportRect();
     const boundary = insetRect(
@@ -472,4 +475,26 @@ const Arrow = React.forwardRef<SVGSVGElement, ArrowProps>(function Arrow(
   );
 });
 
-export { Anchor, AnchorProvider, Arrow, Positioned, useAnchorContext, useImplicitAnchor };
+const HOLD_ATTRIBUTE = 'data-bl-hold';
+
+/**
+ * Keeps the positioned surface that contains `node` where it is until the
+ * returned function runs: while a pointer is down on a row, the surface must
+ * not move or flip under it, or the release lands somewhere else.
+ */
+function holdPlacement(node: Element): () => void {
+  const wrapper = node.closest<HTMLElement>('[data-bl-anchored]');
+  if (!wrapper) return () => undefined;
+  wrapper.setAttribute(HOLD_ATTRIBUTE, '');
+  return () => wrapper.removeAttribute(HOLD_ATTRIBUTE);
+}
+
+export {
+  Anchor,
+  AnchorProvider,
+  Arrow,
+  holdPlacement,
+  Positioned,
+  useAnchorContext,
+  useImplicitAnchor,
+};

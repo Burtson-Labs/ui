@@ -108,11 +108,8 @@
     }
   },
   "dependencies": {
-    "@floating-ui/react-dom": "2.1.9",
-    "aria-hidden": "1.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "react-remove-scroll": "2.7.2",
     "react-resizable-panels": "^4.13.3",
     "tailwind-merge": "^3.7.0"
   },

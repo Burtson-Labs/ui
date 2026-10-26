@@ -43,7 +43,7 @@
         },
         {
           "name": "dir",
-          "type": "Direction | undefined",
+          "type": "SelectPrimitive.Direction | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -110,7 +110,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The chosen option's value; `''` shows the placeholder.",
           "native": false
         }
       ],
@@ -125,7 +125,7 @@
       "props": [
         {
           "name": "align",
-          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "type": "Align | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -165,15 +165,15 @@
         },
         {
           "name": "collisionBoundary",
-          "type": "Boundary | Boundary[] | undefined",
+          "type": "Element | (Element | null)[] | null | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Elements whose boxes the surface stays inside, besides the viewport.",
           "native": false
         },
         {
           "name": "collisionPadding",
-          "type": "number | Partial<Record<\"top\" | \"right\" | \"bottom\" | \"left\", number>> | undefined",
+          "type": "number | Partial<Record<Side, number>> | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -184,7 +184,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         },
         {
@@ -192,7 +192,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Hide the surface while its anchor is scrolled out of its clipping ancestors.",
           "native": false
         },
         {
@@ -200,7 +200,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when auto-focusing on close.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -208,7 +208,7 @@
           "type": "((event: KeyboardEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the escape key is down.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -216,7 +216,7 @@
           "type": "((event: PointerDownOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -229,7 +229,7 @@
         },
         {
           "name": "side",
-          "type": "\"top\" | \"right\" | \"bottom\" | \"left\" | undefined",
+          "type": "Side | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -256,7 +256,7 @@
           "type": "\"always\" | \"optimized\" | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "`always` re-measures every frame (for anchors that move without scrolling or resizing).",
           "native": false
         }
       ],
@@ -330,7 +330,6 @@
         "c6583aa484155862",
         "f18bda0a7fa197a2",
         "49fce62f28c19ed4",
-        "7b0e7b054db60a5b",
         "66d72eaa9bbf171a",
         "3fdb6c54b29faadf",
         "185dbafb9cd3e249",
@@ -2433,7 +2432,7 @@
           "type": "React.ReactNode",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Shown while nothing is chosen.",
           "native": false
         }
       ],

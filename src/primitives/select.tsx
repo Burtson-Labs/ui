@@ -339,6 +339,9 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
           onPointerDown?.(event);
           if (event.defaultPrevented || disabled || event.button !== 0 || event.ctrlKey) return;
           // Open on the press so a drag onto a row and release can choose it.
+          // The trigger is focused by hand (the browser's own focus change
+          // on mousedown is cancelled, as is the text selection a drag starts).
+          event.preventDefault();
           context.setPressPoint({ x: event.clientX, y: event.clientY });
           openedByPressRef.current = true;
           event.currentTarget.focus({ preventScroll: true });

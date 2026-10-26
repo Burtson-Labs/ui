@@ -354,7 +354,7 @@ export const usage: Record<string, Usage> = {
       'A few fixed options; use Select or NativeSelect. Several values; use CheckboxCard or a multi-select of your own.',
     ],
     a11y: [
-      'The trigger is a combobox that opens a search dialog with Enter, Space or an arrow key; cmdk manages the list, Escape closes and returns focus. Label it with a Field or aria-label; pass name for FormData.',
+      'The trigger is a combobox that opens a search dialog with Enter, Space or an arrow key; the Command primitive manages the list, Escape closes and returns focus. Label it with a Field or aria-label; pass name for FormData.',
     ],
   },
   command: {

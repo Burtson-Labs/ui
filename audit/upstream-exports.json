@@ -1,5 +1,7 @@
 {
-  "@radix-ui/number": ["clamp"],
+  "@radix-ui/number": [
+    "clamp"
+  ],
   "@radix-ui/primitive": [
     "canUseDOM",
     "composeEventHandlers",
@@ -42,7 +44,6 @@
     "Trigger",
     "createAlertDialogScope"
   ],
-  "@radix-ui/react-arrow": ["Arrow", "Root"],
   "@radix-ui/react-avatar": [
     "Avatar",
     "AvatarFallback",
@@ -74,65 +75,23 @@
     "Trigger",
     "createCollapsibleScope"
   ],
-  "@radix-ui/react-collection": ["createCollection", "unstable_createCollection"],
-  "@radix-ui/react-compose-refs": ["composeRefs", "useComposedRefs"],
-  "@radix-ui/react-context": ["createContext", "createContextScope"],
-  "@radix-ui/react-context-menu": [
-    "Arrow",
-    "CheckboxItem",
-    "Content",
-    "ContextMenu",
-    "ContextMenuArrow",
-    "ContextMenuCheckboxItem",
-    "ContextMenuContent",
-    "ContextMenuGroup",
-    "ContextMenuItem",
-    "ContextMenuItemIndicator",
-    "ContextMenuLabel",
-    "ContextMenuPortal",
-    "ContextMenuRadioGroup",
-    "ContextMenuRadioItem",
-    "ContextMenuSeparator",
-    "ContextMenuSub",
-    "ContextMenuSubContent",
-    "ContextMenuSubTrigger",
-    "ContextMenuTrigger",
-    "Group",
-    "Item",
-    "ItemIndicator",
-    "Label",
-    "Portal",
-    "RadioGroup",
-    "RadioItem",
-    "Root",
-    "Separator",
-    "Sub",
-    "SubContent",
-    "SubTrigger",
-    "Trigger",
-    "createContextMenuScope"
+  "@radix-ui/react-collection": [
+    "createCollection",
+    "unstable_createCollection"
   ],
-  "@radix-ui/react-dialog": [
-    "Close",
-    "Content",
-    "Description",
-    "Dialog",
-    "DialogClose",
-    "DialogContent",
-    "DialogDescription",
-    "DialogOverlay",
-    "DialogPortal",
-    "DialogTitle",
-    "DialogTrigger",
-    "Overlay",
-    "Portal",
-    "Root",
-    "Title",
-    "Trigger",
-    "WarningProvider",
-    "createDialogScope"
+  "@radix-ui/react-compose-refs": [
+    "composeRefs",
+    "useComposedRefs"
   ],
-  "@radix-ui/react-direction": ["DirectionProvider", "Provider", "useDirection"],
+  "@radix-ui/react-context": [
+    "createContext",
+    "createContextScope"
+  ],
+  "@radix-ui/react-direction": [
+    "DirectionProvider",
+    "Provider",
+    "useDirection"
+  ],
   "@radix-ui/react-dismissable-layer": [
     "Branch",
     "DismissableLayer",
@@ -140,137 +99,12 @@
     "Root",
     "useDismissableLayerSurface"
   ],
-  "@radix-ui/react-dropdown-menu": [
-    "Arrow",
-    "CheckboxItem",
-    "Content",
-    "DropdownMenu",
-    "DropdownMenuArrow",
-    "DropdownMenuCheckboxItem",
-    "DropdownMenuContent",
-    "DropdownMenuGroup",
-    "DropdownMenuItem",
-    "DropdownMenuItemIndicator",
-    "DropdownMenuLabel",
-    "DropdownMenuPortal",
-    "DropdownMenuRadioGroup",
-    "DropdownMenuRadioItem",
-    "DropdownMenuSeparator",
-    "DropdownMenuSub",
-    "DropdownMenuSubContent",
-    "DropdownMenuSubTrigger",
-    "DropdownMenuTrigger",
-    "Group",
-    "Item",
-    "ItemIndicator",
-    "Label",
-    "Portal",
-    "RadioGroup",
-    "RadioItem",
-    "Root",
-    "Separator",
-    "Sub",
-    "SubContent",
-    "SubTrigger",
-    "Trigger",
-    "createDropdownMenuScope"
+  "@radix-ui/react-id": [
+    "useId"
   ],
-  "@radix-ui/react-focus-guards": ["FocusGuards", "Root", "useFocusGuards"],
-  "@radix-ui/react-focus-scope": ["FocusScope", "Root"],
-  "@radix-ui/react-id": ["useId"],
-  "@radix-ui/react-label": ["Label", "Root"],
-  "@radix-ui/react-menu": [
-    "Anchor",
-    "Arrow",
-    "CheckboxItem",
-    "Content",
-    "Group",
-    "Item",
-    "ItemIndicator",
+  "@radix-ui/react-label": [
     "Label",
-    "Menu",
-    "MenuAnchor",
-    "MenuArrow",
-    "MenuCheckboxItem",
-    "MenuContent",
-    "MenuGroup",
-    "MenuItem",
-    "MenuItemIndicator",
-    "MenuLabel",
-    "MenuPortal",
-    "MenuRadioGroup",
-    "MenuRadioItem",
-    "MenuSeparator",
-    "MenuSub",
-    "MenuSubContent",
-    "MenuSubTrigger",
-    "Portal",
-    "RadioGroup",
-    "RadioItem",
-    "Root",
-    "Separator",
-    "Sub",
-    "SubContent",
-    "SubTrigger",
-    "createMenuScope"
-  ],
-  "@radix-ui/react-menubar": [
-    "Arrow",
-    "CheckboxItem",
-    "Content",
-    "Group",
-    "Item",
-    "ItemIndicator",
-    "Label",
-    "Menu",
-    "Menubar",
-    "MenubarArrow",
-    "MenubarCheckboxItem",
-    "MenubarContent",
-    "MenubarGroup",
-    "MenubarItem",
-    "MenubarItemIndicator",
-    "MenubarLabel",
-    "MenubarMenu",
-    "MenubarPortal",
-    "MenubarRadioGroup",
-    "MenubarRadioItem",
-    "MenubarSeparator",
-    "MenubarSub",
-    "MenubarSubContent",
-    "MenubarSubTrigger",
-    "MenubarTrigger",
-    "Portal",
-    "RadioGroup",
-    "RadioItem",
-    "Root",
-    "Separator",
-    "Sub",
-    "SubContent",
-    "SubTrigger",
-    "Trigger",
-    "createMenubarScope"
-  ],
-  "@radix-ui/react-navigation-menu": [
-    "Content",
-    "Indicator",
-    "Item",
-    "Link",
-    "List",
-    "NavigationMenu",
-    "NavigationMenuContent",
-    "NavigationMenuIndicator",
-    "NavigationMenuItem",
-    "NavigationMenuLink",
-    "NavigationMenuList",
-    "NavigationMenuSub",
-    "NavigationMenuTrigger",
-    "NavigationMenuViewport",
-    "Root",
-    "Sub",
-    "Trigger",
-    "Viewport",
-    "createNavigationMenuScope"
+    "Root"
   ],
   "@radix-ui/react-popover": [
     "Anchor",
@@ -289,22 +123,19 @@
     "Trigger",
     "createPopoverScope"
   ],
-  "@radix-ui/react-popper": [
-    "ALIGN_OPTIONS",
-    "Anchor",
-    "Arrow",
-    "Content",
-    "Popper",
-    "PopperAnchor",
-    "PopperArrow",
-    "PopperContent",
-    "Root",
-    "SIDE_OPTIONS",
-    "createPopperScope"
+  "@radix-ui/react-portal": [
+    "Portal",
+    "Root"
   ],
-  "@radix-ui/react-portal": ["Portal", "Root"],
-  "@radix-ui/react-presence": ["Presence", "Root"],
-  "@radix-ui/react-primitive": ["Primitive", "Root", "dispatchDiscreteCustomEvent"],
+  "@radix-ui/react-presence": [
+    "Presence",
+    "Root"
+  ],
+  "@radix-ui/react-primitive": [
+    "Primitive",
+    "Root",
+    "dispatchDiscreteCustomEvent"
+  ],
   "@radix-ui/react-progress": [
     "Indicator",
     "Progress",
@@ -347,47 +178,17 @@
     "Viewport",
     "createScrollAreaScope"
   ],
-  "@radix-ui/react-select": [
-    "Arrow",
-    "Content",
-    "Group",
-    "Icon",
-    "Item",
-    "ItemIndicator",
-    "ItemText",
-    "Label",
-    "Portal",
+  "@radix-ui/react-separator": [
     "Root",
-    "ScrollDownButton",
-    "ScrollUpButton",
-    "Select",
-    "SelectArrow",
-    "SelectContent",
-    "SelectGroup",
-    "SelectIcon",
-    "SelectItem",
-    "SelectItemIndicator",
-    "SelectItemText",
-    "SelectLabel",
-    "SelectPortal",
-    "SelectScrollDownButton",
-    "SelectScrollUpButton",
-    "SelectSeparator",
-    "SelectTrigger",
-    "SelectValue",
-    "SelectViewport",
-    "Separator",
-    "Trigger",
-    "Value",
-    "Viewport",
-    "createSelectScope",
-    "unstable_BubbleInput",
-    "unstable_Provider",
-    "unstable_SelectBubbleInput",
-    "unstable_SelectProvider"
+    "Separator"
   ],
-  "@radix-ui/react-separator": ["Root", "Separator"],
-  "@radix-ui/react-slot": ["Root", "Slot", "Slottable", "createSlot", "createSlottable"],
+  "@radix-ui/react-slot": [
+    "Root",
+    "Slot",
+    "Slottable",
+    "createSlot",
+    "createSlottable"
+  ],
   "@radix-ui/react-switch": [
     "Root",
     "Switch",
@@ -444,28 +245,31 @@
     "Trigger",
     "createTooltipScope"
   ],
-  "@radix-ui/react-use-callback-ref": ["useCallbackRef"],
-  "@radix-ui/react-use-controllable-state": ["useControllableState", "useControllableStateReducer"],
-  "@radix-ui/react-use-effect-event": ["useEffectEvent"],
-  "@radix-ui/react-use-is-hydrated": ["useIsHydrated"],
-  "@radix-ui/react-use-layout-effect": ["useLayoutEffect"],
-  "@radix-ui/react-use-previous": ["usePrevious"],
-  "@radix-ui/react-use-rect": ["useRect"],
-  "@radix-ui/react-use-size": ["useSize"],
-  "@radix-ui/react-visually-hidden": ["Root", "VISUALLY_HIDDEN_STYLES", "VisuallyHidden"],
-  "@radix-ui/rect": ["observeElementRect"],
-  "cmdk": [
-    "Command",
-    "CommandDialog",
-    "CommandEmpty",
-    "CommandGroup",
-    "CommandInput",
-    "CommandItem",
-    "CommandList",
-    "CommandLoading",
-    "CommandRoot",
-    "CommandSeparator",
-    "defaultFilter",
-    "useCommandState"
+  "@radix-ui/react-use-callback-ref": [
+    "useCallbackRef"
+  ],
+  "@radix-ui/react-use-controllable-state": [
+    "useControllableState",
+    "useControllableStateReducer"
+  ],
+  "@radix-ui/react-use-effect-event": [
+    "useEffectEvent"
+  ],
+  "@radix-ui/react-use-is-hydrated": [
+    "useIsHydrated"
+  ],
+  "@radix-ui/react-use-layout-effect": [
+    "useLayoutEffect"
+  ],
+  "@radix-ui/react-use-rect": [
+    "useRect"
+  ],
+  "@radix-ui/react-use-size": [
+    "useSize"
+  ],
+  "@radix-ui/react-visually-hidden": [
+    "Root",
+    "VISUALLY_HIDDEN_STYLES",
+    "VisuallyHidden"
   ]
 }

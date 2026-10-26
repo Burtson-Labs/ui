@@ -611,6 +611,24 @@ const primitiveModules: [string, string][] = [
   ['progress', 'Progress: the progressbar role, determinate or indeterminate.'],
   ['separator', 'Separator: decorative or semantic.'],
   ['label', 'Label: a native label that does not select its text on a double press.'],
+  ['pointer-intent', 'The grace triangle a pointer may cross on its way into a submenu.'],
+  [
+    'menu',
+    'The menu core: rows, checkbox and radio rows, typeahead, submenus with pointer intent.',
+  ],
+  ['dropdown-menu', 'DropdownMenu on menu: a menu button.'],
+  ['context-menu', 'ContextMenu on menu: right-click or a long press, anchored at the pointer.'],
+  ['menubar', 'Menubar on menu: Left and Right across menus, pointer-follow, loop.'],
+  [
+    'select',
+    'Select: a listbox with item-aligned or popper placement and a native select for forms.',
+  ],
+  ['command-score', 'The command palette’s matcher: exact, prefix, word start, substring, fuzzy.'],
+  ['command', 'Command: a combobox over an always-open listbox, with groups, Empty and Loading.'],
+  [
+    'navigation-menu',
+    'NavigationMenu: disclosure navigation with a viewport, indicator and hover intent.',
+  ],
 ];
 
 export function Primitives() {
@@ -621,14 +639,14 @@ export function Primitives() {
       </H1>
       <P>
         Every overlay in the kit (Popover, Tooltip, Dialog, AlertDialog, Sheet, HoverCard, Tour,
-        Collapsible, and the components built on them), Tabs, Accordion, the form controls
-        (Checkbox, RadioGroup, Switch, Label), Toast, ScrollArea, Avatar, Progress and Separator run
-        on a set of small modules in <code>src/primitives</code>. They carry no classes and no
-        theme. A component imports one, adds its classes and <code>data-slot</code> attributes, and
-        re-exports the result under the kit&apos;s names, so the component API you use is unchanged.
-        The menus, Select, Command and NavigationMenu still run on the locally maintained Radix
-        ports until their rewrite lands; the plan is in the repository&apos;s{' '}
-        <code>VENDORING.md</code>.
+        Collapsible, and the components built on them), the menus (DropdownMenu, ContextMenu,
+        Menubar), Select, Command (and Combobox and ModelPicker on it), NavigationMenu, Tabs,
+        Accordion, the form controls (Checkbox, RadioGroup, Switch, Label), Toast, ScrollArea,
+        Avatar, Progress and Separator run on a set of small modules in <code>src/primitives</code>.
+        They carry no classes and no theme. A component imports one, adds its classes and{' '}
+        <code>data-slot</code> attributes, and re-exports the result under the kit&apos;s names, so
+        the component API you use is unchanged. Nothing in the kit is a port of another library any
+        more.{' '}
       </P>
       <H2>Copying source</H2>
       <P>
@@ -690,11 +708,14 @@ export function Primitives() {
       <P>
         <br />
         The older <code>--radix-popover-content-*</code>, <code>--radix-popover-trigger-*</code>,{' '}
-        <code>--radix-tooltip-*</code>, <code>--radix-popper-*</code>,{' '}
-        <code>--radix-collapsible-content-*</code>, <code>--radix-accordion-content-*</code>,{' '}
-        <code>--radix-toast-swipe-*</code> and <code>--radix-scroll-area-*</code> names are still
-        set as aliases. They are deprecated and will be removed in a later major; move class lists
-        to the <code>--bl-</code> names when you touch them.
+        <code>--radix-tooltip-*</code>, <code>--radix-dropdown-menu-*</code>,{' '}
+        <code>--radix-context-menu-*</code>, <code>--radix-menubar-*</code>,{' '}
+        <code>--radix-select-*</code>, <code>--radix-navigation-menu-viewport-*</code>,{' '}
+        <code>--radix-popper-*</code>, <code>--radix-collapsible-content-*</code>,{' '}
+        <code>--radix-accordion-content-*</code>, <code>--radix-toast-swipe-*</code> and{' '}
+        <code>--radix-scroll-area-*</code> names are still set as aliases. They are deprecated and
+        will be removed in a later major; move class lists to the <code>--bl-</code> names when you
+        touch them.
       </P>
       <H2>Design notes</H2>
       <P>

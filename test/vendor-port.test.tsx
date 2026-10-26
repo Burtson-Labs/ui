@@ -38,11 +38,6 @@ describe('local primitive contract', () => {
     });
   }
 
-  it('preserves cmdk exports while resolving its primitives locally', async () => {
-    const actual = await import('../src/primitives/vendor/cmdk');
-    expect(Object.keys(actual).sort()).toEqual(expected.cmdk);
-  });
-
   it('returns focus correctly from a menu nested in a modal', async () => {
     const user = userEvent.setup();
     render(

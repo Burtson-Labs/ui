@@ -6,11 +6,6 @@
     "release": "1.6.7",
     "sourceMapParity": true
   },
-  "cmdk": {
-    "repository": "https://github.com/pacocoursey/cmdk",
-    "commit": "fb4ea04e9ec211777fbb39c6104e3c5f2ee107d2",
-    "version": "1.1.1"
-  },
   "packages": [
     {
       "package": "@radix-ui/number",
@@ -27,10 +22,31 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-arrow",
-      "version": "1.1.15",
-      "upstreamDirectory": "packages/react/arrow",
-      "integrity": "sha512-v4zggRcjadnI+ClKDuijlQEW4tw3NoaeHc/PwpKnLoLLKNUG4InLegkstooLcRIUWCs+8L22dGURCVuFfOKfnA==",
+      "package": "@radix-ui/react-accordion",
+      "version": "1.2.20",
+      "upstreamDirectory": "packages/react/accordion",
+      "integrity": "sha512-jDhG9FvAEnlhnjrsINbNXcUa4G+L1KqSkJSunkbKEzFRcAb52jvM0PjPxPRvhe1HNc5F5yc0yzzWeeqlH4yBIg==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-avatar",
+      "version": "1.2.6",
+      "upstreamDirectory": "packages/react/avatar",
+      "integrity": "sha512-4ULOTJ/mqy2hT9GlWa/MFHxHSvH3nJzHnZM1waNsc5Bonv7i70aNenghXmD97S6OJ81ekXONGGt4nT1r0PfEdA==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-checkbox",
+      "version": "1.3.11",
+      "upstreamDirectory": "packages/react/checkbox",
+      "integrity": "sha512-Gnptr9pDDQxD3hgq2dtPbtrp/c2qH1mBwIzw3X/ivrMb2e1t0jMTi606fVEqFPaQR1ggXIVQWKj3P2WW9v7zGQ==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-collapsible",
+      "version": "1.1.20",
+      "upstreamDirectory": "packages/react/collapsible",
+      "integrity": "sha512-mcGesGplBnzN2sbvJETzpCNfSMyPnb29q1GRLU+Ib7bJrpIG2ywmRoh2V5VbA2uNvKikKUlVbAPks7JDjz4A8Q==",
       "license": "MIT"
     },
     {
@@ -55,20 +71,6 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-context-menu",
-      "version": "2.3.7",
-      "upstreamDirectory": "packages/react/context-menu",
-      "integrity": "sha512-CtXP35dxaB5T3zXSd+E3uHe/QpXcpYnZmxp6OaIbfthtfW4wyb77M23BG+bwIJDtsMwEP/YssdsmNyZu7jhWew==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-dialog",
-      "version": "1.1.23",
-      "upstreamDirectory": "packages/react/dialog",
-      "integrity": "sha512-Ksw4WeROkO4rC9k/onilX/Ao2Cr1ku1unMNH+XSCcP4jSXYu7HDsg9n4ojMjVb22XpYjAQ9qfrFlVbru1vXDUA==",
-      "license": "MIT"
-    },
-    {
       "package": "@radix-ui/react-direction",
       "version": "1.1.4",
       "upstreamDirectory": "packages/react/direction",
@@ -83,27 +85,6 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-dropdown-menu",
-      "version": "2.1.24",
-      "upstreamDirectory": "packages/react/dropdown-menu",
-      "integrity": "sha512-geq8l2rJkxvkXsT9RMgtUE3P8pITFpTsvYpbySi1IH4fZEABD/Gp85myayFgxk0ktljGMJnCbeFkyTusvSvv7g==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-focus-guards",
-      "version": "1.1.6",
-      "upstreamDirectory": "packages/react/focus-guards",
-      "integrity": "sha512-RNOJjfZMTyBM6xYmV3IVGXkPjIhcBAuv48POevAXwrGJhkWZ9p1rFoIS1JFooPuT193AZmRsCPhpoVJxx6OPoQ==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-focus-scope",
-      "version": "1.1.16",
-      "upstreamDirectory": "packages/react/focus-scope",
-      "integrity": "sha512-wmRZ2WWLvmt6KHy2rNPOdPUjwq5xOHY02+m+udwJTn0aNIox/rkskAvJTyTLGhPK6KgrUjlJUJpgmx/+wFiFIQ==",
-      "license": "MIT"
-    },
-    {
       "package": "@radix-ui/react-id",
       "version": "1.1.4",
       "upstreamDirectory": "packages/react/id",
@@ -111,31 +92,10 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-menu",
-      "version": "2.1.24",
-      "upstreamDirectory": "packages/react/menu",
-      "integrity": "sha512-uW7RVuU6Lp/ZtfeY4b3kL32zccgEWvPv1+cf17ubYzHa9cL8AHokmk36cG/XEiH/smbQvumnieXX9j/e9RqJWA==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-menubar",
-      "version": "1.1.24",
-      "upstreamDirectory": "packages/react/menubar",
-      "integrity": "sha512-eeVs0vf7cuqXaM0qLQCPcufImiJNVBXdJDLu7ZGYl2732UH23Qat/foNGrr6vYV3/DdTsBqASoggUFgH14OcZA==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-navigation-menu",
-      "version": "1.2.22",
-      "upstreamDirectory": "packages/react/navigation-menu",
-      "integrity": "sha512-ou7iLEJ+yrhQndkkA4U21XIdS/CS45F4iXIkTZcb6/Ne9EMsOuDudVmCwmDnfFZZ+y1FZqXRNSIgBy+YMvZVZg==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-popper",
-      "version": "1.3.7",
-      "upstreamDirectory": "packages/react/popper",
-      "integrity": "sha512-UsJrrd7w4wuKKTdvd/DNERVlwSlUcyXzjhyDwBk+3aPOsCjOY6ZSbxuw8E6lZTjjfP8Cpd0J8VVkrYUWyGYXyg==",
+      "package": "@radix-ui/react-label",
+      "version": "2.1.15",
+      "upstreamDirectory": "packages/react/label",
+      "integrity": "sha512-o/rdYEwZTTo5tjknnPeyQFU45kUC4i/XyeDPP+HGyi6XqpOP6Zf5Ya5vh/Yfe9Id5JiuWnnAx2XqIeD3UYZt0g==",
       "license": "MIT"
     },
     {
@@ -160,6 +120,20 @@
       "license": "MIT"
     },
     {
+      "package": "@radix-ui/react-progress",
+      "version": "1.1.16",
+      "upstreamDirectory": "packages/react/progress",
+      "integrity": "sha512-5XnomAsoZZCY+KNTxbIghpGqPruZvKFNlvcAljVAOdDRDsH4/OZQxhtwo5wdtoDM5R6MhJBb2sPnDuRFep3lzg==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-radio-group",
+      "version": "1.4.7",
+      "upstreamDirectory": "packages/react/radio-group",
+      "integrity": "sha512-cgYFEkntCxppHZgtSZ+7vh0wbZQ+IC7PPMw8DSnRG27B6kDd32/Zw0OJt7dGDigCoprMuWHjg2PvUn3PYvPFoQ==",
+      "license": "MIT"
+    },
+    {
       "package": "@radix-ui/react-roving-focus",
       "version": "1.1.19",
       "upstreamDirectory": "packages/react/roving-focus",
@@ -167,10 +141,17 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-select",
-      "version": "2.3.7",
-      "upstreamDirectory": "packages/react/select",
-      "integrity": "sha512-WFGImkmbzcfxeIwq/+4HvRN0pizBwbwQUED4I13ezQsDdfl38ZntN6TmR8XaSzPBqoCToe8rF75j6NPNDSzhbg==",
+      "package": "@radix-ui/react-scroll-area",
+      "version": "1.2.18",
+      "upstreamDirectory": "packages/react/scroll-area",
+      "integrity": "sha512-Zn5Cd171wxsO3Dfg8HaW6RifTb9CYTKQJHs/G4+LN1GfmJpaQMZQyQxMprVPHpaz7QY4l9BxK2JwQuzHsXC8nA==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-separator",
+      "version": "1.1.15",
+      "upstreamDirectory": "packages/react/separator",
+      "integrity": "sha512-jOLO4lssEzWpoDu7G+Ze4VjwMRUBt291pnZD0gmalREZipnTX3wadQo7Fy48GCTfe14/YRN6rw/rOJqrE85Wxw==",
       "license": "MIT"
     },
     {
@@ -178,6 +159,27 @@
       "version": "1.3.3",
       "upstreamDirectory": "packages/react/slot",
       "integrity": "sha512-qx7oqnYbxnK9kYI9m317qmFmEgo6ywqWvbTogdj7cL9p3/yx4M48p7Rnw5z3H890cL/ow/EeWJsuTykeZVXP5Q==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-switch",
+      "version": "1.3.7",
+      "upstreamDirectory": "packages/react/switch",
+      "integrity": "sha512-48tB/4dn2UVLBCYhTu9AuR63IHl73l/qLbLgxd86noTUor4/K4LFDAcYjK+isP5313qxaFpjPVogE7+Y0/V3Kw==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-tabs",
+      "version": "1.1.21",
+      "upstreamDirectory": "packages/react/tabs",
+      "integrity": "sha512-UKxJlZid7FVtsk/WTxj4i4uSEgj2Au+KBbS7SQyTlzMhhn+86Cz3tISZdTa87bfEfcuvZezf2ZsxD4xuEKtkog==",
+      "license": "MIT"
+    },
+    {
+      "package": "@radix-ui/react-toast",
+      "version": "1.2.23",
+      "upstreamDirectory": "packages/react/toast",
+      "integrity": "sha512-ofhyAsYaocRGOs/n0XWdUOSVzEAG6BfrMVM8z0c0kLEWY38w/0WuMFPTJP/HVaZPYkMvHZoKIIhNcjbTCBILPg==",
       "license": "MIT"
     },
     {
@@ -216,13 +218,6 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-use-previous",
-      "version": "1.1.4",
-      "upstreamDirectory": "packages/react/use-previous",
-      "integrity": "sha512-XoSLhbRbqxFtgJoi2fNHA3C6pDlY34x508vUpUGoFZfvePfHXHbE1lC4FYFMnJWgiCRroSTw6fOsXQoVS9RwZg==",
-      "license": "MIT"
-    },
-    {
       "package": "@radix-ui/react-use-size",
       "version": "1.1.4",
       "upstreamDirectory": "packages/react/use-size",
@@ -234,13 +229,6 @@
       "version": "1.2.11",
       "upstreamDirectory": "packages/react/visually-hidden",
       "integrity": "sha512-NFS86RYYZb4/exihaESBGOpMJFz8MGLAfu3mOBSGByVnVPC9JPASfYubxd/8KbkQK0sYAv8lVQDEQukDX/qXvQ==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/rect",
-      "version": "1.1.3",
-      "upstreamDirectory": "packages/core/rect",
-      "integrity": "sha512-JtyZR+mqgBibTo8xea3B6ZRmzZiM/YeVBtUkas6zMuXjAlfIFIW2FgqeM9eLyvEaYX66vr6DJMK+4U6LV0KhNw==",
       "license": "MIT"
     }
   ],
@@ -281,18 +269,60 @@
       "localSha256": "469327678ccf38e9ac98cd971880a51a56631f5ebaf3c8cb46141ce3bb090ff0"
     },
     {
-      "path": "src/primitives/vendor/radix/react-arrow/arrow.tsx",
-      "upstreamPath": "packages/react/arrow/src/arrow.tsx",
-      "originalSha256": "16d53f4459da7c4ce3c4d96737680195a73f6845b98e4187df6afc1568e4d737",
+      "path": "src/primitives/vendor/radix/react-accordion/accordion.tsx",
+      "upstreamPath": "packages/react/accordion/src/accordion.tsx",
+      "originalSha256": "10113d3bdcb01cd05beaa017dcd1c5adacc3c2e2604afe732199cf1fb8fa7609",
       "origin": "published-source-map",
-      "localSha256": "163208c0460dd5fe67c6f347f67c17ce97258956e1299835933caf5cf6b73d51"
+      "localSha256": "5b0264bdea405608c8670b604dbb479b41825d71e11c1a8a8bd6206e4f78e7c4"
     },
     {
-      "path": "src/primitives/vendor/radix/react-arrow/index.ts",
-      "upstreamPath": "packages/react/arrow/src/index.ts",
-      "originalSha256": "4bc422a1274465d603603f641f9a0ede9019a69b430a30f998167ae52bf9addf",
+      "path": "src/primitives/vendor/radix/react-accordion/index.ts",
+      "upstreamPath": "packages/react/accordion/src/index.ts",
+      "originalSha256": "2e0ac81ed82d80bc3efba5a4588bf40e8ce618e52f15d3579db299c05819b2c1",
       "origin": "release-commit",
-      "localSha256": "e53998a29922f1a22956c4083fb9c503285546ea45e57ae3981c9c16dafcff67"
+      "localSha256": "ca8f6efef2b0e392c60096430760ef81bd78d74d665cae49ba767c660ac4d5ea"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-avatar/avatar.tsx",
+      "upstreamPath": "packages/react/avatar/src/avatar.tsx",
+      "originalSha256": "0208650e4ec694475e8d1a15446858af9ed5ae1d68c76070bbb524380b679df0",
+      "origin": "published-source-map",
+      "localSha256": "4851d59f39896092d1f129b2403e881d67976266abb0c5a2b4eb6862ea29e355"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-avatar/index.ts",
+      "upstreamPath": "packages/react/avatar/src/index.ts",
+      "originalSha256": "52c6ad8b5f1e9ef2c22068c8836b448f11f0f793e2452af30c59ce0252a4ee00",
+      "origin": "release-commit",
+      "localSha256": "2d133d7e99a82acf7a05255e5fc383e39990c669d273e2aaf4187e07b77a3829"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-checkbox/checkbox.tsx",
+      "upstreamPath": "packages/react/checkbox/src/checkbox.tsx",
+      "originalSha256": "bb1e37c0866708188435580f9ed52c39a8900ae33ff22e7cabf7be2cad777e46",
+      "origin": "published-source-map",
+      "localSha256": "e82f5789493c53202c58d38bfca6bcfa23d3fb4d072fe45dc844688bb2153362"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-checkbox/index.ts",
+      "upstreamPath": "packages/react/checkbox/src/index.ts",
+      "originalSha256": "c00c9b2f78d3867ea58ba769747105645c2e1231ac7538a70110bbc786d8b44e",
+      "origin": "release-commit",
+      "localSha256": "ad5282b71f911c8d30393eaaf1beaf923519456cabca4d0f821d14187d449a0d"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-collapsible/index.ts",
+      "upstreamPath": "packages/react/collapsible/src/index.ts",
+      "originalSha256": "3b2f177ecc47f031ea5e5324478b4f3d1f06acc179abef273f04edea756e57c9",
+      "origin": "release-commit",
+      "localSha256": "abe0371d6c318f182b01e8cbf36ebac3a7cc47859ac646d7938d4562bc05c8d4"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-collapsible/collapsible.tsx",
+      "upstreamPath": "packages/react/collapsible/src/collapsible.tsx",
+      "originalSha256": "6143f3b2fe641af9910678ddaccaa7c6134ccce1eaa3f388f15c6fdc694f8858",
+      "origin": "published-source-map",
+      "localSha256": "813313d758ff6699cc6a88d3ac1526103d75969df07914f4e39601bf784407a4"
     },
     {
       "path": "src/primitives/vendor/radix/react-collection/collection.tsx",
@@ -351,34 +381,6 @@
       "localSha256": "51d4a8183218f1749c002ac84522f4b68125acc8326173a0899d4cc3777a4f74"
     },
     {
-      "path": "src/primitives/vendor/radix/react-context-menu/context-menu.tsx",
-      "upstreamPath": "packages/react/context-menu/src/context-menu.tsx",
-      "originalSha256": "91b0764ec4f5e336bb4e3f5ca4f7f93e274871855836d3461d0d782136b57f48",
-      "origin": "published-source-map",
-      "localSha256": "edcdec63a8119d2c0bb9edfb49bd3834406c2b974c4866de68972c39650c2872"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-context-menu/index.ts",
-      "upstreamPath": "packages/react/context-menu/src/index.ts",
-      "originalSha256": "662af479e4ca74eb53e1a9cd074426466a3faeff6f577a077f403c086c72d11f",
-      "origin": "release-commit",
-      "localSha256": "82d90b6fe5195873f8d272a5b8af20bbcf3691d69458c613ceedf19b77acd43e"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-dialog/dialog.tsx",
-      "upstreamPath": "packages/react/dialog/src/dialog.tsx",
-      "originalSha256": "1501527aeb27fa733707563fb15f8b3f120e8947abee579bd41da2a048dae32c",
-      "origin": "published-source-map",
-      "localSha256": "02a346b12a3293d838b88a6a2f3c8d92e7ffedc96d9ab0b3bd3121ec0f946dfe"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-dialog/index.ts",
-      "upstreamPath": "packages/react/dialog/src/index.ts",
-      "originalSha256": "182141eabebfae4453fcd1760c6036d6bdc1292852f4fc4894680dd576628eec",
-      "origin": "release-commit",
-      "localSha256": "4aaea5fab863ccc61cab8e9d7104a1ac015820438295aaa9fda37fe975b0ba6c"
-    },
-    {
       "path": "src/primitives/vendor/radix/react-direction/direction.tsx",
       "upstreamPath": "packages/react/direction/src/direction.tsx",
       "originalSha256": "342eea1d875b1c385e4a0bd35126405dde9cac6b7bdf6d0ebf4bc99a2a938974",
@@ -407,48 +409,6 @@
       "localSha256": "fac9b517e28682c569e82b419c73390dc2c5110a0772d01f556f71023b7316ea"
     },
     {
-      "path": "src/primitives/vendor/radix/react-dropdown-menu/dropdown-menu.tsx",
-      "upstreamPath": "packages/react/dropdown-menu/src/dropdown-menu.tsx",
-      "originalSha256": "cf7ee007f9d18b39510adc09d563631e85c2b8d11ff9c11cd8a1fbe800d28ed7",
-      "origin": "published-source-map",
-      "localSha256": "e2136ff4485357869938de77632e7d1f663bcced2d175b74b61c9b9932e2894d"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-dropdown-menu/index.ts",
-      "upstreamPath": "packages/react/dropdown-menu/src/index.ts",
-      "originalSha256": "a2e23cc2bb536819a20a9638b504cbb05737d4eed92a216da7cc022d9c6d2e81",
-      "origin": "release-commit",
-      "localSha256": "bf51f104638ab0f74c147321b680fd091cb9d4902791c4d8508b0d7107bc27e7"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-focus-guards/focus-guards.tsx",
-      "upstreamPath": "packages/react/focus-guards/src/focus-guards.tsx",
-      "originalSha256": "b7b9ec9b0444a597b13a6696ac74a8ef3e51278f1d214b4ee1ebb59ca7282aef",
-      "origin": "published-source-map",
-      "localSha256": "963558bac14761d2f2f42ccfb89701fe57aee09a2dfe68689642ab49edde1cfc"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-focus-guards/index.ts",
-      "upstreamPath": "packages/react/focus-guards/src/index.ts",
-      "originalSha256": "fd4abf0f7ac0d8cfff383118775a784cfa1bfecde5c55e39c21d69bb284138c7",
-      "origin": "release-commit",
-      "localSha256": "a6a6da6b8465686e5ed2bcb1be17eca10aa83c714f516bb0204624a9517bf964"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-focus-scope/focus-scope.tsx",
-      "upstreamPath": "packages/react/focus-scope/src/focus-scope.tsx",
-      "originalSha256": "16940c4efb6a8df6d0e1ffd1ac1115843104af02f3e0aef6865225ccdf1972d7",
-      "origin": "published-source-map",
-      "localSha256": "d59bd3cd85d614b89bd1152e9f06c02981db85321b9f185dc2a7b6520475dfb1"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-focus-scope/index.ts",
-      "upstreamPath": "packages/react/focus-scope/src/index.ts",
-      "originalSha256": "5285cf2d4305c063196d1cec5e11f6b6b6b644e131b4dcec84ce85c5356f4fb9",
-      "origin": "release-commit",
-      "localSha256": "df46450474a62fc1756ca484b86447f92eecdf4eba6b51be53cf4468a846e83c"
-    },
-    {
       "path": "src/primitives/vendor/radix/react-id/id.tsx",
       "upstreamPath": "packages/react/id/src/id.tsx",
       "originalSha256": "f9dad475d2ec3fd8f64837d71bbd1f651707c5cfae1bc4adb2137bb5cc0ec5ad",
@@ -463,60 +423,18 @@
       "localSha256": "ce197585495d2e5efc12dcc648950ac4de4f4836a6db3519673251c86980c862"
     },
     {
-      "path": "src/primitives/vendor/radix/react-menu/index.ts",
-      "upstreamPath": "packages/react/menu/src/index.ts",
-      "originalSha256": "da76798aae68d96f37e91877734967d7aadc1b2f1f991d65009ee1b4030492ef",
-      "origin": "release-commit",
-      "localSha256": "c7947c44bb4123c9dad019c3c7c83ca1341d73208d3c49646f9f780558a9a9f7"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-menu/menu.tsx",
-      "upstreamPath": "packages/react/menu/src/menu.tsx",
-      "originalSha256": "5288cdb5e72bc44029601e476c0663635c6c8422d91107fe2acd880452563793",
+      "path": "src/primitives/vendor/radix/react-label/label.tsx",
+      "upstreamPath": "packages/react/label/src/label.tsx",
+      "originalSha256": "c4eb235fef2576c4db5cc7c29e8bd41c740a0493d2c7cc6fb655bd361336ae77",
       "origin": "published-source-map",
-      "localSha256": "f4d76f9049e649c623e478b982f433108991368b0ac2a0beccabbb31dbd61959"
+      "localSha256": "fcd757ce6ddb3ecdb6237556cf348875c195efe6dc87c10fc52d7e2ef9b047b8"
     },
     {
-      "path": "src/primitives/vendor/radix/react-menubar/index.ts",
-      "upstreamPath": "packages/react/menubar/src/index.ts",
-      "originalSha256": "aa1765aa0e1b04e0180a7ae66ae22fb3061c6079e678abbd02dc860e4b26cb14",
+      "path": "src/primitives/vendor/radix/react-label/index.ts",
+      "upstreamPath": "packages/react/label/src/index.ts",
+      "originalSha256": "f941248d525a90a5f1a377a5ae01512075b1c9e7dbd55ec6da6092e5f75c0b34",
       "origin": "release-commit",
-      "localSha256": "f06c390e8e0449951bc9bad8851cbcb2a367e3f6d39a91f6398a36a0e54438cf"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-menubar/menubar.tsx",
-      "upstreamPath": "packages/react/menubar/src/menubar.tsx",
-      "originalSha256": "a7d7e7e52ad8bef38a1b6b94f201648cd982c8a0e96826f8db89d84be4b1351b",
-      "origin": "published-source-map",
-      "localSha256": "3647c1bc218598511c2a168f65ee14effad946d2c940ebb4b75760efb1f62835"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-navigation-menu/navigation-menu.tsx",
-      "upstreamPath": "packages/react/navigation-menu/src/navigation-menu.tsx",
-      "originalSha256": "bb63ffea27556178281d0ffd63739147cfda5a4d86dc480847fc06bf9f8b6b21",
-      "origin": "published-source-map",
-      "localSha256": "1f280b50d2a24056c8f7ad9626b5a27ed61fbfbb5fff85620cdfd9096f5cf9e0"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-navigation-menu/index.ts",
-      "upstreamPath": "packages/react/navigation-menu/src/index.ts",
-      "originalSha256": "fc2e14ec8d8aaf0b3d58c2676a1b451e76a0feda3c71bebc69a30d618918abe5",
-      "origin": "release-commit",
-      "localSha256": "dd497de333047a728670833e0c82a4fb6a09ff38bffd2a967b76c369995d92e2"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-popper/popper.tsx",
-      "upstreamPath": "packages/react/popper/src/popper.tsx",
-      "originalSha256": "e03cff34241579d0bdd79f21dc42a247f32be2f4c63a889e7955c770f61d9ef1",
-      "origin": "published-source-map",
-      "localSha256": "6e7d7e2f198b76147a57922e8dc05f42da7b0ebacbeda6baf56982a6c647d78d"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-popper/index.ts",
-      "upstreamPath": "packages/react/popper/src/index.ts",
-      "originalSha256": "744ee5992ef44cbd22cd97856c3494f3527f83c3b523c862bd3bb65a4daf85a9",
-      "origin": "release-commit",
-      "localSha256": "b298d193ed2f1d01ea798bfc27cd30016d77e3a55231630075f18ff91d71fc9b"
+      "localSha256": "ca3866f8ac8538dfdab77e8460e812d35c6bff98faac075e09c254994fbed402"
     },
     {
       "path": "src/primitives/vendor/radix/react-portal/portal.tsx",
@@ -568,6 +486,41 @@
       "localSha256": "54ca4de074cebfc052b7cb50dc9e75c3db407271275f28e7c4a09bc6c5817d66"
     },
     {
+      "path": "src/primitives/vendor/radix/react-progress/progress.tsx",
+      "upstreamPath": "packages/react/progress/src/progress.tsx",
+      "originalSha256": "c8a5f01d48d898905ed960993de7414bf740a19906ac17885a89312ca617cd81",
+      "origin": "published-source-map",
+      "localSha256": "53f6bd08d0517dd51552a8d06a965e8e72c41530421600a4aff1c4df8a3415a3"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-progress/index.ts",
+      "upstreamPath": "packages/react/progress/src/index.ts",
+      "originalSha256": "e98db4662a2338f2fc8cd8438f7c8c094fd23eccbe395b07481ab72f11aa6019",
+      "origin": "release-commit",
+      "localSha256": "d2b249d5003c36801c328f98962300dd15c22d7e0b8bda773332d60bb614e5f5"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-radio-group/radio-group.tsx",
+      "upstreamPath": "packages/react/radio-group/src/radio-group.tsx",
+      "originalSha256": "743953f5cc819ed5df0c56e426bfefbfbbcd7c2b818a02134115324f9701dff1",
+      "origin": "published-source-map",
+      "localSha256": "84d21af54d1053cb74096fc45d1a3520d520795d86f5b2c2b52eac0d9ca5e6ff"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-radio-group/radio.tsx",
+      "upstreamPath": "packages/react/radio-group/src/radio.tsx",
+      "originalSha256": "df2b442ad277284ae8d855cd1e72ef83288af79141baecd99d840547754407b9",
+      "origin": "published-source-map",
+      "localSha256": "20cc02a3b7cacd07e5e71c2f72b68da1c78fef45d43cb747d8903a57abbd5501"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-radio-group/index.ts",
+      "upstreamPath": "packages/react/radio-group/src/index.ts",
+      "originalSha256": "7abf3e8a9818007cf0f8b133661a0c3b0e8c460aff739ce1a64b8082b6d2019b",
+      "origin": "release-commit",
+      "localSha256": "5bcc6ef37427a2692b11105a45b6fe6da2219eceaa011a73ddc4374cf41d8d36"
+    },
+    {
       "path": "src/primitives/vendor/radix/react-roving-focus/roving-focus-group.tsx",
       "upstreamPath": "packages/react/roving-focus/src/roving-focus-group.tsx",
       "originalSha256": "ac5ce96450e72f57a9d57f291f45c06362421db45d6ec8c6575855a079975892",
@@ -582,18 +535,39 @@
       "localSha256": "a8dfe1551a73d44530d30fa204ffa0196659b1954a42e8e1013fdbe85d90c3d9"
     },
     {
-      "path": "src/primitives/vendor/radix/react-select/select.tsx",
-      "upstreamPath": "packages/react/select/src/select.tsx",
-      "originalSha256": "57fe4ddf0f3ee4287acd155fa95fc1d9d65b2007636ae97b8b86b03414b1001e",
+      "path": "src/primitives/vendor/radix/react-scroll-area/scroll-area.tsx",
+      "upstreamPath": "packages/react/scroll-area/src/scroll-area.tsx",
+      "originalSha256": "30d55a6d287d3d8d7426d726e74d41ce2c9085e87f4549472c989a26579b949f",
       "origin": "published-source-map",
-      "localSha256": "eac366fd3b5636e9ac564d9fed021808620892047158507b7d9eddedb99eb2b6"
+      "localSha256": "aa0253b7b57282f6d1b461152aef65530110d20ff76fef8cc2d158b87c383090"
     },
     {
-      "path": "src/primitives/vendor/radix/react-select/index.ts",
-      "upstreamPath": "packages/react/select/src/index.ts",
-      "originalSha256": "7d6325b93b5cb6edcece15cb3091787568e6611ceb06fd6f309f8769f82958b3",
+      "path": "src/primitives/vendor/radix/react-scroll-area/index.ts",
+      "upstreamPath": "packages/react/scroll-area/src/index.ts",
+      "originalSha256": "4f6e4edd84e0f0c5880e12c4c67433dc3352ab459549075be4b7aa63c999666d",
       "origin": "release-commit",
-      "localSha256": "425288297a8a3bfe5ea9983ae886b4507d6f2c4fa0354455e8554ed03c01eda0"
+      "localSha256": "c7c298c968383a2fced3e9733c3ee6c0deda50832b8cc7fe17155faa2d0f3b5f"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-scroll-area/use-state-machine.ts",
+      "upstreamPath": "packages/react/scroll-area/src/use-state-machine.ts",
+      "originalSha256": "a0afe9cc8e679e3db94880d47409d009cdab89a55e3dfc1ead5dab04fd75269b",
+      "origin": "published-source-map",
+      "localSha256": "5c114aad276339f06bd794656b81454791f4bbeb27ce37080bfc00fcec366a59"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-separator/separator.tsx",
+      "upstreamPath": "packages/react/separator/src/separator.tsx",
+      "originalSha256": "db4e1bbf19f0f93834a7bfbe2a1c6d5b9144b4cc57bbf63e0420d7da745fea26",
+      "origin": "published-source-map",
+      "localSha256": "317a3c8f1f88604895ccfeff41c355464734acf74da5b79ca4b5e95ea09ffe3d"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-separator/index.ts",
+      "upstreamPath": "packages/react/separator/src/index.ts",
+      "originalSha256": "09647a96bb3dd9051639f3ac61505fc7d9f348ff08413ad892cd53adf809b823",
+      "origin": "release-commit",
+      "localSha256": "4d6c68496c00d4f8e83f8054414837dafb2c4be303dc04ee4f1d3296f0652b5f"
     },
     {
       "path": "src/primitives/vendor/radix/react-slot/slot.tsx",
@@ -608,6 +582,48 @@
       "originalSha256": "a799e06eaf217229e8d50d11417fcfeab3b9b477c25d2d6f6c8855353cb17946",
       "origin": "release-commit",
       "localSha256": "4afae1d9e66d056c68b9d742551f8a977c4b78685c35d8d52ac93ce8ed4053d3"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-switch/switch.tsx",
+      "upstreamPath": "packages/react/switch/src/switch.tsx",
+      "originalSha256": "225dad345bf1d5322290e55dbac9c4a6177708703f485a91a1ac46d785ab7b2b",
+      "origin": "published-source-map",
+      "localSha256": "d3c6a5dbfc6428c61c3b39f78ed724e53d74c73677109b53f3c175d1f4f5d688"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-switch/index.ts",
+      "upstreamPath": "packages/react/switch/src/index.ts",
+      "originalSha256": "b072d583731285ef1aa45be1acd5213e1341f9a12fa1ab04716c9b9001a8176d",
+      "origin": "release-commit",
+      "localSha256": "5201558856d39fba3f5dd93f9ac27ab13b6611072003ceee0f743d6f7da52f39"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-tabs/tabs.tsx",
+      "upstreamPath": "packages/react/tabs/src/tabs.tsx",
+      "originalSha256": "b007afbe91d1c7fabf4ba1cf3c6290bf4005df1b8ce66cf82bf07543a7eb0364",
+      "origin": "published-source-map",
+      "localSha256": "cb604989fdb10e5e45323278db5583004b6b6e0cd731360679c8fef0702cd370"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-tabs/index.ts",
+      "upstreamPath": "packages/react/tabs/src/index.ts",
+      "originalSha256": "eb4550367bc86cfdf12ca5923b6c713d443784f0d25163867c5cfda8bbeaf92e",
+      "origin": "release-commit",
+      "localSha256": "ed8096ba38714c2850a6346f63330b4727698b07b4d272c1a8c5407f58d05bf5"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-toast/toast.tsx",
+      "upstreamPath": "packages/react/toast/src/toast.tsx",
+      "originalSha256": "61a929822d1634ea242bdcf6323eaa958c3479c280d5628ce4322a0ca1ce42cd",
+      "origin": "published-source-map",
+      "localSha256": "f9d16c8929f7e94fb063e78ab80cc095dd8e891ca506d776b0413c0ce204f929"
+    },
+    {
+      "path": "src/primitives/vendor/radix/react-toast/index.ts",
+      "upstreamPath": "packages/react/toast/src/index.ts",
+      "originalSha256": "bd215438000cdd7558d0c57c83deedca154a9f8309a0b3832dc8563e9dd54fad",
+      "origin": "release-commit",
+      "localSha256": "b40b1ccc19e43eb56a14791f3d3aa85ed5463ce2d1c0a19bb6172acf6b8db2c7"
     },
     {
       "path": "src/primitives/vendor/radix/react-use-callback-ref/use-callback-ref.tsx",
@@ -694,20 +710,6 @@
       "localSha256": "364a93b53856c43f8867bc9944500e4f50eec2b66862d6fb33978c25d2676774"
     },
     {
-      "path": "src/primitives/vendor/radix/react-use-previous/use-previous.tsx",
-      "upstreamPath": "packages/react/use-previous/src/use-previous.tsx",
-      "originalSha256": "7298caa3779de9ad02ec27197d9b809ec06094eb5da38ecfa6753ca788ffe95d",
-      "origin": "published-source-map",
-      "localSha256": "2f4abe2a46cb787d8c8bd8fc5913cc9b86881fb08fe8981d05b3b92eb0e49f61"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-use-previous/index.ts",
-      "upstreamPath": "packages/react/use-previous/src/index.ts",
-      "originalSha256": "27d3f13af78c0c2d6fff7b2673386dcf92ffdd3cebe2bcc2a140606dbb4642d2",
-      "origin": "release-commit",
-      "localSha256": "b21844aa2637ff90ccd8be92b7a636ca9b1ca5f41fab67009e4bc24568d103d6"
-    },
-    {
       "path": "src/primitives/vendor/radix/react-use-size/use-size.tsx",
       "upstreamPath": "packages/react/use-size/src/use-size.tsx",
       "originalSha256": "d92367c08decbe6600d4a688983e4d87bc6924928a61509e2fca455fd6b35ff3",
@@ -736,71 +738,43 @@
       "localSha256": "3501cc158355863160a78ec12bddbdb5a9bcdbb91d34e6d7782cdc4b6624cdaf"
     },
     {
-      "path": "src/primitives/vendor/radix/rect/observe-element-rect.ts",
-      "upstreamPath": "packages/core/rect/src/observe-element-rect.ts",
-      "originalSha256": "68eb76924f7ea48d518e382f5a89b1668aa2e600b2fc21ab102f55052a9a4f94",
-      "origin": "published-source-map",
-      "localSha256": "02397a1baedaed7d44e16d93b25a66a86ad2cb2f138b46b027e2c3e7310ed40b"
-    },
-    {
-      "path": "src/primitives/vendor/radix/rect/index.ts",
-      "upstreamPath": "packages/core/rect/src/index.ts",
-      "originalSha256": "289d09c092b9f4e2e5e7a66052c70fba64a4b07b45346bb8bbcfd2f82d036af1",
-      "origin": "release-commit",
-      "localSha256": "b1d909ac96c9435c61384f9dff99d3837e6a44555fe7e04705eb1ea873178e58"
-    },
-    {
-      "path": "src/primitives/vendor/cmdk/index.tsx",
-      "upstreamPath": "cmdk/src/index.tsx",
-      "originalSha256": "3ca0e61686834305043a4c5000ee0ada7322988df85340067ad1894b734820a6",
-      "localSha256": "5dd5e8299f250de10fd3515c8d157aba809f483fdf5ae676e75b5c9b00d9999b"
-    },
-    {
-      "path": "src/primitives/vendor/cmdk/command-score.ts",
-      "upstreamPath": "cmdk/src/command-score.ts",
-      "originalSha256": "ccfd0d66e3d31b8197fc4dbb217c9672e7562569775ec3a4f3b7e567eb81dfc7",
-      "localSha256": "88b7464be431c001801cb582578b83bb99a8275dc48a383732b4c0ade4a2bf05"
-    },
-    {
       "path": "src/primitives/vendor/radix/primitive/is-development.ts",
       "origin": "local conditional-export adapter",
       "originalSha256": null,
       "localSha256": "b19728b2122682bc81588f1be48f760d47caf9a9a3baf12e8ca47be5f648f5dc"
     }
   ],
-  "retainedExternalDependencies": ["@floating-ui/react-dom", "aria-hidden", "react-remove-scroll"],
+  "retainedExternalDependencies": [],
   "replacedByOwnPrimitives": {
-    "note": "Modules that have a Burtson-owned equivalent under src/primitives. The ones still listed in `files` stay only because other vendored modules import them; nothing outside src/primitives/vendor may import them (scripts/verify-vendor.mjs).",
+    "note": "Modules that have a Burtson-owned equivalent under src/primitives. The ones still listed in files stay only because other vendored modules import them; nothing outside src/primitives/vendor may import them (scripts/verify-vendor.mjs).",
     "deleted": [
       "radix/react-popover",
       "radix/react-tooltip",
       "radix/react-alert-dialog",
-      "radix/react-accordion",
-      "radix/react-avatar",
-      "radix/react-checkbox",
-      "radix/react-collapsible",
-      "radix/react-label",
-      "radix/react-progress",
-      "radix/react-radio-group",
-      "radix/react-scroll-area",
-      "radix/react-separator",
-      "radix/react-switch",
-      "radix/react-tabs",
-      "radix/react-toast"
+      "radix/react-menu",
+      "radix/react-dropdown-menu",
+      "radix/react-context-menu",
+      "radix/react-menubar",
+      "radix/react-select",
+      "radix/react-navigation-menu",
+      "cmdk",
+      "radix/react-dialog",
+      "radix/react-popper",
+      "radix/react-arrow",
+      "radix/react-focus-scope",
+      "radix/react-focus-guards",
+      "radix/react-use-previous",
+      "radix/rect"
     ],
     "retainedForVendoredImporters": {
-      "radix/react-dialog": "cmdk",
-      "radix/react-slot": "react-collection, react-dialog, react-menu, react-primitive, react-select",
+      "radix/react-collapsible": "react-accordion",
+      "radix/react-slot": "react-collection, react-primitive",
       "radix/react-compose-refs": "most vendored modules",
-      "radix/react-presence": "react-dialog, react-menu, react-navigation-menu, react-select",
-      "radix/react-portal": "react-dialog, react-menu, react-select",
-      "radix/react-dismissable-layer": "react-dialog, react-menu, react-navigation-menu, react-select",
-      "radix/react-focus-scope": "react-dialog, react-menu, react-select",
-      "radix/react-focus-guards": "react-dialog, react-menu, react-select",
-      "radix/react-popper": "react-menu, react-select",
-      "radix/react-arrow": "react-popper",
-      "radix/react-collection": "react-menu, react-menubar, react-navigation-menu, react-roving-focus, react-select",
-      "radix/react-roving-focus": "react-menu, react-menubar",
+      "radix/react-presence": "react-checkbox, react-radio-group, react-scroll-area, react-tabs, react-toast",
+      "radix/react-portal": "react-toast",
+      "radix/react-dismissable-layer": "react-toast",
+      "radix/react-collection": "react-accordion, react-roving-focus, react-toast",
+      "radix/react-roving-focus": "react-radio-group, react-tabs",
       "radix/react-id": "most vendored modules",
       "radix/react-use-controllable-state": "most vendored modules",
       "radix/react-use-callback-ref": "most vendored modules",

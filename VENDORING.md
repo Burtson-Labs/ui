@@ -11,8 +11,8 @@ primitives. This file is the plan and the current state.
   cmdk, Floating UI, React Aria, Headless UI, Base UI or Zag. Design notes and
   the reasons behind each behaviour are in
   [src/primitives/README.md](src/primitives/README.md).
-- `src/primitives/vendor/`: the remaining Radix Primitives and cmdk ports (MIT,
-  their original licenses), pending phase 2.
+- `src/primitives/vendor/`: the remaining Radix Primitives ports (MIT, their
+  original licenses), pending the rest of phase 2.
 
 ### Phase 1 (done): foundation and the overlay family
 
@@ -33,39 +33,41 @@ Vendored modules deleted because nothing imports them any more:
 Vendored modules that have a Burtson equivalent but stay on disk because other
 vendored modules import them (listed in `vendor-manifest.json` under
 `replacedByOwnPrimitives.retainedForVendoredImporters`): `react-dialog` (cmdk),
-`react-slot`, `react-compose-refs`,
+`react-collapsible` (accordion), `react-slot`, `react-compose-refs`,
 `react-presence`, `react-portal`, `react-dismissable-layer`, `react-focus-scope`,
 `react-focus-guards`, `react-popper`, `react-arrow`, `react-collection`,
 `react-roving-focus`, `react-id`, `react-use-controllable-state`,
 `react-use-callback-ref`, `react-use-layout-effect`. `npm run vendor:check`
 fails if anything outside `src/primitives/vendor` imports one of them.
 
-### Phase 2, part B (done): tabs, accordion, form controls, toast, scroll area
+### Phase 2a (done): menus, Select, Command, NavigationMenu
 
-New modules: `tabs`, `accordion` (on `collapsible`), `checkbox`, `radio-group`,
-`switch`, `form-proxy` (native form participation for the three button-based
-controls), `toast`, `scroll-area`, `avatar`, `progress`, `separator`, `label`.
+Own modules: `pointer-intent`, `menu`, `dropdown-menu`, `context-menu`,
+`menubar`, `select`, `command-score`, `command`, `navigation-menu`.
 
-Components now on them: Tabs, Accordion, Checkbox (CheckboxRow, CheckboxCard),
-RadioGroup (RadioCard), Switch (SwitchRow, InlineSwitch), Toast and Toaster,
-ScrollArea, Avatar, Progress, Separator, Label.
+Components now on them: DropdownMenu, ContextMenu, Menubar, Select, Command
+(and Combobox, ModelPicker, Pagination, DataTable, ChatHistory through them),
+NavigationMenu.
 
 Vendored modules deleted because nothing imports them any more:
-`radix/react-tabs`, `radix/react-accordion`, `radix/react-collapsible`,
-`radix/react-checkbox`, `radix/react-radio-group`, `radix/react-switch`,
-`radix/react-toast`, `radix/react-scroll-area`, `radix/react-avatar`,
-`radix/react-progress`, `radix/react-separator`, `radix/react-label`.
+`radix/react-menu`, `radix/react-dropdown-menu`, `radix/react-context-menu`,
+`radix/react-menubar`, `radix/react-select`, `radix/react-navigation-menu`,
+`cmdk`, `radix/react-dialog`, `radix/react-popper`, `radix/react-arrow`,
+`radix/react-focus-scope`, `radix/react-focus-guards`,
+`radix/react-use-previous`, `radix/rect`. `LICENSES/cmdk-MIT.txt` and the
+cmdk entry of `audit/upstream-exports.json` went with them.
 
-### Phase 2 (next): everything else
+Dependencies dropped: `@floating-ui/react-dom`, `aria-hidden` and
+`react-remove-scroll`; no vendored module imports them any more.
 
-Menus (dropdown, context, menubar), Select, Command (cmdk), NavigationMenu.
-Each is rewritten on the foundation; the mapping
+### Phase 2 (remaining): the form controls and the rest
+
+Tabs, Accordion, Checkbox, RadioGroup, Switch, Toast, ScrollArea, Avatar,
+Progress, Separator, Label. Each is rewritten on the foundation; the mapping
 from each vendored module to the foundation piece it should use is in
 [src/primitives/README.md](src/primitives/README.md#for-phase-2). When the
-last vendored importer of `@floating-ui/react-dom`, `aria-hidden` and
-`react-remove-scroll` goes, those dependencies go with it, and
-`src/primitives/vendor`, `vendor-manifest.json`, `LICENSES/Radix-MIT.txt`,
-`LICENSES/cmdk-MIT.txt` and `audit/upstream-exports.json` are removed.
+last vendored module goes, `src/primitives/vendor`, `vendor-manifest.json`,
+`LICENSES/Radix-MIT.txt` and `audit/upstream-exports.json` are removed.
 
 ## Rules for both phases
 
@@ -74,10 +76,8 @@ last vendored importer of `@floating-ui/react-dom`, `aria-hidden` and
   `data-align` / `data-disabled` / `data-highlighted`, ref targets.
 - CSS variables: the canonical names are `--bl-anchor-width`,
   `--bl-anchor-height`, `--bl-available-width`, `--bl-available-height`,
-  `--bl-transform-origin`, `--bl-collapsible-content-height/width`,
-  `--bl-accordion-content-height/width`, `--bl-toast-swipe-move-x/y`,
-  `--bl-toast-swipe-end-x/y`, `--bl-scroll-area-thumb-width/height`,
-  `--bl-scroll-area-corner-width/height` and `--bl-scrollbar-gutter`. The older `--radix-*` names are still set as
+  `--bl-transform-origin`, `--bl-collapsible-content-height/width` and
+  `--bl-scrollbar-gutter`. The older `--radix-*` names are still set as
   aliases, deprecated, to be removed in a later major.
 - Clean room: nothing under `src/primitives/vendor` is read while writing a
   replacement, beyond listing exported names.
@@ -92,7 +92,8 @@ last vendored importer of `@floating-ui/react-dom`, `aria-hidden` and
   `579c5b84e10605c302cc919a191ceffa6d56be5c`.
 - Runtime implementation files were recovered from the exact installed packages'
   published source maps.
-- cmdk: `1.1.1`, tag source commit `fb4ea04e9ec211777fbb39c6104e3c5f2ee107d2`.
+- cmdk `1.1.1` (tag source commit `fb4ea04e9ec211777fbb39c6104e3c5f2ee107d2`)
+  was the baseline for the command palette until phase 2a replaced it.
 
 `vendor-manifest.json` records per-package versions and npm integrity values,
 original file hashes, source origins, current local hashes, and the replaced
@@ -103,7 +104,6 @@ modules.
 - `src/components/`: the public Burtson components and existing APIs.
 - `src/primitives/`: Burtson's own primitives.
 - `src/primitives/vendor/radix/`: remaining vendored primitive modules.
-- `src/primitives/vendor/cmdk/`: command menu and scoring implementation.
 - `LICENSES/`: original licenses and generated dependency notices.
 - `audit/upstream-exports.json`: runtime export names captured before removal
   of the installed upstream packages (used by the export-contract test for

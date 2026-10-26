@@ -18,19 +18,11 @@
           "native": false
         },
         {
-          "name": "children",
-          "type": "React.ReactNode",
+          "name": "defaultValue",
+          "type": "string | undefined",
           "required": false,
           "default": null,
           "description": "",
-          "native": false
-        },
-        {
-          "name": "defaultValue",
-          "type": "string | (readonly string[] & string) | undefined",
-          "required": false,
-          "default": null,
-          "description": "Optional default item value when it is initially rendered.",
           "native": false
         },
         {
@@ -38,15 +30,15 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Optionally set to `true` to disable selection via pointer events.",
+          "description": "The pointer does not move the highlight.",
           "native": false
         },
         {
           "name": "filter",
-          "type": "CommandFilter | undefined",
+          "type": "CommandPrimitive.CommandFilter | undefined",
           "required": false,
           "default": null,
-          "description": "Custom filter function for whether each command menu item should matches the given search query.\nIt should return a number between 0 and 1, with 1 being the best match and 0 being hidden entirely.\nBy default, uses the `command-score` library.",
+          "description": "How well a row matches the search, 1 to 0 (hidden). The default is `command-score`.",
           "native": false
         },
         {
@@ -54,7 +46,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Accessible label for this command menu. Not shown visibly.",
+          "description": "Accessible name for the palette. Not shown.",
           "native": false
         },
         {
@@ -62,7 +54,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Optionally set to `true` to turn on looping around when using the arrow keys.",
+          "description": "Up from the first row goes to the last, and back.",
           "native": false
         },
         {
@@ -70,7 +62,7 @@
           "type": "((value: string) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the selected item of the menu changes.",
+          "description": "",
           "native": false
         },
         {
@@ -78,7 +70,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Optionally set to `false` to turn off the automatic filtering and sorting.\nIf `false`, you must conditionally render valid items based on the search query yourself.",
+          "description": "`false` turns automatic filtering and ranking off; render the rows that match yourself.",
           "native": false
         },
         {
@@ -86,7 +78,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Optional controlled state of the selected command menu item.",
+          "description": "The highlighted row's value.",
           "native": false
         },
         {
@@ -94,7 +86,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Set to `false` to disable ctrl+n/j/p/k shortcuts. Defaults to `true`.",
+          "description": "Ctrl+N / Ctrl+J move down and Ctrl+P / Ctrl+K up. On by default.",
           "native": false
         }
       ],
@@ -158,6 +150,7 @@
         "dc75036ec97bc25e",
         "42f2a9579f4fce19",
         "c5550309bddac8c1",
+        "bba29068390f7e42",
         "9e64665cf6f1c2db",
         "717dbb8f9d5266f9",
         "2826f5c330b837e2",
@@ -203,7 +196,6 @@
         "faadec79e96efbfa",
         "704e811e96b151b8",
         "a89e1adbf42496cc",
-        "3a4c17b39d86e7b4",
         "a5d42b54841feda9",
         "86a7b0447ffa9103",
         "e5d0432a3b0e2dec",
@@ -541,14 +533,6 @@
           "default": null,
           "description": "",
           "native": false
-        },
-        {
-          "name": "children",
-          "type": "React.ReactNode",
-          "required": false,
-          "default": null,
-          "description": "",
-          "native": false
         }
       ],
       "inherited": [
@@ -611,6 +595,7 @@
         "dc75036ec97bc25e",
         "42f2a9579f4fce19",
         "c5550309bddac8c1",
+        "bba29068390f7e42",
         "9e64665cf6f1c2db",
         "717dbb8f9d5266f9",
         "2826f5c330b837e2",
@@ -849,19 +834,11 @@
           "native": false
         },
         {
-          "name": "children",
-          "type": "React.ReactNode",
-          "required": false,
-          "default": null,
-          "description": "",
-          "native": false
-        },
-        {
           "name": "forceMount",
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Whether this group is forcibly rendered regardless of filtering.",
+          "description": "Shown even when none of its rows match.",
           "native": false
         },
         {
@@ -869,7 +846,7 @@
           "type": "React.ReactNode",
           "required": false,
           "default": null,
-          "description": "Optional heading to render for this group.",
+          "description": "",
           "native": false
         },
         {
@@ -877,7 +854,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "If no heading is provided, you must provide a value that is unique for this group.",
+          "description": "Names the group when it has no heading.",
           "native": false
         }
       ],
@@ -941,6 +918,7 @@
         "dc75036ec97bc25e",
         "42f2a9579f4fce19",
         "c5550309bddac8c1",
+        "bba29068390f7e42",
         "9e64665cf6f1c2db",
         "717dbb8f9d5266f9",
         "2826f5c330b837e2",
@@ -1183,7 +1161,7 @@
           "type": "((search: string) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the search value changes.",
+          "description": "",
           "native": false
         },
         {
@@ -1191,7 +1169,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Optional controlled state for the value of the search input.",
+          "description": "The search text (controlled).",
           "native": false
         }
       ],
@@ -1521,19 +1499,11 @@
           "native": false
         },
         {
-          "name": "children",
-          "type": "React.ReactNode",
-          "required": false,
-          "default": null,
-          "description": "",
-          "native": false
-        },
-        {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Whether this item is currently disabled.",
+          "description": "",
           "native": false
         },
         {
@@ -1541,7 +1511,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Whether this item is forcibly rendered regardless of filtering.",
+          "description": "Shown even when it does not match.",
           "native": false
         },
         {
@@ -1549,7 +1519,7 @@
           "type": "string[] | undefined",
           "required": false,
           "default": null,
-          "description": "Optional keywords to match against when filtering.",
+          "description": "Also matched by the search.",
           "native": false
         },
         {
@@ -1557,7 +1527,7 @@
           "type": "((value: string) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler for when this item is selected, either via click or keyboard selection.",
+          "description": "Fired when the row runs, by click or Enter.",
           "native": false
         },
         {
@@ -1565,7 +1535,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "A unique value for this item.\nIf no value is provided, it will be inferred from `children` or the rendered `textContent`. If your `textContent` changes between renders, you _must_ provide a stable, unique `value`.",
+          "description": "Identifies the row and is what the search matches; the row's text when omitted.",
           "native": false
         }
       ],
@@ -1629,6 +1599,7 @@
         "dc75036ec97bc25e",
         "42f2a9579f4fce19",
         "c5550309bddac8c1",
+        "bba29068390f7e42",
         "9e64665cf6f1c2db",
         "717dbb8f9d5266f9",
         "2826f5c330b837e2",
@@ -1866,19 +1837,11 @@
           "native": false
         },
         {
-          "name": "children",
-          "type": "React.ReactNode",
-          "required": false,
-          "default": null,
-          "description": "",
-          "native": false
-        },
-        {
           "name": "label",
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Accessible label for this List of suggestions. Not shown visibly.",
+          "description": "Accessible name for the list. Not shown.",
           "native": false
         }
       ],
@@ -1942,6 +1905,7 @@
         "dc75036ec97bc25e",
         "42f2a9579f4fce19",
         "c5550309bddac8c1",
+        "bba29068390f7e42",
         "9e64665cf6f1c2db",
         "717dbb8f9d5266f9",
         "2826f5c330b837e2",
@@ -2176,7 +2140,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "Whether this separator should always be rendered. Useful if you disable automatic filtering.",
+          "description": "Shown while searching too (useful with `shouldFilter={false}`).",
           "native": false
         },
         {

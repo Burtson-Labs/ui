@@ -102,6 +102,7 @@ function DropdownMenu({
         modal={modal}
         triggerRef={triggerRef}
         triggerId={triggerId}
+        contentId={contentId}
         focusOnOpen={focusOnOpen}
         legacyPrefix="dropdown-menu"
       >

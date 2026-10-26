@@ -223,7 +223,7 @@ const guidance: Record<string, string[]> = {
   ],
   combobox: [
     'Label the trigger with aria-label or a connected FieldLabel. Pass aria-describedby for help and errors.',
-    'The combobox trigger opens a search dialog with Enter, Space, or an arrow key; cmdk manages the searchable list inside it. Escape closes and restores focus.',
+    'The combobox trigger opens a search dialog with Enter, Space, or an arrow key; the Command primitive manages the searchable list inside it. Escape closes and restores focus.',
     'Pass name to include the selected value in FormData. Validate required values in your form; hidden inputs do not support native required validation.',
   ],
   field: [

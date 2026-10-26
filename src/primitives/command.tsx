@@ -74,7 +74,11 @@ class CommandStore {
   visibleGroups = new Set<string>();
   count = 0;
   version = 0;
+  /** The DOM is in ranked order (a search sorted it), not the natural order. */
+  sorted = false;
   private order = 0;
+  /** Each row's place in the natural order, kept while it re-registers. */
+  private indices = new Map<string, number>();
   private listeners = new Set<() => void>();
 
   subscribe = (listener: () => void) => {
@@ -96,14 +100,24 @@ class CommandStore {
     this.value = value;
   }
   addItem(record: Omit<ItemRecord, 'index'>) {
-    this.items.set(record.id, { ...record, index: this.order++ });
+    let index = this.indices.get(record.id);
+    if (index === undefined) {
+      index = this.order++;
+      this.indices.set(record.id, index);
+    }
+    this.items.set(record.id, { ...record, index });
   }
   removeItem(id: string) {
     this.items.delete(id);
     this.scores.delete(id);
   }
   addGroup(record: Omit<GroupRecord, 'index'>) {
-    this.groups.set(record.id, { ...record, index: this.order++ });
+    let index = this.indices.get(record.id);
+    if (index === undefined) {
+      index = this.order++;
+      this.indices.set(record.id, index);
+    }
+    this.groups.set(record.id, { ...record, index });
   }
   removeGroup(id: string) {
     this.groups.delete(id);
@@ -114,6 +128,29 @@ class CommandStore {
   }
   isShown(item: ItemRecord): boolean {
     return item.forceMount || (this.scores.get(item.id) ?? 0) > 0;
+  }
+
+  /**
+   * Takes the natural order from the DOM: rows and groups as React placed
+   * them. Called while nothing is sorted, so a row added later gets the
+   * place React gave it rather than the end.
+   */
+  reindexFromDom() {
+    const nodes: { id: string; node: HTMLElement }[] = [];
+    for (const item of this.items.values()) nodes.push({ id: item.id, node: item.node });
+    for (const group of this.groups.values()) nodes.push({ id: group.id, node: group.node });
+    nodes.sort((a, b) =>
+      a.node === b.node
+        ? 0
+        : a.node.compareDocumentPosition(b.node) & Node.DOCUMENT_POSITION_FOLLOWING
+          ? -1
+          : 1,
+    );
+    nodes.forEach(({ id }, index) => this.indices.set(id, index));
+    for (const item of this.items.values()) item.index = this.indices.get(item.id) ?? item.index;
+    for (const group of this.groups.values())
+      group.index = this.indices.get(group.id) ?? group.index;
+    this.order = nodes.length;
   }
 
   /** Scores every row for the search; zero hides it. Groups show when any row does. */
@@ -163,6 +200,7 @@ class CommandStore {
    * registered order when not), so what is read matches what is seen.
    */
   reorder(list: HTMLElement | null, filtering: boolean) {
+    this.sorted = filtering;
     const byRank = (a: Ranked, b: Ranked) => {
       if (filtering && a.score !== b.score) return b.score - a.score;
       return a.index - b.index;
@@ -317,23 +355,39 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
   const dirtyRef = React.useRef(false);
   const filtering = useCallbackRef(() => shouldFilter && Boolean(store.search));
 
+  // The store's value follows the (possibly controlled) prop, before anything
+  // below reads it in the same commit.
+  useIsoLayoutEffect(() => {
+    if (store.value === value) return;
+    store.setValue(value);
+    store.notify();
+  }, [store, value]);
+
   const selectBest = useCallbackRef(() => {
     const first = store.visibleInOrder(filtering())[0];
     const next = first?.value ?? '';
-    if (next !== store.value) setValue(next);
+    if (next !== value) setValue(next);
   });
 
-  /** One pass over everything registered: scores, order, the highlight. */
-  const flush = useCallbackRef(() => {
+  /**
+   * One pass over everything registered: scores, order, the highlight. A
+   * search change always highlights the best row; registrations only move
+   * the highlight when its row is gone.
+   */
+  const flush = useCallbackRef((reason: 'search' | 'rows' = 'rows') => {
     if (!dirtyRef.current) return;
     dirtyRef.current = false;
-    store.refilter(filtering(), score);
-    store.reorder(
-      listRef.current?.querySelector<HTMLElement>('[cmdk-list-sizer]') ?? null,
-      filtering(),
-    );
-    const current = [...store.items.values()].find((item) => item.value === store.value);
-    if (!current || current.disabled || !store.isShown(current)) selectBest();
+    const active = filtering();
+    store.refilter(active, score);
+    const list = listRef.current?.querySelector<HTMLElement>('[cmdk-list-sizer]') ?? null;
+    // Not searching: the DOM is React's order unless a search sorted it, in
+    // which case the natural order is put back first.
+    if (!active && store.sorted) store.reorder(list, false);
+    if (!active) store.reindexFromDom();
+    if (active) store.reorder(list, true);
+    const current = [...store.items.values()].find((item) => item.value === value);
+    if (reason === 'search' || !current || current.disabled || !store.isShown(current))
+      selectBest();
     store.notify();
   });
 
@@ -345,18 +399,11 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
   const schedule = useCallbackRef(() => {
     if (dirtyRef.current) return;
     dirtyRef.current = true;
-    queueMicrotask(flush);
+    queueMicrotask(() => flush('rows'));
   });
   useIsoLayoutEffect(() => {
-    flush();
+    flush('rows');
   });
-
-  // Keep the store's value in step with the (possibly controlled) prop.
-  useIsoLayoutEffect(() => {
-    if (store.value === value) return;
-    store.setValue(value);
-    store.notify();
-  }, [store, value]);
 
   const context = React.useMemo<CommandContextValue>(
     () => ({
@@ -386,7 +433,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
         if (search === store.search) return;
         store.setSearch(search);
         dirtyRef.current = true;
-        flush();
+        flush('search');
       },
       select: (next) => setValue(next),
       isVisible: (id) => {
@@ -448,9 +495,13 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
     const currentGroup = items[current]?.groupId;
     const range =
       step > 0 ? items.slice(current + 1) : items.slice(0, Math.max(current, 0)).reverse();
-    const target = range.find((item) => item.groupId !== currentGroup);
-    if (target) setValue(target.value);
-    else moveHighlight(step, step > 0 ? 'last' : 'first');
+    const neighbour = range.find((item) => item.groupId !== currentGroup);
+    if (!neighbour) {
+      moveHighlight(step, step > 0 ? 'last' : 'first');
+      return;
+    }
+    const first = items.find((item) => item.groupId === neighbour.groupId) ?? neighbour;
+    setValue(first.value);
   };
 
   const Comp = asChild ? Slot : 'div';
@@ -707,33 +758,35 @@ const CommandItem = React.forwardRef<HTMLDivElement, CommandItemProps>(function 
   const nodeRef = React.useRef<HTMLDivElement | null>(null);
   const ref = useComposedRefs(forwardedRef, nodeRef);
   useStoreVersion(context.store);
-  // The value: the prop, else the row's text, read while it is shown and
-  // kept while it is hidden (a hidden row renders no text).
+  // The value: the prop, else the row's text. The text is read from the
+  // node when the row registers (so the first registration already carries
+  // it) and kept while the row is hidden (a hidden row renders no text).
   const [textValue, setTextValue] = React.useState('');
   const value = normalizeValue(valueProp ?? textValue);
   const keywordKey = keywords?.join(KEYWORD_SEPARATOR);
   const { registerItem } = context;
   const mountForce = forceMount || Boolean(group?.forceMount);
   const groupId = group?.id;
+  const visible = mountForce || context.isVisible(id);
   useIsoLayoutEffect(() => {
     const node = nodeRef.current;
     if (!node) return;
+    let registered = value;
+    if (valueProp === undefined && visible) {
+      const text = normalizeValue(node.textContent ?? '');
+      if (text) registered = text;
+      setTextValue((current) => (current === text ? current : text));
+    }
     return registerItem({
       id,
-      value,
+      value: registered,
       keywords: keywordKey === undefined ? undefined : keywordKey.split(KEYWORD_SEPARATOR),
       disabled,
       forceMount: mountForce,
       groupId,
       node,
     });
-  }, [registerItem, id, value, keywordKey, disabled, mountForce, groupId]);
-  const visible = mountForce || context.isVisible(id);
-  useIsoLayoutEffect(() => {
-    if (valueProp !== undefined || !visible) return;
-    const next = (nodeRef.current?.textContent ?? '').trim();
-    setTextValue((current) => (current === next ? current : next));
-  });
+  }, [registerItem, id, value, valueProp, visible, keywordKey, disabled, mountForce, groupId]);
   const selected = context.store.value === value && value !== '';
   const Comp = asChild ? Slot : 'div';
   // A hidden row stays in the tree (its hooks keep it registered) but

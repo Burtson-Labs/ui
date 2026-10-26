@@ -5,7 +5,7 @@
     {
       "name": "NavigationMenu",
       "kind": "component",
-      "description": "Site navigation with dropdown panels (a products menu, docs sections).\nKeyboard and screen-reader behaviour come from Radix; the panel renders in\na shared viewport under the bar, sized to its content.",
+      "description": "Site navigation with dropdown panels (a products menu, docs sections).\nKeyboard and screen-reader behaviour come from the navigation-menu\nprimitive; the panel renders in a shared viewport under the bar, sized to\nits content.",
       "signatures": [],
       "type": null,
       "props": [
@@ -29,13 +29,13 @@
           "name": "delayDuration",
           "type": "number | undefined",
           "required": false,
-          "default": "200",
-          "description": "The duration from when the pointer enters the trigger until the tooltip gets opened.",
+          "default": null,
+          "description": "Milliseconds the pointer rests on a button before its panel opens.",
           "native": false
         },
         {
           "name": "dir",
-          "type": "Direction | undefined",
+          "type": "NavigationMenuPrimitive.Direction | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -51,7 +51,7 @@
         },
         {
           "name": "orientation",
-          "type": "Orientation | undefined",
+          "type": "NavigationMenuPrimitive.Orientation | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -61,8 +61,8 @@
           "name": "skipDelayDuration",
           "type": "number | undefined",
           "required": false,
-          "default": "300",
-          "description": "How much time a user has to enter another trigger without incurring a delay again.",
+          "default": null,
+          "description": "Milliseconds after a panel closes during which the next opens at once.",
           "native": false
         },
         {
@@ -379,19 +379,11 @@
           "native": false
         },
         {
-          "name": "deferPointerDownOutside",
-          "type": "boolean | undefined",
-          "required": false,
-          "default": null,
-          "description": "When `true`, a `'pointerdown'` event outside of the layered element will\nwait for the interaction's click event before dispatching, allowing\nthird-party code to stop propagation of later events and cancel dismissal.",
-          "native": false
-        },
-        {
           "name": "forceMount",
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         },
         {
@@ -399,7 +391,7 @@
           "type": "((event: KeyboardEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the escape key is down.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -407,7 +399,7 @@
           "type": "((event: FocusOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the focus moves outside of the `DismissableLayer`.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -415,7 +407,7 @@
           "type": "((event: PointerDownOutsideEvent | FocusOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when an interaction happens outside the `DismissableLayer`.\nSpecifically, when a `pointerdown` event happens outside or focus moves outside of it.\nCan be prevented.",
+          "description": "Either of the two outside interactions.",
           "native": false
         },
         {
@@ -423,7 +415,7 @@
           "type": "((event: PointerDownOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.\nCan be prevented.",
+          "description": "",
           "native": false
         }
       ],
@@ -730,7 +722,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         }
       ],
@@ -1336,7 +1328,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The current page's link.",
           "native": false
         },
         {
@@ -1352,7 +1344,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Fired when the link is activated; `preventDefault()` keeps the panel open.",
           "native": false
         }
       ],
@@ -2283,7 +2275,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         }
       ],

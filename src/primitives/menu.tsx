@@ -5,6 +5,7 @@ import {
   AnchorProvider,
   Arrow as ArrowPrimitive,
   type ArrowProps,
+  holdPlacement,
   type PositionOptions,
   Positioned,
   useAnchoredPlacement,
@@ -131,6 +132,8 @@ function useMenuLevel(component: string): MenuLevelContextValue {
 export interface MenuCrossNavigation {
   next: () => void;
   previous: () => void;
+  /** Whether a node belongs to the bar: presses and focus there never dismiss its menus. */
+  owns: (target: Node) => boolean;
 }
 export const MenuCrossNavigationContext = React.createContext<MenuCrossNavigation | null>(null);
 
@@ -186,6 +189,8 @@ export interface MenuProps {
   /** The trigger that opened the menu (focus returns to it). Set by DropdownMenu and Menubar. */
   triggerRef?: React.RefObject<HTMLElement | null>;
   triggerId?: string;
+  /** The content's id, when the trigger's `aria-controls` already names one. */
+  contentId?: string;
   /** Set before opening to say where focus goes (keyboard opens focus a row). */
   focusOnOpen?: FocusOnOpenHandle;
   /** Prefix for the deprecated `--radix-<prefix>-content-*` / `-trigger-*` aliases. */
@@ -205,6 +210,7 @@ function Menu({
   modal = true,
   triggerRef: triggerRefProp,
   triggerId,
+  contentId: contentIdProp,
   focusOnOpen: focusOnOpenProp,
   legacyPrefix = 'menu',
 }: MenuProps) {
@@ -213,7 +219,7 @@ function Menu({
   const ownFocusOnOpen = useFocusOnOpen();
   const triggerRef = triggerRefProp ?? ownTriggerRef;
   const focusOnOpen = focusOnOpenProp ?? ownFocusOnOpen;
-  const contentId = useStableId(undefined, 'bl-menu');
+  const contentId = useStableId(contentIdProp, 'bl-menu');
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const root = React.useMemo<MenuRootContextValue>(
     () => ({ open, setOpen, modal, dir, triggerRef, triggerId, legacyPrefix }),
@@ -377,6 +383,7 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
     onFocus,
     onPointerMove,
     onPointerEnter,
+    onPointerDownCapture,
     ...props
   },
   forwardedRef,
@@ -536,14 +543,20 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
           if (target instanceof Node && level.triggerRef.current?.contains(target))
             event.preventDefault();
           else if (sub && target === parentContent?.node.current) event.preventDefault();
+          else if (!sub && target instanceof Node && cross?.owns(target)) event.preventDefault();
         }}
         onInteractOutside={(event) => {
           onInteractOutside?.(event);
           if (event.defaultPrevented) return;
           const target = event.target;
           const press = event.detail.originalEvent.type === 'pointerdown';
-          // The trigger's own press toggles; dismissing here too would close and reopen.
-          if (press && target instanceof Node && level.triggerRef.current?.contains(target)) {
+          // The trigger's own press toggles; dismissing here too would close
+          // and reopen. The same for the other buttons of a menubar.
+          if (
+            press &&
+            target instanceof Node &&
+            (level.triggerRef.current?.contains(target) || (!sub && cross?.owns(target)))
+          ) {
             event.preventDefault();
             return;
           }
@@ -568,6 +581,15 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
             if (event.defaultPrevented) return;
             const fromOutside = dismissedFromOutsideRef.current;
             dismissedFromOutsideRef.current = false;
+            // Focus already moved somewhere live (another row took the
+            // highlight and closed this submenu): leave it there.
+            const active = document.activeElement;
+            const lost =
+              !active || active === document.body || level.contentRef.current?.contains(active);
+            if (!lost) {
+              event.preventDefault();
+              return;
+            }
             if (!fromOutside) return;
             event.preventDefault();
             // Non-modal: the press elsewhere decides where focus goes.
@@ -601,6 +623,18 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
               // The pointer reached a submenu: its parent's grace area is spent.
               parentContent?.setGrace(null);
             })}
+            onPointerDownCapture={(event: React.PointerEvent<HTMLDivElement>) => {
+              onPointerDownCapture?.(event);
+              // The surface stays put until the pointer is released.
+              const release = holdPlacement(event.currentTarget);
+              const done = () => {
+                release();
+                document.removeEventListener('pointerup', done, true);
+                document.removeEventListener('pointercancel', done, true);
+              };
+              document.addEventListener('pointerup', done, true);
+              document.addEventListener('pointercancel', done, true);
+            }}
             onPointerMove={(event: React.PointerEvent<HTMLDivElement>) => {
               onPointerMove?.(event);
               if (event.defaultPrevented || event.pointerType === 'touch') return;
@@ -735,9 +769,19 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuIt
   const ref = useComposedRefs(forwardedRef, nodeRef);
   const { attributes, handlers, content } = useMenuItemBase(props, nodeRef);
   const { disabled = false, textValue: _textValue, ...rest } = props;
-  // A click without a press on this row (the release of a long press that
-  // opened the menu under the finger) must not activate it.
-  const pressedRef = React.useRef(false);
+  /*
+   * Pointer activation is the release, not the click. The press records the
+   * row's box; the release (heard at the document, so it counts even when
+   * the row moved or the browser lost pointer capture) activates the row
+   * when it lands inside that box or the row's box now. The click a browser
+   * then fires is ignored; a click with no press (a long press that opened
+   * the menu under the finger, released on a row) is ignored too; a click
+   * with no pointer at all (keyboard, assistive technology) activates.
+   */
+  const pressRef = React.useRef<{ rect: DOMRect; pointerId: number } | null>(null);
+  const releasedRef = React.useRef(false);
+  const stopListeningRef = React.useRef<(() => void) | null>(null);
+  React.useEffect(() => () => stopListeningRef.current?.(), []);
   const select = () => {
     const node = nodeRef.current;
     if (!node || disabled) return;
@@ -758,15 +802,58 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuIt
       {...handlers}
       onPointerDown={(event: React.PointerEvent<HTMLDivElement>) => {
         onPointerDown?.(event);
-        if (event.defaultPrevented) return;
-        pressedRef.current = true;
+        if (event.defaultPrevented || event.button !== 0) return;
+        const node = event.currentTarget;
+        pressRef.current = { rect: node.getBoundingClientRect(), pointerId: event.pointerId };
+        releasedRef.current = false;
+        try {
+          node.setPointerCapture(event.pointerId);
+        } catch {
+          // Capture is best effort; the document listener below is what counts.
+        }
+        stopListeningRef.current?.();
+        const inside = (rect: DOMRect, x: number, y: number) =>
+          x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+        const onRelease = (release: PointerEvent) => {
+          stop();
+          const press = pressRef.current;
+          pressRef.current = null;
+          if (!press || release.type !== 'pointerup' || release.button !== 0) return;
+          if (release.pointerId !== press.pointerId) return;
+          const now = node.getBoundingClientRect();
+          if (
+            !inside(press.rect, release.clientX, release.clientY) &&
+            !inside(now, release.clientX, release.clientY)
+          )
+            return;
+          releasedRef.current = true;
+          // The click that follows (if any) comes in the same task.
+          setTimeout(() => {
+            releasedRef.current = false;
+          }, 0);
+          select();
+        };
+        const stop = () => {
+          document.removeEventListener('pointerup', onRelease, true);
+          document.removeEventListener('pointercancel', onRelease, true);
+          stopListeningRef.current = null;
+        };
+        document.addEventListener('pointerup', onRelease, true);
+        document.addEventListener('pointercancel', onRelease, true);
+        stopListeningRef.current = stop;
       }}
       onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         onClick?.(event);
         const byPointer = event.detail > 0;
-        const wasPressed = pressedRef.current;
-        pressedRef.current = false;
-        if (event.defaultPrevented || disabled || (byPointer && !wasPressed)) return;
+        const released = releasedRef.current;
+        releasedRef.current = false;
+        const pressed = pressRef.current !== null;
+        pressRef.current = null;
+        stopListeningRef.current?.();
+        if (event.defaultPrevented || disabled || released) return;
+        // A pointer click whose release was not heard (an old browser): the
+        // press on this row vouches for it.
+        if (byPointer && !pressed) return;
         select();
       }}
       onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {

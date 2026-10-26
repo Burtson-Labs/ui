@@ -54,7 +54,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The open menu's value; `''` when none is open.",
           "native": false
         }
       ],
@@ -383,7 +383,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Fired when the row is activated. `preventDefault()` keeps the menu open.",
           "native": false
         },
         {
@@ -391,7 +391,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The text typeahead matches, when the row's text content is not it.",
           "native": false
         }
       ],
@@ -686,7 +686,7 @@
       "props": [
         {
           "name": "align",
-          "type": "\"center\" | \"start\" | \"end\" | undefined",
+          "type": "Align | undefined",
           "required": false,
           "default": "'start'",
           "description": "",
@@ -726,15 +726,15 @@
         },
         {
           "name": "collisionBoundary",
-          "type": "Boundary | Boundary[] | undefined",
+          "type": "Element | (Element | null)[] | null | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Elements whose boxes the surface stays inside, besides the viewport.",
           "native": false
         },
         {
           "name": "collisionPadding",
-          "type": "number | Partial<Record<\"top\" | \"right\" | \"bottom\" | \"left\", number>> | undefined",
+          "type": "number | Partial<Record<Side, number>> | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -745,7 +745,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         },
         {
@@ -753,15 +753,15 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Hide the surface while its anchor is scrolled out of its clipping ancestors.",
           "native": false
         },
         {
           "name": "loop",
           "type": "boolean | undefined",
           "required": false,
-          "default": "false",
-          "description": "Whether keyboard navigation should loop around",
+          "default": null,
+          "description": "Arrow keys wrap from the last row to the first and back.",
           "native": false
         },
         {
@@ -769,7 +769,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when auto-focusing on close.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -793,7 +793,7 @@
           "type": "((event: PointerDownOutsideEvent | FocusOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Either of the two outside interactions.",
           "native": false
         },
         {
@@ -806,7 +806,7 @@
         },
         {
           "name": "side",
-          "type": "\"top\" | \"right\" | \"bottom\" | \"left\" | undefined",
+          "type": "Side | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -833,7 +833,7 @@
           "type": "\"always\" | \"optimized\" | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "`always` re-measures every frame (for anchors that move without scrolling or resizing).",
           "native": false
         }
       ],
@@ -1454,7 +1454,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Fired when the row is activated. `preventDefault()` keeps the menu open.",
           "native": false
         },
         {
@@ -1462,7 +1462,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The text typeahead matches, when the row's text content is not it.",
           "native": false
         },
         {
@@ -1792,7 +1792,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Fired when the row is activated. `preventDefault()` keeps the menu open.",
           "native": false
         },
         {
@@ -1800,7 +1800,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The text typeahead matches, when the row's text content is not it.",
           "native": false
         },
         {
@@ -2770,7 +2770,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Fired when the row is activated. `preventDefault()` keeps the menu open.",
           "native": false
         },
         {
@@ -2778,7 +2778,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The text typeahead matches, when the row's text content is not it.",
           "native": false
         },
         {
@@ -3712,10 +3712,10 @@
       "props": [
         {
           "name": "align",
-          "type": "AlignSubContent | undefined",
+          "type": "\"start\" | \"end\" | undefined",
           "required": false,
           "default": null,
-          "description": "Controls the direction the subcontent appears from its anchor menu item\nDefault: start",
+          "description": "Which end of the trigger row the submenu lines up with.",
           "native": false
         },
         {
@@ -3752,15 +3752,15 @@
         },
         {
           "name": "collisionBoundary",
-          "type": "Boundary | Boundary[] | undefined",
+          "type": "Element | (Element | null)[] | null | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Elements whose boxes the surface stays inside, besides the viewport.",
           "native": false
         },
         {
           "name": "collisionPadding",
-          "type": "number | Partial<Record<\"top\" | \"right\" | \"bottom\" | \"left\", number>> | undefined",
+          "type": "number | Partial<Record<Side, number>> | undefined",
           "required": false,
           "default": null,
           "description": "",
@@ -3771,7 +3771,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         },
         {
@@ -3779,15 +3779,15 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Hide the surface while its anchor is scrolled out of its clipping ancestors.",
           "native": false
         },
         {
           "name": "loop",
           "type": "boolean | undefined",
           "required": false,
-          "default": "false",
-          "description": "Whether keyboard navigation should loop around",
+          "default": null,
+          "description": "",
           "native": false
         },
         {
@@ -3811,7 +3811,7 @@
           "type": "((event: PointerDownOutsideEvent | FocusOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "Either of the two outside interactions.",
           "native": false
         },
         {
@@ -3843,7 +3843,7 @@
           "type": "\"always\" | \"optimized\" | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "`always` re-measures every frame (for anchors that move without scrolling or resizing).",
           "native": false
         }
       ],
@@ -4165,7 +4165,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "The text typeahead matches, when the row's text content is not it.",
           "native": false
         }
       ],

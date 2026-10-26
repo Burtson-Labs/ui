@@ -40,6 +40,7 @@ import {
 } from './menu';
 import { RovingFocusGroup, RovingFocusItem } from './roving-focus';
 import { Slot } from './slot';
+import { useCallbackRef } from './use-callback-ref';
 import { useControllableState } from './use-controllable-state';
 import { useStableId } from './use-id';
 
@@ -65,6 +66,8 @@ interface MenubarContextValue {
   setValue: (value: string) => void;
   dir: Direction | undefined;
   loop: boolean;
+  /** Whether a node is in the bar (its buttons); the menus never dismiss for those. */
+  owns: (target: Node) => boolean;
   /** Set before opening to say where focus goes in the menu that opens. */
   focusOnOpen: FocusOnOpenHandle;
 }
@@ -105,15 +108,18 @@ const MenubarImpl = React.forwardRef<HTMLDivElement, MenubarProps>(function Menu
     onChange: onValueChange,
   });
   const focusOnOpen = useFocusOnOpen();
+  const barRef = React.useRef<HTMLDivElement | null>(null);
+  const composedRef = useComposedRefs(ref, barRef);
+  const owns = useCallbackRef((target: Node) => Boolean(barRef.current?.contains(target)));
   const context = React.useMemo<MenubarContextValue>(
-    () => ({ value, setValue, dir, loop, focusOnOpen }),
-    [value, setValue, dir, loop, focusOnOpen],
+    () => ({ value, setValue, dir, loop, owns, focusOnOpen }),
+    [value, setValue, dir, loop, owns, focusOnOpen],
   );
   const Comp = asChild ? Slot : 'div';
   return (
     <MenubarContext.Provider value={context}>
       <RovingFocusGroup asChild orientation="horizontal" loop={loop} dir={dir}>
-        <Comp role="menubar" dir={dir} {...props} ref={ref} />
+        <Comp role="menubar" dir={dir} {...props} ref={composedRef} />
       </RovingFocusGroup>
     </MenubarContext.Provider>
   );
@@ -157,12 +163,14 @@ function MenubarMenu({ value: valueProp, children }: MenubarMenuProps) {
     },
     [setValue, value, open],
   );
+  const { owns } = menubar;
   const cross = React.useMemo(
     () => ({
       next: () => moveTo(getItems(), value, 1, menubar.loop, setValue, focusOnOpen),
       previous: () => moveTo(getItems(), value, -1, menubar.loop, setValue, focusOnOpen),
+      owns,
     }),
-    [getItems, value, menubar.loop, setValue, focusOnOpen],
+    [getItems, value, menubar.loop, setValue, focusOnOpen, owns],
   );
   const context = React.useMemo<MenubarMenuContextValue>(
     () => ({ value, triggerId, contentId, triggerRef, open }),
@@ -178,6 +186,7 @@ function MenubarMenu({ value: valueProp, children }: MenubarMenuProps) {
           modal={false}
           triggerRef={triggerRef}
           triggerId={triggerId}
+          contentId={contentId}
           focusOnOpen={focusOnOpen}
           legacyPrefix="menubar"
         >
