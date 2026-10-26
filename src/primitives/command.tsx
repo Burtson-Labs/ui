@@ -476,7 +476,6 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
       schedule,
       flush,
       filtering,
-      setValue,
     ],
   );
 
