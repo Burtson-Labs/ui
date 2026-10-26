@@ -70,7 +70,6 @@ function componentMarkdown(doc, level = 1) {
     `- Copy the source: \`npx shadcn@latest add @burtson/${doc.name}\` (or \`npx shadcn@latest add ${SITE}/r/${doc.name}.json\`), then import from \`@/components/ui/${doc.name}\``,
     `- Source: https://github.com/Burtson-Labs/ui/blob/main/${ref.source}`,
   ];
-  if (doc.radix) out.push(`- Primitive: adapted from Radix ${doc.radix}, maintained locally`);
   if (u) {
     out.push('', `${h(1)} When to use`, '', bullets(u.use));
     out.push('', `${h(1)} When not to`, '', bullets(u.avoid));
@@ -106,7 +105,7 @@ function componentMarkdown(doc, level = 1) {
   return out.join('\n') + '\n';
 }
 
-const intro = `Burtson UI (\`@burtson-labs/ui\`, v${pkg.version}, MIT) is a React component library for Burtson Labs products: Tailwind CSS v4 styling, locally maintained Radix primitives (no external Radix package), icons from Burtson Icons (\`@burtson-labs/icons\`). Use it as an npm package, or copy each component's source with the shadcn CLI from the registry at ${SITE}/r.`;
+const intro = `Burtson UI (\`@burtson-labs/ui\`, v${pkg.version}, MIT) is a React component library for Burtson Labs products: Tailwind CSS v4 styling, Burtson Labs' own behaviour primitives (no Radix, cmdk or other component-library code), icons from Burtson Icons (\`@burtson-labs/icons\`). Use it as an npm package, or copy each component's source with the shadcn CLI from the registry at ${SITE}/r.`;
 
 const install = `- Package: \`npm install @burtson-labs/ui @burtson-labs/icons\`, then \`import { Button } from '@burtson-labs/ui'\`.
 - Tailwind v4 CSS: \`@import 'tailwindcss'; @import '@burtson-labs/ui/theme.css'; @source '../node_modules/@burtson-labs/ui/dist';\`

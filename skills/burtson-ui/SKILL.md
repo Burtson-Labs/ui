@@ -6,7 +6,7 @@ license: MIT
 
 # Burtson UI
 
-React components for Burtson Labs products: Tailwind v4 styling, locally maintained Radix primitives, icons from `@burtson-labs/icons`. Docs: https://ui.burtson.ai. Index for agents: https://ui.burtson.ai/llms.txt.
+React components for Burtson Labs products: Tailwind v4 styling, Burtson Labs' own behaviour primitives, icons from `@burtson-labs/icons`. Docs: https://ui.burtson.ai. Index for agents: https://ui.burtson.ai/llms.txt.
 
 ## Find the right component
 
