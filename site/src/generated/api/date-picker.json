@@ -10,6 +10,14 @@
       "type": null,
       "props": [
         {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "Show a Clear button in the popover once something is chosen.",
+          "native": false
+        },
+        {
           "name": "defaultOpen",
           "type": "boolean | undefined",
           "required": false,
@@ -451,6 +459,14 @@
       "type": "DatePickerLabels",
       "props": [
         {
+          "name": "clear",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The Clear button shown with `clearable`.",
+          "native": false
+        },
+        {
           "name": "dialog",
           "type": "string | undefined",
           "required": false,
@@ -492,6 +508,14 @@
       "signatures": [],
       "type": "DatePickerProps",
       "props": [
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show a Clear button in the popover once something is chosen.",
+          "native": false
+        },
         {
           "name": "defaultOpen",
           "type": "boolean | undefined",
@@ -924,6 +948,14 @@
       "signatures": [],
       "type": null,
       "props": [
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "Show a Clear button in the popover once something is chosen.",
+          "native": false
+        },
         {
           "name": "defaultOpen",
           "type": "boolean | undefined",
@@ -1381,6 +1413,14 @@
       "signatures": [],
       "type": "DateRangePickerProps",
       "props": [
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show a Clear button in the popover once something is chosen.",
+          "native": false
+        },
         {
           "name": "defaultOpen",
           "type": "boolean | undefined",

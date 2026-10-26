@@ -26,6 +26,14 @@
           "native": false
         },
         {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": "false",
+          "description": "Show a Clear button in the date popover once a day is chosen.",
+          "native": false
+        },
+        {
           "name": "defaultValue",
           "type": "Date | null | undefined",
           "required": false,
@@ -465,6 +473,14 @@
       "type": "DateTimePickerLabels",
       "props": [
         {
+          "name": "clear",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The Clear button shown with `clearable`.",
+          "native": false
+        },
+        {
           "name": "date",
           "type": "string | undefined",
           "required": false,
@@ -584,6 +600,14 @@
           "required": false,
           "default": null,
           "description": "Indicates that user input is required on the element before a form may be submitted.",
+          "native": false
+        },
+        {
+          "name": "clearable",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Show a Clear button in the date popover once a day is chosen.",
           "native": false
         },
         {

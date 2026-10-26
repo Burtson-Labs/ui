@@ -64,6 +64,8 @@ export interface DateTimePickerProps extends Omit<
   /** A list of times beside the time segments. */
   slots?: boolean;
   disabled?: boolean;
+  /** Show a Clear button in the date popover once a day is chosen. */
+  clearable?: boolean;
   /** How wide the pair is from 640px up; `lg` by default. */
   width?: FieldWidth;
   labels?: DateTimePickerLabels;
@@ -128,6 +130,7 @@ const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerProps>(
       step,
       slots,
       disabled,
+      clearable = false,
       width = 'lg',
       labels: labelsProp,
       id: idProp,
@@ -242,6 +245,7 @@ const DateTimePicker = React.forwardRef<HTMLDivElement, DateTimePickerProps>(
           min={minDay}
           max={maxDay}
           disabledDates={disabledDates}
+          clearable={clearable}
           numberOfMonths={numberOfMonths}
           disabled={disabled}
           labels={labels}

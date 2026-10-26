@@ -544,3 +544,48 @@ describe('DateTimePicker', () => {
     expect(screen.getByRole('status').textContent).toBe(new Date(2026, 9, 25, 9, 0).toISOString());
   });
 });
+
+describe('clearable pickers', () => {
+  it('DatePicker clears to null from the popover and empties its form value', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <DatePicker
+        aria-label="Due"
+        name="due"
+        clearable
+        defaultValue={new Date(2026, 9, 25)}
+        onValueChange={onValueChange}
+      />,
+    );
+    const input = container.querySelector('input[name="due"]') as HTMLInputElement;
+    expect(input.value).toBe('2026-10-25');
+    await userEvent.click(screen.getByRole('button', { name: /Due/ }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Clear' }));
+    expect(onValueChange).toHaveBeenCalledWith(null);
+    expect(input.value).toBe('');
+    expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
+  });
+
+  it('shows no Clear button without clearable or without a value', async () => {
+    render(<DatePicker aria-label="Due" clearable />);
+    await userEvent.click(screen.getByRole('button', { name: /Due/ }));
+    expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
+  });
+
+  it('DateRangePicker clears both ends', async () => {
+    const onValueChange = vi.fn();
+    render(
+      <DateRangePicker
+        aria-label="Stay"
+        clearable
+        defaultValue={{ from: new Date(2026, 9, 1), to: new Date(2026, 9, 4) }}
+        onValueChange={onValueChange}
+        labels={{ clear: 'Reset' }}
+      />,
+    );
+    await userEvent.click(screen.getByRole('button', { name: /Stay/ }));
+    await userEvent.click(await screen.findByRole('button', { name: 'Reset' }));
+    expect(onValueChange).toHaveBeenCalledWith({});
+    expect(screen.getByRole('button', { name: /Stay/ }).textContent).toContain('Pick dates');
+  });
+});

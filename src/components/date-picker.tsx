@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useNarrowerThan } from '../lib/media';
 import { cn } from '../lib/utils';
 
+import { Button } from './button';
 import {
   Calendar,
   type CalendarLabels,
@@ -38,6 +39,8 @@ interface DatePickerBaseProps extends Omit<
   onOpenChange?: (open: boolean) => void;
   /** Strings for the trigger, the popover and the calendar, for translation. */
   labels?: DatePickerLabels;
+  /** Show a Clear button in the popover once something is chosen. */
+  clearable?: boolean;
 }
 
 /** Strings a date picker reads out, for translation. */
@@ -46,11 +49,14 @@ export interface DatePickerLabels extends CalendarLabels {
   placeholder?: string;
   /** The popover's name: "Choose a date" ("Choose dates" for a range). */
   dialog?: string;
+  /** The Clear button shown with `clearable`. */
+  clear?: string;
 }
 
 export const datePickerLabels: Required<DatePickerLabels> = {
   placeholder: 'Pick a date',
   dialog: 'Choose a date',
+  clear: 'Clear',
   previousMonth: 'Previous month',
   nextMonth: 'Next month',
 };
@@ -115,6 +121,9 @@ interface ShellProps extends ButtonProps {
   setOpen: (open: boolean) => void;
   calendar: React.ReactNode;
   formInput?: React.ReactNode;
+  /** Present when the chosen value can be cleared; renders the Clear button. */
+  onClear?: () => void;
+  clearLabel: string;
 }
 
 const PickerShell = React.forwardRef<HTMLButtonElement, ShellProps>(function PickerShell(
@@ -126,6 +135,8 @@ const PickerShell = React.forwardRef<HTMLButtonElement, ShellProps>(function Pic
     formInput,
     placeholder,
     dialogLabel,
+    onClear,
+    clearLabel,
     width = 'md',
     className,
     'aria-describedby': describedBy,
@@ -175,6 +186,21 @@ const PickerShell = React.forwardRef<HTMLButtonElement, ShellProps>(function Pic
         }}
       >
         {calendar}
+        {onClear && (
+          <div className="flex justify-end border-t border-border p-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                onClear();
+                setOpen(false);
+              }}
+            >
+              {clearLabel}
+            </Button>
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   );
@@ -204,6 +230,7 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function
     numberOfMonths,
     placeholder,
     labels: labelsProp,
+    clearable = false,
     ...props
   },
   ref,
@@ -226,6 +253,15 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function
       {...props}
       placeholder={placeholder ?? labels.placeholder}
       dialogLabel={labels.dialog}
+      clearLabel={labels.clear}
+      onClear={
+        clearable && value
+          ? () => {
+              if (!controlled) setValue(null);
+              onValueChange?.(null);
+            }
+          : undefined
+      }
       text={text}
       open={open}
       setOpen={setOpen}
@@ -280,6 +316,7 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       min,
       max,
       disabledDates,
+      clearable = false,
       ...props
     },
     ref,
@@ -309,6 +346,15 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
         {...props}
         placeholder={placeholder ?? labels.placeholder}
         dialogLabel={labels.dialog}
+        clearLabel={labels.clear}
+        onClear={
+          clearable && value?.from
+            ? () => {
+                if (!controlled) setValue(null);
+                onValueChange?.({});
+              }
+            : undefined
+        }
         width={width}
         text={text}
         open={open}
