@@ -502,7 +502,19 @@ const all: ComponentDoc[] = [
   {
     name: 'date-picker',
     title: 'Date Picker',
-    description: 'A field-like button that opens a Calendar in a popover, for one date or a range.',
+    description:
+      'A field-like button that opens a Calendar in a popover, for one date or a range across months.',
+  },
+  {
+    name: 'time-picker',
+    title: 'Time Picker',
+    description:
+      'A time of day typed segment by segment, in the locale clock, with an optional list of slots.',
+  },
+  {
+    name: 'date-time-picker',
+    title: 'Date Time Picker',
+    description: 'A DatePicker and a TimePicker in one labelled group, reported as one local Date.',
   },
 ];
 

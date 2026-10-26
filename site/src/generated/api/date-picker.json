@@ -42,6 +42,14 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "DatePickerLabels | undefined",
+          "required": false,
+          "default": null,
+          "description": "Strings for the trigger, the popover and the calendar, for translation.",
+          "native": false
+        },
+        {
           "name": "locale",
           "type": "string | undefined",
           "required": false,
@@ -74,6 +82,14 @@
           "native": false
         },
         {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Months shown side by side in the popover, 1 to 3.",
+          "native": false
+        },
+        {
           "name": "onOpenChange",
           "type": "((open: boolean) => void) | undefined",
           "required": false,
@@ -102,7 +118,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Shown when nothing is chosen.",
+          "description": "Shown when nothing is chosen. (The same as `labels.placeholder`.)",
           "native": false
         },
         {
@@ -419,6 +435,57 @@
       ]
     },
     {
+      "name": "datePickerLabels",
+      "kind": "value",
+      "description": "",
+      "signatures": [],
+      "type": "Required<DatePickerLabels>",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "DatePickerLabels",
+      "kind": "type",
+      "description": "Strings a date picker reads out, for translation.",
+      "signatures": [],
+      "type": "DatePickerLabels",
+      "props": [
+        {
+          "name": "dialog",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The popover's name: \"Choose a date\" (\"Choose dates\" for a range).",
+          "native": false
+        },
+        {
+          "name": "nextMonth",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The button that shows the month after (\"Next month\").",
+          "native": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "On the trigger while nothing is chosen: \"Pick a date\" (\"Pick dates\" for a range).",
+          "native": false
+        },
+        {
+          "name": "previousMonth",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The button that shows the month before (\"Previous month\").",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
       "name": "DatePickerProps",
       "kind": "type",
       "description": "",
@@ -458,6 +525,14 @@
           "native": false
         },
         {
+          "name": "labels",
+          "type": "DatePickerLabels | undefined",
+          "required": false,
+          "default": null,
+          "description": "Strings for the trigger, the popover and the calendar, for translation.",
+          "native": false
+        },
+        {
           "name": "locale",
           "type": "string | undefined",
           "required": false,
@@ -490,6 +565,14 @@
           "native": false
         },
         {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Months shown side by side in the popover, 1 to 3.",
+          "native": false
+        },
+        {
           "name": "onOpenChange",
           "type": "((open: boolean) => void) | undefined",
           "required": false,
@@ -518,7 +601,7 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Shown when nothing is chosen.",
+          "description": "Shown when nothing is chosen. (The same as `labels.placeholder`.)",
           "native": false
         },
         {
@@ -866,11 +949,27 @@
           "native": false
         },
         {
+          "name": "endName",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The hidden input for the last day; `{name}To` by default.",
+          "native": false
+        },
+        {
           "name": "formatOptions",
           "type": "Intl.DateTimeFormatOptions | undefined",
           "required": false,
           "default": null,
           "description": "How the trigger writes the date (Intl.DateTimeFormat options).",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "DatePickerLabels | undefined",
+          "required": false,
+          "default": null,
+          "description": "Strings for the trigger, the popover and the calendar, for translation.",
           "native": false
         },
         {
@@ -895,6 +994,22 @@
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Submits the range with a form as two YYYY-MM-DD hidden inputs,\n`{name}From` and `{name}To` (empty until chosen). `startName` and\n`endName` set the two names outright.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Months shown side by side in the popover, 1 to 3. By default two from\n1024px wide (the `lg` breakpoint) and one below it, where two would not fit.",
           "native": false
         },
         {
@@ -925,8 +1040,16 @@
           "name": "placeholder",
           "type": "string | undefined",
           "required": false,
-          "default": "'Pick dates'",
-          "description": "Shown when nothing is chosen.",
+          "default": null,
+          "description": "Shown when nothing is chosen. (The same as `labels.placeholder`.)",
+          "native": false
+        },
+        {
+          "name": "startName",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The hidden input for the first day; `{name}From` by default.",
           "native": false
         },
         {
@@ -1046,7 +1169,6 @@
         "bc4ff7201f073fc6",
         "62313f065a13fa53",
         "7a53df18f3b14253",
-        "5b436a8053071871",
         "f652586dfc20fa07",
         "09a50a8ab35ac924",
         "f0b0f81a20d3db8f",
@@ -1244,6 +1366,15 @@
       ]
     },
     {
+      "name": "dateRangePickerLabels",
+      "kind": "value",
+      "description": "",
+      "signatures": [],
+      "type": "Required<DatePickerLabels>",
+      "props": [],
+      "inherited": []
+    },
+    {
       "name": "DateRangePickerProps",
       "kind": "type",
       "description": "",
@@ -1275,11 +1406,27 @@
           "native": false
         },
         {
+          "name": "endName",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The hidden input for the last day; `{name}To` by default.",
+          "native": false
+        },
+        {
           "name": "formatOptions",
           "type": "Intl.DateTimeFormatOptions | undefined",
           "required": false,
           "default": null,
           "description": "How the trigger writes the date (Intl.DateTimeFormat options).",
+          "native": false
+        },
+        {
+          "name": "labels",
+          "type": "DatePickerLabels | undefined",
+          "required": false,
+          "default": null,
+          "description": "Strings for the trigger, the popover and the calendar, for translation.",
           "native": false
         },
         {
@@ -1304,6 +1451,22 @@
           "required": false,
           "default": null,
           "description": "",
+          "native": false
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "Submits the range with a form as two YYYY-MM-DD hidden inputs,\n`{name}From` and `{name}To` (empty until chosen). `startName` and\n`endName` set the two names outright.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "Months shown side by side in the popover, 1 to 3. By default two from\n1024px wide (the `lg` breakpoint) and one below it, where two would not fit.",
           "native": false
         },
         {
@@ -1335,7 +1498,15 @@
           "type": "string | undefined",
           "required": false,
           "default": null,
-          "description": "Shown when nothing is chosen.",
+          "description": "Shown when nothing is chosen. (The same as `labels.placeholder`.)",
+          "native": false
+        },
+        {
+          "name": "startName",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The hidden input for the first day; `{name}From` by default.",
           "native": false
         },
         {
@@ -1455,7 +1626,6 @@
         "bc4ff7201f073fc6",
         "62313f065a13fa53",
         "7a53df18f3b14253",
-        "5b436a8053071871",
         "f652586dfc20fa07",
         "09a50a8ab35ac924",
         "f0b0f81a20d3db8f",

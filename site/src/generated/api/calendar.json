@@ -16,7 +16,7 @@
     {
       "name": "Calendar",
       "kind": "component",
-      "description": "A month grid for choosing a day or a range, with the locale's month and\nweekday names (Intl.DateTimeFormat) and no date library. It follows the\nWAI-ARIA date picker grid: one Tab stop; arrows move by day and week, Home\nand End to the ends of the week, Page Up and Page Down by month (with Shift,\nby year); Enter or Space chooses. Moving past the month turns the page.",
+      "description": "A month grid for choosing a day or a range, with the locale's month and\nweekday names (Intl.DateTimeFormat) and no date library. It follows the\nWAI-ARIA date picker grid: one Tab stop; arrows move by day and week, Home\nand End to the ends of the week, Page Up and Page Down by month (with Shift,\nby year); Enter or Space chooses. Moving past the last month shown turns the\npage. With `numberOfMonths`, two or three months sit side by side, each its\nown grid, sharing the one Tab stop and the month buttons.",
       "signatures": [],
       "type": null,
       "props": [
@@ -54,10 +54,10 @@
         },
         {
           "name": "labels",
-          "type": "{ previousMonth?: string; nextMonth?: string; } | undefined",
+          "type": "CalendarLabels | undefined",
           "required": false,
           "default": null,
-          "description": "Names for the month buttons.",
+          "description": "Names for the month buttons, for translation.",
           "native": false
         },
         {
@@ -98,6 +98,14 @@
           "required": false,
           "default": null,
           "description": "The month shown (any day in it). Controlled; pair with onMonthChange.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": "1",
+          "description": "How many months show side by side, 1 to 3. One pair of month buttons\nturns them all a month at a time, and the keyboard moves across them.\nEach month is about 270px wide: choose the count for the space.",
           "native": false
         },
         {
@@ -429,6 +437,41 @@
       ]
     },
     {
+      "name": "calendarLabels",
+      "kind": "value",
+      "description": "",
+      "signatures": [],
+      "type": "Required<CalendarLabels>",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "CalendarLabels",
+      "kind": "type",
+      "description": "Strings the Calendar reads out, for translation.",
+      "signatures": [],
+      "type": "CalendarLabels",
+      "props": [
+        {
+          "name": "nextMonth",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The button that shows the month after (\"Next month\").",
+          "native": false
+        },
+        {
+          "name": "previousMonth",
+          "type": "string | undefined",
+          "required": false,
+          "default": null,
+          "description": "The button that shows the month before (\"Previous month\").",
+          "native": false
+        }
+      ],
+      "inherited": []
+    },
+    {
       "name": "CalendarProps",
       "kind": "type",
       "description": "",
@@ -469,10 +512,10 @@
         },
         {
           "name": "labels",
-          "type": "{ previousMonth?: string; nextMonth?: string; } | undefined",
+          "type": "CalendarLabels | undefined",
           "required": false,
           "default": null,
-          "description": "Names for the month buttons.",
+          "description": "Names for the month buttons, for translation.",
           "native": false
         },
         {
@@ -513,6 +556,14 @@
           "required": false,
           "default": null,
           "description": "The month shown (any day in it). Controlled; pair with onMonthChange.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "How many months show side by side, 1 to 3. One pair of month buttons\nturns them all a month at a time, and the keyboard moves across them.\nEach month is about 270px wide: choose the count for the space.",
           "native": false
         },
         {
@@ -884,10 +935,10 @@
         },
         {
           "name": "labels",
-          "type": "{ previousMonth?: string; nextMonth?: string; } | undefined",
+          "type": "CalendarLabels | undefined",
           "required": false,
           "default": null,
-          "description": "Names for the month buttons.",
+          "description": "Names for the month buttons, for translation.",
           "native": false
         },
         {
@@ -928,6 +979,14 @@
           "required": false,
           "default": null,
           "description": "The month shown (any day in it). Controlled; pair with onMonthChange.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "How many months show side by side, 1 to 3. One pair of month buttons\nturns them all a month at a time, and the keyboard moves across them.\nEach month is about 270px wide: choose the count for the space.",
           "native": false
         },
         {
@@ -1299,10 +1358,10 @@
         },
         {
           "name": "labels",
-          "type": "{ previousMonth?: string; nextMonth?: string; } | undefined",
+          "type": "CalendarLabels | undefined",
           "required": false,
           "default": null,
-          "description": "Names for the month buttons.",
+          "description": "Names for the month buttons, for translation.",
           "native": false
         },
         {
@@ -1343,6 +1402,14 @@
           "required": false,
           "default": null,
           "description": "The month shown (any day in it). Controlled; pair with onMonthChange.",
+          "native": false
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number | undefined",
+          "required": false,
+          "default": null,
+          "description": "How many months show side by side, 1 to 3. One pair of month buttons\nturns them all a month at a time, and the keyboard moves across them.\nEach month is about 270px wide: choose the count for the space.",
           "native": false
         },
         {
@@ -2001,6 +2068,17 @@
         "(d: Date): Date"
       ],
       "type": "(d: Date) => Date",
+      "props": [],
+      "inherited": []
+    },
+    {
+      "name": "toISODate",
+      "kind": "function",
+      "description": "The local day as YYYY-MM-DD, the form a native date input submits.",
+      "signatures": [
+        "(d: Date): string"
+      ],
+      "type": "(d: Date) => string",
       "props": [],
       "inherited": []
     },

@@ -96,6 +96,7 @@ import {
   DataTable,
   DatePicker,
   DateRangePicker,
+  DateTimePicker,
   type DataTableColumn,
   type DataTableSort,
   Dialog,
@@ -240,6 +241,7 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
+  TimePicker,
   Toast,
   ToastAction,
   ToastClose,
@@ -308,6 +310,8 @@ export const OVERLAYS = [
   'tooltip',
   'hover-card',
   'date-picker',
+  'date-range-picker',
+  'time-picker',
   'dropdown-menu',
   'select',
   'menubar',
@@ -802,6 +806,27 @@ function Fields() {
             defaultValue={{ from: new Date(2026, 9, 3), to: new Date(2026, 9, 9) }}
           />
           <DatePicker aria-label="Disabled date" width="full" disabled />
+        </div>
+      </Cell>
+      <Cell name="TimePicker">
+        <div className="grid w-64 gap-2">
+          <TimePicker aria-label="Pickup time" locale="en-US" defaultValue="14:30" slots />
+          <TimePicker aria-label="Start (24-hour)" locale="en-GB" defaultValue="09:05" />
+          <TimePicker aria-label="Lap" locale="en-GB" seconds defaultValue="00:01:30" />
+          <TimePicker aria-label="Empty time" locale="en-US" />
+          <TimePicker aria-label="Invalid time" locale="en-GB" defaultValue="23:00" aria-invalid />
+          <TimePicker aria-label="Disabled time" locale="en-US" defaultValue="08:00" disabled />
+        </div>
+      </Cell>
+      <Cell name="DateTimePicker" wide>
+        <div className="grid w-full max-w-sm gap-2">
+          <DateTimePicker
+            aria-label="Appointment"
+            locale="en-US"
+            width="full"
+            defaultValue={new Date(2026, 9, 25, 15, 45)}
+          />
+          <DateTimePicker aria-label="Empty appointment" locale="en-GB" width="full" />
         </div>
       </Cell>
       <Cell name="NativeSelect">
@@ -1445,6 +1470,16 @@ function Data({ density }: { density?: 'compact' }) {
           className="rounded-lg border bg-surface"
         />
       </Cell>
+      <Cell name="Calendar/months" wide>
+        <Calendar
+          mode="range"
+          numberOfMonths={2}
+          today={new Date(2026, 9, 25)}
+          defaultMonth={new Date(2026, 9, 1)}
+          defaultSelected={{ from: new Date(2026, 9, 27), to: new Date(2026, 10, 4) }}
+          className="rounded-lg border bg-surface"
+        />
+      </Cell>
       <Cell name="Calendar/range">
         <Calendar
           mode="range"
@@ -2066,6 +2101,26 @@ function Overlays({ open }: { open: string | null }) {
           aria-label="Delivery"
           defaultOpen={open === 'date-picker'}
           defaultValue={new Date(2026, 9, 25)}
+        />
+      </Cell>
+      <Cell name="DateRangePicker/open">
+        <DateRangePicker
+          aria-label="Stay"
+          numberOfMonths={2}
+          defaultOpen={open === 'date-range-picker'}
+          defaultValue={{ from: new Date(2026, 9, 27), to: new Date(2026, 10, 4) }}
+        />
+      </Cell>
+      <Cell name="TimePicker/open">
+        <TimePicker
+          aria-label="Slot"
+          locale="en-US"
+          slots
+          step={15}
+          min="09:00"
+          max="17:00"
+          defaultOpen={open === 'time-picker'}
+          defaultValue="10:30"
         />
       </Cell>
       <Cell name="DropdownMenu">

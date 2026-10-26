@@ -1,9 +1,18 @@
 import CalendarIcon from '@burtson-labs/icons/react/calendar';
 import * as React from 'react';
 
+import { useNarrowerThan } from '../lib/media';
 import { cn } from '../lib/utils';
 
-import { Calendar, type DateRange, type DisabledDates, startOfDay, type Weekday } from './calendar';
+import {
+  Calendar,
+  type CalendarLabels,
+  type DateRange,
+  type DisabledDates,
+  startOfDay,
+  toISODate,
+  type Weekday,
+} from './calendar';
 import { fieldClasses, type FieldWidth, fieldWidthClasses } from './input';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
@@ -11,7 +20,7 @@ interface DatePickerBaseProps extends Omit<
   React.ComponentProps<'button'>,
   'value' | 'defaultValue' | 'onChange' | 'children'
 > {
-  /** Shown when nothing is chosen. */
+  /** Shown when nothing is chosen. (The same as `labels.placeholder`.) */
   placeholder?: string;
   /** BCP 47 tag for the calendar and the formatted value; the browser's by default. */
   locale?: string;
@@ -27,7 +36,30 @@ interface DatePickerBaseProps extends Omit<
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /** Strings for the trigger, the popover and the calendar, for translation. */
+  labels?: DatePickerLabels;
 }
+
+/** Strings a date picker reads out, for translation. */
+export interface DatePickerLabels extends CalendarLabels {
+  /** On the trigger while nothing is chosen: "Pick a date" ("Pick dates" for a range). */
+  placeholder?: string;
+  /** The popover's name: "Choose a date" ("Choose dates" for a range). */
+  dialog?: string;
+}
+
+export const datePickerLabels: Required<DatePickerLabels> = {
+  placeholder: 'Pick a date',
+  dialog: 'Choose a date',
+  previousMonth: 'Previous month',
+  nextMonth: 'Next month',
+};
+
+export const dateRangePickerLabels: Required<DatePickerLabels> = {
+  ...datePickerLabels,
+  placeholder: 'Pick dates',
+  dialog: 'Choose dates',
+};
 
 export interface DatePickerProps extends DatePickerBaseProps {
   value?: Date | null;
@@ -35,18 +67,34 @@ export interface DatePickerProps extends DatePickerBaseProps {
   onValueChange?: (date: Date | null) => void;
   /** Submits the day as YYYY-MM-DD with a form, in a hidden input of this name. */
   name?: string;
+  /** Months shown side by side in the popover, 1 to 3. */
+  numberOfMonths?: number;
 }
 
 export interface DateRangePickerProps extends DatePickerBaseProps {
   value?: DateRange | null;
   defaultValue?: DateRange | null;
   onValueChange?: (range: DateRange) => void;
+  /**
+   * Submits the range with a form as two YYYY-MM-DD hidden inputs,
+   * `{name}From` and `{name}To` (empty until chosen). `startName` and
+   * `endName` set the two names outright.
+   */
+  name?: string;
+  /** The hidden input for the first day; `{name}From` by default. */
+  startName?: string;
+  /** The hidden input for the last day; `{name}To` by default. */
+  endName?: string;
+  /**
+   * Months shown side by side in the popover, 1 to 3. By default two from
+   * 1024px wide (the `lg` breakpoint) and one below it, where two would not fit.
+   */
+  numberOfMonths?: number;
 }
 
 const DEFAULT_FORMAT: Intl.DateTimeFormatOptions = { dateStyle: 'medium' };
 
-const iso = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const iso = toISODate;
 
 function useControlled<T>(value: T | undefined, initial: T) {
   const [state, setState] = React.useState(initial);
@@ -59,7 +107,8 @@ type ButtonProps = Omit<
 >;
 
 interface ShellProps extends ButtonProps {
-  placeholder?: string;
+  placeholder: string;
+  dialogLabel: string;
   width?: FieldWidth;
   text: string | null;
   open: boolean;
@@ -75,7 +124,8 @@ const PickerShell = React.forwardRef<HTMLButtonElement, ShellProps>(function Pic
     setOpen,
     calendar,
     formInput,
-    placeholder = 'Pick a date',
+    placeholder,
+    dialogLabel,
     width = 'md',
     className,
     'aria-describedby': describedBy,
@@ -114,7 +164,8 @@ const PickerShell = React.forwardRef<HTMLButtonElement, ShellProps>(function Pic
       <PopoverContent
         ref={contentRef}
         align="start"
-        className="w-auto p-0"
+        aria-label={dialogLabel}
+        className="w-auto max-w-[calc(100vw-2rem)] overflow-x-auto p-0"
         onOpenAutoFocus={(event) => {
           // Focus the chosen day (or today), as the date picker dialog pattern asks.
           event.preventDefault();
@@ -150,10 +201,14 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function
     min,
     max,
     disabledDates,
+    numberOfMonths,
+    placeholder,
+    labels: labelsProp,
     ...props
   },
   ref,
 ) {
+  const labels = { ...datePickerLabels, ...labelsProp };
   const [value, setValue, controlled] = useControlled<Date | null>(valueProp, defaultValue);
   const [open, setOpenState] = useControlled<boolean>(openProp, defaultOpen);
   const setOpen = (next: boolean) => {
@@ -169,6 +224,8 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function
     <PickerShell
       ref={ref}
       {...props}
+      placeholder={placeholder ?? labels.placeholder}
+      dialogLabel={labels.dialog}
       text={text}
       open={open}
       setOpen={setOpen}
@@ -188,6 +245,8 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function
           min={min}
           max={max}
           disabled={disabledDates}
+          numberOfMonths={numberOfMonths}
+          labels={labels}
         />
       }
     />
@@ -208,7 +267,12 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       open: openProp,
       defaultOpen = false,
       onOpenChange,
-      placeholder = 'Pick dates',
+      placeholder,
+      labels: labelsProp,
+      name,
+      startName,
+      endName,
+      numberOfMonths,
       width = 'lg',
       locale,
       formatOptions,
@@ -220,6 +284,11 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
     },
     ref,
   ) {
+    const labels = { ...dateRangePickerLabels, ...labelsProp };
+    const narrow = useNarrowerThan('lg');
+    const months = numberOfMonths ?? (narrow ? 1 : 2);
+    const fromName = startName ?? (name ? `${name}From` : undefined);
+    const toName = endName ?? (name ? `${name}To` : undefined);
     const [value, setValue, controlled] = useControlled<DateRange | null>(valueProp, defaultValue);
     const [open, setOpenState] = useControlled<boolean>(openProp, defaultOpen);
     const setOpen = (next: boolean) => {
@@ -238,11 +307,24 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       <PickerShell
         ref={ref}
         {...props}
-        placeholder={placeholder}
+        placeholder={placeholder ?? labels.placeholder}
+        dialogLabel={labels.dialog}
         width={width}
         text={text}
         open={open}
         setOpen={setOpen}
+        formInput={
+          fromName || toName ? (
+            <>
+              {fromName && (
+                <input type="hidden" name={fromName} value={value?.from ? iso(value.from) : ''} />
+              )}
+              {toName && (
+                <input type="hidden" name={toName} value={value?.to ? iso(value.to) : ''} />
+              )}
+            </>
+          ) : null
+        }
         calendar={
           <Calendar
             mode="range"
@@ -257,6 +339,8 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
             min={min}
             max={max}
             disabled={disabledDates}
+            numberOfMonths={months}
+            labels={labels}
           />
         }
       />

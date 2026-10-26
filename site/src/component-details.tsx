@@ -26,9 +26,18 @@ const guidance: Record<string, string[]> = {
   calendar: [
     "Dates are local calendar days at midnight. Month and weekday names come from Intl.DateTimeFormat for locale; weekStartsOn defaults to the locale's first day where the runtime knows it, else Sunday. No date library is used.",
     'Pass today in tests and when server rendering, so the highlighted day does not depend on the clock.',
+    "numberOfMonths (1 to 3) puts months side by side under one pair of month buttons, which turn them a month at a time. Each month is about 270px wide, so choose the count for the space; beside another month a neighbour's days are left out.",
   ],
   'date-picker': [
     'disabled disables the trigger; disabledDates blocks days. formatOptions are Intl.DateTimeFormat options ({ dateStyle: "medium" } by default); the range picker uses formatRange.',
+    'DateRangePicker shows two months from 1024px wide and one below it, where two would not fit in the popover; numberOfMonths fixes the count. labels translates the placeholder, the popover name and the month buttons.',
+  ],
+  'time-picker': [
+    'value is a 24-hour "HH:mm" string ("HH:mm:ss" with seconds), the same as a native time input, whatever the clock shown. Only complete times within min and max reach onValueChange; null means a segment is empty.',
+    'The segment order, separators and AM/PM names come from Intl.DateTimeFormat for locale, and so does the 12- or 24-hour clock unless hourCycle is set. step is in minutes: the minute arrows move by it and the slots list uses it (30 by default with slots).',
+  ],
+  'date-time-picker': [
+    'The value is a local Date; it is submitted as YYYY-MM-DDTHH:mm, the form of a native datetime-local input. min and max bound the calendar by their days and the time on those days.',
   ],
   'ask-user': [
     'Pass stable question IDs and option values. Choices start empty; optional questions can be skipped. allowCustom adds an alternative written answer, and multiple allows several choices.',
@@ -311,14 +320,36 @@ const api: Record<string, [string, string, string][]> = {
     ['min / max', 'Date', '—'],
     ['disabled', '(date) => boolean | Date[]', '—'],
     ['showOutsideDays / autoFocus / today', 'boolean / boolean / Date', 'true / false / now'],
+    ['numberOfMonths', '1 | 2 | 3; months side by side', '1'],
+    ['labels', '{ previousMonth, nextMonth }', 'English'],
   ],
   'date-picker': [
     ['value / defaultValue / onValueChange', 'Date | null (DateRangePicker: { from, to })', 'null'],
-    ['placeholder', 'string', 'Pick a date / Pick dates'],
+    ['labels', '{ placeholder, dialog, previousMonth, nextMonth }', 'English'],
     ['locale / formatOptions', 'Intl.DateTimeFormat locale and options', '{ dateStyle: medium }'],
     ['min / max / disabledDates / weekStartsOn', 'as Calendar', '—'],
-    ['name', 'DatePicker only: submits YYYY-MM-DD in a hidden input', '—'],
+    ['numberOfMonths', '1 | 2 | 3', '1 (range: 2 from lg, else 1)'],
+    ['name', 'YYYY-MM-DD in a hidden input (range: {name}From, {name}To)', '—'],
+    ['startName / endName', 'DateRangePicker: the two input names outright', '—'],
     ['width', 'xs | sm | md | lg | full', 'md (range: lg)'],
+  ],
+  'time-picker': [
+    ['value / defaultValue / onValueChange', '"HH:mm" | "HH:mm:ss" | null (24-hour)', 'null'],
+    ['locale / hourCycle', 'BCP 47 tag / 12 | 24', 'browser / locale'],
+    ['seconds', 'boolean; show and submit seconds', 'false'],
+    ['step', 'minutes for the arrows and the list', '1 (slots: 30)'],
+    ['min / max', '"HH:mm"', '00:00 / 23:59'],
+    ['slots / open / onOpenChange', 'a list of times every step', 'false'],
+    ['name', 'submits HH:mm[:ss] in a hidden input', '—'],
+    ['labels', '{ hours, minutes, seconds, dayPeriod, empty, showTimes }', 'English'],
+  ],
+  'date-time-picker': [
+    ['value / defaultValue / onValueChange', 'Date | null (local)', 'null'],
+    ['min / max', 'Date; the days, and the time on those days', '—'],
+    ['locale / formatOptions / weekStartsOn / disabledDates', 'as DatePicker', '—'],
+    ['hourCycle / seconds / step / slots', 'as TimePicker', '—'],
+    ['name', 'submits YYYY-MM-DDTHH:mm[:ss] in a hidden input', '—'],
+    ['labels', 'DatePicker and TimePicker labels, plus { date, time }', 'English'],
   ],
   attachment: [
     ['AttachmentItem: name / size', 'string / number (bytes)', 'required / —'],

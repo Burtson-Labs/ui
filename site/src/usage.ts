@@ -67,10 +67,30 @@ export const usage: Record<string, Usage> = {
   'date-picker': {
     use: ['A date (or a from–to range) in a form, near today: pickup dates, a leave request.'],
     avoid: [
-      'Dates people know by heart (birthdays); use an Input. Times; pair it with an Input for the time.',
+      'Dates people know by heart (birthdays); use an Input. A date with a time; use DateTimePicker.',
     ],
     a11y: [
-      'The trigger is a button named by its Field label, with the chosen date read after it. Opening moves focus to the chosen day (or today); choosing closes the popover and returns focus; Escape closes without a change. With name, the day is submitted as YYYY-MM-DD.',
+      'The trigger is a button named by its Field label, with the chosen date read after it. Opening moves focus to the chosen day (or today) in a popover named by labels.dialog; choosing closes the popover and returns focus; Escape closes without a change. With two months the arrow keys cross from one grid to the next. With name, the day is submitted as YYYY-MM-DD (a range as {name}From and {name}To).',
+    ],
+  },
+  'time-picker': {
+    use: [
+      'A time of day in a form: a pickup time, opening hours, a reminder. With slots, a time from a fixed set (every 15 or 30 minutes).',
+    ],
+    avoid: [
+      'A duration (1 h 30 min); use NumberInput with a unit. A time and its date; use DateTimePicker.',
+    ],
+    a11y: [
+      'A group named by its Field label, with one WAI-ARIA spinbutton per segment (Hours, Minutes, Seconds, AM/PM), each a Tab stop that reads its value or "Empty". Type digits and the next segment takes over once one is full; Up and Down step, Home and End go to the ends, Left and Right move between segments, Backspace clears. The phone keyboard opens numeric. A typed time outside min and max is marked invalid and pulled into range when focus leaves.',
+    ],
+  },
+  'date-time-picker': {
+    use: ['An appointment, a pickup or a deadline: a day near today and the time on it.'],
+    avoid: [
+      'A time zone conversion; the value is a local Date. Two separate questions (date now, time later); use DatePicker and TimePicker apart.',
+    ],
+    a11y: [
+      'A group named by its Field label holding a date button named "Date" and a time group named "Time" (both in labels). The value is reported only once both halves are set, and cleared when either is.',
     ],
   },
   'ask-user': {
