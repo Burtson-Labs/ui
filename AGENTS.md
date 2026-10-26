@@ -33,6 +33,8 @@ npm test           # vitest only
 npm run site && npm run smoke   # Playwright against the built site
 ```
 
+Vitest keeps a module cache in `node_modules/.vitest-cache`. After files are added by a checkout, cherry-pick or merge, a test that globs them (`test/demos.test.tsx`) can keep the old list; `npx vitest run --clearCache` fixes it.
+
 `npm run check` must pass before a change is done. If you edit a component's props or doc comments, run `npm run api` and commit the regenerated `site/src/generated/api/` files (`api:check` fails otherwise). Generated output (`dist/`, `site/dist/`, `site/public/r/`, the llms files) is not committed.
 
 ## Rules
