@@ -34,6 +34,8 @@ import {
   MenuSubTrigger,
   type MenuSubTriggerProps,
   useFocusOnOpen,
+  useMenuContentId,
+  useMenuLevel,
 } from './menu';
 import { Slot } from './slot';
 import { useControllableState } from './use-controllable-state';
@@ -122,6 +124,7 @@ const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTrig
     forwardedRef,
   ) {
     const context = useDropdownMenu('DropdownMenuTrigger');
+    const contentId = useMenuContentId(useMenuLevel('DropdownMenuTrigger'));
     const { setImplicitAnchor } = useAnchorContext('DropdownMenuTrigger');
     const ref = useComposedRefs(forwardedRef, context.triggerRef, setImplicitAnchor);
     // A press toggles on pointerdown so the menu is up before the button's
@@ -134,7 +137,7 @@ const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTrig
         id={context.triggerId}
         aria-haspopup="menu"
         aria-expanded={context.open}
-        aria-controls={context.open ? context.contentId : undefined}
+        aria-controls={context.open ? contentId : undefined}
         data-state={context.open ? 'open' : 'closed'}
         data-disabled={disabled ? '' : undefined}
         disabled={disabled}

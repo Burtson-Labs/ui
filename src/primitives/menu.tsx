@@ -126,6 +126,32 @@ function useMenuLevel(component: string): MenuLevelContextValue {
 }
 
 /**
+ * The id a trigger's `aria-controls` names: the content's own `id` once it is
+ * in the DOM (a caller may give it one), else the generated id.
+ */
+function useMenuContentId(level: MenuLevelContextValue): string {
+  const [id, setId] = React.useState(level.contentId);
+  const { open, contentRef, contentId } = level;
+  useIsoLayoutEffect(() => {
+    if (!open) return;
+    const actual = contentRef.current?.id;
+    setId(actual || contentId);
+  }, [open, contentRef, contentId]);
+  return id;
+}
+
+/** The id a content's `aria-labelledby` names: the trigger's `id` as rendered. */
+function useMenuTriggerId(level: MenuLevelContextValue): string | undefined {
+  const [id, setId] = React.useState(level.triggerId);
+  const { triggerRef, triggerId } = level;
+  useIsoLayoutEffect(() => {
+    const actual = triggerRef.current?.id;
+    setId(actual || triggerId);
+  }, [triggerRef, triggerId]);
+  return id;
+}
+
+/**
  * Keyboard moves that leave a menu sideways: a menubar provides this so Left
  * and Right at the edges of a menu move to the neighbouring menu.
  */
@@ -395,10 +421,24 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
   const { getItems } = useCollection();
   const { side, align } = useAnchoredPlacement();
   const ref = useComposedRefs(forwardedRef, level.contentRef);
+  const labelledBy = useMenuTriggerId(level);
   const typeahead = useTypeahead();
   const subsRef = React.useRef(new Set<SubRecord>());
   const graceRef = React.useRef<{ polygon: Point[]; content: HTMLElement } | null>(null);
+  const graceTimerRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const dismissedFromOutsideRef = React.useRef(false);
+  // Intent is shown by movement: a pointer that rests inside the triangle
+  // for a moment is no longer on its way, and the row under it may take
+  // the highlight on its next move.
+  const armGrace = useCallbackRef((grace: { polygon: Point[]; content: HTMLElement } | null) => {
+    clearTimeout(graceTimerRef.current);
+    graceRef.current = grace;
+    if (!grace) return;
+    graceTimerRef.current = setTimeout(() => {
+      graceRef.current = null;
+    }, GRACE_REST);
+  });
+  React.useEffect(() => () => clearTimeout(graceTimerRef.current), []);
   const modal = root.modal && !sub;
 
   useScrollLock(modal, level.contentRef);
@@ -428,9 +468,11 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
       loop,
       onItemPointerMove: (item, event, disabled) => {
         const current = graceRef.current;
-        if (current && pointInPolygon({ x: event.clientX, y: event.clientY }, current.polygon))
+        if (current && pointInPolygon({ x: event.clientX, y: event.clientY }, current.polygon)) {
+          armGrace(current);
           return;
-        graceRef.current = null;
+        }
+        armGrace(null);
         if (disabled) {
           // A disabled row shows no highlight: the surface holds focus.
           if (document.activeElement !== level.contentRef.current)
@@ -453,14 +495,12 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
           subsRef.current.delete(record);
         };
       },
-      setGrace: (next) => {
-        graceRef.current = next;
-      },
+      setGrace: (next) => armGrace(next),
       isSearching: typeahead.isSearching,
       focusFirst: () => focusAt(0),
       focusLast: () => focusAt(-1),
     }),
-    [level.contentRef, loop, closeSubsExcept, typeahead.isSearching, focusAt],
+    [level.contentRef, loop, closeSubsExcept, typeahead.isSearching, focusAt, armGrace],
   );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -605,7 +645,7 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
             role="menu"
             aria-orientation="vertical"
             id={level.contentId}
-            aria-labelledby={level.triggerId}
+            aria-labelledby={labelledBy}
             tabIndex={-1}
             dir={root.dir}
             data-state={level.open ? 'open' : 'closed'}
@@ -649,8 +689,10 @@ const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
               if (
                 current &&
                 pointInPolygon({ x: event.clientX, y: event.clientY }, current.polygon)
-              )
+              ) {
+                armGrace(current);
                 return;
+              }
               if (document.activeElement !== node && node.contains(document.activeElement))
                 node.focus({ preventScroll: true });
             }}
@@ -1044,6 +1086,8 @@ export type MenuSubTriggerProps = MenuItemBaseProps;
 
 /** Milliseconds the pointer rests on a submenu's row before it opens. */
 const SUB_OPEN_DELAY = 100;
+/** Milliseconds a pointer may rest inside the grace triangle before it stops counting as intent. */
+const GRACE_REST = 300;
 
 const MenuSubTrigger = React.forwardRef<HTMLDivElement, MenuSubTriggerProps>(
   function MenuSubTrigger(
@@ -1056,6 +1100,7 @@ const MenuSubTrigger = React.forwardRef<HTMLDivElement, MenuSubTriggerProps>(
     const { setImplicitAnchor } = useAnchorContext('MenuSubTrigger');
     const nodeRef = React.useRef<HTMLDivElement | null>(null);
     const ref = useComposedRefs(forwardedRef, nodeRef, sub.triggerRef, setImplicitAnchor);
+    const contentId = useMenuContentId(sub);
     const { attributes, handlers } = useMenuItemBase(
       { ...props, onPointerMove, onPointerLeave },
       nodeRef,
@@ -1095,7 +1140,7 @@ const MenuSubTrigger = React.forwardRef<HTMLDivElement, MenuSubTriggerProps>(
         id={sub.triggerId}
         aria-haspopup="menu"
         aria-expanded={sub.open}
-        aria-controls={sub.open ? sub.contentId : undefined}
+        aria-controls={sub.open ? contentId : undefined}
         data-state={sub.open ? 'open' : 'closed'}
         {...attributes}
         {...rest}
@@ -1241,6 +1286,7 @@ export {
   MenuSubTrigger,
   useMenuRoot,
   useMenuLevel,
+  useMenuContentId,
   Menu as Root,
   MenuAnchor as Anchor,
   MenuArrow as Arrow,

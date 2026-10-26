@@ -486,7 +486,7 @@ describe('submenus', () => {
     const sub = screen.getByRole('menu', { name: 'Share' });
     // Focus stays on the trigger row after a pointer open.
     expect(document.activeElement).toBe(subTrigger);
-    sub.getBoundingClientRect = () =>
+    const subRect = () =>
       ({
         left: 200,
         top: 0,
@@ -497,6 +497,7 @@ describe('submenus', () => {
         x: 200,
         y: 0,
       }) as DOMRect;
+    sub.getBoundingClientRect = subRect;
     act(() => {
       fireEvent.pointerLeave(subTrigger, { pointerType: 'mouse', clientX: 150, clientY: 50 });
     });
@@ -506,6 +507,28 @@ describe('submenus', () => {
     });
     expect(screen.getByRole('menu', { name: 'Share' })).toBeTruthy();
     expect(document.activeElement).toBe(subTrigger);
+    // Still moving inside the triangle a moment later: still on its way.
+    act(() => {
+      vi.advanceTimersByTime(200);
+      fireEvent.pointerMove(settings, { pointerType: 'mouse', clientX: 175, clientY: 62 });
+    });
+    expect(screen.getByRole('menu', { name: 'Share' })).toBeTruthy();
+    // Resting there for 300ms is no longer intent: the next move takes the row.
+    act(() => {
+      vi.advanceTimersByTime(320);
+      fireEvent.pointerMove(settings, { pointerType: 'mouse', clientX: 176, clientY: 62 });
+    });
+    expect(document.activeElement).toBe(settings);
+    expect(screen.queryByRole('menu', { name: 'Share' })).toBeNull();
+    // Reopen for the last step.
+    act(() => {
+      fireEvent.pointerMove(subTrigger, { pointerType: 'mouse', clientX: 150, clientY: 50 });
+      vi.advanceTimersByTime(120);
+    });
+    screen.getByRole('menu', { name: 'Share' }).getBoundingClientRect = subRect;
+    act(() => {
+      fireEvent.pointerLeave(subTrigger, { pointerType: 'mouse', clientX: 150, clientY: 50 });
+    });
     // Straight down onto the row, outside the triangle: the row takes the highlight and the submenu closes.
     act(() => {
       fireEvent.pointerMove(settings, { pointerType: 'mouse', clientX: 150, clientY: 150 });

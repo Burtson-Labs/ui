@@ -817,8 +817,15 @@ const ContentImpl = React.forwardRef<HTMLDivElement, ContentImplProps>(function 
         onEscapeKeyDown={onEscapeKeyDown}
         onPointerDownOutside={onPointerDownOutside}
         onInteractOutside={(event) => {
-          // Focus cannot leave (trapped); a press outside closes.
-          if (event.detail.originalEvent.type !== 'pointerdown') event.preventDefault();
+          // Focus cannot leave (trapped), so only a press outside closes; and
+          // not the press on the trigger that opened the list, which the
+          // layer hears as it mounts in that same event.
+          const target = event.target;
+          if (
+            event.detail.originalEvent.type !== 'pointerdown' ||
+            (target instanceof Node && triggerRef.current?.contains(target))
+          )
+            event.preventDefault();
         }}
         onDismiss={() => context.setOpen(false)}
       >

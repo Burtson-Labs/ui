@@ -37,6 +37,8 @@ import {
   MenuSubTrigger,
   type MenuSubTriggerProps,
   useFocusOnOpen,
+  useMenuContentId,
+  useMenuLevel,
 } from './menu';
 import { RovingFocusGroup, RovingFocusItem } from './roving-focus';
 import { Slot } from './slot';
@@ -239,6 +241,7 @@ const MenubarTrigger = React.forwardRef<HTMLButtonElement, MenubarTriggerProps>(
   ) {
     const menubar = useMenubar('MenubarTrigger');
     const menu = useMenubarMenu('MenubarTrigger');
+    const contentId = useMenuContentId(useMenuLevel('MenubarTrigger'));
     const { setImplicitAnchor } = useAnchorContext('MenubarTrigger');
     const nodeRef = React.useRef<HTMLButtonElement | null>(null);
     const ref = useComposedRefs(forwardedRef, menu.triggerRef, nodeRef, setImplicitAnchor);
@@ -262,7 +265,7 @@ const MenubarTrigger = React.forwardRef<HTMLButtonElement, MenubarTriggerProps>(
           id={menu.triggerId}
           aria-haspopup="menu"
           aria-expanded={menu.open}
-          aria-controls={menu.open ? menu.contentId : undefined}
+          aria-controls={menu.open ? contentId : undefined}
           data-state={menu.open ? 'open' : 'closed'}
           data-highlighted={focused ? '' : undefined}
           data-disabled={disabled ? '' : undefined}
