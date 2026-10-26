@@ -774,7 +774,7 @@ SOFTWARE.
 
 ====================
 
-@mui/core-downloads-tracker@9.4.0 (MIT)
+@mui/core-downloads-tracker@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -801,7 +801,7 @@ SOFTWARE.
 
 ====================
 
-@mui/material@9.4.0 (MIT)
+@mui/material@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -828,7 +828,7 @@ SOFTWARE.
 
 ====================
 
-@mui/private-theming@9.4.0 (MIT)
+@mui/private-theming@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -855,7 +855,7 @@ SOFTWARE.
 
 ====================
 
-@mui/styled-engine@9.4.0 (MIT)
+@mui/styled-engine@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -882,7 +882,7 @@ SOFTWARE.
 
 ====================
 
-@mui/system@9.4.0 (MIT)
+@mui/system@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -909,7 +909,7 @@ SOFTWARE.
 
 ====================
 
-@mui/types@9.4.0 (MIT)
+@mui/types@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -936,7 +936,7 @@ SOFTWARE.
 
 ====================
 
-@mui/utils@9.4.0 (MIT)
+@mui/utils@9.5.0 (MIT)
 LICENSE
 MIT License
 
@@ -2031,7 +2031,7 @@ SOFTWARE.
 
 ====================
 
-react-dom@19.3.0 (MIT)
+react-dom@19.3.1 (MIT)
 LICENSE
 MIT License
 
@@ -2085,7 +2085,7 @@ SOFTWARE.
 
 ====================
 
-react-is@19.3.0 (MIT)
+react-is@19.3.1 (MIT)
 LICENSE
 MIT License
 
@@ -2175,7 +2175,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ====================
 
-react@19.3.0 (MIT)
+react@19.3.1 (MIT)
 LICENSE
 MIT License
 
