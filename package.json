@@ -64,7 +64,8 @@
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "LICENSES",
-    "vendor-manifest.json"
+    "vendor-manifest.json",
+    "skills"
   ],
   "scripts": {
     "dev": "npm run api && npm run registry && npm run llms && vite --config site/vite.config.ts",

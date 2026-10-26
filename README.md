@@ -86,6 +86,43 @@ Live previews, when-to-use notes, accessibility notes and code for each one are 
 
 Every control is at least 44px on touch screens, shows one focus style per kind of control (`focusRingClasses`, `fieldFocusClasses`) and meets 4.5:1 for text and 3:1 for boundaries in both palettes and any accent; a Playwright smoke in CI measures it.
 
+### Agent decisions, loading and appearance
+
+```tsx
+import {
+  AskUser, AgentPlan, ContextUsage, CircularProgress, LoadingDots,
+  ThemeProvider, ThemeToggle,
+} from '@burtson-labs/ui';
+
+<ThemeProvider defaultTheme="system" storageKey="app-theme">
+  <ThemeToggle />
+  <AskUser
+    questions={[{ id: 'goal', prompt: 'What should I focus on?' }]}
+    onSubmit={async (answers) => { await sendAnswers(answers); }}
+  />
+</ThemeProvider>
+
+<CircularProgress label="Connecting" />; // unknown duration
+<CircularProgress value={64} label="Uploading" showValue />;
+<LoadingDots label="Thinking" showLabel />;
+<ContextUsage used={42000} limit={200000} />;
+```
+
+Load the theme init script in `<head>` so a saved dark theme applies before first paint (no
+light flash). Under a strict CSP serve the file, configured with data attributes:
+
+```html
+<script src="/theme-init.js" data-storage-key="app-theme"></script>
+```
+
+Copy it from `@burtson-labs/ui/theme-init.js`, or render `themeInitScript({ storageKey: 'app-theme' })`
+inline and add `await themeInitScriptHash({ storageKey: 'app-theme' })` to `script-src`.
+
+The [theme editor](https://ui.burtson.ai/docs/theming) previews presets, custom accents,
+corner radius and control density and exports both palettes. Agent callbacks belong to your
+runtime. See [the coverage audit](docs/agent-component-audit.md) for the existing components
+and remaining workflow gaps.
+
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://icons.burtson.ai/svg-white/palette.svg"/><img src="https://icons.burtson.ai/svg-black/palette.svg" align="center" alt=""/></picture> Theming
 
 [`src/tokens.ts`](src/tokens.ts) is the single source of colour, radius and type. It generates `theme.css` (the CSS variables, with shadcn names plus `brand`, `brand-soft`, `success` and `warning`), feeds the registry's theme item, and drives the MUI adapter. Light is the default; add `class="dark"` or `data-theme="dark"` to `<html>` for dark.
@@ -136,40 +173,3 @@ The primitive implementations and cmdk live in this repository; no external Radi
 ## License
 
 [MIT](LICENSE) © Burtson Labs. Inspired by and partly adapted from [shadcn/ui](https://github.com/shadcn-ui/ui) (MIT); see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-### Agent decisions, loading and appearance
-
-```tsx
-import {
-  AskUser, AgentPlan, ContextUsage, CircularProgress, LoadingDots,
-  ThemeProvider, ThemeToggle,
-} from '@burtson-labs/ui';
-
-<ThemeProvider defaultTheme="system" storageKey="app-theme">
-  <ThemeToggle />
-  <AskUser
-    questions={[{ id: 'goal', prompt: 'What should I focus on?' }]}
-    onSubmit={async (answers) => { await sendAnswers(answers); }}
-  />
-</ThemeProvider>
-
-<CircularProgress label="Connecting" />; // unknown duration
-<CircularProgress value={64} label="Uploading" showValue />;
-<LoadingDots label="Thinking" showLabel />;
-<ContextUsage used={42000} limit={200000} />;
-```
-
-Load the theme init script in `<head>` so a saved dark theme applies before first paint (no
-light flash). Under a strict CSP serve the file, configured with data attributes:
-
-```html
-<script src="/theme-init.js" data-storage-key="app-theme"></script>
-```
-
-Copy it from `@burtson-labs/ui/theme-init.js`, or render `themeInitScript({ storageKey: 'app-theme' })`
-inline and add `await themeInitScriptHash({ storageKey: 'app-theme' })` to `script-src`.
-
-The [theme editor](https://ui.burtson.ai/docs/theming) previews presets, custom accents,
-corner radius and control density and exports both palettes. Agent callbacks belong to your
-runtime. See [the coverage audit](docs/agent-component-audit.md) for the existing components
-and remaining workflow gaps.
