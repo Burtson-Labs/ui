@@ -87,7 +87,8 @@ function Toaster({ className }: ToasterProps) {
           <ToastClose />
         </Toast>
       ))}
-      <ToastViewport data-slot="toaster" className={className} />
+      {/* Kept reachable while a modal hides the rest of the page (hide-others). */}
+      <ToastViewport data-slot="toaster" data-bl-live="" className={className} />
     </ToastProvider>
   );
 }

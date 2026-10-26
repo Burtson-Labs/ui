@@ -53,6 +53,19 @@ export function hideOthers(targets: Element | Element[]): () => void {
   for (const target of list)
     for (let node: Element | null = target; node; node = node.parentElement) keep.add(node);
   const touched: Element[] = [];
+  // A subtree that holds a live region (a toast viewport in its own portal)
+  // is not hidden whole: its children are visited instead, so the live part
+  // stays reachable and everything beside it is still hidden.
+  const hideTree = (element: Element) => {
+    if (keep.has(element) || element.matches(LIVE)) return;
+    if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE') return;
+    if (element.querySelector(LIVE)) {
+      for (const child of element.children) hideTree(child);
+      return;
+    }
+    hide(element);
+    touched.push(element);
+  };
   for (const target of list) {
     for (
       let node: Element | null = target;
@@ -61,12 +74,7 @@ export function hideOthers(targets: Element | Element[]): () => void {
     ) {
       const parent = node.parentElement;
       if (!parent) break;
-      for (const sibling of parent.children) {
-        if (keep.has(sibling) || sibling.matches(LIVE)) continue;
-        if (sibling.tagName === 'SCRIPT' || sibling.tagName === 'STYLE') continue;
-        hide(sibling);
-        touched.push(sibling);
-      }
+      for (const sibling of parent.children) hideTree(sibling);
     }
   }
   let released = false;

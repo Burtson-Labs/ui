@@ -540,6 +540,28 @@ describe('hideOthers', () => {
   });
 });
 
+describe('hideOthers and live subtrees', () => {
+  it('descends into a sibling that holds a live region instead of hiding it whole', () => {
+    withDom(
+      `<div id="app"></div>
+      <div id="toast-portal"><ol id="viewport" role="region" data-bl-live=""><li id="toast">saved</li></ol><div id="beside"></div></div>
+      <div id="portal"><div id="content"></div></div>`,
+      () => {
+        const byId = (id: string) => document.getElementById(id)!;
+        const release = hideOthers(byId('content'));
+        expect(byId('app').getAttribute('aria-hidden')).toBe('true');
+        // The portal around the toasts is left alone; only its non-live child is hidden.
+        expect(byId('toast-portal').hasAttribute('aria-hidden')).toBe(false);
+        expect(byId('viewport').hasAttribute('aria-hidden')).toBe(false);
+        expect(byId('toast').hasAttribute('aria-hidden')).toBe(false);
+        expect(byId('beside').getAttribute('aria-hidden')).toBe('true');
+        release();
+        expect(byId('beside').hasAttribute('aria-hidden')).toBe(false);
+      },
+    );
+  });
+});
+
 describe('collection and roving focus', () => {
   it('lists items in document order whatever the registration order', () => {
     const { CollectionProvider, useCollection, useCollectionItem } = createCollection<string>('t');
