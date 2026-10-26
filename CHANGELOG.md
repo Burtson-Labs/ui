@@ -1,5 +1,59 @@
 # Changelog
 
+## 0.18.0
+
+### Our own primitives (phase 1)
+
+- Popover, HoverCard, Tooltip, Dialog, AlertDialog, Sheet, Collapsible, Tour and every
+  `asChild` now run on Burtson Labs' own primitive layer in `src/primitives`: dismissable
+  layers, focus scope, a positioning engine, presence, scroll lock, hiding the page behind a
+  modal, collections and roving focus, written from the ARIA Authoring Practices and the web
+  specs rather than ported from Radix. Public names, props, data attributes and refs are
+  unchanged. An app shipping the overlay family sends about half the JavaScript it did.
+- Canonical CSS variables for positioned surfaces: `--bl-anchor-width/height`,
+  `--bl-available-width/height`, `--bl-transform-origin`, plus
+  `--bl-collapsible-content-height/width` and `--bl-scrollbar-gutter`. The `--radix-*` names
+  are still set, deprecated, and go in a later major.
+- Behaviour that changed on purpose: a modal closed by a press on its overlay returns focus to
+  its trigger after the browser's own focus change; the page behind a modal is `inert` as well
+  as `aria-hidden`, except live regions and the Toaster; Dialog only references a Title or
+  Description that exists and no longer logs development warnings; an outside press closes a
+  popover and the dialog it was opened from in one press.
+- Copy-source users get the primitives as `primitive-<module>` registry items; a new
+  "Primitives" docs page explains the layer. The vendored Radix popover, tooltip and
+  alert-dialog ports are removed; the remaining ports move in phase 2 (see VENDORING.md).
+
+### Dates and times
+
+- Calendar: `numberOfMonths` (1–3) shows months side by side with one pair of month buttons;
+  the keyboard and range selection cross months; each month keeps six rows.
+- DatePicker / DateRangePicker: `labels` for the placeholder, the popover name and the month
+  buttons; the popover now has an accessible name; `clearable` adds a Clear button that sets
+  the value back to null. DateRangePicker submits `{name}From`/`{name}To` (or
+  `startName`/`endName`) as YYYY-MM-DD, shows two months from `lg` up and one below, and both
+  pickers take `numberOfMonths`. Outside-month days meet 4.5:1.
+- New TimePicker: hours, minutes, optional seconds and AM/PM as spinbuttons in the locale's
+  order and clock (`hourCycle` overrides), typing and arrows per segment, `step`, `min`/`max`,
+  an optional `slots` list, and `name` submitting `HH:mm[:ss]`.
+- New DateTimePicker: DatePicker and TimePicker in one labelled group with a local `Date`
+  value; submits `YYYY-MM-DDTHH:mm`; `min`/`max` bound the time on the boundary days.
+- New helpers: `toISODate`, `parseTime`, `formatTime`, `localeHourCycle`.
+
+### For AI agents
+
+- `/llms.txt`, `/llms-full.txt` and `/docs/components/<name>.md` are generated with the docs;
+  every component page has "Copy as Markdown" and "View as Markdown".
+- New "Use with AI agents" guide: rules to paste into CLAUDE.md or AGENTS.md, the `@burtson`
+  registry namespace for the shadcn CLI and MCP server, and example prompts. The `burtson-ui`
+  Agent Skill ships in the package under `skills/` (`npx skills add burtson-labs/ui`).
+- Registry items carry their description and a docs link, so `shadcn search` shows them.
+- `AGENTS.md` and `CLAUDE.md` describe the repository for agents working on it.
+
+### Fixes
+
+- Menubar sizes to its triggers; a fixed 32px height clipped them and a horizontally
+  scrollable bar grew a vertical scrollbar.
+
 ## 0.17.0
 
 ### New components
