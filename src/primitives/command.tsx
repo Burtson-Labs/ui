@@ -466,6 +466,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>(function Command(
       inputRef,
     }),
     [
+      choose,
       store,
       listId,
       inputId,
