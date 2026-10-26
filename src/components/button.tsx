@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as Slot from '../primitives/vendor/radix/react-slot';
+import { Slot } from '../primitives/slot';
 
 const buttonVariants = cva(
   `inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-[-0.01em] transition-[background-color,border-color,color,box-shadow,transform,filter] select-none ${focusRingClasses} pointer-coarse:min-h-11 pointer-coarse:min-w-11 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4`,
@@ -66,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }: ButtonProps,
   ref,
 ) {
-  const Comp = asChild ? Slot.Root : 'button';
+  const Comp = asChild ? Slot : 'button';
 
   return (
     <Comp

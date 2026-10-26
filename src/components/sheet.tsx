@@ -2,7 +2,7 @@ import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import * as SheetPrimitive from '../primitives/vendor/radix/react-dialog';
+import * as SheetPrimitive from '../primitives/dialog';
 
 import { overlayClasses, overlayCloseClasses } from './dialog';
 

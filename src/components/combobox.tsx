@@ -136,7 +136,7 @@ const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(function Com
         <PopoverContent
           id={listId}
           aria-label={aria['aria-label'] ?? placeholder}
-          className="w-(--radix-popover-trigger-width) min-w-64 p-0"
+          className="w-(--bl-anchor-width) min-w-64 p-0"
           align="start"
         >
           <Command shouldFilter={!onSearchChange}>

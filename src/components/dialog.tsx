@@ -2,7 +2,7 @@ import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as DialogPrimitive from '../primitives/vendor/radix/react-dialog';
+import * as DialogPrimitive from '../primitives/dialog';
 
 function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;

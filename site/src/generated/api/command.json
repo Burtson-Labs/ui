@@ -423,7 +423,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "`false`: no overlay, no trap, no page lock; the page stays usable.",
           "native": false
         },
         {
@@ -497,7 +497,7 @@
           "type": "boolean | undefined",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "`false`: no overlay, no trap, no page lock; the page stays usable.",
           "native": false
         },
         {

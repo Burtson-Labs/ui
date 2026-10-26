@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetRowClasses } from '../lib/utils';
-import * as Slot from '../primitives/vendor/radix/react-slot';
+import { Slot } from '../primitives/slot';
 
 const badgeVariants = cva(
   `inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-4 whitespace-nowrap transition-colors ${focusRingClasses} [&>svg]:size-3`,
@@ -41,7 +41,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
   { className, variant, asChild = false, ...props },
   ref,
 ) {
-  const Comp = asChild ? Slot.Root : 'span';
+  const Comp = asChild ? Slot : 'span';
   return (
     <Comp
       ref={ref}

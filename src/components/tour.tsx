@@ -2,8 +2,8 @@ import X from '@burtson-labs/icons/react/x';
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetClasses } from '../lib/utils';
-import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
-import * as Slot from '../primitives/vendor/radix/react-slot';
+import * as PopoverPrimitive from '../primitives/popover';
+import { Slot } from '../primitives/slot';
 
 import { Button } from './button';
 import { surfaceClasses } from './popover';
@@ -16,7 +16,7 @@ export type TourTarget = string | (() => Element | null);
 
 /** Marks an element as a tour target. Merges onto its one child. */
 function TourAnchor({ id, children }: { id: string; children: React.ReactElement }) {
-  return <Slot.Root data-tour-target={id}>{children}</Slot.Root>;
+  return <Slot data-tour-target={id}>{children}</Slot>;
 }
 
 /** The same marker as TourAnchor, for elements you render yourself. */
@@ -138,7 +138,7 @@ const centerRect = () =>
 
 const contentClasses = cn(
   surfaceClasses,
-  'w-80 max-w-[calc(100vw-2rem)] p-4 text-[13px] outline-none origin-(--radix-popover-content-transform-origin)',
+  'w-80 max-w-[calc(100vw-2rem)] p-4 text-[13px] outline-none origin-(--bl-transform-origin)',
 );
 
 export interface TourStep {
@@ -224,7 +224,7 @@ function Tour({
   const target = ready ? (resolved?.el ?? null) : null;
   const rect = useRect(target);
   const contentRef = React.useRef<HTMLDivElement>(null);
-  // Radix mounts the content after the popper measures, so focus follows the node.
+  // The content mounts once positioned, so focus follows the node.
   const [contentEl, setContentEl] = React.useState<HTMLDivElement | null>(null);
   const returnFocus = React.useRef<HTMLElement | null>(null);
   const direction = React.useRef(1);

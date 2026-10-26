@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import { useComposedRefs } from '../primitives/vendor/radix/react-compose-refs';
-import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
-import * as Slot from '../primitives/vendor/radix/react-slot';
+import { useComposedRefs } from '../primitives/compose-refs';
+import * as PopoverPrimitive from '../primitives/popover';
+import { Slot } from '../primitives/slot';
+import { getTabbables } from '../primitives/tabbable';
 
 import { surfaceClasses } from './popover';
 
@@ -25,14 +26,6 @@ function useHoverCard(name: string) {
   if (!ctx) throw new Error(`${name} must be used inside a HoverCard`);
   return ctx;
 }
-
-const TABBABLE =
-  'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable=true]';
-
-const tabbables = (root: ParentNode) =>
-  [...root.querySelectorAll<HTMLElement>(TABBABLE)].filter(
-    (el) => !el.hasAttribute('data-radix-focus-guard') && !el.closest('[inert]'),
-  );
 
 export interface HoverCardProps {
   open?: boolean;
@@ -126,7 +119,7 @@ const HoverCardTrigger = React.forwardRef<HTMLAnchorElement, HoverCardTriggerPro
     ref,
   ) {
     const ctx = useHoverCard('HoverCardTrigger');
-    const Comp = asChild ? Slot.Root : 'a';
+    const Comp = asChild ? Slot : 'a';
     return (
       <PopoverPrimitive.Anchor asChild>
         <Comp
@@ -158,7 +151,7 @@ const HoverCardTrigger = React.forwardRef<HTMLAnchorElement, HoverCardTriggerPro
             onKeyDown?.(event);
             if (event.defaultPrevented || !ctx.open) return;
             if (event.key !== 'Tab' || event.shiftKey || !ctx.contentRef.current) return;
-            const first = tabbables(ctx.contentRef.current)[0];
+            const first = getTabbables(ctx.contentRef.current)[0];
             if (!first) return;
             event.preventDefault();
             ctx.cancel();
@@ -213,7 +206,7 @@ const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardContentProps>
           sideOffset={sideOffset}
           className={cn(
             surfaceClasses,
-            'w-72 max-w-[calc(100vw-2rem)] origin-(--radix-popover-content-transform-origin) p-4 text-sm outline-none',
+            'w-72 max-w-[calc(100vw-2rem)] origin-(--bl-transform-origin) p-4 text-sm outline-none',
             className,
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
@@ -253,14 +246,14 @@ const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardContentProps>
           onKeyDown={(event) => {
             onKeyDown?.(event);
             if (event.defaultPrevented || event.key !== 'Tab' || !ctx.contentRef.current) return;
-            const inside = tabbables(ctx.contentRef.current);
+            const inside = getTabbables(ctx.contentRef.current);
             const trigger = ctx.triggerRef.current;
             if (!trigger) return;
             if (event.shiftKey && event.target === inside[0]) {
               event.preventDefault();
               trigger.focus();
             } else if (!event.shiftKey && event.target === inside[inside.length - 1]) {
-              const after = tabbables(document).find(
+              const after = getTabbables(document).find(
                 (el) =>
                   !ctx.contentRef.current?.contains(el) &&
                   !trigger.contains(el) &&

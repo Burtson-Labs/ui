@@ -3,7 +3,7 @@ import Lightbulb from '@burtson-labs/icons/react/lightbulb';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
+import * as CollapsiblePrimitive from '../primitives/collapsible';
 
 import { LoadingDots, type LoadingDotsProps } from './loading-dots';
 

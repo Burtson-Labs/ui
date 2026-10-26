@@ -20,16 +20,36 @@ function walk(directory) {
     e.isDirectory() ? walk(join(directory, e.name)) : [join(directory, e.name)],
   );
 }
-for (const folder of ['src', 'dist']) {
+// Vendored modules that have a Burtson-owned equivalent under src/primitives.
+// Those still on disk exist only for the vendored modules that import them;
+// nothing else may reach for them.
+const replaced = [
+  ...manifest.replacedByOwnPrimitives.deleted,
+  ...Object.keys(manifest.replacedByOwnPrimitives.retainedForVendoredImporters),
+];
+const vendorDir = join(root, 'src/primitives/vendor');
+for (const folder of ['src', 'site/src', 'test', 'dist']) {
   if (!existsSync(join(root, folder))) continue;
   for (const file of walk(join(root, folder)).filter((p) => /\.(?:[cm]?js|tsx?|mts)$/.test(p))) {
     const source = readFileSync(file, 'utf8');
     if (
+      (folder === 'src' || folder === 'dist') &&
       /(?:from\s*|import\s*\(|require\s*\()\s*['"](?:@radix-ui\/|radix-ui['"]|cmdk['"])/.test(
         source,
       )
     )
       throw new Error(`External primitive import: ${file}`);
+    if (file.startsWith(vendorDir) || file.startsWith(join(root, 'dist/primitives/vendor')))
+      continue;
+    for (const [, spec] of source.matchAll(
+      /(?:from\s*|import\s*\()\s*['"]([^'"]*primitives\/vendor\/[^'"]+)['"]/g,
+    )) {
+      const key = spec.replace(/^.*primitives\/vendor\//, '').replace(/\/index(?:\.js)?$/, '');
+      if (replaced.some((r) => key === r || key.startsWith(`${r}/`)))
+        throw new Error(
+          `${file} imports the vendored ${key}; use the Burtson primitive in src/primitives instead.`,
+        );
+    }
   }
 }
 // Client boundary: components and primitives are client modules; the entry

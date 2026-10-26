@@ -3,7 +3,7 @@ import MoreHorizontal from '@burtson-labs/icons/react/more-horizontal';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as Slot from '../primitives/vendor/radix/react-slot';
+import { Slot } from '../primitives/slot';
 
 const Breadcrumb = React.forwardRef<HTMLElement, React.ComponentProps<'nav'>>(
   function Breadcrumb(props, ref) {
@@ -44,7 +44,7 @@ const BreadcrumbLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<'a'> & { asChild?: boolean }
 >(function BreadcrumbLink({ asChild, className, ...props }, ref) {
-  const Comp = asChild ? Slot.Root : 'a';
+  const Comp = asChild ? Slot : 'a';
   return (
     <Comp
       ref={ref}

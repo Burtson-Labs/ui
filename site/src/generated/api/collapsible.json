@@ -353,7 +353,7 @@
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "Keep the content in the DOM while closed (hidden), for a custom animation or SEO.",
           "native": false
         }
       ],

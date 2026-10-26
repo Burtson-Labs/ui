@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, noOutlineClasses } from '../lib/utils';
-import * as PopoverPrimitive from '../primitives/vendor/radix/react-popover';
+import * as PopoverPrimitive from '../primitives/popover';
 
 /**
  * The floating surface shared by popovers, menus and select lists: raised,
@@ -54,7 +54,7 @@ const PopoverContent = React.forwardRef<
         sideOffset={sideOffset}
         className={cn(
           surfaceClasses,
-          'w-72 max-w-[calc(100vw-2rem)] max-h-(--radix-popover-content-available-height) overflow-y-auto origin-(--radix-popover-content-transform-origin) p-4 outline-none',
+          'w-72 max-w-[calc(100vw-2rem)] max-h-(--bl-available-height) overflow-y-auto origin-(--bl-transform-origin) p-4 outline-none',
           className,
         )}
         {...props}

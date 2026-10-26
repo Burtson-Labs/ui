@@ -34,13 +34,6 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-alert-dialog",
-      "version": "1.1.23",
-      "upstreamDirectory": "packages/react/alert-dialog",
-      "integrity": "sha512-VAYOiQRqj3GPpYJE0I9J+X8Ip05cyVlNdKOFeiGS2Ou1HHGfpl0BxOyZm6nmVDyU+W+NF3/XLzmjHmVGydhwgA==",
-      "license": "MIT"
-    },
-    {
       "package": "@radix-ui/react-arrow",
       "version": "1.1.15",
       "upstreamDirectory": "packages/react/arrow",
@@ -174,13 +167,6 @@
       "license": "MIT"
     },
     {
-      "package": "@radix-ui/react-popover",
-      "version": "1.1.23",
-      "upstreamDirectory": "packages/react/popover",
-      "integrity": "sha512-mw58MrBlyHWFisTOYignD0vf/3gdcgAR+9of1s9G/38CbFiUwH1nCDkc0AUM9IrXFgN5Ue8n45j9WCgyM1sbiQ==",
-      "license": "MIT"
-    },
-    {
       "package": "@radix-ui/react-popper",
       "version": "1.3.7",
       "upstreamDirectory": "packages/react/popper",
@@ -276,13 +262,6 @@
       "version": "1.2.23",
       "upstreamDirectory": "packages/react/toast",
       "integrity": "sha512-ofhyAsYaocRGOs/n0XWdUOSVzEAG6BfrMVM8z0c0kLEWY38w/0WuMFPTJP/HVaZPYkMvHZoKIIhNcjbTCBILPg==",
-      "license": "MIT"
-    },
-    {
-      "package": "@radix-ui/react-tooltip",
-      "version": "1.2.16",
-      "upstreamDirectory": "packages/react/tooltip",
-      "integrity": "sha512-6EamKFRRnlpdadndbZ6LMwycfwkwPte1B42hs6QA0gYhjaOKqW4PZ4pjaW9UrlDX5eVt/OjncE7BFTPL5nmZhg==",
       "license": "MIT"
     },
     {
@@ -398,20 +377,6 @@
       "originalSha256": "2e0ac81ed82d80bc3efba5a4588bf40e8ce618e52f15d3579db299c05819b2c1",
       "origin": "release-commit",
       "localSha256": "ca8f6efef2b0e392c60096430760ef81bd78d74d665cae49ba767c660ac4d5ea"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-alert-dialog/alert-dialog.tsx",
-      "upstreamPath": "packages/react/alert-dialog/src/alert-dialog.tsx",
-      "originalSha256": "c76b501d5931d85bb043800a981cf1fc9bde1bc141eba269c6c6575666825983",
-      "origin": "published-source-map",
-      "localSha256": "b30360e44445152df1dad5785c020ca51a9b451538d2b9c4bdf55924f97e4d72"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-alert-dialog/index.ts",
-      "upstreamPath": "packages/react/alert-dialog/src/index.ts",
-      "originalSha256": "c6eac1df795b18201d1b767f64cef801d838e6b2917b394f87117d1ede9c38ac",
-      "origin": "release-commit",
-      "localSha256": "f7ac11b85d1558bd77797ff1c66426155a46cb069e3fa557d1a5d17bfb4f9720"
     },
     {
       "path": "src/primitives/vendor/radix/react-arrow/arrow.tsx",
@@ -694,20 +659,6 @@
       "localSha256": "dd497de333047a728670833e0c82a4fb6a09ff38bffd2a967b76c369995d92e2"
     },
     {
-      "path": "src/primitives/vendor/radix/react-popover/popover.tsx",
-      "upstreamPath": "packages/react/popover/src/popover.tsx",
-      "originalSha256": "28ca16e0413b686f656ab56a14023c9fa682c91b4b89c00080ba661b300009c5",
-      "origin": "published-source-map",
-      "localSha256": "79006d3dec36ec2b0a6fa66fdf080a3e6edd6e0d92e59fe15930c7578d2db8ba"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-popover/index.ts",
-      "upstreamPath": "packages/react/popover/src/index.ts",
-      "originalSha256": "c7def461a5183619dff717e26455855a0294e3bac76ca6f9ce2d42a5e2a18b9d",
-      "origin": "release-commit",
-      "localSha256": "0de64db41d5b5273c0c8e349b74dc1cc78bb64babfc253447b4eac43a7749c94"
-    },
-    {
       "path": "src/primitives/vendor/radix/react-popper/popper.tsx",
       "upstreamPath": "packages/react/popper/src/popper.tsx",
       "originalSha256": "e03cff34241579d0bdd79f21dc42a247f32be2f4c63a889e7955c770f61d9ef1",
@@ -925,20 +876,6 @@
       "localSha256": "b40b1ccc19e43eb56a14791f3d3aa85ed5463ce2d1c0a19bb6172acf6b8db2c7"
     },
     {
-      "path": "src/primitives/vendor/radix/react-tooltip/tooltip.tsx",
-      "upstreamPath": "packages/react/tooltip/src/tooltip.tsx",
-      "originalSha256": "0838858a7268b99ac2391cee7899d269899400208945007867deb73f3c385731",
-      "origin": "published-source-map",
-      "localSha256": "12d04fc3fc5c4532137dc99daa28ac7dd778b5275297448c9c14a6ca6e74a2e2"
-    },
-    {
-      "path": "src/primitives/vendor/radix/react-tooltip/index.ts",
-      "upstreamPath": "packages/react/tooltip/src/index.ts",
-      "originalSha256": "e6cf357e179ea209213da0231588ff86a9e2c453ea7e6ba313898521813b86d9",
-      "origin": "release-commit",
-      "localSha256": "8e7cd02e75eb5846aa6f75e35dc176889fbf96c686c316a546c7b729733ba65e"
-    },
-    {
       "path": "src/primitives/vendor/radix/react-use-callback-ref/use-callback-ref.tsx",
       "upstreamPath": "packages/react/use-callback-ref/src/use-callback-ref.tsx",
       "originalSha256": "e0592c6479498ba8761b26c8187efaff572febd0df0d52d89d6b350ae2684847",
@@ -1097,5 +1034,28 @@
       "localSha256": "b19728b2122682bc81588f1be48f760d47caf9a9a3baf12e8ca47be5f648f5dc"
     }
   ],
-  "retainedExternalDependencies": ["@floating-ui/react-dom", "aria-hidden", "react-remove-scroll"]
+  "retainedExternalDependencies": ["@floating-ui/react-dom", "aria-hidden", "react-remove-scroll"],
+  "replacedByOwnPrimitives": {
+    "note": "Modules that have a Burtson-owned equivalent under src/primitives. The ones still listed in `files` stay only because other vendored modules import them; nothing outside src/primitives/vendor may import them (scripts/verify-vendor.mjs).",
+    "deleted": ["radix/react-popover", "radix/react-tooltip", "radix/react-alert-dialog"],
+    "retainedForVendoredImporters": {
+      "radix/react-dialog": "cmdk",
+      "radix/react-collapsible": "react-accordion",
+      "radix/react-slot": "react-collection, react-dialog, react-menu, react-primitive, react-select",
+      "radix/react-compose-refs": "most vendored modules",
+      "radix/react-presence": "react-checkbox, react-dialog, react-menu, react-navigation-menu, react-radio-group, react-scroll-area, react-select, react-tabs, react-toast",
+      "radix/react-portal": "react-dialog, react-menu, react-select, react-toast",
+      "radix/react-dismissable-layer": "react-dialog, react-menu, react-navigation-menu, react-select, react-toast",
+      "radix/react-focus-scope": "react-dialog, react-menu, react-select",
+      "radix/react-focus-guards": "react-dialog, react-menu, react-select",
+      "radix/react-popper": "react-menu, react-select",
+      "radix/react-arrow": "react-popper",
+      "radix/react-collection": "react-accordion, react-menu, react-menubar, react-navigation-menu, react-roving-focus, react-select, react-toast",
+      "radix/react-roving-focus": "react-menu, react-menubar, react-radio-group, react-tabs",
+      "radix/react-id": "most vendored modules",
+      "radix/react-use-controllable-state": "most vendored modules",
+      "radix/react-use-callback-ref": "most vendored modules",
+      "radix/react-use-layout-effect": "most vendored modules"
+    }
+  }
 }

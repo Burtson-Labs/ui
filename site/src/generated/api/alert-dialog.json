@@ -1003,19 +1003,11 @@
           "native": false
         },
         {
-          "name": "deferPointerDownOutside",
-          "type": "boolean | undefined",
-          "required": false,
-          "default": null,
-          "description": "When `true`, a `'pointerdown'` event outside of the layered element will\nwait for the interaction's click event before dispatching, allowing\nthird-party code to stop propagation of later events and cancel dismissal.",
-          "native": false
-        },
-        {
           "name": "forceMount",
           "type": "true | undefined",
           "required": false,
           "default": null,
-          "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+          "description": "",
           "native": false
         },
         {
@@ -1023,7 +1015,7 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when auto-focusing on close.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -1031,7 +1023,7 @@
           "type": "((event: KeyboardEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the escape key is down.\nCan be prevented.",
+          "description": "",
           "native": false
         },
         {
@@ -1039,7 +1031,15 @@
           "type": "((event: FocusOutsideEvent) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when the focus moves outside of the `DismissableLayer`.\nCan be prevented.",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onInteractOutside",
+          "type": "((event: PointerDownOutsideEvent | FocusOutsideEvent) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "Either of the two outside interactions.",
           "native": false
         },
         {
@@ -1047,7 +1047,15 @@
           "type": "((event: Event) => void) | undefined",
           "required": false,
           "default": null,
-          "description": "Event handler called when auto-focusing on open.\nCan be prevented.",
+          "description": "",
+          "native": false
+        },
+        {
+          "name": "onPointerDownOutside",
+          "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+          "required": false,
+          "default": null,
+          "description": "",
           "native": false
         }
       ],

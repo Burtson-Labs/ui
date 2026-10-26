@@ -9,7 +9,11 @@
 // `@/lib/utils` and `@/components/ui/*` aliases a shadcn project uses.
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { primitiveRegistryItems, sourceNotice } from './vendor-registry.mjs';
+import {
+  ownPrimitiveRegistryItems,
+  primitiveRegistryItems,
+  sourceNotice,
+} from './vendor-registry.mjs';
 import { fileURLToPath } from 'node:url';
 
 import { say } from './log.mjs';
@@ -126,9 +130,16 @@ const components = names.map((name) => {
   const source = readFileSync(join(componentsDir, `${name}.tsx`), 'utf8');
   const siblings = [...source.matchAll(/from '\.\/([a-z-]+)'/g)].map((m) => m[1]);
   const dependencies = [];
+  // Burtson-owned primitives (../primitives/<module>) and the vendored ones
+  // (../primitives/vendor/<package>) are both published under lib/burtson-primitives/.
   const primitives = [
-    ...source.matchAll(/from '\.\.\/primitives\/vendor\/(radix\/[a-z-]+|cmdk)'/g),
-  ].map((m) => url('primitive-' + m[1].replace('radix/', '')));
+    ...[...source.matchAll(/from '\.\.\/primitives\/vendor\/(radix\/[a-z-]+|cmdk)'/g)].map((m) =>
+      url('primitive-' + m[1].replace('radix/', '')),
+    ),
+    ...[...source.matchAll(/from '\.\.\/primitives\/([a-z-]+)'/g)].map((m) =>
+      url('primitive-' + m[1]),
+    ),
+  ];
   if (source.includes("from 'react-resizable-panels'"))
     dependencies.push(version('react-resizable-panels'));
   if (source.includes('class-variance-authority'))
@@ -140,6 +151,7 @@ const components = names.map((name) => {
     source
       .replace(/from '\.\.\/lib\/([a-z-]+)'/g, "from '@/lib/$1'")
       .replace(/from '\.\.\/primitives\/vendor\/([^']+)'/g, "from '@/lib/burtson-primitives/$1'")
+      .replace(/from '\.\.\/primitives\/([a-z-]+)'/g, "from '@/lib/burtson-primitives/$1'")
       .replace(/from '\.\/([a-z-]+)'/g, "from '@/components/ui/$1'");
   return {
     $schema: SCHEMA_ITEM,
@@ -172,6 +184,7 @@ const items = [
   media,
   highlight,
   safeUrl,
+  ...ownPrimitiveRegistryItems(ROOT, BASE),
   ...primitiveRegistryItems(ROOT, BASE),
   ...components,
 ];

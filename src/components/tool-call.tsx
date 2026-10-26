@@ -3,7 +3,7 @@ import Wrench from '@burtson-labs/icons/react/wrench';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as CollapsiblePrimitive from '../primitives/vendor/radix/react-collapsible';
+import * as CollapsiblePrimitive from '../primitives/collapsible';
 
 import { Button } from './button';
 import { StatusDot } from './status';

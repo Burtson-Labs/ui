@@ -30,16 +30,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## Locally maintained primitives
+## Burtson primitives and locally maintained ports
 
-Radix Primitives and cmdk are maintained as TypeScript source under
-`src/primitives/vendor`. They are no longer installed as runtime packages.
-Their original MIT licenses are included in `LICENSES/Radix-MIT.txt` and
-`LICENSES/cmdk-MIT.txt`. `vendor-manifest.json` records exact versions,
-source origins, hashes, and local modifications. See `VENDORING.md`.
+`src/primitives` (everything outside `src/primitives/vendor`) is Burtson Labs'
+own behaviour layer, written from the WAI-ARIA Authoring Practices and the
+web platform specifications, and released under this package's MIT license.
+It is not derived from Radix, cmdk or any other library.
 
-Floating UI, aria-hidden, react-remove-scroll and the other declared
-dependencies remain external dependencies with their own licenses.
+The remaining Radix Primitives and cmdk modules are maintained as TypeScript
+source under `src/primitives/vendor` until their replacements land. They are
+not installed as runtime packages. Their original MIT licenses are included
+in `LICENSES/Radix-MIT.txt` and `LICENSES/cmdk-MIT.txt`. `vendor-manifest.json`
+records exact versions, source origins, hashes, local modifications, and which
+modules have been replaced. See `VENDORING.md`.
+
+Floating UI, aria-hidden and react-remove-scroll are still declared because
+the vendored menu, select and dialog ports import them; the Burtson
+primitives do not. They and the other declared dependencies remain external
+dependencies with their own licenses.
 `LICENSES/DEPENDENCIES.txt` preserves the installed runtime dependency and
 peer dependency notices, including class-variance-authority (Apache-2.0).
 The documentation site's `/licenses.txt` includes these notices too.
