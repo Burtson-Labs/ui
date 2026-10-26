@@ -119,8 +119,8 @@ function onKeyDown(event: KeyboardEvent) {
   if (event.key !== 'Escape') return;
   const top = layers[layers.length - 1];
   if (!top) return;
-  // A branch (the toast region) handles its own Escape.
-  if (isInLayerBranch(event.target)) return;
+  // Handled inside a branch (a toast closed itself): not the layer's.
+  if (event.defaultPrevented && isInLayerBranch(event.target)) return;
   // Pressed inside something the layer contains only through React (a
   // nested overlay with its own dismissal): that overlay's Escape, not ours.
   if (top.seen.has(event) && !(event.target instanceof Node && top.node.contains(event.target)))

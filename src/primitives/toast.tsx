@@ -320,6 +320,7 @@ interface SwipeState {
   y: number;
   started: boolean;
   delta: { x: number; y: number };
+  userSelect: string;
 }
 
 const Toast = React.forwardRef<HTMLLIElement, ToastProps>(function Toast(
@@ -459,6 +460,7 @@ const ToastImpl = React.forwardRef<HTMLLIElement, ToastImplProps>(function Toast
       const node = event.currentTarget;
       if (node.hasPointerCapture(state.pointerId)) node.releasePointerCapture?.(state.pointerId);
       setSwiping(false);
+      node.style.userSelect = state.userSelect;
       const distance = Math.abs(horizontal ? state.delta.x : state.delta.y);
       const dismiss =
         !cancelled &&
@@ -491,6 +493,7 @@ const ToastImpl = React.forwardRef<HTMLLIElement, ToastImplProps>(function Toast
       y: event.clientY,
       started: false,
       delta: { x: 0, y: 0 },
+      userSelect: '',
     };
   });
   const moveSwipe = useCallbackRef((event: React.PointerEvent<HTMLLIElement>) => {
@@ -509,6 +512,10 @@ const ToastImpl = React.forwardRef<HTMLLIElement, ToastImplProps>(function Toast
       }
       state.started = true;
       event.currentTarget.setPointerCapture?.(event.pointerId);
+      // A drag is not a text selection.
+      state.userSelect = event.currentTarget.style.userSelect;
+      event.currentTarget.style.userSelect = 'none';
+      window.getSelection()?.removeAllRanges();
       setSwiping(true);
       event.currentTarget.setAttribute('data-swipe', 'start');
       fire(onSwipeStart, 'bl-toast-swipe-start', event.nativeEvent, { x: 0, y: 0 });

@@ -347,8 +347,16 @@ const ScrollAreaScrollbar = React.forwardRef<HTMLDivElement, ScrollAreaScrollbar
       if (!thumb) return;
       const position = axis === 'y' ? viewport.scrollTop : viewport.scrollLeft;
       const offset = thumbOffset(position, metrics, scrollRange(axis, metrics, rtl));
+      // The move is from where the layout put the thumb (in RTL a flex
+      // column puts it at the right end), measured without the transform.
+      const styles = getComputedStyle(bar);
+      const natural =
+        axis === 'y'
+          ? thumb.offsetTop - (parseFloat(styles.paddingTop) || 0)
+          : thumb.offsetLeft - (parseFloat(styles.paddingLeft) || 0);
+      const move = offset - natural;
       thumb.style.transform =
-        axis === 'y' ? `translate3d(0, ${offset}px, 0)` : `translate3d(${offset}px, 0, 0)`;
+        axis === 'y' ? `translate3d(0, ${move}px, 0)` : `translate3d(${move}px, 0, 0)`;
     });
 
     useIsoLayoutEffect(() => {
@@ -398,7 +406,9 @@ const ScrollAreaScrollbar = React.forwardRef<HTMLDivElement, ScrollAreaScrollbar
 
     // A wheel over the scrollbar scrolls the viewport (it is not inside it).
     React.useEffect(() => {
-      if (!scrollbar || !viewport) return;
+      // A scrollbar rendered among the viewport's children already passes
+      // the wheel to it natively.
+      if (!scrollbar || !viewport || viewport.contains(scrollbar)) return;
       const onWheel = (event: WheelEvent) => {
         const before = [viewport.scrollLeft, viewport.scrollTop];
         viewport.scrollBy({ left: event.deltaX, top: event.deltaY });
