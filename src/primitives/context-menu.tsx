@@ -36,7 +36,6 @@ import {
   useFocusOnOpen,
 } from './menu';
 import { Slot } from './slot';
-import { useCallbackRef } from './use-callback-ref';
 import { useControllableState } from './use-controllable-state';
 
 /**
@@ -63,6 +62,8 @@ function useContextMenu(component: string): ContextMenuContextValue {
 
 export interface ContextMenuProps {
   children?: React.ReactNode;
+  /** Controlled open state; the trigger still decides where the menu opens. */
+  open?: boolean;
   onOpenChange?: (open: boolean) => void;
   dir?: Direction;
   modal?: boolean;
@@ -71,24 +72,24 @@ export interface ContextMenuProps {
 /** Milliseconds a touch holds still before it counts as a long press. */
 const LONG_PRESS = 700;
 
-function ContextMenu({ children, onOpenChange, dir, modal = true }: ContextMenuProps) {
-  const [open, setOpen] = React.useState(false);
-  const report = useCallbackRef((next: boolean) => onOpenChange?.(next));
+function ContextMenu({
+  children,
+  open: openProp,
+  onOpenChange,
+  dir,
+  modal = true,
+}: ContextMenuProps) {
+  const [open, change] = useControllableState({
+    value: openProp,
+    defaultValue: false,
+    onChange: onOpenChange,
+  });
   // A new anchor object per point, so the positioning engine re-measures.
   const [anchor, setAnchor] = React.useState<React.RefObject<VirtualAnchor>>(() => ({
     current: { getBoundingClientRect: () => rectAt(0, 0) },
   }));
   const triggerRef = React.useRef<HTMLSpanElement | null>(null);
   const focusOnOpen = useFocusOnOpen();
-  const change = React.useCallback(
-    (next: boolean) => {
-      setOpen((current) => {
-        if (current !== next) report(next);
-        return next;
-      });
-    },
-    [report],
-  );
   const openAt = React.useCallback(
     (point: { x: number; y: number }, fromKeyboard: boolean) => {
       setAnchor({ current: { getBoundingClientRect: () => rectAt(point.x, point.y) } });

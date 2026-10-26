@@ -621,6 +621,34 @@ describe('ContextMenu', () => {
     expect(screen.getByRole('menu')).toBeTruthy();
   });
 
+  it('takes a controlled open state', async () => {
+    const onOpenChange = vi.fn();
+    const { rerender } = render(
+      <ContextMenu open={false} onOpenChange={onOpenChange}>
+        <ContextMenuTrigger>
+          <div>target</div>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem>Rename</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>,
+    );
+    fireEvent.contextMenu(screen.getByText('target'), { clientX: 5, clientY: 5 });
+    expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(screen.queryByRole('menu')).toBeNull();
+    rerender(
+      <ContextMenu open onOpenChange={onOpenChange}>
+        <ContextMenuTrigger>
+          <div>target</div>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem>Rename</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>,
+    );
+    expect(await screen.findByRole('menu')).toBeTruthy();
+  });
+
   it('does nothing while disabled', () => {
     render(
       <ContextMenu>

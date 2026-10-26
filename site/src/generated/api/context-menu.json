@@ -40,6 +40,14 @@
           "default": null,
           "description": "",
           "native": false
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "default": null,
+          "description": "Controlled open state; the trigger still decides where the menu opens.",
+          "native": false
         }
       ],
       "inherited": []
