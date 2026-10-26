@@ -22,6 +22,18 @@ updates:
     ignore:
       - dependency-name: typescript
         update-types: ['version-update:semver-major']
+      # 2026-10-26: ESLint 10 is held back. @burtson-labs/frontend-standards (the
+      # shared config) depends on eslint-plugin-import 2.32, eslint-plugin-jsx-a11y
+      # 6.10 and eslint-plugin-react 7.37, none of which supports ESLint 10 (peer
+      # eslint <=9; react's version detection crashes on 10 with
+      # "contextOrFilename.getFilename is not a function"). Either those plugins
+      # ship ESLint 10 releases or frontend-standards moves to maintained
+      # replacements (eslint-plugin-import-x, @eslint-react); remove both ignores
+      # then. @eslint/js 10 is ESLint-10-only, so it moves with eslint.
+      - dependency-name: eslint
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@eslint/js'
+        update-types: ['version-update:semver-major']
     groups:
       dev-dependencies:
         dependency-type: development
