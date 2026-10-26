@@ -469,8 +469,9 @@ const TimePicker = React.forwardRef<HTMLDivElement, TimePickerProps>(function Ti
   const options = React.useMemo(() => {
     if (!slots) return [];
     const out: Array<{ value: string; label: string }> = [];
+    // Two-digit hours, the same as the field's segments ("09:00 PM" in both).
     const listFormat = new Intl.DateTimeFormat(layout.list.resolvedOptions().locale, {
-      hour: 'numeric',
+      hour: '2-digit',
       minute: '2-digit',
       hourCycle: h12 ? 'h12' : 'h23',
     });
@@ -533,7 +534,7 @@ const TimePicker = React.forwardRef<HTMLDivElement, TimePickerProps>(function Ti
         if (outOfRange) commit(segs, true);
       }}
       className={cn(
-        'flex h-[var(--control-height,2.25rem)] min-w-0 items-stretch rounded-md border border-input bg-surface px-2 text-base text-foreground shadow-xs transition-[border-color,box-shadow,background-color] hover:border-border-strong pointer-coarse:h-11 sm:text-sm dark:bg-surface-raised',
+        'flex h-[var(--control-height,2.25rem)] min-w-0 items-stretch rounded-md border border-input bg-surface pr-2 pl-[11px] text-base text-foreground shadow-xs transition-[border-color,box-shadow,background-color] hover:border-border-strong pointer-coarse:h-11 sm:text-sm dark:bg-surface-raised',
         'has-[[data-slot=time-picker-segment]:focus]:border-ring has-[[data-slot=time-picker-segment]:focus]:inset-ring-1 has-[[data-slot=time-picker-segment]:focus]:inset-ring-ring',
         'data-[invalid]:border-destructive data-[invalid]:has-[[data-slot=time-picker-segment]:focus]:inset-ring-destructive',
         'data-[disabled]:cursor-not-allowed data-[disabled]:bg-muted data-[disabled]:opacity-60',
