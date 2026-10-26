@@ -570,6 +570,123 @@ import Plus from '@burtson-labs/icons/mui/plus';
   );
 }
 
+const primitiveModules: [string, string][] = [
+  ['slot', 'Slot, Slottable and mergeProps: the asChild pattern.'],
+  ['compose-refs', 'One node, several refs, on React 18 and 19.'],
+  ['compose-handlers', 'Your handler first; the component’s unless you prevented the event.'],
+  ['use-controllable-state', 'The value / defaultValue / onChange triple.'],
+  ['use-id', 'Server-safe ids without React’s delimiters.'],
+  ['tabbable', 'The Tab sequence from the HTML focusability rules.'],
+  ['presence', 'Stay mounted through an exit animation, driven by data-state.'],
+  ['portal', 'Render into the body or a container; nothing on the server.'],
+  [
+    'layer',
+    'The dismissable layer stack: Escape, press outside, focus outside, modal pointer events.',
+  ],
+  ['focus-trap', 'FocusScope: focus in on mount, wrap, trap, restore on unmount.'],
+  [
+    'anchor-geometry',
+    'The positioning arithmetic, with no DOM: side, align, flip, shift, arrow, origin.',
+  ],
+  ['anchor', 'The positioning engine: anchors, the fixed wrapper, the arrow, the CSS variables.'],
+  ['scroll-lock', 'Counted page lock with scrollbar-gutter compensation and touch handling.'],
+  ['hide-others', 'aria-hidden and inert on everything but the live surface; live regions kept.'],
+  ['collection', 'An ordered registry of a composite’s items.'],
+  ['roving-focus', 'Roving tabindex: one Tab stop, arrows, Home and End, RTL, loop.'],
+  ['typeahead', 'Type-to-find for menus and lists.'],
+  ['popover', 'Popover: Root, Trigger, Anchor, Portal, Content, Close, Arrow.'],
+  ['tooltip', 'Tooltip: Provider, Root, Trigger, Portal, Content, Arrow.'],
+  ['dialog', 'Dialog: Root, Trigger, Portal, Overlay, Content, Title, Description, Close.'],
+  ['alert-dialog', 'AlertDialog: a Dialog that needs an answer.'],
+  ['collapsible', 'Collapsible: Root, Trigger, Content, with the measured height for animations.'],
+];
+
+export function Primitives() {
+  return (
+    <article>
+      <H1 lead="The behaviour layer under the components: focus, dismissal, positioning, presence. Burtson Labs’ own, headless, and copied with any component that needs it.">
+        Primitives
+      </H1>
+      <P>
+        Every overlay in the kit (Popover, Tooltip, Dialog, AlertDialog, Sheet, HoverCard, Tour,
+        Collapsible, and the components built on them) runs on a set of small modules in{' '}
+        <code>src/primitives</code>. They carry no classes and no theme. A component imports one,
+        adds its classes and <code>data-slot</code> attributes, and re-exports the result under the
+        kit&apos;s names, so the component API you use is unchanged. The menus, Select, Command,
+        Tabs, Accordion and the form controls still run on the locally maintained Radix ports until
+        their rewrite lands; the plan is in the repository&apos;s <code>VENDORING.md</code>.
+      </P>
+      <H2>Copying source</H2>
+      <P>
+        You do not install the primitives yourself. Each component&apos;s registry item lists the
+        modules it needs, and the shadcn CLI copies them to <code>lib/burtson-primitives/</code>{' '}
+        with their MIT notice. The relative imports between the modules keep working there.
+      </P>
+      <Code lang="sh" code="npx shadcn@latest add https://ui.burtson.ai/r/popover.json" />
+      <P>
+        <br />
+        That pulls <code>primitive-popover</code> and its closure (<code>anchor</code>,{' '}
+        <code>layer</code>, <code>focus-trap</code>, <code>presence</code>, <code>portal</code>,{' '}
+        <code>slot</code> and the hooks). A module can also be added on its own, for a component of
+        your own:
+      </P>
+      <Code lang="sh" code="npx shadcn@latest add https://ui.burtson.ai/r/primitive-layer.json" />
+      <H2>Modules</H2>
+      <ul className="mb-4 grid gap-2 text-sm leading-6">
+        {primitiveModules.map(([name, what]) => (
+          <li key={name} className="grid gap-0.5 sm:grid-cols-[12rem_1fr]">
+            <code className="font-mono text-foreground">{name}</code>
+            <span className="text-muted-foreground">{what}</span>
+          </li>
+        ))}
+      </ul>
+      <H2>How the layers behave</H2>
+      <P>
+        Overlays stack in the order they open. Escape closes the top one. A press or focus outside
+        the top layer closes it and is then offered to each layer below, down to the top modal
+        layer, so one press on the page closes a popover and the dialog it was opened from; a layer
+        that refuses (a tour step) does not shield the one under it. A press inside a nested overlay
+        is inside its parent too, even though the nested one renders in a portal elsewhere in the
+        DOM. A modal layer turns pointer events off for the page and hides it from assistive
+        technology; nothing under it is dismissed by what happens above.
+      </P>
+      <P>
+        Focus moves into an overlay on open (the first tabbable, or the surface itself) and back to
+        the trigger on close. When a popover closes because of a press elsewhere, the press decides
+        where focus goes. Both moves can be prevented through <code>onOpenAutoFocus</code> and{' '}
+        <code>onCloseAutoFocus</code>.
+      </P>
+      <H2>CSS variables</H2>
+      <P>
+        A positioned surface inherits five variables from its wrapper:{' '}
+        <code>--bl-anchor-width</code>, <code>--bl-anchor-height</code>,{' '}
+        <code>--bl-available-width</code>, <code>--bl-available-height</code> and{' '}
+        <code>--bl-transform-origin</code>. A Collapsible sets{' '}
+        <code>--bl-collapsible-content-height</code> and <code>-width</code> on its content; the
+        page lock sets <code>--bl-scrollbar-gutter</code> on <code>html</code>.
+      </P>
+      <Code
+        code={`<PopoverContent className="max-h-(--bl-available-height) origin-(--bl-transform-origin)" />
+<PopoverContent className="w-(--bl-anchor-width)" /> {/* as wide as the trigger */}`}
+      />
+      <P>
+        <br />
+        The older <code>--radix-popover-content-*</code>, <code>--radix-popover-trigger-*</code>,{' '}
+        <code>--radix-tooltip-*</code>, <code>--radix-popper-*</code> and{' '}
+        <code>--radix-collapsible-content-*</code> names are still set as aliases. They are
+        deprecated and will be removed in a later major; move class lists to the <code>--bl-</code>{' '}
+        names when you touch them.
+      </P>
+      <H2>Design notes</H2>
+      <P>
+        Every decision the layer makes, and why, is written down in{' '}
+        <code>src/primitives/README.md</code> in the repository, next to the code, together with the
+        mapping the remaining components will follow.
+      </P>
+    </article>
+  );
+}
+
 export function ComponentPage({ doc }: { doc: ComponentDoc }) {
   const [code, setCode] = React.useState('// Loading example…');
   React.useEffect(() => {

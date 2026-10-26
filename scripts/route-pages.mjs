@@ -52,6 +52,12 @@ const routes = [
       'Share the Burtson palette with MUI apps through createBurtsonTheme, and adopt components one screen at a time.',
   },
   {
+    path: '/docs/primitives',
+    title: 'Primitives · Burtson UI',
+    description:
+      'The behaviour layer under the components: focus, dismissal, positioning and presence, Burtson Labs’ own and copied with any component that needs it.',
+  },
+  {
     path: '/docs/recipes/chat',
     title: 'Build a chat app · Burtson UI',
     description:

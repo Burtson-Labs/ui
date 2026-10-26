@@ -20,7 +20,7 @@ import { AccentPicker } from './accent';
 import { AiAgents } from './agents';
 import { DesignLanguage } from './design-language';
 import { components } from './docs';
-import { ComponentPage, Home, Installation, Mui, NotFound, Theming } from './pages';
+import { ComponentPage, Home, Installation, Mui, NotFound, Primitives, Theming } from './pages';
 import { ChatRecipe } from './recipes/chat';
 import { Link, usePath } from './router';
 import { DocsSearch } from './search';
@@ -35,6 +35,7 @@ const guides = [
   { href: '/docs/theming', title: 'Theming' },
   { href: '/docs/design-language', title: 'Design language' },
   { href: '/docs/mui', title: 'Using with MUI' },
+  { href: '/docs/primitives', title: 'Primitives' },
 ];
 
 const recipes = [{ href: '/docs/recipes/chat', title: 'Build a chat app' }];
@@ -86,6 +87,7 @@ function route(path: string) {
   if (clean === '/docs/design-language') return <DesignLanguage />;
   if (clean === '/docs/theming') return <Theming />;
   if (clean === '/docs/mui') return <Mui />;
+  if (clean === '/docs/primitives') return <Primitives />;
   if (clean === '/docs/recipes/chat') return <ChatRecipe />;
   const m = /^\/docs\/components\/([a-z-]+)$/.exec(clean);
   const doc = m && components.find((c) => c.name === m[1]);
