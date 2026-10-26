@@ -68,6 +68,11 @@ let bodyPointerEvents: string | null = null;
 
 const inBranch = (target: Node) => [...branches].some((branch) => branch.contains(target));
 
+/** Whether `target` is inside a `LayerBranch` (focus traps leave such focus alone). */
+export function isInLayerBranch(target: EventTarget | null): boolean {
+  return target instanceof Node && inBranch(target);
+}
+
 const contains = (layer: LayerRecord, event: Event) =>
   (event.target instanceof Node && layer.node.contains(event.target)) || layer.seen.has(event);
 
@@ -114,6 +119,8 @@ function onKeyDown(event: KeyboardEvent) {
   if (event.key !== 'Escape') return;
   const top = layers[layers.length - 1];
   if (!top) return;
+  // A branch (the toast region) handles its own Escape.
+  if (isInLayerBranch(event.target)) return;
   // Pressed inside something the layer contains only through React (a
   // nested overlay with its own dismissal): that overlay's Escape, not ours.
   if (top.seen.has(event) && !(event.target instanceof Node && top.node.contains(event.target)))
@@ -252,9 +259,9 @@ export interface LayerBranchProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * A subtree that counts as inside every layer: a press or focus there never
- * dismisses anything. For things that live beside layers, such as a toast
- * region.
+ * A subtree that counts as inside every layer: a press, focus or Escape
+ * there never dismisses anything, and a trapping FocusScope lets focus go
+ * there. For things that live beside layers, such as a toast region.
  */
 const LayerBranch = React.forwardRef<HTMLDivElement, LayerBranchProps>(function LayerBranch(
   { asChild = false, ...props },

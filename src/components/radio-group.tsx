@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, focusRingClasses, noOutlineClasses, touchTargetClasses } from '../lib/utils';
-import * as RadioGroupPrimitive from '../primitives/vendor/radix/react-radio-group';
+import * as RadioGroupPrimitive from '../primitives/radio-group';
 
 const RadioGroup = React.forwardRef<
   HTMLDivElement,

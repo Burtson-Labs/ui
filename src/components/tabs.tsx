@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetRowClasses } from '../lib/utils';
-import * as TabsPrimitive from '../primitives/vendor/radix/react-tabs';
+import * as TabsPrimitive from '../primitives/tabs';
 
 const Tabs = React.forwardRef<HTMLDivElement, React.ComponentProps<typeof TabsPrimitive.Root>>(
   function Tabs({ className, ...props }, ref) {

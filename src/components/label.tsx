@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import * as LabelPrimitive from '../primitives/vendor/radix/react-label';
+import * as LabelPrimitive from '../primitives/label';
 
 /**
  * A caption for a control. Wrap a Checkbox, Switch or RadioGroupItem in it

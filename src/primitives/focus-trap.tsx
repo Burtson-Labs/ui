@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { composeHandlers } from './compose-handlers';
 import { useComposedRefs } from './compose-refs';
+import { isInLayerBranch } from './layer';
 import { Slot } from './slot';
 import { getTabbables, isFocusable } from './tabbable';
 import { useCallbackRef } from './use-callback-ref';
@@ -147,6 +148,8 @@ const FocusScope = React.forwardRef<HTMLDivElement, FocusScopeProps>(function Fo
         return;
       }
       if (seen.has(event)) return;
+      // The toast region (a LayerBranch) stays reachable from a modal.
+      if (isInLayerBranch(target)) return;
       if (!focusElement(lastFocused.current)) {
         if (!focusElement(getTabbables(node)[0]) && isFocusable(node)) focusElement(node);
       }

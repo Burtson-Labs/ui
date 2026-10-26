@@ -3,7 +3,7 @@ import Minus from '@burtson-labs/icons/react/minus';
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetClasses } from '../lib/utils';
-import * as CheckboxPrimitive from '../primitives/vendor/radix/react-checkbox';
+import * as CheckboxPrimitive from '../primitives/checkbox';
 
 /**
  * A 16px box with a 44px hit area on touch screens. Its unchecked border is

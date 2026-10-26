@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as ScrollAreaPrimitive from '../primitives/vendor/radix/react-scroll-area';
+import * as ScrollAreaPrimitive from '../primitives/scroll-area';
 
 /** The viewport joins the tab order; its focus outline is drawn inside the box, so nothing clips it. */
 const ScrollArea = React.forwardRef<

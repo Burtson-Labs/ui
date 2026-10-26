@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, noOutlineClasses } from '../lib/utils';
-import * as CheckboxPrimitive from '../primitives/vendor/radix/react-checkbox';
+import * as CheckboxPrimitive from '../primitives/checkbox';
 
 import { Checkbox } from './checkbox';
 

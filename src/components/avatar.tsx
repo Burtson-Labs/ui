@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import * as AvatarPrimitive from '../primitives/vendor/radix/react-avatar';
+import * as AvatarPrimitive from '../primitives/avatar';
 
 const Avatar = React.forwardRef<HTMLSpanElement, React.ComponentProps<typeof AvatarPrimitive.Root>>(
   function Avatar({ className, ...props }, ref) {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '../lib/utils';
-import * as ProgressPrimitive from '../primitives/vendor/radix/react-progress';
+import * as ProgressPrimitive from '../primitives/progress';
 
 const Progress = React.forwardRef<
   HTMLDivElement,

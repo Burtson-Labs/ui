@@ -3,12 +3,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetClasses } from '../lib/utils';
-import * as ToastPrimitive from '../primitives/vendor/radix/react-toast';
+import * as ToastPrimitive from '../primitives/toast';
 
 /**
  * Brief, non-blocking notices ("Message sent", "Update available"). Put one
  * `ToastProvider` + `ToastViewport` near the root and render `Toast`s with
- * `open` state; Radix handles timing, swipe-to-dismiss and the live region.
+ * `open` state; the primitive handles timing, swipe-to-dismiss and the announcement.
  */
 const ToastProvider = ToastPrimitive.Provider;
 
@@ -31,7 +31,7 @@ const ToastViewport = React.forwardRef<
 });
 
 const toastVariants = cva(
-  'group pointer-events-auto relative grid w-full grid-cols-[1fr_auto] items-start gap-x-3 gap-y-1 overflow-hidden rounded-lg border p-4 pr-10 text-sm shadow-lg [--bl-ty:12px] [--bl-scale:0.98] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--radix-toast-swipe-end-x) data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x) data-[swipe=move]:transition-none',
+  'group pointer-events-auto relative grid w-full grid-cols-[1fr_auto] items-start gap-x-3 gap-y-1 overflow-hidden rounded-lg border p-4 pr-10 text-sm shadow-lg [--bl-ty:12px] [--bl-scale:0.98] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-(--bl-toast-swipe-end-x) data-[swipe=move]:translate-x-(--bl-toast-swipe-move-x) data-[swipe=move]:transition-none',
   {
     variants: {
       variant: {

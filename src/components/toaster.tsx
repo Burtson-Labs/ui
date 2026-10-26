@@ -20,7 +20,7 @@ export interface ToastOptions {
   title: string;
   description?: string;
   variant?: ToastVariant;
-  /** Milliseconds before it closes (Radix pauses on hover and focus). */
+  /** Milliseconds before it closes (paused while hovered or focused, or the window is in the background). */
   duration?: number;
 }
 

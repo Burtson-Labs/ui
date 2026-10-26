@@ -2,7 +2,7 @@ import ChevronDown from '@burtson-labs/icons/react/chevron-down';
 import * as React from 'react';
 
 import { cn, focusRingClasses } from '../lib/utils';
-import * as AccordionPrimitive from '../primitives/vendor/radix/react-accordion';
+import * as AccordionPrimitive from '../primitives/accordion';
 
 function Accordion(props: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />;

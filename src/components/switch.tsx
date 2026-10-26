@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn, focusRingClasses, touchTargetClasses } from '../lib/utils';
-import * as SwitchPrimitive from '../primitives/vendor/radix/react-switch';
+import * as SwitchPrimitive from '../primitives/switch';
 
 /**
  * A 36×20 toggle with a 44px hit area on touch screens; the off track is the
