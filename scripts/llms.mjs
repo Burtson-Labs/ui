@@ -8,7 +8,7 @@
 //   /docs/ai-agents.md             the "Use with AI agents" guide
 //
 // Sources are the same ones the HTML pages use: site/src/docs.ts, usage.ts,
-// the notes and key-prop tables in component-details.tsx, the generated API
+// the notes and key-prop tables in component-guidance.ts, the generated API
 // JSON and the demos. Nothing here is written by hand per component.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -27,22 +27,7 @@ const { usage } = await import('../site/src/usage.ts');
 const agents = await import('../site/src/agents-content.ts');
 const skill = readFileSync(join(ROOT, 'skills/burtson-ui/SKILL.md'), 'utf8');
 
-/**
- * The guidance notes and key-prop tables are object literals of plain strings
- * in component-details.tsx (a .tsx file Node cannot import). Read them as
- * literals rather than keep a second copy.
- */
-function literal(name) {
-  const source = readFileSync(join(ROOT, 'site/src/component-details.tsx'), 'utf8');
-  const start = source.indexOf(`const ${name}: Record<`);
-  if (start < 0) throw new Error(`component-details.tsx has no "const ${name}"`);
-  const open = source.indexOf('= {', start) + 2;
-  const close = source.indexOf('\n};\n', open);
-  if (open < 2 || close < 0) throw new Error(`could not find the end of "const ${name}"`);
-  return new Function(`return (${source.slice(open, close + 2)});`)();
-}
-const guidance = literal('guidance');
-const keyProps = literal('api');
+const { guidance, api: keyProps } = await import('../site/src/component-guidance.ts');
 
 const api = (name) =>
   JSON.parse(readFileSync(join(ROOT, 'site/src/generated/api', `${name}.json`), 'utf8'));
